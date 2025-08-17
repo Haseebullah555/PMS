@@ -1,0 +1,19 @@
+.custom-border-sm {
+  border-width: 1px;
+}
+
+.react-time-picker {
+  width: 100%;
+  max-width: 300px;
+}
+
+.react-time-picker__wrapper {
+  border: 1px solid #b6b1b1 !important;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.custom-time-picker,
+.custom-time-picker * {
+  font-size: 18px !important;
+}

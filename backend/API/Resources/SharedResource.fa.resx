@@ -1,0 +1,1433 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account Settings" xml:space="preserve">
+    <value>تنظیمات صورت حساب</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>عمل</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>اضافه نمودن {0}</value>
+  </data>
+  <data name="Agenda" xml:space="preserve">
+    <value>موضوع اجندا /اسنار حمایتی</value>
+  </data>
+  <data name="Approve Provincail Meeting" xml:space="preserve">
+    <value>تایید /لغوه کردن جلسه ولایتی</value>
+  </data>
+  <data name="Approve Research" xml:space="preserve">
+    <value>تایید کردن تحقیق</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>تصویب شد</value>
+  </data>
+  <data name="Are you sure?" xml:space="preserve">
+    <value>ایا مطمئین هستی؟</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>بازگشت به فهرست</value>
+  </data>
+  <data name="Central Meeting" xml:space="preserve">
+    <value>جلسه مرکزی</value>
+  </data>
+  <data name="Central Meetings" xml:space="preserve">
+    <value>جلسات مرکزی</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>لغو کنید</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>لغو شد</value>
+  </data>
+  <data name="Change Password" xml:space="preserve">
+    <value>تغیر رمز</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>بستن</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Confirm Password" xml:space="preserve">
+    <value>تکرار پسورد</value>
+  </data>
+  <data name="Cordination With Institutions" xml:space="preserve">
+    <value>هماهنګی با نهادها</value>
+  </data>
+  <data name="Corporate Date" xml:space="preserve">
+    <value>تاریخ هماهنګی با ولایت مربوطه</value>
+  </data>
+  <data name="Create Provincail Meeting" xml:space="preserve">
+    <value>اضافه نمودن جلسه ولایتی</value>
+  </data>
+  <data name="Create Research" xml:space="preserve">
+    <value>اضافه نمودن تحقیق</value>
+  </data>
+  <data name="Create Role" xml:space="preserve">
+    <value>اضافه نمودن صلاحیت</value>
+  </data>
+  <data name="Create User" xml:space="preserve">
+    <value>اضافه نمودن کاربر</value>
+  </data>
+  <data name="Created By" xml:space="preserve">
+    <value>ایجاد شده توسط</value>
+  </data>
+  <data name="Current Password" xml:space="preserve">
+    <value>رمز فعلی</value>
+  </data>
+  <data name="Dari" xml:space="preserve">
+    <value>دری</value>
+  </data>
+  <data name="DateAndTime" xml:space="preserve">
+    <value>تاریخ و زمان</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>تاریخ</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف کردن </value>
+  </data>
+  <data name="Delete Provincail Meeting" xml:space="preserve">
+    <value>حذف کردن جلسه ولایتی</value>
+  </data>
+  <data name="Delete Research" xml:space="preserve">
+    <value>حذف کردن تحقیق</value>
+  </data>
+  <data name="Delete Role" xml:space="preserve">
+    <value>حذف کردن صلاحیت</value>
+  </data>
+  <data name="Delete User" xml:space="preserve">
+    <value>حذف کردن کاربر</value>
+  </data>
+  <data name="Deleted!" xml:space="preserve">
+    <value>حذف شد!</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>اداره/ وزارت</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>بخش‌ها</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>جزئیات {0}</value>
+  </data>
+  <data name="Dirctorate Of Research And Planning" xml:space="preserve">
+    <value>ریاست تحقیق ، مطالعات و پلان ګذاری</value>
+  </data>
+  <data name="Dirctorate Of The Secretariat" xml:space="preserve">
+    <value>ریاست دارالانشاء</value>
+  </data>
+  <data name="Directorate Of Research Studies And Plannig Management" xml:space="preserve">
+    <value>ریاست تحقیق ، مطالعات و پلان ګذاری</value>
+  </data>
+  <data name="Directorates Management Permissions" xml:space="preserve">
+    <value>دسترسی مدیریت ریاست ها</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تغییر نمودن {0}</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>ایمیل</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>انګلیسی</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انګلیسی</value>
+  </data>
+  <data name="Enter Department Name" xml:space="preserve">
+    <value>نام اداره را وارد کنید</value>
+  </data>
+  <data name="fa" xml:space="preserve">
+    <value>دری</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>ناموفق</value>
+  </data>
+  <data name="Faild" xml:space="preserve">
+    <value>ناکام</value>
+  </data>
+  <data name="FatherName" xml:space="preserve">
+    <value>اسم پدر</value>
+  </data>
+  <data name="General Settings" xml:space="preserve">
+    <value>تنظیمات عمومی</value>
+  </data>
+  <data name="General System Management" xml:space="preserve">
+    <value>مدیریت عمومی سیستم</value>
+  </data>
+  <data name="General System Setup" xml:space="preserve">
+    <value>عمومی</value>
+  </data>
+  <data name="Generate Provincail Meeting Report" xml:space="preserve">
+    <value>ایجاد ګزارش جلسه ولایتی</value>
+  </data>
+  <data name="Generate Research Report" xml:space="preserve">
+    <value>ایجاد ګزارش تحقیق</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>ای دی</value>
+  </data>
+  <data name="Is Have Access" xml:space="preserve">
+    <value>آیا دسترسی دارد؟</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>لیست {0}</value>
+  </data>
+  <data name="List Provincail Meetings" xml:space="preserve">
+    <value>لیست کردن جلسه ولایتی</value>
+  </data>
+  <data name="List Researches" xml:space="preserve">
+    <value>لیست کردن تحقیق ها</value>
+  </data>
+  <data name="List Roles" xml:space="preserve">
+    <value>لیست کردن صلاحیت ها</value>
+  </data>
+  <data name="List Users" xml:space="preserve">
+    <value>لیست کردن کاربران</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>خارج شدن از سیستم</value>
+  </data>
+  <data name="Manage User Role" xml:space="preserve">
+    <value>مدیریت وظایف کاربر</value>
+  </data>
+  <data name="Meeting" xml:space="preserve">
+    <value>جلسه</value>
+  </data>
+  <data name="Meetings" xml:space="preserve">
+    <value>جلسات</value>
+  </data>
+  <data name="MOIA" xml:space="preserve">
+    <value>وزارت امور داخله</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="New Password" xml:space="preserve">
+    <value>رمز جدید</value>
+  </data>
+  <data name="Pashto" xml:space="preserve">
+    <value>پښتو</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>رمز</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>در انتظار</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>نمبر تیلیفون</value>
+  </data>
+  <data name="Proposal File" xml:space="preserve">
+    <value>ضمایم پروپوزل</value>
+  </data>
+  <data name="Proposal File Source" xml:space="preserve">
+    <value>مرجع ضمایم پروپوزل</value>
+  </data>
+  <data name="Proposal Files Information" xml:space="preserve">
+    <value>معلومات ضمایم پروپوزل</value>
+  </data>
+  <data name="Provincail Meetings" xml:space="preserve">
+    <value>جلسات کمیسیون های ولایتی</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>ولایت</value>
+  </data>
+  <data name="Provincial Meeting" xml:space="preserve">
+    <value>جلسه کمیسیون ولایتی</value>
+  </data>
+  <data name="Provincial Meeting Management Permissions" xml:space="preserve">
+    <value>دسترسی های جلسات کمیسیون های ولایتی</value>
+  </data>
+  <data name="ps" xml:space="preserve">
+    <value>پښتو</value>
+  </data>
+  <data name="Published Date" xml:space="preserve">
+    <value>تاریخ نشر ګزارش</value>
+  </data>
+  <data name="Record Created Successfully" xml:space="preserve">
+    <value>رکورد با موفقیت ایجاد شد</value>
+  </data>
+  <data name="Record Dose Not Fetched!" xml:space="preserve">
+    <value>ریکارد دریافت نشد!</value>
+  </data>
+  <data name="Record has not been Created!" xml:space="preserve">
+    <value>رکورد ایجاد نشده است!</value>
+  </data>
+  <data name="Record has not been Deleted!" xml:space="preserve">
+    <value>رکورد حذف نشده است!</value>
+  </data>
+  <data name="Record has not been Updated!" xml:space="preserve">
+    <value>رکورد به روز نشده است!</value>
+  </data>
+  <data name="Record Updated Successfully" xml:space="preserve">
+    <value>رکورد با موفقیت به روز شد</value>
+  </data>
+  <data name="Register New User" xml:space="preserve">
+    <value>ثبت کاربر جدید</value>
+  </data>
+  <data name="Registration Date" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="Report File" xml:space="preserve">
+    <value>ضمایم ګزارش</value>
+  </data>
+  <data name="Report File Source" xml:space="preserve">
+    <value>مرجع ضمایم ګزارش</value>
+  </data>
+  <data name="Report Files Information" xml:space="preserve">
+    <value>معلومات ضمایم ګزارش</value>
+  </data>
+  <data name="Research" xml:space="preserve">
+    <value>تحقیق</value>
+  </data>
+  <data name="Research Code" xml:space="preserve">
+    <value>کد تحقیق</value>
+  </data>
+  <data name="Research Department" xml:space="preserve">
+    <value>آمریت تحقیق</value>
+  </data>
+  <data name="Research Information" xml:space="preserve">
+    <value>معلومات تحقیق</value>
+  </data>
+  <data name="Research Location" xml:space="preserve">
+    <value>محل تحقیق</value>
+  </data>
+  <data name="Research Management Permissions" xml:space="preserve">
+    <value>دسترسی های آمریت تحقیق</value>
+  </data>
+  <data name="Research Title" xml:space="preserve">
+    <value>عنوان تحقیق</value>
+  </data>
+  <data name="Researches" xml:space="preserve">
+    <value>تحقیقات</value>
+  </data>
+  <data name="ReviewStatus" xml:space="preserve">
+    <value>بررسی وضعیت</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>نتیجه ګیری و ارسال آن به بخش تحلیل و تدقیق ګزارشات </value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>صلاحیت</value>
+  </data>
+  <data name="Role Management" xml:space="preserve">
+    <value>مدیریت صلاحیت ها</value>
+  </data>
+  <data name="Role Management Permissions" xml:space="preserve">
+    <value>دسترسی های مدیرت صلاحیت ها</value>
+  </data>
+  <data name="Role Name" xml:space="preserve">
+    <value>نام صلاحیت</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>صلاحیت ها</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>ذخیره</value>
+  </data>
+  <data name="Save Changes" xml:space="preserve">
+    <value>ثبت تغییرات</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>جستجو</value>
+  </data>
+  <data name="Select an option" xml:space="preserve">
+    <value>یک گزینه را انتخاب نمایید</value>
+  </data>
+  <data name="Select Date" xml:space="preserve">
+    <value>انتخاب تاریخ</value>
+  </data>
+  <data name="Select Date and time" xml:space="preserve">
+    <value>انتخاب تاریخ و زمان</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>موفقیت</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>حالت</value>
+  </data>
+  <data name="This action can not be undone!" xml:space="preserve">
+    <value>این عمل قابل لغو نیست!</value>
+  </data>
+  <data name="Update Provincail Meeting" xml:space="preserve">
+    <value>تجدید کردن جلسه ولایتی</value>
+  </data>
+  <data name="Update Research" xml:space="preserve">
+    <value>تجدید کردن تحقیق</value>
+  </data>
+  <data name="Update Role" xml:space="preserve">
+    <value>تجدید کردن صلاحیت</value>
+  </data>
+  <data name="Update User" xml:space="preserve">
+    <value>تجدید کاربر</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>کاربر</value>
+  </data>
+  <data name="User Info" xml:space="preserve">
+    <value>معلومات کاربر</value>
+  </data>
+  <data name="User Management" xml:space="preserve">
+    <value>مدیریت کاربر</value>
+  </data>
+  <data name="User Management Permissions" xml:space="preserve">
+    <value>دسترسی های مدیریت کاربران</value>
+  </data>
+  <data name="User Profile Details" xml:space="preserve">
+    <value>جزیات پرفایل کاربر</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>نام کاربر</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>کاربران</value>
+  </data>
+  <data name="Yes, delete it!" xml:space="preserve">
+    <value>بله حذفش کن!</value>
+  </data>
+  <data name="Your item has been deleted." xml:space="preserve">
+    <value>مورد شما حذف شده است.</value>
+  </data>
+  <data name="{0} is required" xml:space="preserve">
+    <value>{0} ضروری میباشد</value>
+  </data>
+  <data name="{0} must be a number" xml:space="preserve">
+    <value>{0} باید عدد باشد</value>
+  </data>
+  <data name="Create Central Meeting" xml:space="preserve">
+    <value>اضافه نمودن جلسه مرکزی</value>
+  </data>
+  <data name="Delete Central Meeting" xml:space="preserve">
+    <value>حذف کردن جلسه مرکزی</value>
+  </data>
+  <data name="Generate Central Meeting Report" xml:space="preserve">
+    <value>ایجاد ګزارش جلسه مرکزی</value>
+  </data>
+  <data name="List Central Meetings" xml:space="preserve">
+    <value>لیست کردن جلسه مرکزی</value>
+  </data>
+  <data name="Update Central Meeting" xml:space="preserve">
+    <value>تجدید کردن جلسه مرکزی</value>
+  </data>
+  <data name="Central Meeting Management Permissions" xml:space="preserve">
+    <value>دسترسی های جلسات کمیسیون های مرکزی</value>
+  </data>
+  <data name="Communication Type" xml:space="preserve">
+    <value>واتساپ/تیلفونی</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>بررسی اسناد حمایوی ګزارش</value>
+  </data>
+  <data name="Related Department" xml:space="preserve">
+    <value>ادارات مرکزی</value>
+  </data>
+  <data name="Report Collecting" xml:space="preserve">
+    <value>ګزارش</value>
+  </data>
+  <data name="Report Collecting Departments" xml:space="preserve">
+    <value>دیپارتمنت جمع آوری ګزارشات </value>
+  </data>
+  <data name="Report Collectings" xml:space="preserve">
+    <value>جمع اوری ګزارشات</value>
+  </data>
+  <data name="Send To Report Analysis" xml:space="preserve">
+    <value>ارسال به بخش تحلیل ګزارشات</value>
+  </data>
+  <data name="Verbal" xml:space="preserve">
+    <value>حضوری</value>
+  </data>
+  <data name="Written" xml:space="preserve">
+    <value>مکتوبی</value>
+  </data>
+  <data name="Create Report Collection" xml:space="preserve">
+    <value>اضافه نمودن جمع اوری ګزارشات</value>
+  </data>
+  <data name="Delete Report Collection" xml:space="preserve">
+    <value>حذف کردن جمع اوری ګزارشات</value>
+  </data>
+  <data name="Generate Report Collection Report" xml:space="preserve">
+    <value>ایجاد ګزارش جمع اوری ګزارشات</value>
+  </data>
+  <data name="List Report Collection" xml:space="preserve">
+    <value>لیست کردن جمع اوری ګزارشات</value>
+  </data>
+  <data name="Update Report Collection" xml:space="preserve">
+    <value>تجدید کردن جمع اوری ګزارشات</value>
+  </data>
+  <data name="Report Collection Department Permissions" xml:space="preserve">
+    <value>دسترسی های دیپارتمنت جمع آوری ګزارشات</value>
+  </data>
+  <data name="Log In" xml:space="preserve">
+    <value>ورود به سیستم</value>
+  </data>
+  <data name="Plans" xml:space="preserve">
+    <value>پلان ها</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>سال</value>
+  </data>
+  <data name="StratagicGoal" xml:space="preserve">
+    <value>هدف استراتیژیک</value>
+  </data>
+  <data name="DeterminedActions" xml:space="preserve">
+    <value>اقدامات تعیین شده در پلان استراتیژیک</value>
+  </data>
+  <data name="Plan Department" xml:space="preserve">
+    <value>آمریت پلان</value>
+  </data>
+  <data name="Plan" xml:space="preserve">
+    <value>پلان</value>
+  </data>
+  <data name="Year is required" xml:space="preserve">
+    <value>نوشتن سال حتمی است</value>
+  </data>
+  <data name="Department is required" xml:space="preserve">
+    <value>نوشتن آمریت حتمی است</value>
+  </data>
+  <data name="Strategic Goal is required" xml:space="preserve">
+    <value>نوشتن هدف استراتیژیک حتمی است</value>
+  </data>
+  <data name="Determined Actions is required" xml:space="preserve">
+    <value>نوشتن اقدامات تعیین شده حتمی است</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>چاپ {0}</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>فعالیت</value>
+  </data>
+  <data name="Indicator" xml:space="preserve">
+    <value>شاخص</value>
+  </data>
+  <data name="EstimatedPrice" xml:space="preserve">
+    <value>قیمت تخمینی</value>
+  </data>
+  <data name="FirstQuarter" xml:space="preserve">
+    <value>ربع اول</value>
+  </data>
+  <data name="SecondQuarter" xml:space="preserve">
+    <value>ربع دوم</value>
+  </data>
+  <data name="ThirdQuarter" xml:space="preserve">
+    <value>ربع سوم</value>
+  </data>
+  <data name="FourthQuarter" xml:space="preserve">
+    <value> ربع چهارم</value>
+  </data>
+  <data name="ImplementationResponsible" xml:space="preserve">
+    <value>مسئول اجراء</value>
+  </data>
+  <data name="CollaboratingDepartments" xml:space="preserve">
+    <value>ادارات همکار</value>
+  </data>
+  <data name="ExpectedResults" xml:space="preserve">
+    <value>نتایج متوقعه</value>
+  </data>
+  <data name="ToList" xml:space="preserve">
+    <value>به لست</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>بعدی</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>قبلی</value>
+  </data>
+  <data name="is required" xml:space="preserve">
+    <value>ضروری میباشد</value>
+  </data>
+  <data name="Implementation Of Resolution" xml:space="preserve">
+    <value>تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Implementation Of Resolution In Central Offices" xml:space="preserve">
+    <value>اجرای مصوبه در دفاتر مرکزی</value>
+  </data>
+  <data name="AnalysisOfReceivedTopics" xml:space="preserve">
+    <value>تجزیه و تحلیل موضوغات دریافتی</value>
+  </data>
+  <data name="IndependentOffice" xml:space="preserve">
+    <value>اداره مستقل</value>
+  </data>
+  <data name="OrganizingTopics" xml:space="preserve">
+    <value>تنظیم موضوعات واصله از ادارات مرکزی</value>
+  </data>
+  <data name="Create Implementation of Resolution" xml:space="preserve">
+    <value>اضافه نمودن تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Delete Implementation of Resolution" xml:space="preserve">
+    <value>حذف کردن تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Generate Implementation Of Resolution Report" xml:space="preserve">
+    <value>ایجاد ګزارش تعقیب و پیګری اداری مصوبات </value>
+  </data>
+  <data name="List Implementation of Resolution" xml:space="preserve">
+    <value>لیست تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Update Implementation of Resolution" xml:space="preserve">
+    <value>تجدید کردن تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Implementation Of Resolution Permissions" xml:space="preserve">
+    <value>دسترسی های تعقیب و پیګری اداری مصوبات</value>
+  </data>
+  <data name="Please wait..." xml:space="preserve">
+    <value>منتظر باشید...</value>
+  </data>
+  <data name="Empty data is not allowed" xml:space="preserve">
+    <value>معلومات خالی مجاز نیست</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>خطر</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="An unexpected error occurred" xml:space="preserve">
+    <value>یک خطای غیرمنتظره رخ داد</value>
+  </data>
+  <data name="You won't be able to revert this" xml:space="preserve">
+    <value>این عمل غیر قابل برګشت است</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>باشد</value>
+  </data>
+  <data name="Record has been Deleted!" xml:space="preserve">
+    <value>رکورد حذف شده است!</value>
+  </data>
+  <data name="Plan Information" xml:space="preserve">
+    <value>معلومات پلان</value>
+  </data>
+  <data name="Breakdown And Consistency Of Report Details" xml:space="preserve">
+    <value>توضیحات فارمت کارشناس تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Breakdown And Consistency Of Reports" xml:space="preserve">
+    <value>فارمت کارشناس تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Confirmed/Canceled By" xml:space="preserve">
+    <value>تایید / لغوه کننده</value>
+  </data>
+  <data name="Decisions" xml:space="preserve">
+    <value>فیصله ها</value>
+  </data>
+  <data name="Implementations" xml:space="preserve">
+    <value>اجراآت</value>
+  </data>
+  <data name="Meeting Agenda" xml:space="preserve">
+    <value>آجندای جلسه</value>
+  </data>
+  <data name="Ministry" xml:space="preserve">
+    <value>وزارت</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>مشکلات و چالشها</value>
+  </data>
+  <data name="Reason For Not Implementing" xml:space="preserve">
+    <value>دلایل عدم اجرای فیصله های قبلی</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>راه های حل پیشنهادی</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Approve Breakdown And Consistency" xml:space="preserve">
+    <value>تایید /لغوه کردن تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Breakdown And Consistency Permissions" xml:space="preserve">
+    <value>دسترسی های فارمت کارشناس تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Create Breakdown And Consistency" xml:space="preserve">
+    <value>اضافه نمودن تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Delete Breakdown And Consistency" xml:space="preserve">
+    <value>حذف کردن تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Generate Breakdown And Consistency Report" xml:space="preserve">
+    <value>ایجاد ګزارش تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="List Breakdown And Consistency" xml:space="preserve">
+    <value>لیست کردن تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Update Breakdown And Consistency" xml:space="preserve">
+    <value>تجدید کردن تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="View Breakdown And Consistency" xml:space="preserve">
+    <value>جزیات تجزیه و انسجام ګزارشات</value>
+  </data>
+  <data name="Create Scrutiny And Analysis" xml:space="preserve">
+    <value>اضافه نمودن تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Delete Scrutiny And Analysis" xml:space="preserve">
+    <value>حذف کردن تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Generate Scrutiny And Analysis Report" xml:space="preserve">
+    <value>ایجاد ګزارش تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="List Scrutiny And Analysis" xml:space="preserve">
+    <value>لیست کردن تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Scrutiny And Analysis Permissions" xml:space="preserve">
+    <value>دسترسی های تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Update Scrutiny And Analysis" xml:space="preserve">
+    <value>تجدید کردن تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="View Scrutiny And Analysis" xml:space="preserve">
+    <value>جزیات تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Chekclist" xml:space="preserve">
+    <value>صورت تدقیق</value>
+  </data>
+  <data name="Department Unit" xml:space="preserve">
+    <value>واحد اداری</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>ولسوالی</value>
+  </data>
+  <data name="Follow Up Cases" xml:space="preserve">
+    <value>موارد تعقیبی</value>
+  </data>
+  <data name="Follow Up References" xml:space="preserve">
+    <value>مراجع تعقیبی</value>
+  </data>
+  <data name="Offers" xml:space="preserve">
+    <value>پیشنهادات</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>ملاحظات</value>
+  </data>
+  <data name="Scrutiny And Analysis" xml:space="preserve">
+    <value>تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Scrutiny Subject" xml:space="preserve">
+    <value>موضوع تدقیق</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>مرسل</value>
+  </data>
+  <data name="Scrutiny And Analysis Detials" xml:space="preserve">
+    <value>توضیحات تدقیق و تحلیل ګزارشات</value>
+  </data>
+  <data name="Actions Taken" xml:space="preserve">
+    <value>اجراآت انجام یافته</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>از</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>فیصدی تطبیق</value>
+  </data>
+  <data name="Performance and Activity Report Format of the Secretariat Directorate of the High Commission" xml:space="preserve">
+    <value>فارمت ګزارش کارکرد و فعالیتهای ریاست دارالانشاء کمیسیون عالی</value>
+  </data>
+  <data name="Planned Objectives" xml:space="preserve">
+    <value>اهداف تعین شده مطابق پلان</value>
+  </data>
+  <data name="Secretariat Report Result" xml:space="preserve">
+    <value>دست اورد ها / نتایج</value>
+  </data>
+  <data name="Secretariat Reports" xml:space="preserve">
+    <value>بخش ګزارشات</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>الی</value>
+  </data>
+  <data name="Approve Secretariat Report" xml:space="preserve">
+    <value>تایید / لغوه کردن ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Create Secretariat Report" xml:space="preserve">
+    <value>اظافه نمودن ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Delete Secretariat Report" xml:space="preserve">
+    <value>حذف کردن ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Generate Secretariat Report Report" xml:space="preserve">
+    <value>ایجاد ګزارش ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="List Secretariat Report" xml:space="preserve">
+    <value>لیست کردن ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Secretariat Report Permissions" xml:space="preserve">
+    <value>دسترسی های ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Update Secretariat Report" xml:space="preserve">
+    <value>تجدید کردن ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="View Secretariat Report" xml:space="preserve">
+    <value>جزیات ګزارش فعالیت های پلان شده</value>
+  </data>
+  <data name="Follow Up And Supervision" xml:space="preserve">
+    <value>تعقیب و پيګری حضوری مصوبات</value>
+  </data>
+  <data name="CompletedActions" xml:space="preserve">
+    <value> اجراآت انجام شده بر افق مصوبه</value>
+  </data>
+  <data name="Conclusion" xml:space="preserve">
+    <value>نتیجه ګیری و ارسال آن به بخش مربوطه</value>
+  </data>
+  <data name="Directives" xml:space="preserve">
+    <value>هدایات/ مصوبات</value>
+  </data>
+  <data name="ResponsibleIndependentAuthority" xml:space="preserve">
+    <value>وزارت خانه / اداره مستقل مسئول</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>بلی</value>
+  </data>
+  <data name="Approve Monitoring And Evaluation Department" xml:space="preserve">
+    <value>تصویب کردن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Cancel Monitoring And Evaluation Department" xml:space="preserve">
+    <value>لغو کردن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Create Monitoring And Evaluation Department" xml:space="preserve">
+    <value>اضافه نمودن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Delete Monitoring And Evaluation Department" xml:space="preserve">
+    <value>حذف کردن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="First Quadrate" xml:space="preserve">
+    <value>ربع اول</value>
+  </data>
+  <data name="FirstQuantity" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="FirstUnit" xml:space="preserve">
+    <value>واحد</value>
+  </data>
+  <data name="Fourth Quadrate" xml:space="preserve">
+    <value>ربع چهارم</value>
+  </data>
+  <data name="fourthQuantity" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="fourthUnit" xml:space="preserve">
+    <value>واحد</value>
+  </data>
+  <data name="List Monitoring And Evaluation Department" xml:space="preserve">
+    <value>لیست کردن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Monitoring And Evaluation Department" xml:space="preserve">
+    <value>آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Monitoring And Evaluation Department Permissions" xml:space="preserve">
+    <value>دسترسی های آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Second Quadrate" xml:space="preserve">
+    <value>ربع دوم</value>
+  </data>
+  <data name="SecondQuantity" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="SecondUnit" xml:space="preserve">
+    <value>واحد</value>
+  </data>
+  <data name="Third Quadrate" xml:space="preserve">
+    <value>ربع سوم</value>
+  </data>
+  <data name="ThirdQuantity" xml:space="preserve">
+    <value>تعداد</value>
+  </data>
+  <data name="ThirdUnit" xml:space="preserve">
+    <value>واحد</value>
+  </data>
+  <data name="TypeOfActivity" xml:space="preserve">
+    <value>نوع فعالیت</value>
+  </data>
+  <data name="UpdateMonitoring And Evaluation Department" xml:space="preserve">
+    <value>تجدید کردن آمریت نظارت و ارزیابی</value>
+  </data>
+  <data name="Directorate of Coordination" xml:space="preserve">
+    <value>ریاست هماهنگی</value>
+  </data>
+  <data name="Monitoring File" xml:space="preserve">
+    <value>ضمایم</value>
+  </data>
+  <data name="Approve Directorate Of Coordination Report" xml:space="preserve">
+    <value> تایید / لغوه کردن راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>ضمایم</value>
+  </data>
+  <data name="CoordinationWithGovernmentAgencies" xml:space="preserve">
+    <value>امریت هماهنګی با ارګان های دولتی</value>
+  </data>
+  <data name="CoordinationWithJudicialAndLegal" xml:space="preserve">
+    <value>آمریت عدلی و قضایی</value>
+  </data>
+  <data name="Coordinator Department" xml:space="preserve">
+    <value>اداره</value>
+  </data>
+  <data name="Coordinator Info" xml:space="preserve">
+    <value>معلومات هماهنګ کننده</value>
+  </data>
+  <data name="Coordinator Job" xml:space="preserve">
+    <value>وظیفه</value>
+  </data>
+  <data name="Coordinator Name" xml:space="preserve">
+    <value>نام</value>
+  </data>
+  <data name="Create Directorate Of Coordination Report" xml:space="preserve">
+    <value>اضافه نمودن راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Delete Directorate Of Coordination Report" xml:space="preserve">
+    <value>حذف کردن راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Department Names" xml:space="preserve">
+    <value>نام اداره / ادارات</value>
+  </data>
+  <data name="Authority for Coordination with Government Agencies" xml:space="preserve">
+    <value>امریت هماهنګی با ارګان های دولتی</value>
+  </data>
+  <data name="Department Of Judicial And Legal" xml:space="preserve">
+    <value>امریت عدلی وقضایی</value>
+  </data>
+  <data name="Help Amount" xml:space="preserve">
+    <value>مقدار کمک</value>
+  </data>
+  <data name="List Directorate Of Coordination Report" xml:space="preserve">
+    <value>لیست کردن راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>محل</value>
+  </data>
+  <data name="Short Report" xml:space="preserve">
+    <value>ګزارش مختصر</value>
+  </data>
+  <data name="Update Directorate Of Coordination Report" xml:space="preserve">
+    <value> تجدید کردن راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Directorate of Private Sector Coordination" xml:space="preserve">
+    <value>آمریت همانګی سکتور خصوصی</value>
+  </data>
+  <data name="Directorate of Security Sector Coordination" xml:space="preserve">
+    <value>آمریت همانګی سکتور امنیتی</value>
+  </data>
+  <data name="DirectorateofPrivateSectorCoordination" xml:space="preserve">
+    <value>آمریت همانګی سکتور خصوصی</value>
+  </data>
+  <data name="DirectorateofSecuritySectorCoordination" xml:space="preserve">
+    <value>آمریت همانګی سکتور امنیتی</value>
+  </data>
+  <data name="Departements Of Coordination Directorate Permissions" xml:space="preserve">
+    <value>دسترسی به آمریت های ریاست هماهنګی</value>
+  </data>
+  <data name="Directorate of Coordination Reports Permissions" xml:space="preserve">
+    <value>دسترسی های راپور ریاست هماهنګی</value>
+  </data>
+  <data name="Generate Directorate Of Coordination Report Report" xml:space="preserve">
+    <value>ایجاد ګزارش راپور ریاست هماهنګی </value>
+  </data>
+  <data name="Authenticator" xml:space="preserve">
+    <value>تایید کننده</value>
+  </data>
+  <data name="Verifier" xml:space="preserve">
+    <value>تصدیق کننده</value>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>تایید شده</value>
+  </data>
+  <data name="Authenticate" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>تصدیق</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>تصدیق شده</value>
+  </data>
+  <data name="Record has been Authenticated!" xml:space="preserve">
+    <value>ریکارد تایید شد!</value>
+  </data>
+  <data name="Record has been Verified!" xml:space="preserve">
+    <value>ریکارد تصدیق شد!</value>
+  </data>
+  <data name="Do You Want to Authenticate the Record" xml:space="preserve">
+    <value>میخواهید رکارد را تایید کنید</value>
+  </data>
+  <data name="Do You Want to Verify the Record" xml:space="preserve">
+    <value>میخواهید رکارد را تصدیق کنید</value>
+  </data>
+  <data name="Monthly Reports" xml:space="preserve">
+    <value>گزارشات ماهوار</value>
+  </data>
+  <data name="Monthly Report" xml:space="preserve">
+    <value>گزارش ماهوار</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>ماه</value>
+  </data>
+  <data name="Monthly Report Information" xml:space="preserve">
+    <value>معلومات گزارش ماهوار</value>
+  </data>
+  <data name="PlannedTasks" xml:space="preserve">
+    <value>وظایف پلان شده</value>
+  </data>
+  <data name="DonePerformances" xml:space="preserve">
+    <value>اجراآت انجام یافته</value>
+  </data>
+  <data name="CurrentStateOfActivity" xml:space="preserve">
+    <value>حالت کنونی فعالیت</value>
+  </data>
+  <data name="ProgressPercentage" xml:space="preserve">
+    <value>فیصدی پیشرفت</value>
+  </data>
+  <data name="AchievementsOrResults" xml:space="preserve">
+    <value>دست آورد ها/ نتایج</value>
+  </data>
+  <data name="ResponsibleDepartments" xml:space="preserve">
+    <value>ادرات مسئول</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>آغاز نگردیده</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>جریان دارد</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>تکمیل شده</value>
+  </data>
+  <data name="AwarenessReporting" xml:space="preserve">
+    <value>راپور آگاهی دهی</value>
+  </data>
+  <data name="ProgramTitle" xml:space="preserve">
+    <value>عنوان برنامه</value>
+  </data>
+  <data name="ResponsibleDepartment" xml:space="preserve">
+    <value>اداره مسئول</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>تاریخ ثبت</value>
+  </data>
+  <data name="Quarter" xml:space="preserve">
+    <value>ربع سال</value>
+  </data>
+  <data name="AwarenessMethod" xml:space="preserve">
+    <value>روش آګاهی دهی</value>
+  </data>
+  <data name="AwarenessGoal" xml:space="preserve">
+    <value>هدف آګاهی دهی</value>
+  </data>
+  <data name="Challenges" xml:space="preserve">
+    <value>چالش ها</value>
+  </data>
+  <data name="TargetGroup" xml:space="preserve">
+    <value>گروه مورد هدف</value>
+  </data>
+  <data name="ProgramStatus" xml:space="preserve">
+    <value>وضعیت برنامه</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>شعبه</value>
+  </data>
+  <data name="Approved By" xml:space="preserve">
+    <value>تایید شده توسط</value>
+  </data>
+  <data name="Directorate Of Survey" xml:space="preserve">
+    <value>ریاست سروی</value>
+  </data>
+  <data name="Of Implementation Resolution" xml:space="preserve">
+    <value>قطعنامه اجرایی</value>
+  </data>
+  <data name="PercentageOfImplementations" xml:space="preserve">
+    <value>فیصدی اجرآآت</value>
+  </data>
+  <data name="Answers Of Questionnaire" xml:space="preserve">
+    <value>جواب های سوالات</value>
+  </data>
+  <data name="Questionnaire" xml:space="preserve">
+    <value>پرسش نامه</value>
+  </data>
+  <data name="Answer" xml:space="preserve">
+    <value>جواب</value>
+  </data>
+  <data name="Question" xml:space="preserve">
+    <value>سوال</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>راپور</value>
+  </data>
+  <data name="Question Category" xml:space="preserve">
+    <value>کتگوری سوالات</value>
+  </data>
+  <data name="Add Question And Answer" xml:space="preserve">
+    <value>اضافه نمودن سوال و جواب</value>
+  </data>
+  <data name="Gender" xml:space="preserve">
+    <value>جنسیت</value>
+  </data>
+  <data name="Interviewee Father Name" xml:space="preserve">
+    <value>نام پدر مصاحبه شونده</value>
+  </data>
+  <data name="Interviewee Name" xml:space="preserve">
+    <value>نام مصاحبه شونده</value>
+  </data>
+  <data name="Current Province" xml:space="preserve">
+    <value>سکونت فعلی/ ولایت</value>
+  </data>
+  <data name="Current District" xml:space="preserve">
+    <value>سکونت فعلی/ ولسوالی</value>
+  </data>
+  <data name="Parmanent Province" xml:space="preserve">
+    <value>سکونت اصلی/ ولایت</value>
+  </data>
+  <data name="Parmanent District" xml:space="preserve">
+    <value>سکونت اصلی/ ولسوالی</value>
+  </data>
+  <data name="Interview Code" xml:space="preserve">
+    <value>رمز مصاحبه</value>
+  </data>
+  <data name="Interview Location" xml:space="preserve">
+    <value> مکان/ محل مصاحبه</value>
+  </data>
+  <data name="Interview Date" xml:space="preserve">
+    <value> تاریخ مصاحبه</value>
+  </data>
+  <data name="Search Interview Code" xml:space="preserve">
+    <value>جستجو به اساس رمز</value>
+  </data>
+  <data name="Search Interview Location" xml:space="preserve">
+    <value>جستجو مکان/ محل مصاحبه</value>
+  </data>
+  <data name="Search Interview Date" xml:space="preserve">
+    <value>جستجو زمان مصاحبه</value>
+  </data>
+  <data name="Search Interviewee Name" xml:space="preserve">
+    <value>جستجو به اساس نام</value>
+  </data>
+  <data name="Search Interviewee Age" xml:space="preserve">
+    <value>جستجو به اساس عمر</value>
+  </data>
+  <data name="Search Interviewee Education Level" xml:space="preserve">
+    <value>جستجو به اساس سطح تعلیم</value>
+  </data>
+  <data name="Parmanent Resisdence" xml:space="preserve">
+    <value>سکونت اصلی</value>
+  </data>
+  <data name="Current Resisdence" xml:space="preserve">
+    <value>سکونت فعلی</value>
+  </data>
+  <data name="Search Question" xml:space="preserve">
+    <value>جستجو به اساس سوال</value>
+  </data>
+  <data name="Alternative Livelihood Programs" xml:space="preserve">
+    <value>برنامه های  معشیت بدیل</value>
+  </data>
+  <data name="Law Enforcement Regarding Aspects Of Narcotics" xml:space="preserve">
+    <value>تنفیذ قانون در رابطه به ابعاد مواد مخدر</value>
+  </data>
+  <data name="Reducing Demand For Narcotics Prevention And Awareness Raising" xml:space="preserve">
+    <value>کاهش تقاضا به مواد مخدر،  وقایه و آگاهی دهی</value>
+  </data>
+  <data name="Education Level" xml:space="preserve">
+    <value>سطح تحصیل</value>
+  </data>
+  <data name="Marital Status" xml:space="preserve">
+    <value>حالت مدنی</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>عمر/ سن</value>
+  </data>
+  <data name="Phone Number" xml:space="preserve">
+    <value>شماره تماس</value>
+  </data>
+  <data name="Interviewee" xml:space="preserve">
+    <value>مصاحبه شونده</value>
+  </data>
+  <data name="Interview" xml:space="preserve">
+    <value>مصاحبه</value>
+  </data>
+  <data name="ImplementationStatus" xml:space="preserve">
+    <value>وضعیت تطبیق</value>
+  </data>
+  <data name="Brief Report" xml:space="preserve">
+    <value>ګزارش مختصر</value>
+  </data>
+  <data name="Coordination" xml:space="preserve">
+    <value>هماهنګی</value>
+  </data>
+  <data name="Coordination Date" xml:space="preserve">
+    <value>تاریخ هماهنګی</value>
+  </data>
+  <data name="Coordination Department" xml:space="preserve">
+    <value>ادارات همکار</value>
+  </data>
+  <data name="Coordination Report" xml:space="preserve">
+    <value>راپور هماهنګی</value>
+  </data>
+  <data name="Coordination Result" xml:space="preserve">
+    <value>نتیجه هماهنګی</value>
+  </data>
+  <data name="Coordination With" xml:space="preserve">
+    <value>هماهنګی با</value>
+  </data>
+  <data name="Diretorate of Regional Cooperation Management" xml:space="preserve">
+    <value>آمریت همکاری های منطقوی و فرا منطقوی</value>
+  </data>
+  <data name="Educational Trips" xml:space="preserve">
+    <value>سیر سفر علمی یا آموزشی</value>
+  </data>
+  <data name="Meeting Name" xml:space="preserve">
+    <value>نام نشست</value>
+  </data>
+  <data name="Scientific or Educational Field Trip" xml:space="preserve">
+    <value>راپور سیر سفرعلمی و آموزشی</value>
+  </data>
+  <data name="Directorate Of Regional Cooperation Management" xml:space="preserve">
+    <value>امریت همکاری های منطقوی و فرا منطقوی</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="End Date Of The Trip" xml:space="preserve">
+    <value>تاریخ ختم سفر</value>
+  </data>
+  <data name="Number Of Participants" xml:space="preserve">
+    <value>تعداد اشتراک‌کنندگان</value>
+  </data>
+  <data name="Office" xml:space="preserve">
+    <value>دفتر</value>
+  </data>
+  <data name="Partner Organization" xml:space="preserve">
+    <value>سازمان شریک</value>
+  </data>
+  <data name="Program" xml:space="preserve">
+    <value>برنامه</value>
+  </data>
+  <data name="Purpose Of Travel" xml:space="preserve">
+    <value>هدف سفر</value>
+  </data>
+  <data name="Start Date Of The Trip" xml:space="preserve">
+    <value>تاریخ آغاز سفر</value>
+  </data>
+  <data name="Travel Report" xml:space="preserve">
+    <value>گزارش سفر</value>
+  </data>
+  <data name="Trip Country" xml:space="preserve">
+    <value>کشور</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>شماره</value>
+  </data>
+  <data name="ExecutionTime" xml:space="preserve">
+    <value>زمان اجراء</value>
+  </data>
+  <data name="Garda 1" xml:space="preserve">
+    <value>گرده ۱</value>
+  </data>
+  <data name="Garda 2" xml:space="preserve">
+    <value>گرده ۲</value>
+  </data>
+  <data name="Garda 3" xml:space="preserve">
+    <value>گرده ۳</value>
+  </data>
+
+
+  <data name="Jooshi" xml:space="preserve">
+    <value>جوشی</value>
+  </data>
+  <data name="Kham" xml:space="preserve">
+    <value>خام</value>
+  </data>
+  <data name="Phokhta" xml:space="preserve">
+    <value>پوخته</value>
+  </data>
+  <data name="Chaki" xml:space="preserve">
+    <value>چکی</value>
+  </data>
+  <data name="Patnosi" xml:space="preserve">
+    <value>پتنوسی</value>
+  </data>
+  <data name="Khaka" xml:space="preserve">
+    <value>خاکه</value>
+  </data>
+  <data name="Morchajosh" xml:space="preserve">
+    <value>مورچه جوش</value>
+  </data>
+  <data name="Sherak" xml:space="preserve">
+    <value>شیرک</value>
+  </data>
+
+
+
+
+
+
+
+
+  <data name="Drag Quality" xml:space="preserve">
+    <value>کیفیت مواد</value>
+  </data>
+  <data name="Local Type" xml:space="preserve">
+    <value>کیفیت وطنی</value>
+  </data>
+  <data name="Collection Date" xml:space="preserve">
+    <value>تاریخ جمع آوری</value>
+  </data>
+  <data name="Local Unit" xml:space="preserve">
+    <value>مقیاس اندازه گیری</value>
+  </data>
+  <data name="Currency" xml:space="preserve">
+    <value>واحد پول</value>
+  </data>
+  <data name="Exchange Rate" xml:space="preserve">
+    <value>نرخ تبادله</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>قیمت</value>
+  </data>
+  <data name="Cannabis" xml:space="preserve">
+    <value>چرس</value>
+  </data>
+  <data name="Zone" xml:space="preserve">
+    <value>زون</value>
+  </data>
+  <data name="Garda" xml:space="preserve">
+    <value>گرده</value>
+  </data>
+  <data name="Select Month" xml:space="preserve">
+    <value>ماه را انتخاب کنید</value>
+  </data>
+  <data name="Select Collection Date" xml:space="preserve">
+    <value>تاریخ جمع آوری را انتخاب کنید</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>مقدار</value>
+  </data>
+  <data name="Equivalent in Kg" xml:space="preserve">
+    <value>معادل به کیلوگرام</value>
+  </data>
+  <data name="Price in USD" xml:space="preserve">
+    <value>قیمت به دالر</value>
+  </data>
+  <data name="Search by Month" xml:space="preserve">
+    <value>جستجو به اساس ماه</value>
+  </data>
+  <data name="Search by Collection Date" xml:space="preserve">
+    <value>جستجو به اساس تاریخ جمع آوری</value>
+  </data>
+
+
+
+
+</root>

@@ -1,0 +1,1179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account Settings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add {0} </value>
+  </data>
+  <data name="Agenda" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="Approve Provincail Meeting" xml:space="preserve">
+    <value>Approve Provincail Meeting</value>
+  </data>
+  <data name="Approve Research" xml:space="preserve">
+    <value>Approve Research</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="Are you sure?" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="Back to List" xml:space="preserve">
+    <value>Back to List</value>
+  </data>
+  <data name="Central Meeting" xml:space="preserve">
+    <value>Central Meeting</value>
+  </data>
+  <data name="Central Meetings" xml:space="preserve">
+    <value>Central Meetings</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="Change Password" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Confirm Password" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Cordination With Institutions" xml:space="preserve">
+    <value>Cordination With Institutions</value>
+  </data>
+  <data name="Corporate Date" xml:space="preserve">
+    <value>Corporate Date</value>
+  </data>
+  <data name="Create Provincail Meeting" xml:space="preserve">
+    <value>Create Provincail Meeting</value>
+  </data>
+  <data name="Create Research" xml:space="preserve">
+    <value>Create Research</value>
+  </data>
+  <data name="Create Role" xml:space="preserve">
+    <value>Create Role</value>
+  </data>
+  <data name="Create User" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="Created By" xml:space="preserve">
+    <value>Created By</value>
+  </data>
+  <data name="Current Password" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="Dari" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="DateAndTime" xml:space="preserve">
+    <value>DateAndTime</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete {0}</value>
+  </data>
+  <data name="Delete Provincail Meeting" xml:space="preserve">
+    <value>Delete Provincail Meeting</value>
+  </data>
+  <data name="Delete Research" xml:space="preserve">
+    <value>Delete Research</value>
+  </data>
+  <data name="Delete Role" xml:space="preserve">
+    <value>Delete Role</value>
+  </data>
+  <data name="Delete User" xml:space="preserve">
+    <value>Delete User</value>
+  </data>
+  <data name="Deleted!" xml:space="preserve">
+    <value>Deleted!</value>
+  </data>
+  <data name="Department" xml:space="preserve">
+    <value>Department</value>
+  </data>
+  <data name="Departments" xml:space="preserve">
+    <value>Departments</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>Details {0}</value>
+  </data>
+  <data name="Dirctorate Of Research And Planning" xml:space="preserve">
+    <value>Dirctorate Of Research And Planning</value>
+  </data>
+  <data name="Dirctorate Of The Secretariat" xml:space="preserve">
+    <value>Dirctorate Of The Secretariat</value>
+  </data>
+  <data name="Directorate Of Research Studies And Plannig Management" xml:space="preserve">
+    <value>Directorate Of Research Studies And Plannig Management</value>
+  </data>
+  <data name="Directorates Management Permissions" xml:space="preserve">
+    <value>Directorates Management Permissions</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit {0}</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Enter Department Name" xml:space="preserve">
+    <value>Enter Department Name</value>
+  </data>
+  <data name="fa" xml:space="preserve">
+    <value>Dari</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Faild" xml:space="preserve">
+    <value>Faild</value>
+  </data>
+  <data name="FatherName" xml:space="preserve">
+    <value>FatherName</value>
+  </data>
+  <data name="General Settings" xml:space="preserve">
+    <value>General Settings</value>
+  </data>
+  <data name="General System Management" xml:space="preserve">
+    <value>General System Management</value>
+  </data>
+  <data name="General System Setup" xml:space="preserve">
+    <value>General System Setup</value>
+  </data>
+  <data name="Generate Provincail Meeting Report" xml:space="preserve">
+    <value>Generate Provincail Meeting Report</value>
+  </data>
+  <data name="Generate Research Report" xml:space="preserve">
+    <value>Generate Research Report</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Is Have Access" xml:space="preserve">
+    <value>Is Have Access</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>List {0}</value>
+  </data>
+  <data name="List Provincail Meetings" xml:space="preserve">
+    <value>List Provincail Meetings</value>
+  </data>
+  <data name="List Researches" xml:space="preserve">
+    <value>List Researches</value>
+  </data>
+  <data name="List Roles" xml:space="preserve">
+    <value>List Roles</value>
+  </data>
+  <data name="List Users" xml:space="preserve">
+    <value>List Users</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>LogOut</value>
+  </data>
+  <data name="Manage User Role" xml:space="preserve">
+    <value>Manage User Role</value>
+  </data>
+  <data name="Meeting" xml:space="preserve">
+    <value>Meeting</value>
+  </data>
+  <data name="Meetings" xml:space="preserve">
+    <value>Meetings</value>
+  </data>
+  <data name="MOIA" xml:space="preserve">
+    <value>Ministry of Intrior Afairs</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="New Password" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="Pashto" xml:space="preserve">
+    <value>Pashto</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="Proposal File" xml:space="preserve">
+    <value>Proposal File</value>
+  </data>
+  <data name="Proposal File Source" xml:space="preserve">
+    <value>Proposal File Source</value>
+  </data>
+  <data name="Proposal Files Information" xml:space="preserve">
+    <value>Proposal Files Information</value>
+  </data>
+  <data name="Provincail Meetings" xml:space="preserve">
+    <value>Provincail Meetings</value>
+  </data>
+  <data name="Province" xml:space="preserve">
+    <value>Province</value>
+  </data>
+  <data name="Provincial Meeting" xml:space="preserve">
+    <value>Provincial Meeting</value>
+  </data>
+  <data name="Provincial Meeting Management Permissions" xml:space="preserve">
+    <value>Provincial Meeting Management Permissions</value>
+  </data>
+  <data name="ps" xml:space="preserve">
+    <value>Pashto</value>
+  </data>
+  <data name="Published Date" xml:space="preserve">
+    <value>Published Date</value>
+  </data>
+  <data name="Record Created Successfully" xml:space="preserve">
+    <value>Record Created Successfully</value>
+  </data>
+  <data name="Record Dose Not Fetched!" xml:space="preserve">
+    <value>Record Dose Not Fetched!</value>
+  </data>
+  <data name="Record has not been Created!" xml:space="preserve">
+    <value>Record has not been Created!</value>
+  </data>
+  <data name="Record has not been Deleted!" xml:space="preserve">
+    <value>Record has not been Deleted!</value>
+  </data>
+  <data name="Record has not been Updated!" xml:space="preserve">
+    <value>Record has not been Updated!</value>
+  </data>
+  <data name="Record Updated Successfully" xml:space="preserve">
+    <value>Record Updated Successfully</value>
+  </data>
+  <data name="Register New User" xml:space="preserve">
+    <value>Register New User</value>
+  </data>
+  <data name="Registration Date" xml:space="preserve">
+    <value>Registration Date</value>
+  </data>
+  <data name="Report File" xml:space="preserve">
+    <value>Report File</value>
+  </data>
+  <data name="Report File Source" xml:space="preserve">
+    <value>Report File Source</value>
+  </data>
+  <data name="Report Files Information" xml:space="preserve">
+    <value>Report Files Information</value>
+  </data>
+  <data name="Research" xml:space="preserve">
+    <value>Research</value>
+  </data>
+  <data name="Research Code" xml:space="preserve">
+    <value>Research Code</value>
+  </data>
+  <data name="Research Department" xml:space="preserve">
+    <value>Research Department</value>
+  </data>
+  <data name="Research Information" xml:space="preserve">
+    <value>Research Information</value>
+  </data>
+  <data name="Research Location" xml:space="preserve">
+    <value>Research Location</value>
+  </data>
+  <data name="Research Management Permissions" xml:space="preserve">
+    <value>Research Management Permissions</value>
+  </data>
+  <data name="Research Title" xml:space="preserve">
+    <value>Research Title</value>
+  </data>
+  <data name="Researches" xml:space="preserve">
+    <value>Researches</value>
+  </data>
+  <data name="ReviewStatus" xml:space="preserve">
+    <value>ReviewStatus</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="Role Management" xml:space="preserve">
+    <value>Role Management</value>
+  </data>
+  <data name="Role Management Permissions" xml:space="preserve">
+    <value>Role Management Permissions</value>
+  </data>
+  <data name="Role Name" xml:space="preserve">
+    <value>Role Name</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Save Changes" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Select an option" xml:space="preserve">
+    <value>Select an option</value>
+  </data>
+  <data name="Select Date" xml:space="preserve">
+    <value>Select Date</value>
+  </data>
+  <data name="Select Date and time" xml:space="preserve">
+    <value>Select Date and time</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="This action can not be undone!" xml:space="preserve">
+    <value>This action can't be undone!</value>
+  </data>
+  <data name="Update Provincail Meeting" xml:space="preserve">
+    <value>Update Provincail Meeting</value>
+  </data>
+  <data name="Update Research" xml:space="preserve">
+    <value>Update Research</value>
+  </data>
+  <data name="Update Role" xml:space="preserve">
+    <value>Update Role</value>
+  </data>
+  <data name="Update User" xml:space="preserve">
+    <value>Update User</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="User Info" xml:space="preserve">
+    <value>User Info</value>
+  </data>
+  <data name="User Management" xml:space="preserve">
+    <value>User Management</value>
+  </data>
+  <data name="User Management Permissions" xml:space="preserve">
+    <value>User Management Permissions</value>
+  </data>
+  <data name="User Profile Details" xml:space="preserve">
+    <value>User Profile Details</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>UserName</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="Yes, delete it!" xml:space="preserve">
+    <value>Yes, delete it!</value>
+  </data>
+  <data name="Your item has been deleted." xml:space="preserve">
+    <value>Your item has been deleted.</value>
+  </data>
+  <data name="{0} is required" xml:space="preserve">
+    <value>{0} is required</value>
+  </data>
+  <data name="{0} must be a number" xml:space="preserve">
+    <value>{0} must be a number</value>
+  </data>
+  <data name="Create Central Meeting" xml:space="preserve">
+    <value>Create Central Meeting</value>
+  </data>
+  <data name="Delete Central Meeting" xml:space="preserve">
+    <value>Delete Central Meeting</value>
+  </data>
+  <data name="Generate Central Meeting Report" xml:space="preserve">
+    <value>Generate Central Meeting Report</value>
+  </data>
+  <data name="List Central Meetings" xml:space="preserve">
+    <value>List Central Meetings</value>
+  </data>
+  <data name="Update Central Meeting" xml:space="preserve">
+    <value>Update Central Meeting</value>
+  </data>
+  <data name="Central Meeting Management Permissions" xml:space="preserve">
+    <value>Central Meeting Management Permissions</value>
+  </data>
+  <data name="Communication Type" xml:space="preserve">
+    <value>Communication Type</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="Related Department" xml:space="preserve">
+    <value>Related Department</value>
+  </data>
+  <data name="Report Collecting" xml:space="preserve">
+    <value>Report Collecting</value>
+  </data>
+  <data name="Report Collecting Departments" xml:space="preserve">
+    <value>Report Collecting Departments</value>
+  </data>
+  <data name="Report Collectings" xml:space="preserve">
+    <value>Report Collectings</value>
+  </data>
+  <data name="Send To Report Analysis" xml:space="preserve">
+    <value>Send To Report Analysis</value>
+  </data>
+  <data name="Verbal" xml:space="preserve">
+    <value>Verbal</value>
+  </data>
+  <data name="Written" xml:space="preserve">
+    <value>Written</value>
+  </data>
+  <data name="Create Report Collection" xml:space="preserve">
+    <value>Create Report Collection</value>
+  </data>
+  <data name="Delete Report Collection" xml:space="preserve">
+    <value>Delete Report Collection</value>
+  </data>
+  <data name="Generate Report Collection Report" xml:space="preserve">
+    <value>Generate Report Collection Report</value>
+  </data>
+  <data name="List Report Collection" xml:space="preserve">
+    <value>List Report Collection</value>
+  </data>
+  <data name="Update Report Collection" xml:space="preserve">
+    <value>Update Report Collection</value>
+  </data>
+  <data name="Report Collection Department Permissions" xml:space="preserve">
+    <value>Report Collection Department Permissions</value>
+  </data>
+  <data name="Log In" xml:space="preserve">
+    <value>Log In</value>
+  </data>
+  <data name="Plans" xml:space="preserve">
+    <value>Plans</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="StratagicGoal" xml:space="preserve">
+    <value>Stratagic Goal</value>
+  </data>
+  <data name="DeterminedActions" xml:space="preserve">
+    <value>Determined Actions</value>
+  </data>
+  <data name="Plan Department" xml:space="preserve">
+    <value>Plan Department</value>
+  </data>
+  <data name="Plan" xml:space="preserve">
+    <value>Plan</value>
+  </data>
+  <data name="Year is required" xml:space="preserve">
+    <value>Year is required</value>
+  </data>
+  <data name="Department is required" xml:space="preserve">
+    <value>Department is required</value>
+  </data>
+  <data name="Strategic Goal is required" xml:space="preserve">
+    <value>Strategic Goal is required</value>
+  </data>
+  <data name="Determined Actions is required" xml:space="preserve">
+    <value>Determined Actions is required</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print {0}</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="Indicator" xml:space="preserve">
+    <value>Indicator</value>
+  </data>
+  <data name="EstimatedPrice" xml:space="preserve">
+    <value>Estimated Price</value>
+  </data>
+  <data name="FirstQuarter" xml:space="preserve">
+    <value>First Quarter</value>
+  </data>
+  <data name="SecondQuarter" xml:space="preserve">
+    <value>Second Quarter</value>
+  </data>
+  <data name="ThirdQuarter" xml:space="preserve">
+    <value>Third Quarter</value>
+  </data>
+  <data name="FourthQuarter" xml:space="preserve">
+    <value>Fourth Quarter</value>
+  </data>
+  <data name="ImplementationResponsible" xml:space="preserve">
+    <value>Implementation Responsible</value>
+  </data>
+  <data name="CollaboratingDepartments" xml:space="preserve">
+    <value>Collaborating Departments</value>
+  </data>
+  <data name="ExpectedResults" xml:space="preserve">
+    <value>Expected Results</value>
+  </data>
+  <data name="ToList" xml:space="preserve">
+    <value>To List</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="is required" xml:space="preserve">
+    <value>is required</value>
+  </data>
+  <data name="Implementation Of Resolution" xml:space="preserve">
+    <value>Implementation Of Resolution</value>
+  </data>
+  <data name="Implementation Of Resolution In Central Offices" xml:space="preserve">
+    <value>Implementation Of Resolution In Central Offices</value>
+  </data>
+  <data name="AnalysisOfReceivedTopics" xml:space="preserve">
+    <value>AnalysisOfReceivedTopics</value>
+  </data>
+  <data name="IndependentOffice" xml:space="preserve">
+    <value>IndependentOffice</value>
+  </data>
+  <data name="OrganizingTopics" xml:space="preserve">
+    <value>OrganizingTopics</value>
+  </data>
+  <data name="Create Implementation of Resolution" xml:space="preserve">
+    <value>Create Implementation of Resolution</value>
+  </data>
+  <data name="Delete Implementation of Resolution" xml:space="preserve">
+    <value>Delete Implementation of Resolution</value>
+  </data>
+  <data name="Generate Implementation Of Resolution Report" xml:space="preserve">
+    <value>Generate Implementation Of Resolution Report</value>
+  </data>
+  <data name="List Implementation of Resolution" xml:space="preserve">
+    <value>List Implementation of Resolution</value>
+  </data>
+  <data name="Update Implementation of Resolution" xml:space="preserve">
+    <value>Update Implementation of Resolution</value>
+  </data>
+  <data name="Implementation Of Resolution Permissions" xml:space="preserve">
+    <value>Implementation Of Resolution Permissions</value>
+  </data>
+  <data name="Please wait..." xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="Empty data is not allowed" xml:space="preserve">
+    <value>Empty data is not allowed</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="An unexpected error occurred" xml:space="preserve">
+    <value>An unexpected error occurred</value>
+  </data>
+  <data name="You won't be able to revert this" xml:space="preserve">
+    <value>You won't be able to revert this</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Record has been Deleted!" xml:space="preserve">
+    <value>Record has not been Deleted!</value>
+  </data>
+  <data name="Plan Information" xml:space="preserve">
+    <value>Plan Information</value>
+  </data>
+  <data name="Breakdown And Consistency Of Report Details" xml:space="preserve">
+    <value>Breakdown And Consistency Of Report Details</value>
+  </data>
+  <data name="Breakdown And Consistency Of Reports" xml:space="preserve">
+    <value>Breakdown And Consistency Of Reports</value>
+  </data>
+  <data name="Confirmed/Canceled By" xml:space="preserve">
+    <value>Confirmed/Canceled By</value>
+  </data>
+  <data name="Decisions" xml:space="preserve">
+    <value>Decisions</value>
+  </data>
+  <data name="Implementations" xml:space="preserve">
+    <value>Implementations</value>
+  </data>
+  <data name="Meeting Agenda" xml:space="preserve">
+    <value>Meeting Agenda</value>
+  </data>
+  <data name="Ministry" xml:space="preserve">
+    <value>Ministry</value>
+  </data>
+  <data name="Problems" xml:space="preserve">
+    <value>Problems</value>
+  </data>
+  <data name="Reason For Not Implementing" xml:space="preserve">
+    <value>Reason For Not Implementing</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>Solutions</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Approve Breakdown And Consistency" xml:space="preserve">
+    <value>Approve Breakdown And Consistency</value>
+  </data>
+  <data name="Breakdown And Consistency Permissions" xml:space="preserve">
+    <value>Breakdown And Consistency Permissions</value>
+  </data>
+  <data name="Create Breakdown And Consistency" xml:space="preserve">
+    <value>Create Breakdown And Consistency</value>
+  </data>
+  <data name="Delete Breakdown And Consistency" xml:space="preserve">
+    <value>Delete Breakdown And Consistency</value>
+  </data>
+  <data name="Generate Breakdown And Consistency Report" xml:space="preserve">
+    <value>Generate Breakdown And Consistency Report</value>
+  </data>
+  <data name="List Breakdown And Consistency" xml:space="preserve">
+    <value>List Breakdown And Consistency</value>
+  </data>
+  <data name="Update Breakdown And Consistency" xml:space="preserve">
+    <value>Update Breakdown And Consistency</value>
+  </data>
+  <data name="View Breakdown And Consistency" xml:space="preserve">
+    <value>View Breakdown And Consistency</value>
+  </data>
+  <data name="Create Scrutiny And Analysis" xml:space="preserve">
+    <value>Create Scrutiny And Analysis</value>
+  </data>
+  <data name="Delete Scrutiny And Analysis" xml:space="preserve">
+    <value>Delete Scrutiny And Analysis</value>
+  </data>
+  <data name="Generate Scrutiny And Analysis Report" xml:space="preserve">
+    <value>Generate Scrutiny And Analysis Report</value>
+  </data>
+  <data name="List Scrutiny And Analysis" xml:space="preserve">
+    <value>List Scrutiny And Analysis</value>
+  </data>
+  <data name="Scrutiny And Analysis Permissions" xml:space="preserve">
+    <value>Scrutiny And Analysis Permissions</value>
+  </data>
+  <data name="Update Scrutiny And Analysis" xml:space="preserve">
+    <value>Update Scrutiny And Analysis</value>
+  </data>
+  <data name="View Scrutiny And Analysis" xml:space="preserve">
+    <value>View Scrutiny And Analysis</value>
+  </data>
+  <data name="Chekclist" xml:space="preserve">
+    <value>Chekclist</value>
+  </data>
+  <data name="Department Unit" xml:space="preserve">
+    <value>Department Unit</value>
+  </data>
+  <data name="District" xml:space="preserve">
+    <value>District</value>
+  </data>
+  <data name="Follow Up Cases" xml:space="preserve">
+    <value>Follow Up Cases</value>
+  </data>
+  <data name="Follow Up References" xml:space="preserve">
+    <value>Follow Up References</value>
+  </data>
+  <data name="Offers" xml:space="preserve">
+    <value>Offers</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Remarks</value>
+  </data>
+  <data name="Scrutiny And Analysis" xml:space="preserve">
+    <value>Scrutiny And Analysis</value>
+  </data>
+  <data name="Scrutiny Subject" xml:space="preserve">
+    <value>Scrutiny Subject</value>
+  </data>
+  <data name="Sender" xml:space="preserve">
+    <value>Sender</value>
+  </data>
+  <data name="Scrutiny And Analysis Detials" xml:space="preserve">
+    <value>Scrutiny And Analysis Detials</value>
+  </data>
+  <data name="Actions Taken" xml:space="preserve">
+    <value>Actions Taken</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="Percentage" xml:space="preserve">
+    <value>Percentage</value>
+  </data>
+  <data name="Performance and Activity Report Format of the Secretariat Directorate of the High Commission" xml:space="preserve">
+    <value>Performance and Activity Report Format of the Secretariat Directorate of the High Commission</value>
+  </data>
+  <data name="Planned Objectives" xml:space="preserve">
+    <value>Planned Objectives</value>
+  </data>
+  <data name="Secretariat Report Result" xml:space="preserve">
+    <value>Secretariat Report Result</value>
+  </data>
+  <data name="Secretariat Reports" xml:space="preserve">
+    <value>Secretariat Reports</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="Approve Secretariat Report" xml:space="preserve">
+    <value>Approve Secretariat Report</value>
+  </data>
+  <data name="Create Secretariat Report" xml:space="preserve">
+    <value>Create Secretariat Report</value>
+  </data>
+  <data name="Delete Secretariat Report" xml:space="preserve">
+    <value>Delete Secretariat Report</value>
+  </data>
+  <data name="Generate Secretariat Report Report" xml:space="preserve">
+    <value>Generate Secretariat Report Report</value>
+  </data>
+  <data name="List Secretariat Report" xml:space="preserve">
+    <value>List Secretariat Report</value>
+  </data>
+  <data name="Secretariat Report Permissions" xml:space="preserve">
+    <value>Secretariat Report Permissions</value>
+  </data>
+  <data name="Update Secretariat Report" xml:space="preserve">
+    <value>Update Secretariat Report</value>
+  </data>
+  <data name="View Secretariat Report" xml:space="preserve">
+    <value>View Secretariat Report</value>
+  </data>
+  <data name="Follow Up And Supervision" xml:space="preserve">
+    <value>Follow Up And Supervision</value>
+  </data>
+  <data name="CompletedActions" xml:space="preserve">
+    <value>CompletedActions</value>
+  </data>
+  <data name="Conclusion" xml:space="preserve">
+    <value>Conclusion</value>
+  </data>
+  <data name="Directives" xml:space="preserve">
+    <value>Directives</value>
+  </data>
+  <data name="PercentageOfImplementedActions" xml:space="preserve">
+    <value>PercentageOfImplementedActions</value>
+  </data>
+  <data name="ResponsibleIndependentAuthority" xml:space="preserve">
+    <value>ResponsibleIndependentAuthority</value>
+  </data>
+  <data name="Select All" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="Delete FollowUp And Supervision" xml:space="preserve">
+    <value>Delete FollowUp And Supervision</value>
+  </data>
+  <data name="Generate FollowUp And Supervision Report" xml:space="preserve">
+    <value>Generate FollowUp And Supervision Report</value>
+  </data>
+  <data name="List FollowUp And Supervision" xml:space="preserve">
+    <value>List FollowUp And Supervision</value>
+  </data>
+  <data name="Update FollowUp And Supervision" xml:space="preserve">
+    <value>Update FollowUp And Supervision</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Approve Monitoring And Evaluation Department" xml:space="preserve">
+    <value>Approve Monitoring And Evaluation Department</value>
+  </data>
+  <data name="Cancel Monitoring And Evaluation Department" xml:space="preserve">
+    <value>Cancel Monitoring And Evaluation Department</value>
+  </data>
+  <data name="Create Monitoring And Evaluation Department" xml:space="preserve">
+    <value>Create Monitoring And Evaluation Department</value>
+  </data>
+  <data name="Delete Monitoring And Evaluation Department" xml:space="preserve">
+    <value>Delete Monitoring And Evaluation Department</value>
+  </data>
+  <data name="First Quadrate" xml:space="preserve">
+    <value>First Quadrate</value>
+  </data>
+  <data name="FirstQuantity" xml:space="preserve">
+    <value>First Quantity</value>
+  </data>
+  <data name="FirstUnit" xml:space="preserve">
+    <value>First Unit</value>
+  </data>
+  <data name="Fourth Quadrate" xml:space="preserve">
+    <value>Fourth Quadrate</value>
+  </data>
+  <data name="fourthQuantity" xml:space="preserve">
+    <value>fourthQuantity</value>
+  </data>
+  <data name="fourthUnit" xml:space="preserve">
+    <value>fourthUnit</value>
+  </data>
+  <data name="Implementation Status" xml:space="preserve">
+    <value>ImplementationStatus</value>
+  </data>
+  <data name="List Monitoring And Evaluation Department" xml:space="preserve">
+    <value>List Monitoring And Evaluation Department</value>
+  </data>
+  <data name="Monitoring And Evaluation Department" xml:space="preserve">
+    <value>Monitoring And Evaluation Department</value>
+  </data>
+  <data name="Monitoring And Evaluation Department Permissions" xml:space="preserve">
+    <value>Monitoring And Evaluation Department Permissions</value>
+  </data>
+  <data name="Second Quadrate" xml:space="preserve">
+    <value>Second Quadrate</value>
+  </data>
+  <data name="SecondQuantity" xml:space="preserve">
+    <value>Second Quantity</value>
+  </data>
+  <data name="SecondUnit" xml:space="preserve">
+    <value>SecondUnit</value>
+  </data>
+  <data name="Third Quadrate" xml:space="preserve">
+    <value>Third Quadrate</value>
+  </data>
+  <data name="ThirdQuantity" xml:space="preserve">
+    <value>ThirdQuantity</value>
+  </data>
+  <data name="ThirdUnit" xml:space="preserve">
+    <value>ThirdUnit</value>
+  </data>
+  <data name="TypeOfActivity" xml:space="preserve">
+    <value>TypeOfActivity</value>
+  </data>
+  <data name="UpdateMonitoring And Evaluation Department" xml:space="preserve">
+    <value>UpdateMonitoring And Evaluation Department</value>
+  </data>
+  <data name="Directorate of Coordination" xml:space="preserve">
+    <value>Directorate of Coordination</value>
+  </data>
+  <data name="Monitoring File" xml:space="preserve">
+    <value>Monitoring File</value>
+  </data>
+  <data name="Approve Directorate Of Coordination Report" xml:space="preserve">
+    <value>Approve Directorate Of Coordination Report</value>
+  </data>
+  <data name="Attachment" xml:space="preserve">
+    <value>Attachment</value>
+  </data>
+  <data name="Cancel Directorate Of Coordination Report" xml:space="preserve">
+    <value>Cancel Directorate Of Coordination Report</value>
+  </data>
+  <data name="CoordinationWithGovernmentAgencies" xml:space="preserve">
+    <value>CoordinationWithGovernmentAgencies</value>
+  </data>
+  <data name="CoordinationWithJudicialAndLegal" xml:space="preserve">
+    <value>CoordinationWithJudicialAndLegal</value>
+  </data>
+  <data name="Coordinator Department" xml:space="preserve">
+    <value>Coordinator Department</value>
+  </data>
+  <data name="Coordinator Info" xml:space="preserve">
+    <value>Coordinator Info</value>
+  </data>
+  <data name="Coordinator Job" xml:space="preserve">
+    <value>Coordinator Job</value>
+  </data>
+  <data name="Coordinator Name" xml:space="preserve">
+    <value>Coordinator Name</value>
+  </data>
+  <data name="Create Directorate Of Coordination Report" xml:space="preserve">
+    <value>Create Directorate Of Coordination Report</value>
+  </data>
+  <data name="Delete Directorate Of Coordination Report" xml:space="preserve">
+    <value>Delete Directorate Of Coordination Report</value>
+  </data>
+  <data name="Department Names" xml:space="preserve">
+    <value>Department Names</value>
+  </data>
+  <data name="Authority for Coordination with Government Agencies" xml:space="preserve">
+    <value>Department Of Coordination With Government Agnecies</value>
+  </data>
+  <data name="Department Of Judicial And Legal" xml:space="preserve">
+    <value>Department Of Judicial And Legal</value>
+  </data>
+  <data name="Help Amount" xml:space="preserve">
+    <value>Help Amount</value>
+  </data>
+  <data name="List Directorate Of Coordination Report" xml:space="preserve">
+    <value>List Directorate Of Coordination Report</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Short Report" xml:space="preserve">
+    <value>Short Report</value>
+  </data>
+  <data name="Update Directorate Of Coordination Report" xml:space="preserve">
+    <value>Update Directorate Of Coordination Report</value>
+  </data>
+  <data name="Directorate of Private Sector Coordination" xml:space="preserve">
+    <value>Directorate of Private Sector Coordination</value>
+  </data>
+  <data name="Directorate of Security Sector Coordination" xml:space="preserve">
+    <value>Directorate of Security Sector Coordination</value>
+  </data>
+  <data name="DirectorateofPrivateSectorCoordination" xml:space="preserve">
+    <value>DirectorateofPrivateSectorCoordination</value>
+  </data>
+  <data name="DirectorateofSecuritySectorCoordination" xml:space="preserve">
+    <value>DirectorateofSecuritySectorCoordination</value>
+  </data>
+  <data name="Departements Of Coordination Directorate Permissions" xml:space="preserve">
+    <value>Departements Of Coordination Directorate Permissions</value>
+  </data>
+  <data name="Directorate of Coordination Reports Permissions" xml:space="preserve">
+    <value>Directorate of Coordination Reports Permissions</value>
+  </data>
+  <data name="Generate Directorate Of Coordination Report Report" xml:space="preserve">
+    <value>Generate Directorate Of Coordination Report Report</value>
+  </data>
+  <data name="Authenticator" xml:space="preserve">
+    <value>Authenticator</value>
+  </data>
+  <data name="Verifier" xml:space="preserve">
+    <value>Verifier</value>
+  </data>
+  <data name="Authenticated" xml:space="preserve">
+    <value>Authenticated</value>
+  </data>
+  <data name="Authenticate" xml:space="preserve">
+    <value>Authenticate</value>
+  </data>
+  <data name="Verify" xml:space="preserve">
+    <value>Verify</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>Verified</value>
+  </data>
+  <data name="Record has been Authenticated!" xml:space="preserve">
+    <value>Record has been Authenticated!</value>
+  </data>
+  <data name="Record has been Verified!" xml:space="preserve">
+    <value>Record has been Verified!</value>
+  </data>
+  <data name="Do You Want to Authenticate the Record" xml:space="preserve">
+    <value>Do You Want to Authenticate the Record</value>
+  </data>
+  <data name="Do You Want to Verify the Record" xml:space="preserve">
+    <value>Do You Want to Verify the Record</value>
+  </data>
+  <data name="Monthly Reports" xml:space="preserve">
+    <value>Monthly Reports</value>
+  </data>
+  <data name="Monthly Report" xml:space="preserve">
+    <value>Monthly Report</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="Monthly Report Information" xml:space="preserve">
+    <value>Monthly Report Information</value>
+  </data>
+  <data name="PlannedTasks" xml:space="preserve">
+    <value>Planned Tasks</value>
+  </data>
+  <data name="DonePerformances" xml:space="preserve">
+    <value>Done Performances</value>
+  </data>
+  <data name="CurrentStateOfActivity" xml:space="preserve">
+    <value>Current State Of Activity</value>
+  </data>
+  <data name="ProgressPercentage" xml:space="preserve">
+    <value>Progress Percentage</value>
+  </data>
+  <data name="AchievementsOrResults" xml:space="preserve">
+    <value>Achievements Or Results</value>
+  </data>
+  <data name="ResponsibleDepartments" xml:space="preserve">
+    <value>Responsible Departments</value>
+  </data>
+  <data name="Not Started" xml:space="preserve">
+    <value>Not Started</value>
+  </data>
+  <data name="In Progress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="AwarenessReporting" xml:space="preserve">
+    <value>Awareness Reporting</value>
+  </data>
+  <data name="ProgramTitle" xml:space="preserve">
+    <value>Program Title</value>
+  </data>
+  <data name="ResponsibleDepartment" xml:space="preserve">
+    <value>Responsible Department</value>
+  </data>
+  <data name="CreateDate" xml:space="preserve">
+    <value>Create Date</value>
+  </data>
+  <data name="Quarter" xml:space="preserve">
+    <value>Quarter</value>
+  </data>
+  <data name="AwarenessMethod" xml:space="preserve">
+    <value>Awareness Method</value>
+  </data>
+  <data name="AwarenessGoal" xml:space="preserve">
+    <value>Awareness Goal</value>
+  </data>
+  <data name="Challenges" xml:space="preserve">
+    <value>Challenges</value>
+  </data>
+  <data name="TargetGroup" xml:space="preserve">
+    <value>Target Group</value>
+  </data>
+  <data name="ProgramStatus" xml:space="preserve">
+    <value>Program Status</value>
+  </data>
+  <data name="Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Approved By" xml:space="preserve">
+    <value>Approved By</value>
+  </data>
+  <data name="Directorate Of Survey" xml:space="preserve">
+    <value>Directorate Of Survey</value>
+  </data>
+  <data name="NO" xml:space="preserve">
+    <value>NO</value>
+  </data>
+  <data name="ExecutionTime" xml:space="preserve">
+    <value>Execution Time</value>
+  </data>
+</root>
