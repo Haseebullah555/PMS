@@ -36,3 +36,23 @@ C:\Users\PC\Desktop\PMS\backend\Identity\obj\Debug\net8.0\Identity.dll
 C:\Users\PC\Desktop\PMS\backend\Identity\obj\Debug\net8.0\refint\Identity.dll
 C:\Users\PC\Desktop\PMS\backend\Identity\obj\Debug\net8.0\Identity.pdb
 C:\Users\PC\Desktop\PMS\backend\Identity\obj\Debug\net8.0\ref\Identity.dll
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Identity.deps.json
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Identity.dll
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Identity.pdb
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Application.dll
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Domain.dll
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Persistence.dll
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Application.pdb
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Persistence.pdb
+D:\D Drive data\PMS\backend\Identity\bin\Debug\net8.0\Domain.pdb
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.csproj.AssemblyReference.cache
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.GeneratedMSBuildEditorConfig.editorconfig
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.AssemblyInfoInputs.cache
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.AssemblyInfo.cs
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.csproj.CoreCompileInputs.cache
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.sourcelink.json
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.csproj.Up2Date
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.dll
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\refint\Identity.dll
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\Identity.pdb
+D:\D Drive data\PMS\backend\Identity\obj\Debug\net8.0\ref\Identity.dll

@@ -32,3 +32,21 @@ C:\Users\PC\Desktop\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.dll
 C:\Users\PC\Desktop\PMS\backend\Persistence\obj\Debug\net8.0\refint\Persistence.dll
 C:\Users\PC\Desktop\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.pdb
 C:\Users\PC\Desktop\PMS\backend\Persistence\obj\Debug\net8.0\ref\Persistence.dll
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Persistence.deps.json
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Persistence.dll
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Persistence.pdb
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Application.dll
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Domain.dll
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Application.pdb
+D:\D Drive data\PMS\backend\Persistence\bin\Debug\net8.0\Domain.pdb
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.csproj.AssemblyReference.cache
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfoInputs.cache
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.AssemblyInfo.cs
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.csproj.CoreCompileInputs.cache
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.sourcelink.json
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persiste.61C28332.Up2Date
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.dll
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\refint\Persistence.dll
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\Persistence.pdb
+D:\D Drive data\PMS\backend\Persistence\obj\Debug\net8.0\ref\Persistence.dll

@@ -1,5 +1,6 @@
 using Application.Dtos;
 using AutoMapper;
+using Domain.Models;
 
 namespace Application.Profiles
 {
@@ -7,6 +8,8 @@ namespace Application.Profiles
     {
         public MappingProfile()
         {
+            CreateMap<Supplier, SupplierDto>().ReverseMap();
+            CreateMap<Customer, CustomerDto>().ReverseMap();
         }
     }
 }

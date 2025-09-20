@@ -1,4 +1,5 @@
-﻿using Domain.UserManagement;
+﻿using Domain.Models;
+using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Database
@@ -7,7 +8,9 @@ namespace Persistence.Database
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         #region DbSets
-            public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         #endregion
     }
 }
