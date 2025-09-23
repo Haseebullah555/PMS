@@ -8,6 +8,7 @@ namespace Domain.Models
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
-        public CustomerType CustomerType { get; set; }
+        public ICollection<Sale> Sales { get; set; } = new List<Sale>();
+        public ICollection<CustomerLoan> Loans { get; set; } = new List<CustomerLoan>();
     }
 }

@@ -11,6 +11,6 @@ namespace Domain.Models
         public string Phone { get; set; }
         [Required]
         public double Salary { get; set; }
-        public DateOnly HireDate { get; set; }
+        public ICollection<SalaryPayment> SalaryPayments { get; set; } = new List<SalaryPayment>();
     }
 }
