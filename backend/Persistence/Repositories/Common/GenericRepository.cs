@@ -39,10 +39,11 @@ namespace Persistence.Repositories.Common
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task<List<T>> GetAll()
+        public IQueryable<T> GetAll()
         {
-            return await _context.Set<T>().ToListAsync();
+            return _context.Set<T>().AsQueryable();
         }
+
 
         public async Task Update(T entity)
         {

@@ -6,6 +6,7 @@ import DashboardWrapper from '../pages/dashboard/DashboardWrapper'
 import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
 import {WithChildren} from '../../_metronic/helpers'
 import LibraryManagementRoutes from 'app/modules/system/library/LibraryManagementRoutes'
+import SupplierManagementRoutes from 'app/modules/system/supplier/SupplierManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -30,6 +31,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <LibraryManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='supplier/*'
+          element={
+            <SuspensedView>
+              <SupplierManagementRoutes />
             </SuspensedView>
           }
         />

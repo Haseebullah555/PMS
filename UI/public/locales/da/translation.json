@@ -32,6 +32,8 @@
     "NAMEPASHTO": "نام پشتو",
     "NAMEENGLISH": "نام انگلیسی",
     "ACTION": "عمل",
+    "address": "آدرس",
+    "phone": "شماره تماس",
     "EDIT": "تجدید کردن",
     "DELETE": "حذف کردن",
     "DELETETITLE": "آیا مطمعا هستید که این ریکارد حذف شود!",
@@ -212,7 +214,7 @@
     "number_of_members_male": "تعداد اعضاء فامیل پسر",
     "number_of_members_female": "تعداد اعضاء دختر",
     "existince_in_political_party": "عضویت در احزاب",
-    "phone_number1": "شماره تماس",
+    "phoneNumber1": "شماره تماس",
     "phone_number2": "شماره واتس آپ",
     "current_job": "وظیفه فعلی",
     "current_job_place": "موقعیت وظیفه فعلی",
@@ -278,6 +280,10 @@
     "books": "کتاب ها",
     "book": "کتاب",
     "description": "توضیحات"
+  },
+  "supplier": {
+    "suppliers": "تأمین کنندگان",
+    "supplier": "تأمین کننده"
   }
 
 }

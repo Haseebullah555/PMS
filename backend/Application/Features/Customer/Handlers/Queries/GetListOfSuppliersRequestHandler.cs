@@ -18,7 +18,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<List<CustomerDto>> Handle(GetListOfCustomersRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.Customers.GetAll();
+            var result = _unitOfWork.Customers.GetAll();
             return _mapper.Map<List<CustomerDto>>(result);
         }
     }

@@ -51,7 +51,7 @@ export function MenuInner() {
   } else if (currentBasePath == 'library') {
     return <>   
     <MenuItem title={t('book.books')} to='/library/book/list' />
-    <MenuItem title={t('book.books')} to='/library/book/list' />
+    <MenuItem title={t('supplier.supplier')} to='/supplier/list' />
     </>
   } else {
     return null

@@ -11,13 +11,33 @@ namespace API.Controllers
     public class SupplierController : BaseApiController
     {
         [HttpGet("list")]
-        public async Task<ActionResult> GetAllSuppliers()
+        public async Task<ActionResult> GetAllSuppliers([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var suppliers = await _mediator.Send(new GetListOfSuppliersRequest());
-            return Ok(suppliers);
+            var result = await _mediator.Send(new GetListOfSuppliersRequest
+            {
+                Search = search,
+                SortField = sort_field,
+                SortOrder = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+
+            return Ok(new
+            {
+                data = result.Data,
+                meta = new
+                {
+                    total = result.Total,
+                    current_page = result.CurrentPage,
+                    per_page = result.PerPage,
+                    last_page = result.LastPage,
+                    from = result.From,
+                    to = result.To
+                }
+            });
         }
-        [HttpPost("Create")]
-        public async Task<ActionResult> Create(SupplierDto supplierDto)
+        [HttpPost("create")]
+        public async Task<ActionResult> Create([FromBody] SupplierDto supplierDto)
         {
             if (ModelState.IsValid)
             {
@@ -26,7 +46,7 @@ namespace API.Controllers
             }
             return BadRequest(ModelState);
         }
-        [HttpPut("Update")]
+        [HttpPut("update")]
         public async Task<ActionResult> Update(SupplierDto supplierDto)
         {
             if (ModelState.IsValid)

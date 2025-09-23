@@ -39,7 +39,7 @@ const getThemeModeFromLocalStorage = (lsKey: string): ThemeModeType => {
     }
   }
 
-  return 'system'
+  return 'light'
 }
 
 const defaultThemeMode: ThemeModeContextType = {
