@@ -30,11 +30,9 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
     name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
     address: Yup.string().required(t('validation.required', { name: t('global.address') })),
     phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') }))
-      .matches(
-        /^(?:\+93|0)?7\d{8}$/,
-        t('validation.invalid', { name: t('global.phone') }) // Custom error message
-      ),
+      .required(t('validation.required', { name: t('global.phone') })) 
+      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
+      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
   })
 
   // Formik Hook
@@ -78,7 +76,6 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   const handleError = (error: any) => {
     console.error('Error creating supplier:', error.message)
   }
-  console.log(formik.errors, "lksdjfklsjdkfslkdflsjdlfsldjflksdjklfjskldjflksdjlkfjsdlkjflksdjflksdjklfjsdklfjlksdjflksdjf");
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
@@ -111,6 +108,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                 </div>
 
                 {/* Supplier phoneNumber Field */}
+                {/* Supplier phoneNumber Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
                     {t('global.phone')} <span className='text-danger'>*</span>
@@ -119,16 +117,17 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                     type='text'
                     {...formik.getFieldProps('phoneNumber')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.phoneNumber && formik.errors.phoneNumber,
+                      'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),
                       'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
                     })}
                   />
                   {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.phone') })}
+                      {formik.errors.phoneNumber}
                     </div>
                   )}
                 </div>
+
               </div>
               <div className='row'>
                 {/* Name Field */}

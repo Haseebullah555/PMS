@@ -14,7 +14,7 @@
   },
 
   "validation": {
-    "required": "masdf {{name}} ضروری میباشد!",
+    "required": "{{name}} ضروری میباشد!",
     "select-required": "انتخاب {name} ضروری میباشد!",
     "max": "بیشتر از 64 حرف {name} نباشد!",
     "min-selection": "حداقل  1 {name} را انتخاب نماید"

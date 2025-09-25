@@ -42,19 +42,19 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new AddSupplierCommand { SupplierDto = supplierDto });
-                return Ok();
+                return Ok(new {message = "تامیین کننده با موفقیت ایجاد شد"});
             }
-            return BadRequest(ModelState);
+            return BadRequest(new { message = "ایجاد تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
-        [HttpPut("update")]
+        [HttpPost("update")]
         public async Task<ActionResult> Update(SupplierDto supplierDto)
         {
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new UpdateSupplierCommand { SupplierDto = supplierDto });
-                return Ok();
+                return Ok(new {message = "تامیین کننده با موفقیت تجدید شد"});
             }
-            return BadRequest(ModelState);
+            return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

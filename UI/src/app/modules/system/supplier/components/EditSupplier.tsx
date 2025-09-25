@@ -58,8 +58,7 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
     validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
-        const formData = createFormData(values)
-        const response = await dispatch(updateSupplier(formData) as any)
+        const response = await dispatch(updateSupplier(values) as any)
         if (updateSupplier.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
@@ -76,16 +75,6 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
       }
     },
   })
-
-  const createFormData = (values: any) => {
-    const {name, phoneNumber} = values
-    const formData = new FormData()
-    formData.append('name', name)
-    formData.append('phoneNumber', phoneNumber)
-    formData.append('id', selectedSupplier.id)
-
-    return formData
-  }
 
   const handleFulfilledResponse = (response: any) => {
     const {meta, payload} = response
