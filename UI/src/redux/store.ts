@@ -5,6 +5,7 @@ import userManagementSlice from './authentication/user/userManagementSlice'
 import provinceSlice from './authentication/province/provinceSlice'
 import bookSlice from './library/book/bookSlice'
 import  supplierSlice from './supplier/SupplierSlice'
+import customerSlice  from './customer/CustomerSlice'
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,8 @@ export const store = configureStore({
     province: provinceSlice,
     book: bookSlice,
     supplier: supplierSlice,
+    customer: customerSlice,
+    
   },
 })
 

@@ -24,7 +24,7 @@
         var themeMode = localStorage.getItem('kt_theme_mode_value')
         if (!themeMode) {
           if (defaultThemeMode === 'system') {
-            themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            themeMode = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
           } else {
             themeMode = defaultThemeMode
           }

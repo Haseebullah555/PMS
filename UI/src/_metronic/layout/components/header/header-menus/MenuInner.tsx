@@ -10,13 +10,8 @@ export function MenuInner() {
   const basePath = window.location.pathname.split('/') // Split the pathname into segments
   // Access the first segment (e.g., 'library')
   const currentBasePath = basePath[1] || ''
-
-  if (currentBasePath == 'authentication') {
     return (
       <>
-        <MenuItem title={t('global.dashboard')} to='/dashboard' />
-
-       
           <MenuInnerWithSub
             title={t('global.SYSTEMANAGEMENT')}
             to={['/authentication/users', '/authentication/departments', '/authentication/roles']}
@@ -46,14 +41,9 @@ export function MenuInner() {
             />
           </MenuInnerWithSub>
       
+          <MenuItem title={t('book.books')} to='/library/book/list' />
+          <MenuItem title={t('supplier.supplier')} to='/supplier/list' />
+          <MenuItem title={t('customer.customer')} to='/customer/list' />
       </>
     )
-  } else if (currentBasePath == 'library') {
-    return <>   
-    <MenuItem title={t('book.books')} to='/library/book/list' />
-    <MenuItem title={t('supplier.supplier')} to='/supplier/list' />
-    </>
-  } else {
-    return null
   }
-}

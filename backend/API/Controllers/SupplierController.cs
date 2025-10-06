@@ -42,7 +42,7 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new AddSupplierCommand { SupplierDto = supplierDto });
-                return Ok(new {message = "تامیین کننده با موفقیت ایجاد شد"});
+                return Ok(new { message = "تامیین کننده با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
@@ -52,7 +52,7 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new UpdateSupplierCommand { SupplierDto = supplierDto });
-                return Ok(new {message = "تامیین کننده با موفقیت تجدید شد"});
+                return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }

@@ -7,19 +7,19 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updateSupplier} from 'redux/supplier/SupplierSlice'
+import {updateCustomer} from 'redux/customer/CustomerSlice'
 
-interface EditSupplierModalProps {
+interface EditCustomerModalProps {
   isOpen: boolean
   onClose: () => void
-  selectedSupplier: any // Type it as appropriate based on your data structure
+  selectedCustomer: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
 
-const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
+const EditCustomerModal: React.FC<EditCustomerModalProps> = ({
   isOpen,
   onClose,
-  selectedSupplier,
+  selectedCustomer,
   handleReloadTable,
 }) => {
   const intl = useIntl()
@@ -27,15 +27,15 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
-  // Populate form with user data when `selectedSupplier` changes
+  // Populate form with user data when `selectedCustomer` changes
   useEffect(() => {
-    if (selectedSupplier) {
-      formik.setFieldValue('id', selectedSupplier.id || '')
-      formik.setFieldValue('name', selectedSupplier.name || '')
-      formik.setFieldValue('phoneNumber', selectedSupplier.phoneNumber || '')
-      formik.setFieldValue('address', selectedSupplier.address || '')
+    if (selectedCustomer) {
+      formik.setFieldValue('id', selectedCustomer.id || '')
+      formik.setFieldValue('name', selectedCustomer.name || '')
+      formik.setFieldValue('phoneNumber', selectedCustomer.phoneNumber || '')
+      formik.setFieldValue('address', selectedCustomer.address || '')
     }
-  }, [selectedSupplier])
+  }, [selectedCustomer])
 
   // Validation schema
   const userSchema = Yup.object().shape({
@@ -60,8 +60,8 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
     validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
-        const response = await dispatch(updateSupplier(values) as any)
-        if (updateSupplier.fulfilled.match(response)) {
+        const response = await dispatch(updateCustomer(values) as any)
+        if (updateCustomer.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -99,7 +99,7 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.edit', {name: t('supplier.suppliers')})}</Modal.Title>
+        <Modal.Title>{t('global.edit', {name: t('Customer.Customers')})}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -108,7 +108,7 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
             <input type="hidden" {...formik.getFieldProps('id')}  />
             <div className='col-md-6 mb-3'>
               <label className='form-label'>
-                {t('supplier.supplier')} <span className='text-danger'>*</span>
+                {t('Customer.Customer')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
@@ -120,7 +120,7 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
               />
               {formik.touched.name && formik.errors.name && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('supplier.supplier')})}
+                  {t('validation.required', {name: t('Customer.Customer')})}
                 </div>
               )}
             </div>
@@ -139,7 +139,7 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
               />
               {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('Supplier.phoneNumber')})}
+                  {t('validation.required', {name: t('Customer.phoneNumber')})}
                 </div>
               )}
             </div>
@@ -180,4 +180,4 @@ const EditSupplierModal: React.FC<EditSupplierModalProps> = ({
   )
 }
 
-export default EditSupplierModal
+export default EditCustomerModal

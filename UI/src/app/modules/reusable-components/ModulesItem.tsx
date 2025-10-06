@@ -1,32 +1,35 @@
-import {Link} from 'react-router-dom'
-import {toAbsoluteUrl} from '../../../_metronic/helpers'
+import { Link } from 'react-router-dom'
+import { toAbsoluteUrl } from '../../../_metronic/helpers'
 const ModulesItem = () => {
   return (
-    <div className='col-xl-4 col-md-6 col-sm-6'>
-      <div className='card card-xl-stretch mb-5 mb-xl-8 dashboard-item'>
-        <div className='card-header border-0'>
-          <h3 className='card-title fw-bold text-dark'>project 1</h3>
-          <div className='card-toolbar'>
-            <button
-              type='button'
-              className='btn btn-sm btn-icon btn-color-primary btn-active-light-primary'
-            >
-              {/* <img src={toAbsoluteUrl('/media/images/' + icon)} alt='test' className='h-35px' /> */}
-            </button>
-          </div>
-        </div>
-        <div className='card-body pt-0'>
-          <div className='d-flex align-items-center bg-light-info rounded p-5'>
-            {/* <img src={toAbsoluteUrl('/media/images/' + icon)} alt='test' className='h-30px me-2' /> */}
-            <div className='flex-grow-1 me-2'>
-              <Link className={`fw-bold text-primary text-hover-primary fs-4 `} to="/library/book/list">
-                project 1
-              </Link>
+    <>
+      <div>
+        <Link className={`fw-bold text-primary text-hover-primary fs-4 `} to="/library/book/list">
+        <div className='col-xl-3 col-md-3 col-sm-6'>
+          <div className='card card-xl-stretch dashboard-item'>
+            <div className='card-body'>
+              <div className='d-flex align-items-center rounded p-5'>
+                <h3>User Management</h3>
+              </div>
             </div>
           </div>
         </div>
+      </Link>
       </div>
-    </div>
+      <div>
+      <Link className={`fw-bold text-primary text-hover-primary fs-4 `} to="/library/book/list">
+        <div className='col-xl-3 col-md-3 col-sm-6'>
+          <div className='card card-xl-stretch dashboard-item'>
+            <div className='card-body'>
+              <div className='d-flex align-items-center rounded p-5'>
+                <h3>User Management</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+      </div>
+    </>
   )
 }
 export default ModulesItem

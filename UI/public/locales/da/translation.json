@@ -285,6 +285,10 @@
   "supplier": {
     "suppliers": "تأمین کنندگان",
     "supplier": "تأمین کننده"
+  },
+  "customer": {
+    "customers": "مشتریان",
+    "customer": "مشتری"
   }
 
 }

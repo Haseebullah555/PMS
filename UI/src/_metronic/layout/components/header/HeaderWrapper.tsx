@@ -38,7 +38,7 @@ const HeaderWrapper = () => {
                 <KTSVG path='/media/icons/duotune/abstract/abs015.svg' className=' svg-icon-1' />
               </div>
               <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-                <Link to='/dashboard' className='d-lg-none'>
+                <Link to='/library/book/list' className='d-lg-none'>
                   <img alt='Logo' src='./assets/media/logos/default-small.svg' className='h-30px' />
                 </Link>
               </div>
@@ -48,7 +48,7 @@ const HeaderWrapper = () => {
 
         {config.app.sidebar?.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15'>
-            <Link to='/dashboard'>
+            <Link to='/library/book/list'>
               {config.layoutType !== 'dark-header' ? (
                 <img
                   alt='Logo'
@@ -93,14 +93,11 @@ const HeaderWrapper = () => {
                 data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}"
                 style={{backgroundColor: '#153a81'}}
               >
-                {location.pathname !== '/dashboard' ? (
+                {location.pathname !== '/library/book/list' ? (
                   <Header />
                 ) : (
-                  <div className='d-flex  justify-content-center flex-lg-grow-1 pt-3'>
-                    <div className='text-center mt-4'>
-                      <h2 className='text-white'>{t('global.national-police-academy-system')}</h2>
-                    </div>
-                  </div>
+                  <Header />
+            
                 )}
               </div>
             )}

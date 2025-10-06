@@ -7,16 +7,16 @@ import Loader from '../../../../pages/loading/Loader'
 import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
-import {SupplierForm} from './_module'
+import {CustomerForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getSupplier } from 'redux/supplier/SupplierSlice'
+import { getCustomer } from 'redux/customer/CustomerSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
-  const [data, setData] = useState<SupplierForm[]>([])
+  const [data, setData] = useState<CustomerForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -28,7 +28,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
 
-  const {suppliers} = useAppSelector((state) => state.supplier)
+  const {customers} = useAppSelector((state) => state.customer)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -66,7 +66,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
       page: currentPage,
     }
 
-    dispatch(getSupplier(params)).then((res) => {
+    dispatch(getCustomer(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {
@@ -77,9 +77,9 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
-    setData(suppliers.data)
-    setPagination(suppliers.meta)
-  }, [suppliers])
+    setData(customers.data)
+    setPagination(customers.meta)
+  }, [customers])
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
@@ -121,7 +121,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
             <table className='table table-hover table table-striped gy-4 gs-5  gy-4 gs-4'>
               <thead className='bg-gray-500'>
                 <tr>
-                  {headers.map((header: any) => (
+                  {/* {headers.map((header: any) => (
                     <th
                       key={header.headerName}
                       onClick={(e) => handleSort(header.sort)}
@@ -138,11 +138,11 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                         </span>
                       ) : null}
                     </th>
-                  ))}
+                  ))} */}
                 </tr>
               </thead>
               <tbody>
-                {!memoizedLoading &&
+                {/* {!memoizedLoading &&
                   memoizedData.map((item, index) => (
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
@@ -171,9 +171,9 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                         </DropdownButton>
                       </td>
                     </tr>
-                  ))}
+                  ))} */}
 
-                {memoizedData.length === 0 && !memoizedLoading && (
+                {/* {memoizedData.length === 0 && !memoizedLoading && (
                   <tr>
                     <td colSpan={9}>
                       <p className='fs-2 text-center text-danger fw-bolder'>
@@ -188,7 +188,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                       <Loader />
                     </td>
                   </tr>
-                )}
+                )} */}
               </tbody>
             </table>
           </div>
