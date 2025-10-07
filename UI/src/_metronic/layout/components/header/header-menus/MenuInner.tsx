@@ -42,8 +42,9 @@ export function MenuInner() {
           </MenuInnerWithSub>
       
           <MenuItem title={t('book.books')} to='/library/book/list' />
-          <MenuItem title={t('supplier.supplier')} to='/supplier/list' />
-          <MenuItem title={t('customer.customer')} to='/customer/list' />
+          <MenuItem title={t('supplier.suppliers')} to='/supplier/list' />
+          <MenuItem title={t('customer.customers')} to='/customer/list' />
+          <MenuItem title={t('good.goods')} to='/good/list' />
       </>
     )
   }

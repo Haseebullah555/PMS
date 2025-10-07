@@ -120,7 +120,7 @@
     "enter-to-system": "ورود به سیستم",
     "section": "بخش",
     "areaType": "نوعیت بخش",
-    "remark": "ملاحظات",
+    "remarks": "ملاحظات",
     "close": "بستن",
     "success": "ریکارد شما موفقانه ثبت سیستم گردید!",
     "recordOwner": "مسّول ثبت ریکارد",
@@ -130,7 +130,7 @@
     "uploadFileError": "فایل به فارمت PNG, JPG, JPEG باشد!",
     "selectForm": "ثبت فورم جدید پاسپورت ساحوی",
     "apc-system": "سیستم کارت عبور میدان هوایی",
-    "": "",
+    "Remarks": "ملاحظات",
     "": "",
     "": "",
     "": "",
@@ -289,6 +289,13 @@
   "customer": {
     "customers": "مشتریان",
     "customer": "مشتری"
+  },
+  "good": {
+    "goods": "اجناس",
+    "goodName": "نام جنس",
+    "unit": "واحد",
+    "purchasePrice": "نرخ خرید",
+    "sellPrice": "نرخ فروش"
   }
 
 }

@@ -108,7 +108,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({
             <input type="hidden" {...formik.getFieldProps('id')}  />
             <div className='col-md-6 mb-3'>
               <label className='form-label'>
-                {t('Customer.Customer')} <span className='text-danger'>*</span>
+                {t('customer.customer')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
@@ -120,7 +120,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({
               />
               {formik.touched.name && formik.errors.name && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('Customer.Customer')})}
+                  {t('validation.required', {name: t('customer.customer')})}
                 </div>
               )}
             </div>
@@ -139,7 +139,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({
               />
               {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('Customer.phoneNumber')})}
+                  {t('validation.required', {name: t('global.phoneNumber')})}
                 </div>
               )}
             </div>

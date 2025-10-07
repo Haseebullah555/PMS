@@ -4,6 +4,7 @@ namespace Application.Contracts.Interfaces.Common
     {
         public ICustomerRepository Customers { get; }
         public ISupplierRepository Suppliers { get; }
+        public IGoodRepository Goods { get; }
         Task SaveChanges(CancellationToken cancellationToken);
     }
 }

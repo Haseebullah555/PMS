@@ -8,6 +8,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import LibraryManagementRoutes from 'app/modules/system/library/LibraryManagementRoutes'
 import SupplierManagementRoutes from 'app/modules/system/supplier/SupplierManagementRoutes'
 import CustomerManagementRoutes from 'app/modules/system/customer/CustomerManagementRoutes'
+import GoodManagementRoutes from 'app/modules/system/good/GoodManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -48,6 +49,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <CustomerManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='good/*'
+          element={
+            <SuspensedView>
+              <GoodManagementRoutes />
             </SuspensedView>
           }
         />

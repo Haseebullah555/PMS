@@ -11,6 +11,7 @@ namespace Persistence.Repositories.Common
         #region Private fields
         private ICustomerRepository _customerRepository;
         private ISupplierRepository _supplierRepository;
+        private IGoodRepository _goodRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -20,6 +21,7 @@ namespace Persistence.Repositories.Common
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
 
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
+        public IGoodRepository Goods => _goodRepository ??= new GoodRepository(_context);
 
         public void Dispose()
         {

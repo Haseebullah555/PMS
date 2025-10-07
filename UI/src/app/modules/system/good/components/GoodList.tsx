@@ -3,21 +3,21 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
-import CreateUserModal from './CreateCustomer'
-import EditCustomerModal from './EditCustomer'
+import CreateUserModal from './CreateGood'
+import EditGoodModal from './EditGood'
 
-const CustomerList = () => {
+const GoodList = () => {
   const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
-  const [selectedCustomer, setSelectedCustomer] = useState(null)
+  const [selectedGood, setSelectedGood] = useState(null)
 
   const closeModal = () => setModalOpen(false)
   const openModal = () => setModalOpen(true)
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (Customer: any) => {
-    setSelectedCustomer(Customer)
+  const openEditModal = (Good: any) => {
+    setSelectedGood(Good)
     setEditModalOpen(true)
   }
 
@@ -35,7 +35,7 @@ const CustomerList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('customer.customers')})}
+                {t('global.list', {name: t('good.goods')})}
               </h3>
             </div>
             <div>
@@ -46,7 +46,7 @@ const CustomerList = () => {
                     onClick={openModal}
                   >
                     <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('customer.customers')})}
+                    {t('global.add', {name: t('good.goods')})}
                   </button>
 
                   <div className='me-2 ms-2'>
@@ -122,23 +122,31 @@ const CustomerList = () => {
                   sort: 'id',
                 },
                 {
-                  headerName: `${t('customer.customer')}`,
+                  headerName: `${t('good.goodName')}`,
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('global.phone')}`,
-                  sort: 'phoneNumber',
+                  headerName: `${t('good.unit')}`,
+                  sort: 'unit',
                 },
                 {
-                  headerName: `${t('global.address')}`,
-                  sort: 'address',
+                  headerName: `${t('global.remarks')}`,
+                  sort: 'remarks',
+                },
+                {
+                  headerName: `${t('good.purchasePrice')}`,
+                  sort: 'costPrice',
+                },
+                {
+                  headerName: `${t('good.sellPrice')}`,
+                  sort: 'sellPrice',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber', 'address']}
+              columns={['id', 'name', 'unit']}
               handleEdit={openEditModal}
             />
           </div>
@@ -153,14 +161,14 @@ const CustomerList = () => {
         />
       )}
       {isEditModalOpen && (
-        <EditCustomerModal
+        <EditGoodModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
-          selectedCustomer={selectedCustomer}
+          selectedGood={selectedGood}
           handleReloadTable={handleReloadTable}
         />
       )}
     </>
   )
 }
-export default CustomerList
+export default GoodList

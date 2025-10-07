@@ -7,16 +7,16 @@ import Loader from '../../../../pages/loading/Loader'
 import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
-import {CustomerForm} from './_module'
+import {GoodForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getCustomer } from 'redux/customer/CustomerSlice'
+import { getGood } from 'redux/good/GoodSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
-  const [data, setData] = useState<CustomerForm[]>([])
+  const [data, setData] = useState<GoodForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -28,7 +28,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
 
-  const {customers} = useAppSelector((state) => state.customer)
+  const {goods} = useAppSelector((state) => state.good)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -66,7 +66,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
       page: currentPage,
     }
 
-    dispatch(getCustomer(params)).then((res) => {
+    dispatch(getGood(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {
@@ -77,9 +77,9 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
-    setData(customers.data)
-    setPagination(customers.meta)
-  }, [customers])
+    setData(goods.data)
+    setPagination(goods.meta)
+  }, [goods])
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
@@ -147,8 +147,10 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
                       <td>{item.name}</td>
-                      <td>{item.phoneNumber}</td>
-                      <td>{item.address}</td>
+                      <td>{item.unit}</td>
+                      <td>{item.description}</td>
+                      <td>{item.costPrice}</td>
+                      <td>{item.sellPrice}</td>
 
                       <td className='text-center'>
                         <DropdownButton
@@ -173,7 +175,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                     </tr>
                   ))}
 
-                 {memoizedData.length === 0 && !memoizedLoading && (
+                {memoizedData.length === 0 && !memoizedLoading && (
                   <tr>
                     <td colSpan={9}>
                       <p className='fs-2 text-center text-danger fw-bolder'>

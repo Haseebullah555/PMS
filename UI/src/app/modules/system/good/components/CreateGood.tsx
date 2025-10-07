@@ -10,39 +10,37 @@ import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
 import { storeUser } from 'redux/authentication/user/userManagementSlice'
-import { storeCustomer } from 'redux/customer/CustomerSlice'
+import { storeGood } from 'redux/good/GoodSlice'
 
 // Define the props for the modal
-interface CreateCustomerModalProps {
+interface CreateGoodModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateGoodModal: React.FC<CreateGoodModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const CustomerSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('customer.customer') })),
-    address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-    phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') })) 
-      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
-      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
+  const GoodSchema = Yup.object().shape({
+    name: Yup.string().required(t('validation.required', { name: t('good.goodName') })),
+    description: Yup.string().required(t('validation.required', { name: t('global.remarks') })),
+    unit: Yup.string()
+      .required(t('validation.required', { name: t('good.unit') }))             
   })
 
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: CustomerSchema,
+    validationSchema: GoodSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeCustomer(values) as any)
-        if (storeCustomer.fulfilled.match(response)) {
+        const response = await dispatch(storeGood(values) as any)
+        if (storeGood.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -74,23 +72,23 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClo
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating Customer:', error.message)
+    console.error('Error creating good:', error.message)
   }
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('customer.customer') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('good.goods') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Customer Name Fields */}
+          {/* Name and Good Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('customer.customer')} <span className='text-danger'>*</span>
+                    {t('good.goodName')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
@@ -102,28 +100,26 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClo
                   />
                   {formik.touched.name && formik.errors.name && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('customer.customer') })}
+                      {t('validation.required', { name: t('good.goodName') })}
                     </div>
                   )}
                 </div>
 
-                {/* Customer phoneNumber Field */}
-                {/* Customer phoneNumber Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.phone')} <span className='text-danger'>*</span>
+                    {t('good.unit')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('phoneNumber')}
+                    {...formik.getFieldProps('unit')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),
-                      'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
+                      'is-invalid': formik.touched.unit && Boolean(formik.errors.unit),
+                      'is-valid': formik.touched.unit && !formik.errors.unit,
                     })}
                   />
-                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  {formik.touched.unit && formik.errors.unit && (
                     <div className='invalid-feedback'>
-                      {formik.errors.phoneNumber}
+                      {formik.errors.unit}
                     </div>
                   )}
                 </div>
@@ -133,19 +129,58 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClo
                 {/* Name Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
-                    {t('global.address')} <span className='text-danger'>*</span>
+                    {t('global.remarks')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('address')}
+                    {...formik.getFieldProps('description')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.address && formik.errors.address,
-                      'is-valid': formik.touched.address && !formik.errors.address,
+                      'is-invalid': formik.touched.description && formik.errors.description,
+                      'is-valid': formik.touched.description && !formik.errors.description,
                     })}
                   />
-                  {formik.touched.address && formik.errors.address && (
+                  {formik.touched.description && formik.errors.description && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.address') })}
+                      {t('validation.required', { name: t('global.remarks') })}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className='row'>
+                {/* Name Field */}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('good.purchasePrice')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('costPrice')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.costPrice && formik.errors.costPrice,
+                      'is-valid': formik.touched.costPrice && !formik.errors.costPrice,
+                    })}
+                  />
+                  {formik.touched.costPrice && formik.errors.costPrice && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('good.purchasePrice') })}
+                    </div>
+                  )}
+                </div>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('good.sellPrice')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('sellPrice')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.sellPrice && formik.errors.sellPrice,
+                      'is-valid': formik.touched.sellPrice && !formik.errors.sellPrice,
+                    })}
+                  />
+                  {formik.touched.sellPrice && formik.errors.sellPrice && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('good.sellPrice') })}
                     </div>
                   )}
                 </div>
@@ -173,4 +208,4 @@ const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClo
   )
 }
 
-export default CreateCustomerModal
+export default CreateGoodModal
