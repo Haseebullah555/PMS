@@ -2,14 +2,14 @@ export interface GoodForm {
   name: string
   description: string
   unit: string
-  costPrice: string
-  sellPrice: string
+  costPrice: number
+  sellPrice: number
 }
 
 export const initialValues: GoodForm = {
   name: '',
   description: '',
   unit: '',
-  costPrice: '',
-  sellPrice: ''
+  costPrice: 0,
+  sellPrice: 0
 }
