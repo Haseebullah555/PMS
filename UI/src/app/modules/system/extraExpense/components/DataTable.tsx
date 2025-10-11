@@ -1,6 +1,11 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
 import UnAuthorized from "app/customes/UnAuthorized";
+import { ExptraExpenseForm } from "./_module";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { getExtraExpenses } from "redux/extraExpense/ExtraExpenseSlice";
+import { t } from "i18next";
+import { DropdownButton, Dropdown } from "react-bootstrap";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -9,10 +14,13 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const [search, setSearch] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [perPage, setPerPage] = useState<number>(10);
+    const [pagination, setPagination] = useState<any>({});
     const [sortOrder, setSortOrder] = useState<string>(SORT_ASC);
     const [sortColumn, setSortColumn] = useState<string>(columns[0]);
+    const [data, setData] = useState<ExptraExpenseForm[]>([]);
+    const dispatch = useAppDispatch();
 
-
+    const { extraExpenses } = useAppSelector((state) => state.ExtraExpenses)
 
 
     const handleSearch = useRef(
@@ -26,15 +34,48 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     ).current
 
     const handlePerPage = useCallback(
-        (newPerPage: number) =>{
+        (newPerPage: number) => {
             setLoading(true);
             setCurrentPage(1);
             setPerPage(newPerPage);
-            
+
         },
         [setCurrentPage, setPerPage]
     )
-    const handleSort = 
+
+    const handleSort = (column: string) => {
+        if (column === sortColumn) {
+            setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
+        } else {
+            setSortColumn(column)
+            setSortOrder(SORT_ASC)
+        }
+    }
+    useEffect(() => {
+        const params = {
+            search,
+            sort_field: sortColumn,
+            sort_order: sortOrder,
+            per_page: perPage,
+            page: currentPage,
+        }
+        dispatch(getExtraExpenses(params)).then((res) => {
+            if (res.meta.requestStatus === 'fulfilled') {
+                setLoading(true)
+            } else if (res.meta.requestStatus === 'rejected') {
+                setIsAuthorized(false)
+            }
+            setLoading(false)
+        })
+    }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
+    useEffect(() => {
+        setData(extraExpenses.data)
+        setPagination(extraExpenses.meta)
+    }, [extraExpenses])
+
+
+    const memoizedData = useMemo(() => data, [data])
+    const memoizedLoading = useMemo(() => loading, [loading])
     return (
         <div>
             {isAuthorized ? (
@@ -71,17 +112,61 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
                     <div className="tableFixHead table-responsive" dir="rtl">
                         <table className="table table-hover table-striped gs-5 gy-4">
-                            <tr>
-                                {headers.map((header: any) =>(
-                                    <th
-                                        key={header.headerName}
-                                        onClick={(e) => handleSort(header.sort)}
-                                        className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center': ''}`}
-                                    >
+                            <thead className="bg-gray-500">
+                                <tr>
+                                    {headers.map((header: any) => (
+                                        <th
+                                            key={header.headerName}
+                                            onClick={(e) => handleSort(header.sort)}
+                                            className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                                        >
+                                            {header.headerName.toUpperCase().replace('_', ' ')}
+                                            {header.sort === sortColumn ? (
+                                                <span>
+                                                    {sortOrder === SORT_ASC ? (
+                                                        <i className='ms-1 fa fa-arrow-up text-white' aria-hidden='true'></i>
+                                                    ) : (
+                                                        <i className='ms-1 fa fa-arrow-down text-white' aria-hidden='true'></i>
+                                                    )}
+                                                </span>
+                                            ) : null}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {!memoizedLoading &&
+                                    memoizedData.map((item, index) => (
+                                        <tr key={index} className='fs-5'>
+                                            <td className='fw-bolder'>{index + 1}</td>
+                                            <td>{item.expenseType}</td>
+                                            <td>{item.amount}</td>
+                                            <td>{item.expenseDate}</td>
+                                            <td>{item.notes}</td>
 
-                                    </th>
-                                ))}
-                            </tr>
+                                            <td className='text-center'>
+                                                <DropdownButton
+                                                    id='dropdown-item-button'
+                                                    size='sm'
+                                                    title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
+                                                >
+                                                    <>
+                                                        <Dropdown.Item
+                                                            as='button'
+                                                            className='fw-bold text-primary'
+                                                            onClick={() => handleEdit(item)}
+                                                        >
+                                                            <i className='fas fa-edit text-primary'></i>
+                                                            <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
+                                                                {t('global.edit', { name: t('global.user') })}
+                                                            </span>
+                                                        </Dropdown.Item>
+                                                    </>
+                                                </DropdownButton>
+                                            </td>
+                                        </tr>
+                                    ))}
+                            </tbody>
                         </table>
                     </div>
                 </>

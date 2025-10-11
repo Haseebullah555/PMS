@@ -4,8 +4,8 @@
 // -- author: Abdul Rafi Muhammadi.
 // -- email: ab.rafimuhammadi@gmail.com
 
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import type {PayloadAction} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import supplierService from './SupplierService'
 
 type supplierSate = {
@@ -66,11 +66,11 @@ export const supplierSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getSupplier.fulfilled, (state, action: PayloadAction) => {
-        console.log('action.payload', action.payload)
+      console.log('action.payload', action.payload)
       state.suppliers = action.payload
     })
   },
 })
 
-export const {reset} = supplierSlice.actions
+export const { reset } = supplierSlice.actions
 export default supplierSlice.reducer

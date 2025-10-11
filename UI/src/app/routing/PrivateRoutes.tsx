@@ -9,6 +9,7 @@ import LibraryManagementRoutes from 'app/modules/system/library/LibraryManagemen
 import SupplierManagementRoutes from 'app/modules/system/supplier/SupplierManagementRoutes'
 import CustomerManagementRoutes from 'app/modules/system/customer/CustomerManagementRoutes'
 import GoodManagementRoutes from 'app/modules/system/good/GoodManagementRoutes'
+import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraExpensemanagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -57,6 +58,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <GoodManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='extraExpense/*'
+          element={
+            <SuspensedView>
+              <ExtraExpenseManagementRoutes />
             </SuspensedView>
           }
         />

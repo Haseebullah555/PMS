@@ -45,6 +45,7 @@ export function MenuInner() {
           <MenuItem title={t('supplier.suppliers')} to='/supplier/list' />
           <MenuItem title={t('customer.customers')} to='/customer/list' />
           <MenuItem title={t('good.goods')} to='/good/list' />
+          <MenuItem title={t('extraExpense.extraExpenses')} to='/extraExpense/list' />
       </>
     )
   }
