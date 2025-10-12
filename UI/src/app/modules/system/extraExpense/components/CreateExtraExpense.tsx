@@ -29,7 +29,7 @@ const CreateExtraExpenseModal: React.FC<CreateExtraExpenseModalProps> = ({ isOpe
     expenseType: Yup.string().required(t('validation.required', { name: t('extraExpense.expenseType') })),
     expenseDate: Yup.date().required(t('validation.required', { name: t('global.date') })),
     amount: Yup.number()
-      .required(t('validation.required', { name: t('extraExpense.amount') }))   
+      .required(t('validation.required', { name: t('extraExpense.amount') }))
   })
 
   // Formik Hook
@@ -38,6 +38,14 @@ const CreateExtraExpenseModal: React.FC<CreateExtraExpenseModalProps> = ({ isOpe
     validationSchema: ExtraExpenseSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
+        // Convert expenseDate to UTC
+        // const utcExpenseDate = new Date(values.expenseDate).toISOString(); // Convert to UTC string
+
+        // Prepare the payload
+        // const payload = {
+        //   ...values,
+        //   expenseDate: utcExpenseDate, // Use the UTC date
+        // };
         const response = await dispatch(storeExtraExpense(values) as any)
         if (storeExtraExpense.fulfilled.match(response)) {
           handleFulfilledResponse(response)
@@ -120,7 +128,7 @@ const CreateExtraExpenseModal: React.FC<CreateExtraExpenseModalProps> = ({ isOpe
                   />
                   {formik.touched.amount && formik.errors.amount && (
                     <div className='invalid-feedback'>
-                       {t('validation.required', { name: t('extraExpense.amount') })}
+                      {t('validation.required', { name: t('extraExpense.amount') })}
                     </div>
                   )}
                 </div>
