@@ -38,14 +38,6 @@ const CreateExtraExpenseModal: React.FC<CreateExtraExpenseModalProps> = ({ isOpe
     validationSchema: ExtraExpenseSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        // Convert expenseDate to UTC
-        // const utcExpenseDate = new Date(values.expenseDate).toISOString(); // Convert to UTC string
-
-        // Prepare the payload
-        // const payload = {
-        //   ...values,
-        //   expenseDate: utcExpenseDate, // Use the UTC date
-        // };
         const response = await dispatch(storeExtraExpense(values) as any)
         if (storeExtraExpense.fulfilled.match(response)) {
           handleFulfilledResponse(response)

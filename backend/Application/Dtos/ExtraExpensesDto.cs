@@ -10,7 +10,7 @@ namespace Application.Dtos
         [Display(Name = "Amount"), Required(ErrorMessage ="{0} is required")]
         public decimal Amount { get; set; }
         [Display(Name = "Date"), Required(ErrorMessage ="{0} is required")]
-        public DateTime ExpenseDate { get; set; }
+        public DateOnly ExpenseDate { get; set; }
         [Display(Name = "Expense Details")]
         public string? Notes { get; set; }
     }

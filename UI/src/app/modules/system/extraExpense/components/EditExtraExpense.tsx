@@ -32,6 +32,7 @@ const EditExtraExpenseModal: React.FC<EditExtraExpenseModalProps> = ({
     if (selectedExtraExpense) {
       formik.setFieldValue('id', selectedExtraExpense.id || '')
       formik.setFieldValue('expenseType', selectedExtraExpense.expenseType || '')
+      formik.setFieldValue('expenseDate', selectedExtraExpense.expenseDate || '')
       formik.setFieldValue('amount', selectedExtraExpense.amount || '')
       formik.setFieldValue('notes', selectedExtraExpense.notes || '')
     }
@@ -144,7 +145,7 @@ const EditExtraExpenseModal: React.FC<EditExtraExpenseModalProps> = ({
           <div className='row'>
             <div className='col-md-6 mb-3'>
               <label className='form-label'>
-                {t('global.expenseDate')} <span className='text-danger'>*</span>
+                {t('global.date')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'

@@ -37,24 +37,24 @@ namespace API.Controllers
             });
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] ExtraExpensesDto supplierDto)
+        public async Task<ActionResult> Create([FromBody] ExtraExpensesDto extraExpenseDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddExtraExpenseCommand { ExtraExpensesDto = supplierDto });
-                return Ok(new { message = "مصارف بیرونی با موفقیت ایجاد شد" });
+                await _mediator.Send(new AddExtraExpenseCommand { ExtraExpensesDto = extraExpenseDto });
+                return Ok(new { message = "مصارف متفرقه با موفقیت ایجاد شد" });
             }
-            return BadRequest(new { message = "ایجاد مصارف بیرونی ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+            return BadRequest(new { message = "ایجاد مصارف متفرقه ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(ExtraExpensesDto supplierDto)
+        public async Task<ActionResult> Update(ExtraExpensesDto extraExpenseDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateExtraExpenseCommand { ExtraExpensesDto = supplierDto });
-                return Ok(new { message = "مصارف بیرونی با موفقیت تجدید شد" });
+                await _mediator.Send(new UpdateExtraExpenseCommand { ExtraExpensesDto = extraExpenseDto });
+                return Ok(new { message = "مصارف متفرقه با موفقیت تجدید شد" });
             }
-            return BadRequest(new { message = "تجدید مصارف بیرونی ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+            return BadRequest(new { message = "تجدید مصارف متفرقه ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }

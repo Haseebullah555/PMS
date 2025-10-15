@@ -11,7 +11,7 @@ namespace Domain.Models
         // public string? Remarks { get; set; }
         public string ExpenseType { get; set; } = null!;
         public decimal Amount { get; set; }
-        public DateTime ExpenseDate { get; set; }
+        public DateOnly ExpenseDate { get; set; }
         public string? Notes { get; set; }
     }
 }
