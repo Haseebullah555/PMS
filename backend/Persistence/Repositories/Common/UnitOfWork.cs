@@ -14,6 +14,7 @@ namespace Persistence.Repositories.Common
         private IGoodRepository _goodRepository;
         private IExtraExpensesRepository _extraExpensesRepository;
         private IPartnerRepository _partnerRepository;
+        private IPartnerTransactionRepository _partnerTransactionRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -25,6 +26,7 @@ namespace Persistence.Repositories.Common
         public IGoodRepository Goods => _goodRepository ??= new GoodRepository(_context);
         public IExtraExpensesRepository ExtraExpenses => _extraExpensesRepository ??= new ExtraExpensesRepository(_context);
         public IPartnerRepository Partners => _partnerRepository ??= new PartnerRepository(_context);
+        public IPartnerTransactionRepository PartnerTransactions => _partnerTransactionRepository ??= new PartnerTransactionRepository(_context);
 
         public void Dispose()
         {

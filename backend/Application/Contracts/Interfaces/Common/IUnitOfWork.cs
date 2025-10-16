@@ -7,6 +7,7 @@ namespace Application.Contracts.Interfaces.Common
         public IGoodRepository Goods { get; }
         public IExtraExpensesRepository ExtraExpenses { get; }
         public IPartnerRepository Partners { get; }
+        public IPartnerTransactionRepository PartnerTransactions { get; }
         Task SaveChanges(CancellationToken cancellationToken);
     }
 }

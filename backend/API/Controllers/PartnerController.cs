@@ -42,9 +42,9 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new CreatePartnerCommand { PartnerDto = partnerDto });
-                return Ok(new { message = "تامیین کننده با موفقیت ایجاد شد" });
+                return Ok(new { message = "شریک با موفقیت ایجاد شد" });
             }
-            return BadRequest(new { message = "ایجاد تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+            return BadRequest(new { message = "ایجاد شریک ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
         public async Task<ActionResult> Update(PartnerDto partnerDto)
@@ -52,9 +52,9 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new UpdatePartnerCommand { PartnerDto = partnerDto });
-                return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
+                return Ok(new { message = "شریک با موفقیت تجدید شد" });
             }
-            return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+            return BadRequest(new { message = "تجدید شریک ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
     }
 }
