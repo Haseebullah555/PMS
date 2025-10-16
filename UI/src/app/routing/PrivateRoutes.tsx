@@ -10,6 +10,7 @@ import SupplierManagementRoutes from 'app/modules/system/supplier/SupplierManage
 import CustomerManagementRoutes from 'app/modules/system/customer/CustomerManagementRoutes'
 import GoodManagementRoutes from 'app/modules/system/good/GoodManagementRoutes'
 import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraExpensemanagementRoutes'
+import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -66,6 +67,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <ExtraExpenseManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='partner/*'
+          element={
+            <SuspensedView>
+              <PartnerManagementRoutes />
             </SuspensedView>
           }
         />

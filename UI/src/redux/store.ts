@@ -8,6 +8,7 @@ import  supplierSlice from './supplier/SupplierSlice'
 import customerSlice  from './customer/CustomerSlice'
 import goodSlice from './good/GoodSlice'
 import extraExpenseSlice from './extraExpense/ExtraExpenseSlice'
+import partnerSlice from './partner/PartnerSlice'
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     customer: customerSlice,
     good: goodSlice,
     ExtraExpenses : extraExpenseSlice,
+    partners : partnerSlice
   },
 })
 

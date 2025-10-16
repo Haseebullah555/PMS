@@ -301,6 +301,12 @@
     "extraExpenses": "مصارف متفرقه",
     "expenseType": "نوع مصرف",
     "amount": "مقدار"
+  },
+  "partner": {
+    "partners": "شریکان",
+    "initialInvestment": "سرمایه اولیه",
+    "ownershipPercentage": "درصد مالکیت",
+    "partner": "شریک"
   }
 
 }
