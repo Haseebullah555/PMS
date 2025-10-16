@@ -15,6 +15,8 @@ namespace Persistence.Repositories.Common
         private IExtraExpensesRepository _extraExpensesRepository;
         private IPartnerRepository _partnerRepository;
         private IPartnerTransactionRepository _partnerTransactionRepository;
+        private IStaffRepository _staffRepository;
+        private IStaffSalaryRepository _staffSalaryRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -27,6 +29,8 @@ namespace Persistence.Repositories.Common
         public IExtraExpensesRepository ExtraExpenses => _extraExpensesRepository ??= new ExtraExpensesRepository(_context);
         public IPartnerRepository Partners => _partnerRepository ??= new PartnerRepository(_context);
         public IPartnerTransactionRepository PartnerTransactions => _partnerTransactionRepository ??= new PartnerTransactionRepository(_context);
+        public IStaffRepository Staffs => _staffRepository ??= new StaffRepository(_context);
+        public IStaffSalaryRepository StaffSalaries => _staffSalaryRepository ??= new StaffSalaryRepository(_context);
 
         public void Dispose()
         {

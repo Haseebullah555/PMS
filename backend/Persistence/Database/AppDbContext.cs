@@ -22,7 +22,6 @@ namespace Persistence.Database
         public DbSet<CustomerLoan> CustomerLoans { get; set; }
         public DbSet<CustomerLoanPayment> CustomerLoanPayments { get; set; }
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
-        public DbSet<CapitalTransaction> CapitalTransactions { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<StaffSalary> StaffSalaries { get; set; }
         public DbSet<SalaryPayment> SalaryPayments { get; set; }

@@ -8,6 +8,8 @@ namespace Application.Contracts.Interfaces.Common
         public IExtraExpensesRepository ExtraExpenses { get; }
         public IPartnerRepository Partners { get; }
         public IPartnerTransactionRepository PartnerTransactions { get; }
+        public IStaffRepository Staffs { get; }
+        public IStaffSalaryRepository StaffSalaries { get; }
         Task SaveChanges(CancellationToken cancellationToken);
     }
 }
