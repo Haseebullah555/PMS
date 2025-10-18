@@ -31,33 +31,30 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
   useEffect(() => {
     if (selectedPartner) {
       formik.setFieldValue('id', selectedPartner.id || '')
-      formik.setFieldValue('name', selectedPartner.name || '')
-      formik.setFieldValue('phoneNumber', selectedPartner.phoneNumber || '')
-      formik.setFieldValue('address', selectedPartner.address || '')
+      formik.setFieldValue('fullName', selectedPartner.fullName || '')
+      formik.setFieldValue('initialInvestment', selectedPartner.initialInvestment || '')
+      formik.setFieldValue('ownershipPercentage', selectedPartner.ownershipPercentage || '')
     }
   }, [selectedPartner])
 
   // Validation schema
-  const userSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('global.name') })),
-        address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-        phoneNumber: Yup.string()
-          .required(t('validation.required', { name: t('global.phone') }))
-          .matches(
-            /^(?:\+93|0)?7\d{8}$/,
-            t('validation.invalid', { name: t('global.phone') }) // Custom error message
-          )
+  const PartnerSchema = Yup.object().shape({
+    fullName: Yup.string().required(t('validation.required', { fullName: t('partner.partner') })),
+    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('partner.ownershipPercentage') })),
+    initialInvestment: Yup.string()
+      .required(t('validation.required', { fullName: t('partner.initialInvestment') }))
   })
+
 
   // Formik setup
   const formik = useFormik({
     initialValues: {
       id: '',
-      name: '',
-      address: '',
-      phoneNumber: '',
+      fullName: '',
+      initialInvestment: '',
+      ownershipPercentage: '',
     },
-    validationSchema: userSchema,
+    validationSchema: PartnerSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
         const response = await dispatch(updatePartner(values) as any)
@@ -112,13 +109,13 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('name')}
+                {...formik.getFieldProps('fullName')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.name && formik.errors.name,
-                  'is-valid': formik.touched.name && !formik.errors.name,
+                  'is-invalid': formik.touched.fullName && formik.errors.fullName,
+                  'is-valid': formik.touched.fullName && !formik.errors.fullName,
                 })}
               />
-              {formik.touched.name && formik.errors.name && (
+              {formik.touched.fullName && formik.errors.fullName && (
                 <div className='invalid-feedback'>
                   {t('validation.required', {name: t('partner.partner')})}
                 </div>
@@ -131,15 +128,15 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('phoneNumber')}
+                {...formik.getFieldProps('initialInvestment')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.phoneNumber && formik.errors.phoneNumber,
-                  'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
+                  'is-invalid': formik.touched.initialInvestment && formik.errors.initialInvestment,
+                  'is-valid': formik.touched.initialInvestment && !formik.errors.initialInvestment,
                 })}
               />
-              {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+              {formik.touched.initialInvestment && formik.errors.initialInvestment && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('Partner.phoneNumber')})}
+                  {t('validation.required', {name: t('partner.initialInvestment')})}
                 </div>
               )}
             </div>
@@ -151,15 +148,15 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('address')}
+                {...formik.getFieldProps('ownershipPercentage')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.address && formik.errors.address,
-                  'is-valid': formik.touched.address && !formik.errors.address,
+                  'is-invalid': formik.touched.ownershipPercentage && formik.errors.ownershipPercentage,
+                  'is-valid': formik.touched.ownershipPercentage && !formik.errors.ownershipPercentage,
                 })}
               />
-              {formik.touched.address && formik.errors.address && (
+              {formik.touched.ownershipPercentage && formik.errors.ownershipPercentage && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('global.address')})}
+                  {t('validation.required', {name: t('partner.ownershipPercentage')})}
                 </div>
               )}
             </div>

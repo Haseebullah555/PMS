@@ -27,9 +27,9 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
   // Form Validation Schema
   const PartnerSchema = Yup.object().shape({
     fullName: Yup.string().required(t('validation.required', { fullName: t('partner.partner') })),
-    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('global.ownershipPercentage') })),
+    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('partner.ownershipPercentage') })),
     initialInvestment: Yup.string()
-      .required(t('validation.required', { fullName: t('global.initialInvestment') }))
+      .required(t('validation.required', { fullName: t('partner.initialInvestment') }))
   })
 
   // Formik Hook
@@ -76,7 +76,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { fullName: t('partner.partners') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('partner.partners') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -99,7 +99,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                   />
                   {formik.touched.fullName && formik.errors.fullName && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { fullName: t('partner.partner') })}
+                      {t('validation.required', { name: t('partner.partner') })}
                     </div>
                   )}
                 </div>
@@ -108,7 +108,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                 {/* Partner initialInvestment Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.phone')} <span className='text-danger'>*</span>
+                    {t('partner.initialInvestment')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
@@ -120,7 +120,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                   />
                   {formik.touched.initialInvestment && formik.errors.initialInvestment && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { fullName: t('global.initialInvestment') })}
+                      {t('validation.required', { name: t('partner.initialInvestment') })}
                     </div>
                   )}
                 </div>
@@ -130,7 +130,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                 {/* Name Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
-                    {t('global.ownershipPercentage')} <span className='text-danger'>*</span>
+                    {t('partner.ownershipPercentage')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
@@ -142,7 +142,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                   />
                   {formik.touched.ownershipPercentage && formik.errors.ownershipPercentage && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { fullName: t('global.ownershipPercentage') })}
+                      {t('validation.required', { name: t('partner.ownershipPercentage') })}
                     </div>
                   )}
                 </div>

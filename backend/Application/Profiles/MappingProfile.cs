@@ -12,6 +12,10 @@ namespace Application.Profiles
             CreateMap<Customer, CustomerDto>().ReverseMap();
             CreateMap<Good, GoodDto>().ReverseMap();
             CreateMap<ExtraExpenses, ExtraExpensesDto>().ReverseMap();
+            CreateMap<Partner, PartnerDto>().ReverseMap();
+            CreateMap<PartnerTransaction, PartnerTransactionDto>().ReverseMap();
+            CreateMap<Staff, StaffDto>().ReverseMap();
+            CreateMap<StaffSalary, StaffSalaryDto>().ReverseMap();
         }
     }
 }

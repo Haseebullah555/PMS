@@ -123,22 +123,22 @@ const PartnerList = () => {
                 },
                 {
                   headerName: `${t('partner.partners')}`,
-                  sort: 'name',
+                  sort: 'fullName',
                 },
                 {
-                  headerName: `${t('global.phone')}`,
-                  sort: 'phoneNumber',
+                  headerName: `${t('partner.initialInvestment')}`,
+                  sort: 'initialInvestment',
                 },
                 {
-                  headerName: `${t('global.address')}`,
-                  sort: 'phoneNumber',
+                  headerName: `${t('partner.ownershipPercentage')}`,
+                  sort: 'ownershipPercentage',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber']}
+              columns={['id', 'fullName', 'initialInvestment', 'ownershipPercentage']}
               handleEdit={openEditModal}
             />
           </div>
