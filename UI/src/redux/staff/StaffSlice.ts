@@ -31,6 +31,19 @@ export const getStaff = createAsyncThunk('api/staff/fgh', async (params: any, th
   }
 })
 
+// get staffs list
+export const getStaffsList = createAsyncThunk('api/staff/list', async (_, thunkAPI) => {
+  try {
+    return await staffService.getStaffsList()
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
 // store staff
 export const storeStaff = createAsyncThunk('api/staff/store', async (formData: any, thunkAPI) => {
   try {

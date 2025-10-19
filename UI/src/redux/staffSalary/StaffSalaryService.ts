@@ -1,13 +1,8 @@
 import axios from 'axios'
 
 // Get users
-const getStaffs = async (params: any) => {
-  const response = await axios.get(`/Staff/list`, {params})
-  return response.data
-}
-// Get Staff List
-const getStaffsList = async () => {
-  const response = await axios.get(`/Staff/listAll`)
+const getStaffSalaries = async (params: any) => {
+  const response = await axios.get(`/StaffSalary/list`, {params})
   return response.data
 }
 // Get roles by system id.
@@ -18,21 +13,20 @@ const getRolesBySystemId = async (systems_id: any) => {
 
 const store = async (formData: any) => {
   console.log('formData', formData);
-  const response = await axios.post('/Staff/create', formData)
+  const response = await axios.post('/StaffSalary/create', formData)
   return response.data
 }
 
 const update = async (formData: any) => {
-  const response = await axios.post('/Staff/update', formData)
+  const response = await axios.post('/StaffSalary/update', formData)
   return response.data
 }
 
-const staffService = {
-  getStaffs,
+const staffSalaryService = {
+  getStaffSalaries,
   getRolesBySystemId,
-  getStaffsList,
   store,
   update,
 }
 
-export default staffService
+export default staffSalaryService

@@ -1432,11 +1432,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
+      "projectUniqueName": "d:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
       "projectName": "Identity",
-      "projectPath": "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
+      "projectPath": "d:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\D Drive data\\PMS\\backend\\Identity\\obj\\",
+      "outputPath": "d:\\D Drive data\\PMS\\backend\\Identity\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1457,8 +1457,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj": {
-              "projectPath": "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj"
+            "d:\\D Drive data\\PMS\\backend\\Application\\Application.csproj": {
+              "projectPath": "d:\\D Drive data\\PMS\\backend\\Application\\Application.csproj"
             },
             "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj": {
               "projectPath": "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj"

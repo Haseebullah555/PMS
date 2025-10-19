@@ -2,6 +2,7 @@ using API.Controllers.Common;
 using Application.Dtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
+using Application.Features.Staff.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -35,6 +36,12 @@ namespace API.Controllers
                     to = result.To
                 }
             });
+        }
+        [HttpGet("listAll")]
+        public async Task<ActionResult> GetStaffsList()
+        {
+            var result = await _mediator.Send(new GetStaffsListRequest());
+            return Ok(result);
         }
         [HttpPost("create")]
         public async Task<ActionResult> Create([FromBody] StaffDto staffDto)
