@@ -12,6 +12,7 @@ import GoodManagementRoutes from 'app/modules/system/good/GoodManagementRoutes'
 import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraExpensemanagementRoutes'
 import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagementRoutes'
 import StaffManagementRoutes from 'app/modules/system/staff/StaffManagementRoutes'
+import StaffSalaryManagementRoutes from 'app/modules/system/staffSalary/StaffSalaryManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -84,6 +85,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <StaffManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='staffSalary/*'
+          element={
+            <SuspensedView>
+              <StaffSalaryManagementRoutes />
             </SuspensedView>
           }
         />

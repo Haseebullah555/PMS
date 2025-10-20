@@ -1,3 +1,5 @@
+using System.Linq;
+using System.Runtime.Serialization;
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
 using Application.Dtos.Common;
@@ -20,12 +22,14 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<PaginatedResult<StaffSalaryDto>> Handle(GetListOfStaffSalarysRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.StaffSalaries.GetAll();
+            var items = await _unitOfWork.StaffSalaries.GetAllStaffSalariesAsync();
+
+            var query = items.AsEnumerable();
 
             // Search
-            if (!string.IsNullOrWhiteSpace(request.Search))
+            if (!string.IsNullOrWhiteSpace(request.Search) && int.TryParse(request.Search, out var search))
             {
-                query = query.Where(s => s.Date.ToString().Contains(request.Search));
+                query = query.Where(s => s.StaffId == search);
             }
 
             // Sorting
@@ -46,29 +50,28 @@ namespace Application.Features.sample.Handlers.Queries
             }
             else
             {
-                // Default sort (optional)
                 query = query.OrderBy(s => s.Id);
             }
 
-            // Total count (before pagination)
-            var total = await query.CountAsync(cancellationToken);
+            // Count and pagination
+            var total = query.Count();
 
-            // Pagination
-            var suppliers = await query
+            var salaries = query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
-                .ToListAsync(cancellationToken);
+                .ToList();
 
-            // Map to DTO
-            var supplierDtos = _mapper.Map<List<StaffSalaryDto>>(suppliers);
+            var salaryDtos = _mapper.Map<List<StaffSalaryDto>>(salaries);
 
             return new PaginatedResult<StaffSalaryDto>
             {
-                Data = supplierDtos,
+                Data = salaryDtos,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage
             };
+
+
         }
     }
 }

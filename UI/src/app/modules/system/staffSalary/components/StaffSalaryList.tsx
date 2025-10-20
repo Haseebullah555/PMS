@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next'
 import CreateUserModal from './CreateStaffSalary'
 import EditStaffModal from './EditStaffSalary'
 
-const StaffList = () => {
+const StaffSalaryList = () => {
   const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
@@ -35,7 +35,7 @@ const StaffList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('staff.staffs')})}
+                {t('global.list', {name: t('staffSalary.staffSalaries')})}
               </h3>
             </div>
             <div>
@@ -126,12 +126,12 @@ const StaffList = () => {
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('global.phone')}`,
-                  sort: 'phoneNumber',
+                  headerName: `${t('staffSalary.salaryAmount')}`,
+                  sort: 'amount',
                 },
                 {
-                  headerName: `${t('staff.position')}`,
-                  sort: 'position',
+                  headerName: `${t('global.date')}`,
+                  sort: 'date',
                 },
                 {
                   headerName: 'عمل',
@@ -163,4 +163,4 @@ const StaffList = () => {
     </>
   )
 }
-export default StaffList
+export default StaffSalaryList

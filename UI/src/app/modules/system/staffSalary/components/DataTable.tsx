@@ -11,10 +11,14 @@ import {StaffSalaryForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
 import { getStaffSalaries } from 'redux/staffSalary/StaffSalarySlice'
+import { getStaffsList } from 'redux/staff/StaffSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
-
+interface Staff{
+  id: any,
+  fullName: any
+}
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const [data, setData] = useState<StaffSalaryForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
@@ -29,6 +33,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const dispatch = useAppDispatch()
 
   const {staffSalaries} = useAppSelector((state) => state.staffSalaries)
+  const [staffs, setStaffs] = useState<Staff[]>([])
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -80,23 +85,39 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
     setData(staffSalaries.data)
     setPagination(staffSalaries.meta)
   }, [staffSalaries])
+ useEffect(() => {
+  const fetchStaffs = async () => {
+    setLoading(true); // Set loading to true before fetching
+    const res = await dispatch(getStaffsList());
+    if (res.meta.requestStatus === 'fulfilled') {
+      setStaffs(res.payload);
+    }
+    setLoading(false); // Set loading to false after handling response
+  };
 
+  fetchStaffs();
+}, [dispatch]);
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
   return (
     <div>
-      {isAuthorized ? (
+      {true ? (
         <>
           <div className='form collapse' id='movementSearch'>
             <div className='row mb-3'>
               <div className='row mb-8 col-lg-12'>
-                <div className='col-lg-6 col-md-6 col-sm-12'>
-                  <input
-                    type='search'
-                    placeholder='جستجو به اساس نام...'
-                    className='form-control form-control-sm'
+                <div className='col-lg-6 col-md-6 col-sm-12 mt-2'>
+                  <select
+                    className='form-select form-select-sm'
                     onChange={(e) => handleSearch(e.target.value)}
-                  />
+                  >
+                    <option value=''>{t('global.select', {name: t('staff.staff')})}</option>
+                    {staffs.map((staff) => (
+                      <option key={staff.id} value={staff.id}>
+                        {staff.fullName}
+                      </option>
+                    ))}
+                  </select>
                 </div>
                 <div className='col-lg-6 col-md-6 col-sm-12 mt-2'>
                   <div className='input-group'>
@@ -146,7 +167,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                   memoizedData.map((item, index) => (
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
-                      <td>{item.staffId}</td>
+                      <td>{item.staff}</td>
                       <td>{item.amount}</td>
                       <td>{item.date}</td>
 

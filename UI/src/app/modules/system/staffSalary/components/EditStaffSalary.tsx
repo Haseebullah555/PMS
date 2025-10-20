@@ -8,6 +8,7 @@ import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
 import {updateStaffSalary} from 'redux/staffSalary/StaffSalarySlice'
+import { getStaffsList } from 'redux/staff/StaffSlice'
 
 interface EditStaffSalaryModalProps {
   isOpen: boolean
@@ -15,7 +16,10 @@ interface EditStaffSalaryModalProps {
   selectedStaffSalary: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
-
+interface Staff{
+  id: any,
+  fullName: any
+}
 const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   isOpen,
   onClose,
@@ -26,36 +30,34 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [staffs, setStaffs] = useState<Staff[]>([])
 
   // Populate form with user data when `selectedStaffSalary` changes
   useEffect(() => {
     if (selectedStaffSalary) {
       formik.setFieldValue('id', selectedStaffSalary.id || '')
-      formik.setFieldValue('fullName', selectedStaffSalary.fullName || '')
-      formik.setFieldValue('phone', selectedStaffSalary.phone || '')
-      formik.setFieldValue('position', selectedStaffSalary.position || '')
+      formik.setFieldValue('staffId', selectedStaffSalary.staffId || '')
+      formik.setFieldValue('amount', selectedStaffSalary.amount || '')
+      formik.setFieldValue('date', selectedStaffSalary.date || '')
     }
   }, [selectedStaffSalary])
 
   // Validation schema
   const userSchema = Yup.object().shape({
-    fullName: Yup.string().required(t('validation.required', { name: t('staffSalary.staffSalary') })),
-        position: Yup.string().required(t('validation.required', { name: t('staffSalary.position') })),
-        phone: Yup.string()
-          .required(t('validation.required', { name: t('global.phone') }))
-          .matches(
-            /^(?:\+93|0)?7\d{8}$/,
-            t('validation.invalid', { name: t('global.phone') }) // Custom error message
-          )
+    staffId: Yup.string().required(t('validation.required', { name: t('staffSalary.staffSalary') })),
+        date: Yup.string().required(t('validation.required', { name: t('staffSalary.date') })),
+        amount: Yup.string()
+          .required(t('validation.required', { name: t('global.amount') }))
   })
 
   // Formik setup
   const formik = useFormik({
     initialValues: {
       id: '',
-      fullName: '',
-      position: '',
-      phone: '',
+      staffId: '',
+      amount: '',
+      date: '',
     },
     validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
@@ -95,7 +97,18 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   const handleError = (error: any) => {
     console.error('Error creating department:', error.message)
   }
+ useEffect(() => {
+  const fetchStaffs = async () => {
+    setLoading(true); // Set loading to true before fetching
+    const res = await dispatch(getStaffsList());
+    if (res.meta.requestStatus === 'fulfilled') {
+      setStaffs(res.payload);
+    }
+    setLoading(false); // Set loading to false after handling response
+  };
 
+  fetchStaffs();
+}, [dispatch]);
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
@@ -110,15 +123,21 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
               <label className='form-label'>
                 {t('staffSalary.staffSalary')} <span className='text-danger'>*</span>
               </label>
-              <input
-                type='text'
-                {...formik.getFieldProps('fullName')}
-                className={clsx('form-control', {
-                  'is-invalid': formik.touched.fullName && formik.errors.fullName,
-                  'is-valid': formik.touched.fullName && !formik.errors.fullName,
-                })}
-              />
-              {formik.touched.fullName && formik.errors.fullName && (
+             <select
+                    {...formik.getFieldProps('staffId')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.staffId && formik.errors.staffId,
+                      'is-valid': formik.touched.staffId && !formik.errors.staffId,
+                    })}
+                  >
+                    <option value=''>{t('global.select', {name: t('staff.staff')})}</option>
+                    {staffs.map((staff) => (
+                      <option key={staff.id} value={staff.id}>
+                        {staff.fullName}
+                      </option>
+                    ))}
+                  </select>
+              {formik.touched.staffId && formik.errors.staffId && (
                 <div className='invalid-feedback'>
                   {t('validation.required', {name: t('staffSalary.staffSalary')})}
                 </div>
@@ -127,19 +146,19 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
 
             <div className='col-md-6 mb-3'>
               <label className='form-label'>
-                {t('global.phone')} <span className='text-danger'>*</span>
+                {t('global.amount')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('phone')}
+                {...formik.getFieldProps('amount')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.phone && formik.errors.phone,
-                  'is-valid': formik.touched.phone && !formik.errors.phone,
+                  'is-invalid': formik.touched.amount && formik.errors.amount,
+                  'is-valid': formik.touched.amount && !formik.errors.amount,
                 })}
               />
-              {formik.touched.phone && formik.errors.phone && (
+              {formik.touched.amount && formik.errors.amount && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('StaffSalary.phone')})}
+                  {t('validation.required', {name: t('staffSalary.salaryAmount')})}
                 </div>
               )}
             </div>
@@ -147,19 +166,19 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
           <div className='row'>
             <div className='col-md-12 mb-3'>
               <label className='form-label'>
-                {t('global.position')} <span className='text-danger'>*</span>
+                {t('global.date')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('position')}
+                {...formik.getFieldProps('date')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.position && formik.errors.position,
-                  'is-valid': formik.touched.position && !formik.errors.position,
+                  'is-invalid': formik.touched.date && formik.errors.date,
+                  'is-valid': formik.touched.date && !formik.errors.date,
                 })}
               />
-              {formik.touched.position && formik.errors.position && (
+              {formik.touched.date && formik.errors.date && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('global.position')})}
+                  {t('validation.required', {name: t('global.date')})}
                 </div>
               )}
             </div>

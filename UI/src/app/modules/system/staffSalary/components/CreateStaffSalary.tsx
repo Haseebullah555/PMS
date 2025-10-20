@@ -22,7 +22,7 @@ interface CreateStaffSalaryModalProps {
 }
 interface Staff{
   id: any,
-  staffName: any
+  fullName: any
 }
 const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
@@ -34,9 +34,9 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
 
   // Form Validation Schema
   const StaffSalarySchema = Yup.object().shape({
+    staffId: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
     amount: Yup.string().required(t('validation.required', { name: t('staffSalary.amount') })),
-    Date: Yup.string()
-      .required(t('validation.required', { name: t('global.date') }))        
+    date: Yup.string().required(t('validation.required', { name: t('global.date') }))        
   })
 
   // Formik Hook
@@ -97,7 +97,7 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('staffSalary.staffSalarys') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('staffSalary.staffSalary') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -117,16 +117,16 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                       'is-valid': formik.touched.staffId && !formik.errors.staffId,
                     })}
                   >
-                    <option value=''>{t('global.select')}</option>
+                    <option value=''>{t('global.select', {name: t('staff.staff')})}</option>
                     {staffs.map((staff) => (
                       <option key={staff.id} value={staff.id}>
-                        {staff.staffName}
+                        {staff.fullName}
                       </option>
                     ))}
                   </select>
                   {formik.touched.staffId && formik.errors.staffId && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('staffSalary.staffSalary') })}
+                      {t('validation.required', { name: t('staff.staff') })}
                     </div>
                   )}
                 </div>
@@ -147,7 +147,7 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                   />
                   {formik.touched.amount && formik.errors.amount && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('staffSalary.amount') })}
+                      {t('validation.required', { name: t('global.amount') })}
                     </div>
                   )}
                 </div>
@@ -160,7 +160,7 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                     {t('global.date')} <span className='text-danger'>*</span>
                   </label>
                   <input
-                    type='text'
+                    type='date'
                     {...formik.getFieldProps('date')}
                     className={clsx('form-control', {
                       'is-invalid': formik.touched.date && formik.errors.date,
