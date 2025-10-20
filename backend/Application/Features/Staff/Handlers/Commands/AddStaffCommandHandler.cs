@@ -18,7 +18,7 @@ namespace Application.Features.sample.Handlers.Commands
         }
         public async Task Handle(AddStaffCommand request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<Staff>(request.StaffDto);
+            var result = _mapper.Map<Domain.Models.Staff>(request.StaffDto);
             await _unitOfWork.Staffs.Add(result);
             await _unitOfWork.SaveChanges(cancellationToken);
         }

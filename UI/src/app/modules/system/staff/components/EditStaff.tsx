@@ -7,19 +7,19 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updatePartner} from 'redux/partner/PartnerSlice'
+import {updateStaff} from 'redux/staff/StaffSlice'
 
-interface EditPartnerModalProps {
+interface EditStaffModalProps {
   isOpen: boolean
   onClose: () => void
-  selectedPartner: any // Type it as appropriate based on your data structure
+  selectedStaff: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
 
-const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
+const EditStaffModal: React.FC<EditStaffModalProps> = ({
   isOpen,
   onClose,
-  selectedPartner,
+  selectedStaff,
   handleReloadTable,
 }) => {
   const intl = useIntl()
@@ -27,38 +27,41 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
-  // Populate form with user data when `selectedPartner` changes
+  // Populate form with user data when `selectedStaff` changes
   useEffect(() => {
-    if (selectedPartner) {
-      formik.setFieldValue('id', selectedPartner.id || '')
-      formik.setFieldValue('fullName', selectedPartner.fullName || '')
-      formik.setFieldValue('initialInvestment', selectedPartner.initialInvestment || '')
-      formik.setFieldValue('ownershipPercentage', selectedPartner.ownershipPercentage || '')
+    if (selectedStaff) {
+      formik.setFieldValue('id', selectedStaff.id || '')
+      formik.setFieldValue('fullName', selectedStaff.fullName || '')
+      formik.setFieldValue('phone', selectedStaff.phone || '')
+      formik.setFieldValue('position', selectedStaff.position || '')
     }
-  }, [selectedPartner])
+  }, [selectedStaff])
 
   // Validation schema
-  const PartnerSchema = Yup.object().shape({
-    fullName: Yup.string().required(t('validation.required', { fullName: t('partner.partner') })),
-    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('partner.ownershipPercentage') })),
-    initialInvestment: Yup.string()
-      .required(t('validation.required', { fullName: t('partner.initialInvestment') }))
+  const userSchema = Yup.object().shape({
+    fullName: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
+        position: Yup.string().required(t('validation.required', { name: t('staff.position') })),
+        phone: Yup.string()
+          .required(t('validation.required', { name: t('global.phone') }))
+          .matches(
+            /^(?:\+93|0)?7\d{8}$/,
+            t('validation.invalid', { name: t('global.phone') }) // Custom error message
+          )
   })
-
 
   // Formik setup
   const formik = useFormik({
     initialValues: {
       id: '',
       fullName: '',
-      initialInvestment: '',
-      ownershipPercentage: '',
+      position: '',
+      phone: '',
     },
-    validationSchema: PartnerSchema,
+    validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
-        const response = await dispatch(updatePartner(values) as any)
-        if (updatePartner.fulfilled.match(response)) {
+        const response = await dispatch(updateStaff(values) as any)
+        if (updateStaff.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -96,7 +99,7 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.edit', {name: t('partner.partners')})}</Modal.Title>
+        <Modal.Title>{t('global.edit', {name: t('staff.staffs')})}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -105,7 +108,7 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
             <input type="hidden" {...formik.getFieldProps('id')}  />
             <div className='col-md-6 mb-3'>
               <label className='form-label'>
-                {t('partner.partner')} <span className='text-danger'>*</span>
+                {t('staff.staff')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
@@ -117,7 +120,7 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
               />
               {formik.touched.fullName && formik.errors.fullName && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('partner.partner')})}
+                  {t('validation.required', {name: t('staff.staff')})}
                 </div>
               )}
             </div>
@@ -128,15 +131,15 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('initialInvestment')}
+                {...formik.getFieldProps('phone')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.initialInvestment && formik.errors.initialInvestment,
-                  'is-valid': formik.touched.initialInvestment && !formik.errors.initialInvestment,
+                  'is-invalid': formik.touched.phone && formik.errors.phone,
+                  'is-valid': formik.touched.phone && !formik.errors.phone,
                 })}
               />
-              {formik.touched.initialInvestment && formik.errors.initialInvestment && (
+              {formik.touched.phone && formik.errors.phone && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('partner.initialInvestment')})}
+                  {t('validation.required', {name: t('Staff.phone')})}
                 </div>
               )}
             </div>
@@ -144,19 +147,19 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
           <div className='row'>
             <div className='col-md-12 mb-3'>
               <label className='form-label'>
-                {t('global.address')} <span className='text-danger'>*</span>
+                {t('global.position')} <span className='text-danger'>*</span>
               </label>
               <input
                 type='text'
-                {...formik.getFieldProps('ownershipPercentage')}
+                {...formik.getFieldProps('position')}
                 className={clsx('form-control', {
-                  'is-invalid': formik.touched.ownershipPercentage && formik.errors.ownershipPercentage,
-                  'is-valid': formik.touched.ownershipPercentage && !formik.errors.ownershipPercentage,
+                  'is-invalid': formik.touched.position && formik.errors.position,
+                  'is-valid': formik.touched.position && !formik.errors.position,
                 })}
               />
-              {formik.touched.ownershipPercentage && formik.errors.ownershipPercentage && (
+              {formik.touched.position && formik.errors.position && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('partner.ownershipPercentage')})}
+                  {t('validation.required', {name: t('global.position')})}
                 </div>
               )}
             </div>
@@ -177,4 +180,4 @@ const EditPartnerModal: React.FC<EditPartnerModalProps> = ({
   )
 }
 
-export default EditPartnerModal
+export default EditStaffModal

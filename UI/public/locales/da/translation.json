@@ -132,7 +132,7 @@
     "apc-system": "سیستم کارت عبور میدان هوایی",
     "Remarks": "ملاحظات",
     "date": "تاریخ",
-    "": "",
+    "amount": "مقدار",
     "": "",
     "": "",
     "": "",
@@ -299,14 +299,23 @@
   },
   "extraExpense": {
     "extraExpenses": "مصارف متفرقه",
-    "expenseType": "نوع مصرف",
-    "amount": "مقدار"
+    "expenseType": "نوع مصرف"
   },
   "partner": {
     "partners": "شریکان",
     "initialInvestment": "سرمایه اولیه",
     "ownershipPercentage": "درصد مالکیت",
     "partner": "شریک"
+  },
+  "staff": {
+    "staffs": "کارمندان",
+    "position": "موقف",
+    "staff": "کارمند"
+  },
+  "staffSalary": {
+    "staffSalaries": "معاشات کارمندان",
+    "staffSalary": "معاش کارمند",
+    "salaryAmount": "مقدار معاش"
   }
 
 }

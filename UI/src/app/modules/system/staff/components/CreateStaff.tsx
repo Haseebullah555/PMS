@@ -9,37 +9,45 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storePartner } from 'redux/partner/PartnerSlice'
+import { storeUser } from 'redux/authentication/user/userManagementSlice'
+import { storeStaff } from 'redux/staff/StaffSlice'
+import { Console } from 'console'
 
 // Define the props for the modal
-interface CreatePartnerModalProps {
+interface CreateStaffModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const PartnerSchema = Yup.object().shape({
-    fullName: Yup.string().required(t('validation.required', { fullName: t('partner.partner') })),
-    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('partner.ownershipPercentage') })),
-    initialInvestment: Yup.string()
-      .required(t('validation.required', { fullName: t('partner.initialInvestment') }))
+  const StaffSchema = Yup.object().shape({
+    fullName: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
+    position: Yup.string().required(t('validation.required', { name: t('staff.position') })),
+    phone: Yup.string()
+      .required(t('validation.required', { name: t('global.phone') })) 
+      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
+      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
   })
+
+
+
 
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: PartnerSchema,
+    validationSchema: StaffSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      console.log("Submitting values:", values);
       try {
-        const response = await dispatch(storePartner(values) as any)
-        if (storePartner.fulfilled.match(response)) {
+        const response = await dispatch(storeStaff(values) as any)
+        if (storeStaff.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -57,6 +65,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
   })
 
   const handleFulfilledResponse = (response: any) => {
+    console.log(response, "fslkjfdlksdfslkdfsjsdljflksdjf");
     const { meta, payload } = response
     if (meta.requestStatus === 'fulfilled') {
       toast.success(<p className='fs-4 fw-bold'>{payload.message}</p>)
@@ -71,23 +80,23 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating partner:', error.message)
+    console.error('Error creating staff:', error.message)
   }
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('partner.partners') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('staff.staffs') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Partner Name Fields */}
+          {/* Name and Staff Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('partner.partner')} <span className='text-danger'>*</span>
+                    {t('staff.staff')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
@@ -99,28 +108,28 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                   />
                   {formik.touched.fullName && formik.errors.fullName && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('partner.partner') })}
+                      {t('validation.required', { name: t('staff.staff') })}
                     </div>
                   )}
                 </div>
 
-                {/* Partner initialInvestment Field */}
-                {/* Partner initialInvestment Field */}
+                {/* Staff phoneNumber Field */}
+                {/* Staff phoneNumber Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('partner.initialInvestment')} <span className='text-danger'>*</span>
+                    {t('global.phone')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('initialInvestment')}
+                    {...formik.getFieldProps('phone')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.initialInvestment && Boolean(formik.errors.initialInvestment),
-                      'is-valid': formik.touched.initialInvestment && !formik.errors.initialInvestment,
+                      'is-invalid': formik.touched.phone && Boolean(formik.errors.phone),
+                      'is-valid': formik.touched.phone && !formik.errors.phone,
                     })}
                   />
-                  {formik.touched.initialInvestment && formik.errors.initialInvestment && (
+                  {formik.touched.phone && formik.errors.phone && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('partner.initialInvestment') })}
+                      {formik.errors.phone}
                     </div>
                   )}
                 </div>
@@ -130,19 +139,19 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
                 {/* Name Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
-                    {t('partner.ownershipPercentage')} <span className='text-danger'>*</span>
+                    {t('staff.position')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('ownershipPercentage')}
+                    {...formik.getFieldProps('position')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.ownershipPercentage && formik.errors.ownershipPercentage,
-                      'is-valid': formik.touched.ownershipPercentage && !formik.errors.ownershipPercentage,
+                      'is-invalid': formik.touched.position && formik.errors.position,
+                      'is-valid': formik.touched.position && !formik.errors.position,
                     })}
                   />
-                  {formik.touched.ownershipPercentage && formik.errors.ownershipPercentage && (
+                  {formik.touched.position && formik.errors.position && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('partner.ownershipPercentage') })}
+                      {t('validation.required', { name: t('staff.position') })}
                     </div>
                   )}
                 </div>
@@ -159,7 +168,7 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
               variant='primary'
               type='submit'
               disabled={formik.isSubmitting}
-            // classfullName='me-2 '
+            // classname='me-2 '
             >
               {t('global.SAVE')}
             </Button>
@@ -170,4 +179,4 @@ const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose
   )
 }
 
-export default CreatePartnerModal
+export default CreateStaffModal

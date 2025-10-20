@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StaffSalarySalaryController : BaseApiController
+    public class StaffSalaryController : BaseApiController
     {
         [HttpGet("list")]
         public async Task<ActionResult> GetAllStaffSalarys([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)

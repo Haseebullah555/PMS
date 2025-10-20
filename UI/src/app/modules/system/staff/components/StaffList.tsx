@@ -3,21 +3,21 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
-import CreateUserModal from './CreatePartner'
-import EditPartnerModal from './EditPartner'
+import CreateUserModal from './CreateStaff'
+import EditStaffModal from './EditStaff'
 
-const PartnerList = () => {
+const StaffList = () => {
   const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
-  const [selectedPartner, setSelectedPartner] = useState(null)
+  const [selectedStaff, setSelectedStaff] = useState(null)
 
   const closeModal = () => setModalOpen(false)
   const openModal = () => setModalOpen(true)
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (Partner: any) => {
-    setSelectedPartner(Partner)
+  const openEditModal = (Staff: any) => {
+    setSelectedStaff(Staff)
     setEditModalOpen(true)
   }
 
@@ -35,7 +35,7 @@ const PartnerList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('partner.partners')})}
+                {t('global.list', {name: t('staff.staffs')})}
               </h3>
             </div>
             <div>
@@ -46,7 +46,7 @@ const PartnerList = () => {
                     onClick={openModal}
                   >
                     <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('partner.partners')})}
+                    {t('global.add', {name: t('staff.staffs')})}
                   </button>
 
                   <div className='me-2 ms-2'>
@@ -122,23 +122,23 @@ const PartnerList = () => {
                   sort: 'id',
                 },
                 {
-                  headerName: `${t('partner.partners')}`,
-                  sort: 'fullName',
+                  headerName: `${t('staff.staff')}`,
+                  sort: 'name',
                 },
                 {
-                  headerName: `${t('partner.initialInvestment')}`,
-                  sort: 'initialInvestment',
+                  headerName: `${t('global.phone')}`,
+                  sort: 'phoneNumber',
                 },
                 {
-                  headerName: `${t('partner.ownershipPercentage')}`,
-                  sort: 'ownershipPercentage',
+                  headerName: `${t('staff.position')}`,
+                  sort: 'position',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'fullName', 'initialInvestment', 'ownershipPercentage']}
+              columns={['id', 'name', 'phoneNumber', 'position']}
               handleEdit={openEditModal}
             />
           </div>
@@ -153,14 +153,14 @@ const PartnerList = () => {
         />
       )}
       {isEditModalOpen && (
-        <EditPartnerModal
+        <EditStaffModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
-          selectedPartner={selectedPartner}
+          selectedStaff={selectedStaff}
           handleReloadTable={handleReloadTable}
         />
       )}
     </>
   )
 }
-export default PartnerList
+export default StaffList
