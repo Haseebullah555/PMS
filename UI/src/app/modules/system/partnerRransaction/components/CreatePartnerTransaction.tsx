@@ -9,45 +9,45 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeUser } from 'redux/authentication/user/userManagementSlice'
-import { storeStaffSalary } from 'redux/staffSalary/StaffSalarySlice'
-import { Console } from 'console'
-import { getStaffsList } from 'redux/staff/StaffSlice'
+import { storePartnerTransaction } from 'redux/partnerTransaction/PartnerTransactionSlice'
+import { getPartnersList } from 'redux/partner/PartnerSlice'
 
 // Define the props for the modal
-interface CreateStaffSalaryModalProps {
+interface CreatePartnerTransactionModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
-interface Staff{
+
+interface Partner {
   id: any,
   fullName: any
 }
-const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreatePartnerTransactionModal: React.FC<CreatePartnerTransactionModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const [roles, setRoles] = useState([])
-  const [staffs, setStaffs] = useState<Staff[]>([])
   const [loading, setLoading] = useState(false)
+  const [roles, setRoles] = useState([])
+  const [partners, setPartners] = useState<Partner[]>([])
+  const [types, setTransactionTypes] = useState([])
 
   // Form Validation Schema
-  const StaffSalarySchema = Yup.object().shape({
-    staffId: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
-    amount: Yup.string().required(t('validation.required', { name: t('staffSalary.amount') })),
-    date: Yup.string().required(t('validation.required', { name: t('global.date') }))        
+  const PartnerTransactionSchema = Yup.object().shape({
+    partnerId: Yup.string().required(t('validation.required', { partnerId: t('partnerTransaction.partnerTransaction') })),
+    amount: Yup.string().required(t('validation.required', { partnerId: t('global.amount') })),
+    date: Yup.string().required(t('validation.required', { partnerId: t('global.date') })),
+    type: Yup.string().required(t('validation.required', { partnerId: t('partnerTransaction.type') }))
   })
 
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: StaffSalarySchema,
+    validationSchema: PartnerTransactionSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      console.log("Submitting values:", values);
       try {
-        const response = await dispatch(storeStaffSalary(values) as any)
-        if (storeStaffSalary.fulfilled.match(response)) {
+        const response = await dispatch(storePartnerTransaction(values) as any)
+        if (storePartnerTransaction.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -79,60 +79,81 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating staffSalary:', error.message)
+    console.error('Error creating partnerTransaction:', error.message)
   }
 
- useEffect(() => {
-  const fetchStaffs = async () => {
-    setLoading(true); // Set loading to true before fetching
-    const res = await dispatch(getStaffsList());
-    if (res.meta.requestStatus === 'fulfilled') {
-      setStaffs(res.payload);
-    }
-    setLoading(false); // Set loading to false after handling response
-  };
-
-  fetchStaffs();
-}, [dispatch]);
+  useEffect(() => {
+    const fetchPartners = async () => {
+      setLoading(true);
+      const res = await dispatch(getPartnersList());
+      if (res.meta.requestStatus === 'fulfilled') {
+        setPartners(res.payload);
+      }
+      setLoading(false);
+    };
+    fetchPartners();
+  }, [dispatch]);
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('staffSalary.staffSalary') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('partnerTransaction.partnerTransactions') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and StaffSalary Name Fields */}
+          {/* Name and PartnerTransaction Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('staffSalary.staffSalary')} <span className='text-danger'>*</span>
+                    {t('partnerTransaction.partnerTransaction')} <span className='text-danger'>*</span>
                   </label>
                   <select
-                    {...formik.getFieldProps('staffId')}
+                    {...formik.getFieldProps('partnerId')}
                     className={clsx('form-select', {
-                      'is-invalid': formik.touched.staffId && formik.errors.staffId,
-                      'is-valid': formik.touched.staffId && !formik.errors.staffId,
+                      'is-invalid': formik.touched.partnerId && formik.errors.partnerId,
+                      'is-valid': formik.touched.partnerId && !formik.errors.partnerId,
                     })}
                   >
-                    <option value=''>{t('global.select', {name: t('staff.staff')})}</option>
-                    {staffs.map((staff) => (
-                      <option key={staff.id} value={staff.id}>
-                        {staff.fullName}
-                      </option>
+                    <option value="">{t('global.select', { name: t('partnerTransaction.partnerTransaction') })}</option>
+                    {partners.map((partner) => (
+                      <option key={partner.id} value={partner.id}>{partner.fullName}</option>
                     ))}
                   </select>
-                  {formik.touched.staffId && formik.errors.staffId && (
+                  {formik.touched.partnerId && formik.errors.partnerId && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('staff.staff') })}
+                      {t('validation.required', { name: t('partnerTransaction.partnerTransaction') })}
                     </div>
                   )}
                 </div>
 
-                {/* StaffSalary amountNumber Field */}
-                {/* StaffSalary amountNumber Field */}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('partnerTransaction.type')} <span className='text-danger'>*</span>
+                  </label>
+                  <select
+                    {...formik.getFieldProps('type')}
+                    className={clsx('form-select', {
+                      'is-invalid': formik.touched.type && Boolean(formik.errors.type),
+                      'is-valid': formik.touched.type && !formik.errors.type,
+                    })}
+                    onBlur={() => formik.setFieldTouched('type', true)}
+                  >
+                    <option value="">{t('global.select', { name: t('partnerTransaction.type') })}</option>
+                    <option value='Deposit' label='Deposit' />
+                    <option value='Withdrawal' label='Withdrawal' />
+                  </select>
+                  {formik.touched.type && formik.errors.type && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('partnerTransaction.type') })}
+                    </div>
+                  )}
+                </div>
+
+              </div>
+              <div className='row'>
+                {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
                     {t('global.amount')} <span className='text-danger'>*</span>
@@ -141,7 +162,7 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                     type='text'
                     {...formik.getFieldProps('amount')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.amount && Boolean(formik.errors.amount),
+                      'is-invalid': formik.touched.amount && formik.errors.amount,
                       'is-valid': formik.touched.amount && !formik.errors.amount,
                     })}
                   />
@@ -151,11 +172,8 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                     </div>
                   )}
                 </div>
-
-              </div>
-              <div className='row'>
                 {/* Name Field */}
-                <div className='col-md-12 mb-3'>
+                <div className='col-md-6 mb-3'>
                   <label className='form-label'>
                     {t('global.date')} <span className='text-danger'>*</span>
                   </label>
@@ -186,7 +204,7 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
               variant='primary'
               type='submit'
               disabled={formik.isSubmitting}
-            // classname='me-2 '
+            // classpartnerId='me-2 '
             >
               {t('global.SAVE')}
             </Button>
@@ -197,4 +215,4 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
   )
 }
 
-export default CreateStaffSalaryModal
+export default CreatePartnerTransactionModal

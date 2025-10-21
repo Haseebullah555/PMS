@@ -39,7 +39,7 @@ namespace Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ExpenseType = table.Column<string>(type: "text", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    ExpenseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ExpenseDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Notes = table.Column<string>(type: "text", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdateBy = table.Column<Guid>(type: "uuid", nullable: false),
@@ -123,7 +123,6 @@ namespace Persistence.Migrations
                     FullName = table.Column<string>(type: "text", nullable: false),
                     Position = table.Column<string>(type: "text", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
-                    Salary = table.Column<double>(type: "double precision", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdateBy = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -262,7 +261,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CapitalTransactions",
+                name: "PartnerTransactions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -270,7 +269,7 @@ namespace Persistence.Migrations
                     PartnerId = table.Column<int>(type: "integer", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
                     UpdateBy = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -278,35 +277,9 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CapitalTransactions", x => x.Id);
+                    table.PrimaryKey("PK_PartnerTransactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CapitalTransactions_Partners_PartnerId",
-                        column: x => x.PartnerId,
-                        principalTable: "Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PartnerTransaction",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PartnerId = table.Column<int>(type: "integer", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
-                    Type = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    UpdateBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PartnerTransaction", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PartnerTransaction_Partners_PartnerId",
+                        name: "FK_PartnerTransactions_Partners_PartnerId",
                         column: x => x.PartnerId,
                         principalTable: "Partners",
                         principalColumn: "Id",
@@ -636,11 +609,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CapitalTransactions_PartnerId",
-                table: "CapitalTransactions",
-                column: "PartnerId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CustomerLoanPayments_CustomerLoanId",
                 table: "CustomerLoanPayments",
                 column: "CustomerLoanId");
@@ -651,8 +619,8 @@ namespace Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PartnerTransaction_PartnerId",
-                table: "PartnerTransaction",
+                name: "IX_PartnerTransactions_PartnerId",
+                table: "PartnerTransactions",
                 column: "PartnerId");
 
             migrationBuilder.CreateIndex(
@@ -740,9 +708,6 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CapitalTransactions");
-
-            migrationBuilder.DropTable(
                 name: "CustomerLoanPayments");
 
             migrationBuilder.DropTable(
@@ -752,7 +717,7 @@ namespace Persistence.Migrations
                 name: "FinancialTransactions");
 
             migrationBuilder.DropTable(
-                name: "PartnerTransaction");
+                name: "PartnerTransactions");
 
             migrationBuilder.DropTable(
                 name: "ProfitSharings");

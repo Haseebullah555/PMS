@@ -1,8 +1,13 @@
 import axios from 'axios'
 
-// Get users
+// Get partners
 const getPartners = async (params: any) => {
   const response = await axios.get(`/Partner/list`, {params})
+  return response.data
+}
+// Get list of partners
+const getPartnersList = async () => {
+  const response = await axios.get(`/Partner/listAll`)
   return response.data
 }
 // Get roles by system id.
@@ -24,6 +29,7 @@ const update = async (formData: any) => {
 
 const partnerService = {
   getPartners,
+  getPartnersList,
   getRolesBySystemId,
   store,
   update,

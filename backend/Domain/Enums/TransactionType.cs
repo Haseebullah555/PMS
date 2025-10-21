@@ -3,6 +3,6 @@ namespace Domain.Enums
     public enum TransactionType
     {
         Deposit,
-    Withdrawal
+        Withdrawal
     }
 }

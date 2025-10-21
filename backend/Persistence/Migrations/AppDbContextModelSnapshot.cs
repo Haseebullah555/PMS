@@ -314,8 +314,8 @@ namespace Persistence.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("uuid");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<int>("PartnerId")
                         .HasColumnType("integer");
@@ -333,7 +333,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("PartnerId");
 
-                    b.ToTable("PartnerTransaction");
+                    b.ToTable("PartnerTransactions");
                 });
 
             modelBuilder.Entity("Domain.Models.ProfitSharing", b =>

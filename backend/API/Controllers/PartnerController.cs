@@ -36,6 +36,12 @@ namespace API.Controllers
                 }
             });
         }
+        [HttpGet("listAll")]
+        public async Task<ActionResult> GetAllPartnersList()
+        {
+            var result = await _mediator.Send(new GetPartnersListRequest());
+            return Ok(result);
+        }
         [HttpPost("create")]
         public async Task<ActionResult> Create([FromBody] PartnerDto partnerDto)
         {

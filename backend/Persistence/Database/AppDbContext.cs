@@ -1,6 +1,5 @@
 ﻿using Domain.Models;
 using Domain.UserManagement;
-using MediatR.Pipeline;
 using Microsoft.EntityFrameworkCore;
 
 namespace Persistence.Database
@@ -30,6 +29,7 @@ namespace Persistence.Database
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ExtraExpenses> ExtraExpenses { get; set; }
         public DbSet<Partner> Partners { get; set; }
+        public DbSet<PartnerTransaction> PartnerTransactions { get; set; }
         public DbSet<ProfitSharing> ProfitSharings { get; set; }
         public DbSet<ProfitSharingAgreement> ProfitSharingAgreements { get; set; }
         #endregion

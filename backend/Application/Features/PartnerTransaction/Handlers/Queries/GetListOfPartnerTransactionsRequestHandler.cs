@@ -4,7 +4,6 @@ using Application.Dtos.Common;
 using Application.Features.PartnerTransaction.Requests.Queries;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.PartnerTransaction.Handlers.Queries
 {
@@ -20,8 +19,8 @@ namespace Application.Features.PartnerTransaction.Handlers.Queries
         }
         public async Task<PaginatedResult<PartnerTransactionDto>> Handle(GetListOfPartnerTransactionsRequest request, CancellationToken cancellationToken)
         {
-             var query = _unitOfWork.PartnerTransactions.GetAll();
-
+             var items = await _unitOfWork.PartnerTransactions.GetListOfPartnerTransactions();
+            var query = items.AsEnumerable();
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
@@ -51,13 +50,13 @@ namespace Application.Features.PartnerTransaction.Handlers.Queries
             }
 
             // Total count (before pagination)
-            var total = await query.CountAsync(cancellationToken);
+            var total =  query.Count();
 
             // Pagination
-            var partners = await query
+            var partners = query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
-                .ToListAsync(cancellationToken);
+                .ToList();
 
             // Map to DTO
             var partnerDtos = _mapper.Map<List<PartnerTransactionDto>>(partners);

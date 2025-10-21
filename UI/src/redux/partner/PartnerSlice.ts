@@ -30,11 +30,22 @@ export const getPartner = createAsyncThunk('api/partner/fgh', async (params: any
     return thunkAPI.rejectWithValue(message)
   }
 })
+//get partners list from server
+export const getPartnersList = createAsyncThunk('api/partner/fgh', async (_, thunkAPI) => {
+  try {
+    return await partnerService.getPartnersList()
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
 
 // store partner
 export const storePartner = createAsyncThunk('api/partner/store', async (formData: any, thunkAPI) => {
   try {
-    console.log('formDataaaaaaaaaaaa', formData);
     return await partnerService.store(formData)
   } catch (error: any) {
     const message =

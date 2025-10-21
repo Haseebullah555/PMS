@@ -8,7 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PartnerTransactionTransactionController : BaseApiController
+    public class PartnerTransactionController : BaseApiController
     {
         [HttpGet("list")]
         public async Task<ActionResult> GetAllPartnerTransactions([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)

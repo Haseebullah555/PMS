@@ -8,12 +8,12 @@ namespace Application.Dtos
     {
         [Display(Name ="Partner"), Required(ErrorMessage ="{0} is required")]
         public int PartnerId { get; set; }
-        public string Partner { get; set; } = null!;
+        public string? Partner { get; set; } = null!;
         [Display(Name = "Amount"), Required(ErrorMessage = "{0} is required")]
         public decimal Amount { get; set; }
         [Display(Name = "Transaction Type"), Required(ErrorMessage = "{0} is required")]
         public TransactionType Type { get; set; } // Enum: Deposit, Withdrawal
         [Display(Name = "Date"), Required(ErrorMessage ="{0} is required")]
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
     }
 }

@@ -133,8 +133,8 @@
     "Remarks": "ملاحظات",
     "date": "تاریخ",
     "amount": "مقدار",
-    "": "",
-    "": "",
+    "deposit": "واریز",
+    "withdrawal": "برداشت",
     "": "",
     "": "",
     "": "",
@@ -306,6 +306,12 @@
     "initialInvestment": "سرمایه اولیه",
     "ownershipPercentage": "درصد مالکیت",
     "partner": "شریک"
+  },
+  "partnerTransaction": {
+    "partnerTransactions": "معاملات شریکان",
+    "transactionType": "نوعیت معامله",
+    "transactionAmount": "مقدار معامله",
+    "partnerTransaction": "معامله شریک"
   },
   "staff": {
     "staffs": "کارمندان",

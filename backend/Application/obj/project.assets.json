@@ -786,8 +786,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "d:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj": {
-              "projectPath": "d:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj"
+            "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj"
             }
           }
         }

@@ -13,6 +13,7 @@ import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraE
 import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagementRoutes'
 import StaffManagementRoutes from 'app/modules/system/staff/StaffManagementRoutes'
 import StaffSalaryManagementRoutes from 'app/modules/system/staffSalary/StaffSalaryManagementRoutes'
+import PartnerTransactionManagementRoutes from 'app/modules/system/partnerRransaction/PartnerTransactionManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -77,6 +78,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <PartnerManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='partnerTransaction/*'
+          element={
+            <SuspensedView>
+              <PartnerTransactionManagementRoutes />
             </SuspensedView>
           }
         />

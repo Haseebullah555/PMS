@@ -6,10 +6,10 @@ namespace Domain.Models
     public class PartnerTransaction : BaseDomainEntity
     {
         public int PartnerId { get; set; }
-        public Partner Partner { get; set; } = null!;
+        public Partner? Partner { get; set; }
 
         public decimal Amount { get; set; }
         public TransactionType Type { get; set; } // Enum: Deposit, Withdrawal
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
     }
 }
