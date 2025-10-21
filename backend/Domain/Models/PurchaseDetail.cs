@@ -5,13 +5,13 @@ namespace Domain.Models
     public class PurchaseDetail : BaseDomainEntity
     {
         public int PurchaseId { get; set; }
-        public Purchase Purchase { get; set; } = null!;
+        public Purchase? Purchase { get; set; }
 
         public int StockId { get; set; }
-        public Stock Stock { get; set; } = null!;
+        public Stock? Stock { get; set; }
 
         public int GoodId { get; set; }
-        public Good Good { get; set; } = null!;
+        public Good? Good { get; set; }
 
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

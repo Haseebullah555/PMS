@@ -18,8 +18,8 @@ namespace Application.Features.sample.Handlers.Commands
         }
         public async Task Handle(AddStaffSalaryCommand request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<StaffSalary>(request.StaffSalaryDto);
-            await _unitOfWork.StaffSalaries.Add(result);
+            var result = _mapper.Map<StaffPayment>(request.StaffSalaryDto);
+            await _unitOfWork.StaffPayments.Add(result);
             await _unitOfWork.SaveChanges(cancellationToken);
         }
     }

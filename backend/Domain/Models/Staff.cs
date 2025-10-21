@@ -9,6 +9,11 @@ namespace Domain.Models
         public string FullName { get; set; }
         public string Position { get; set; }
         public string Phone { get; set; }
-        public ICollection<SalaryPayment> SalaryPayments { get; set; } = new List<SalaryPayment>();
+        [Required]
+        public decimal Salary { get; set; }
+        [Required]
+        public DateOnly HireDate { get; set; }
+        public bool Status { get; set; }
+        public ICollection<StaffPayment> SalaryPayments { get; set; } = new List<StaffPayment>();
     }
 }

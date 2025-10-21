@@ -9,7 +9,7 @@ namespace Application.Contracts.Interfaces.Common
         public IPartnerRepository Partners { get; }
         public IPartnerTransactionRepository PartnerTransactions { get; }
         public IStaffRepository Staffs { get; }
-        public IStaffSalaryRepository StaffSalaries { get; }
+        public IStaffPaymentRepository StaffPayments { get; }
         Task SaveChanges(CancellationToken cancellationToken);
     }
 }

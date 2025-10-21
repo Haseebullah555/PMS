@@ -1,3 +1,4 @@
+using Application.Contracts;
 using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Persistence.Database;
@@ -17,6 +18,7 @@ namespace Persistence.Repositories.Common
         private IPartnerTransactionRepository _partnerTransactionRepository;
         private IStaffRepository _staffRepository;
         private IStaffSalaryRepository _staffSalaryRepository;
+        private ISalaryPaymentRepository _salaryPaymentRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -31,6 +33,7 @@ namespace Persistence.Repositories.Common
         public IPartnerTransactionRepository PartnerTransactions => _partnerTransactionRepository ??= new PartnerTransactionRepository(_context);
         public IStaffRepository Staffs => _staffRepository ??= new StaffRepository(_context);
         public IStaffSalaryRepository StaffSalaries => _staffSalaryRepository ??= new StaffSalaryRepository(_context);
+        public ISalaryPaymentRepository SalaryPayments => _salaryPaymentRepository ??= new SalaryPaymentRepository(_context);
 
         public void Dispose()
         {

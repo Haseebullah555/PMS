@@ -4,8 +4,8 @@ using Domain.Models;
 
 namespace Application.Contracts.Interfaces
 {
-    public interface IStaffSalaryRepository : IGenericRepository<StaffSalary>
+    public interface IStaffPaymentRepository : IGenericRepository<StaffPayment>
     {
-         Task<List<StaffSalaryDto>> GetAllStaffSalariesAsync();
+         Task<List<StaffPaymentDto>> GetAllStaffPaymentsAsync();
     }
 }

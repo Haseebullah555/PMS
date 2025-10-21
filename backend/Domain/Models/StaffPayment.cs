@@ -4,15 +4,16 @@ using Domain.Common;
 
 namespace Domain.Models
 {
-    public class StaffSalary : BaseDomainEntity
+    public class StaffPayment : BaseDomainEntity
     {
         [Required]
         public int StaffId { get; set; }
         [ForeignKey(nameof(StaffId))]
         public Staff? Staff { get; set; }
-        [Required]
-        public decimal Amount { get; set; }
-        [Required]
-        public DateOnly Date { get; set; }
+        public DateOnly PaymentDate { get; set; }
+        public decimal PaidAmount { get; set; }
+        public decimal UnpaidAmount { get; set; }
+        public string? Remarks { get; set; }
+        
     }
 }
