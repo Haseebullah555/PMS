@@ -15,7 +15,7 @@ namespace Application.Profiles
             CreateMap<Partner, PartnerDto>().ReverseMap();
             CreateMap<PartnerTransaction, PartnerTransactionDto>().ReverseMap();
             CreateMap<Staff, StaffDto>().ReverseMap();
-            CreateMap<StaffSalary, StaffSalaryDto>().ReverseMap();
+            CreateMap<StaffPayment, StaffPaymentDto>().ReverseMap();
         }
     }
 }

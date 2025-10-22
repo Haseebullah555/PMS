@@ -2,9 +2,9 @@ using Application.Dtos;
 using Application.Dtos.Common;
 using MediatR;
 
-namespace Application.Features.sample.Requests.Queries
+namespace Application.Features.StaffPayments.Requests.Queries
 {
-    public class GetListOfStaffSalarysRequest : IRequest<PaginatedResult<StaffSalaryDto>>
+    public class GetListOfStaffPaymentsRequest : IRequest<PaginatedResult<StaffPaymentDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }

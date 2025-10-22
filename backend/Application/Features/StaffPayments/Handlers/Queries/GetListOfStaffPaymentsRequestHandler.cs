@@ -1,28 +1,25 @@
-using System.Linq;
-using System.Runtime.Serialization;
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
 using Application.Dtos.Common;
-using Application.Features.sample.Requests.Queries;
+using Application.Features.StaffPayments.Requests.Queries;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.sample.Handlers.Queries
+namespace Application.Features.StaffPayments.Handlers.Queries
 {
-    public class GetListOfStaffSalarysRequestHandler : IRequestHandler<GetListOfStaffSalarysRequest, PaginatedResult<StaffSalaryDto>>
+    public class GetListOfStaffPaymentsRequestHandler : IRequestHandler<GetListOfStaffPaymentsRequest, PaginatedResult<StaffPaymentDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetListOfStaffSalarysRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetListOfStaffPaymentsRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<StaffSalaryDto>> Handle(GetListOfStaffSalarysRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<StaffPaymentDto>> Handle(GetListOfStaffPaymentsRequest request, CancellationToken cancellationToken)
         {
-            var items = await _unitOfWork.StaffSalaries.GetAllStaffSalariesAsync();
+            var items = await _unitOfWork.StaffPayments.GetAllStaffPaymentsAsync();
 
             var query = items.AsEnumerable();
 
@@ -38,8 +35,8 @@ namespace Application.Features.sample.Handlers.Queries
                 if (request.SortField.Equals("fullName", StringComparison.OrdinalIgnoreCase))
                 {
                     query = request.SortOrder == "desc"
-                        ? query.OrderByDescending(s => s.Amount)
-                        : query.OrderBy(s => s.Amount);
+                        ? query.OrderByDescending(s => s.PaidAmount)
+                        : query.OrderBy(s => s.PaidAmount);
                 }
                 else if (request.SortField.Equals("id", StringComparison.OrdinalIgnoreCase))
                 {
@@ -61,9 +58,9 @@ namespace Application.Features.sample.Handlers.Queries
                 .Take(request.PerPage)
                 .ToList();
 
-            var salaryDtos = _mapper.Map<List<StaffSalaryDto>>(salaries);
+            var salaryDtos = _mapper.Map<List<StaffPaymentDto>>(salaries);
 
-            return new PaginatedResult<StaffSalaryDto>
+            return new PaginatedResult<StaffPaymentDto>
             {
                 Data = salaryDtos,
                 Total = total,
