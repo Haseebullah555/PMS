@@ -126,19 +126,31 @@ const StaffList = () => {
                   sort: 'name',
                 },
                 {
+                  headerName: `${t('staff.position')}`,
+                  sort: 'position',
+                },
+                {
+                  headerName: `${t('staff.salary')}`,
+                  sort: 'salary',
+                },
+                {
+                  headerName: `${t('staff.hireDate')}`,
+                  sort: 'hireDate',
+                },
+                {
                   headerName: `${t('global.phone')}`,
                   sort: 'phoneNumber',
                 },
                 {
-                  headerName: `${t('staff.position')}`,
-                  sort: 'position',
+                  headerName: `${t('global.status')}`,
+                  sort: 'status',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber', 'position']}
+              columns={['id', 'name', 'phoneNumber', 'position', 'hireDate', 'status']}
               handleEdit={openEditModal}
             />
           </div>

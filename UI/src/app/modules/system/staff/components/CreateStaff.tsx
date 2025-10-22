@@ -7,11 +7,9 @@ import clsx from 'clsx'
 import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
-
 import { toast } from 'react-toastify'
-import { storeUser } from 'redux/authentication/user/userManagementSlice'
 import { storeStaff } from 'redux/staff/StaffSlice'
-import { Console } from 'console'
+
 
 // Define the props for the modal
 interface CreateStaffModalProps {
@@ -30,6 +28,8 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
   const StaffSchema = Yup.object().shape({
     fullName: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
     position: Yup.string().required(t('validation.required', { name: t('staff.position') })),
+    salary: Yup.string().required(t('validation.required', { name: t('staff.salary') })),
+    hireDate: Yup.string().required(t('validation.required', { name: t('staff.hireDate') })),
     phone: Yup.string()
       .required(t('validation.required', { name: t('global.phone') })) 
       .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
@@ -82,6 +82,8 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
   const handleError = (error: any) => {
     console.error('Error creating staff:', error.message)
   }
+
+  console.log(formik.values, 'lllllllllllllllllllllllll')
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
@@ -94,7 +96,7 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
-                <div className='col-md-6 mb-3'>
+                <div className='col-md-4 mb-3'>
                   <label className='form-label'>
                     {t('staff.staff')} <span className='text-danger'>*</span>
                   </label>
@@ -112,10 +114,65 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
                     </div>
                   )}
                 </div>
+                 {/* position Field */}
+                <div className='col-md-4 mb-3'>
+                  <label className='form-label'>
+                    {t('staff.position')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('position')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.position && formik.errors.position,
+                      'is-valid': formik.touched.position && !formik.errors.position,
+                    })}
+                  />
+                  {formik.touched.position && formik.errors.position && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('staff.position') })}
+                    </div>
+                  )}
+                </div>
+                <div className='col-md-4 mb-3'>
+                  <label className='form-label'>
+                    {t('staff.salary')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('salary')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.salary && Boolean(formik.errors.salary),
+                      'is-valid': formik.touched.salary && !formik.errors.salary,
+                    })}
+                  />
+                  {formik.touched.salary && formik.errors.salary && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('staff.salary') })}
+                    </div>
+                  )}
+                </div>
 
-                {/* Staff phoneNumber Field */}
-                {/* Staff phoneNumber Field */}
-                <div className='col-md-6 mb-3'>
+              </div>
+              <div className='row'>
+               <div className='col-md-4 mb-3'>
+                  <label className='form-label'>
+                    {t('staff.hireDate')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='date'
+                    {...formik.getFieldProps('hireDate')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.hireDate && Boolean(formik.errors.hireDate),
+                      'is-valid': formik.touched.hireDate && !formik.errors.hireDate,
+                    })}
+                  />
+                  {formik.touched.hireDate && formik.errors.hireDate && (
+                    <div className='invalid-feedback'>
+                      {formik.errors.hireDate}
+                    </div>
+                  )}
+                </div>
+               <div className='col-md-4 mb-3'>
                   <label className='form-label'>
                     {t('global.phone')} <span className='text-danger'>*</span>
                   </label>
@@ -133,27 +190,20 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
                     </div>
                   )}
                 </div>
-
-              </div>
-              <div className='row'>
-                {/* Name Field */}
-                <div className='col-md-12 mb-3'>
-                  <label className='form-label'>
-                    {t('staff.position')} <span className='text-danger'>*</span>
+               <div className='col-md-4 mb-3'>
+                    <label className='form-label'>
+                    {t('global.status')} <span className='text-danger'>*</span>
                   </label>
+                  <div className='form-check'>
                   <input
-                    type='text'
-                    {...formik.getFieldProps('position')}
-                    className={clsx('form-control', {
-                      'is-invalid': formik.touched.position && formik.errors.position,
-                      'is-valid': formik.touched.position && !formik.errors.position,
+                    type='checkbox'
+                    {...formik.getFieldProps('status')}
+                    className={clsx('form-check-input mt-3', {
+                      'is-invalid': formik.touched.status && Boolean(formik.errors.status),
+                      'is-valid': formik.touched.status && !formik.errors.status,
                     })}
                   />
-                  {formik.touched.position && formik.errors.position && (
-                    <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('staff.position') })}
-                    </div>
-                  )}
+                  </div>
                 </div>
               </div>
             </div>

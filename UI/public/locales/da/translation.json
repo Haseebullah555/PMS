@@ -141,7 +141,6 @@
     "": "",
     "": ""
   },
-
   "validation": {
     "required": "درج {{name}} ضروری میباشد!",
     "select-required": "انتخاب {{name}} ضروری میباشد!",
@@ -155,7 +154,6 @@
     "name_pa": "نام ریاست به پشتو",
     "name_en": "نام ریاست به انگلیسی"
   },
-
   "user": {
     "setting": "تنظیمات یوزر",
     "sign-out": "خروج از سیستم",
@@ -316,12 +314,14 @@
   "staff": {
     "staffs": "کارمندان",
     "position": "موقف",
-    "staff": "کارمند"
+    "staff": "کارمند",
+    "paidAmount": "مقدار پرداخت شده",
+    "unpaidAmount": "مقدار پرداخت نشده",
+    "hireDate": "تاریخ تقرر",
+    "salary": "معاش"
   },
-  "staffSalary": {
-    "staffSalaries": "معاشات کارمندان",
-    "staffSalary": "معاش کارمند",
-    "salaryAmount": "مقدار معاش"
+  "staffPayment": {
+    "staffPayments": "پرداخت های کارمندان",
+    "staffPayment": "پرداخت کارمند"
   }
-
 }

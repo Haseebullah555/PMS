@@ -3,21 +3,21 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
-import CreateUserModal from './CreateStaffSalary'
-import EditStaffModal from './EditStaffSalary'
+import CreateUserModal from './CreateStaffPayment'
+import EditStaffModal from './EditStaffPayment'
 
-const StaffSalaryList = () => {
+const StaffPaymentList = () => {
   const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
-  const [selectedStaffSalary, setSelectedStaff] = useState(null)
+  const [selectedStaffPayment, setSelectedStaffPayment] = useState(null)
 
   const closeModal = () => setModalOpen(false)
   const openModal = () => setModalOpen(true)
 
   const closeEditModal = () => setEditModalOpen(false)
   const openEditModal = (Staff: any) => {
-    setSelectedStaff(Staff)
+    setSelectedStaffPayment(Staff)
     setEditModalOpen(true)
   }
 
@@ -35,7 +35,7 @@ const StaffSalaryList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('staffSalary.staffSalaries')})}
+                {t('global.list', {name: t('staffPayment.staffSalaries')})}
               </h3>
             </div>
             <div>
@@ -126,19 +126,27 @@ const StaffSalaryList = () => {
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('staffSalary.salaryAmount')}`,
-                  sort: 'amount',
+                  headerName: `${t('staffPayment.paidAmount')}`,
+                  sort: 'paidAmount',
+                },
+                {
+                  headerName: `${t('staffPayment.unpaidAmount')}`,
+                  sort: 'unpaidAmount',
                 },
                 {
                   headerName: `${t('global.date')}`,
-                  sort: 'date',
+                  sort: 'paymentDate',
+                },
+                {
+                  headerName: `${t('global.remarks')}`,
+                  sort: 'remarks',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber', 'position']}
+              columns={['id', 'name', 'paidAmount', 'unpaidAmount', 'paymentDate', 'remarks', 'position']}
               handleEdit={openEditModal}
             />
           </div>
@@ -156,11 +164,10 @@ const StaffSalaryList = () => {
         <EditStaffModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
-          selectedStaffSalary={selectedStaffSalary}
-          handleReloadTable={handleReloadTable}
+          {...({ selectedStaffPayment, handleReloadTable } as any)}
         />
       )}
     </>
   )
 }
-export default StaffSalaryList
+export default StaffPaymentList

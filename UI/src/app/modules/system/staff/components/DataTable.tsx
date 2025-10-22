@@ -4,7 +4,6 @@ import Paginator from '../../../../customes/Paginator'
 import UnAuthorized from '../../../../customes/UnAuthorized'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import Loader from '../../../../pages/loading/Loader'
-import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {StaffForm} from './_module'
@@ -148,7 +147,16 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                       <td className='fw-bolder'>{index+ 1}</td>
                       <td>{item.fullName}</td>
                       <td>{item.position}</td>
+                      <td>{item.salary}</td>
+                      <td>{item.hireDate}</td>
                       <td>{item.phone}</td>
+                      <td>
+                        {
+                        item.status == false ?
+                          <span className='badge badge-danger'>{t('global.deactive')}</span>:
+                          <span className='badge badge-success'>{t('global.active')}</span> 
+                        }
+                      </td>
 
                       <td className='text-center'>
                         <DropdownButton

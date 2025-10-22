@@ -6,7 +6,7 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import staffSalaryService from './StaffSalaryService'
+import staffSalaryService from './StaffPaymentService'
 
 type staffSalarySate = {
   staffSalaries: any

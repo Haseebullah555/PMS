@@ -12,7 +12,7 @@ import GoodManagementRoutes from 'app/modules/system/good/GoodManagementRoutes'
 import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraExpensemanagementRoutes'
 import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagementRoutes'
 import StaffManagementRoutes from 'app/modules/system/staff/StaffManagementRoutes'
-import StaffSalaryManagementRoutes from 'app/modules/system/staffSalary/StaffSalaryManagementRoutes'
+import StaffPaymentManagementRoutes from 'app/modules/system/staffPayment/StaffPaymentManagementRoutes'
 import PartnerTransactionManagementRoutes from 'app/modules/system/partnerRransaction/PartnerTransactionManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
@@ -98,10 +98,10 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='staffSalary/*'
+          path='staffPayment/*'
           element={
             <SuspensedView>
-              <StaffSalaryManagementRoutes />
+              <StaffPaymentManagementRoutes />
             </SuspensedView>
           }
         />

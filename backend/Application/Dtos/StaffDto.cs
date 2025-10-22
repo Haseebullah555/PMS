@@ -11,7 +11,10 @@ namespace Application.Dtos
         public string Position { get; set; }
         [Display(Name ="Phone")]
         public string Phone { get; set; }
-        [Display(Name ="Salary"),Required(ErrorMessage = "{0} is required")]
+        [Display(Name = "Salary"), Required(ErrorMessage = "{0} is required")]
         public double Salary { get; set; }
+        [Display(Name = "Hire Date"), Required(ErrorMessage = "{0} is required")]
+        public DateOnly HireDate { get; set; }
+        public bool Status { get; set; }
     }
 }

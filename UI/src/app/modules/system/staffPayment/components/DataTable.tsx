@@ -7,10 +7,10 @@ import Loader from '../../../../pages/loading/Loader'
 import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
-import {StaffSalaryForm} from './_module'
+import {StaffPaymentForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getStaffSalaries } from 'redux/staffSalary/StaffSalarySlice'
+import { getStaffSalaries } from 'redux/staffPayment/StaffPaymentSlice'
 import { getStaffsList } from 'redux/staff/StaffSlice'
 
 const SORT_ASC = 'asc'
@@ -20,7 +20,7 @@ interface Staff{
   fullName: any
 }
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
-  const [data, setData] = useState<StaffSalaryForm[]>([])
+  const [data, setData] = useState<StaffPaymentForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -168,8 +168,10 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
                       <td>{item.staff}</td>
-                      <td>{item.amount}</td>
-                      <td>{item.date}</td>
+                      <td>{item.paidAmount}</td>
+                      <td>{item.unpaidAmount}</td>
+                      <td>{item.paymentDate}</td>
+                      <td>{item.remarks}</td>
 
                       <td className='text-center'>
                         <DropdownButton

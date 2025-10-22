@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
 import { storeUser } from 'redux/authentication/user/userManagementSlice'
-import { storeStaffSalary } from 'redux/staffSalary/StaffSalarySlice'
+import { storeStaffSalary } from 'redux/staffPayment/StaffPaymentSlice'
 import { Console } from 'console'
 import { getStaffsList } from 'redux/staff/StaffSlice'
 
@@ -35,8 +35,8 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
   // Form Validation Schema
   const StaffSalarySchema = Yup.object().shape({
     staffId: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
-    amount: Yup.string().required(t('validation.required', { name: t('staffSalary.amount') })),
-    date: Yup.string().required(t('validation.required', { name: t('global.date') }))        
+    paidAmount: Yup.string().required(t('validation.required', { name: t('staffSalary.paidAmount') })),
+    paymentDate: Yup.string().required(t('validation.required', { name: t('global.paymentDate') }))        
   })
 
   // Formik Hook
@@ -130,46 +130,80 @@ const CreateStaffSalaryModal: React.FC<CreateStaffSalaryModalProps> = ({ isOpen,
                     </div>
                   )}
                 </div>
-
-                {/* StaffSalary amountNumber Field */}
-                {/* StaffSalary amountNumber Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.amount')} <span className='text-danger'>*</span>
+                    {t('global.paymentDate')} <span className='text-danger'>*</span>
                   </label>
                   <input
-                    type='text'
-                    {...formik.getFieldProps('amount')}
+                    type='paymentDate'
+                    {...formik.getFieldProps('paymentDate')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.amount && Boolean(formik.errors.amount),
-                      'is-valid': formik.touched.amount && !formik.errors.amount,
+                      'is-invalid': formik.touched.paymentDate && formik.errors.paymentDate,
+                      'is-valid': formik.touched.paymentDate && !formik.errors.paymentDate,
                     })}
                   />
-                  {formik.touched.amount && formik.errors.amount && (
+                  {formik.touched.paymentDate && formik.errors.paymentDate && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.amount') })}
+                      {t('validation.required', { name: t('global.paymentDate') })}
                     </div>
                   )}
                 </div>
-
+              </div>
+              <div className='row'>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.paidAmount')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('paidAmount')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.paidAmount && Boolean(formik.errors.paidAmount),
+                      'is-valid': formik.touched.paidAmount && !formik.errors.paidAmount,
+                    })}
+                  />
+                  {formik.touched.paidAmount && formik.errors.paidAmount && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.paidAmount') })}
+                    </div>
+                  )}
+                </div>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.unpaidAmount')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('unpaidAmount')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.unpaidAmount && Boolean(formik.errors.unpaidAmount),
+                      'is-valid': formik.touched.unpaidAmount && !formik.errors.unpaidAmount,
+                    })}
+                  />
+                  {formik.touched.unpaidAmount && formik.errors.unpaidAmount && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.unpaidAmount') })}
+                    </div>
+                  )}
+                </div>
               </div>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
-                    {t('global.date')} <span className='text-danger'>*</span>
+                    {t('global.remarks')} <span className='text-danger'>*</span>
                   </label>
-                  <input
-                    type='date'
-                    {...formik.getFieldProps('date')}
+                  <textarea
+                    {...formik.getFieldProps('remarks')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.date && formik.errors.date,
-                      'is-valid': formik.touched.date && !formik.errors.date,
+                      'is-invalid': formik.touched.remarks && formik.errors.remarks,
+                      'is-valid': formik.touched.remarks && !formik.errors.remarks,
                     })}
-                  />
-                  {formik.touched.date && formik.errors.date && (
+                  >
+                    </textarea>
+                  {formik.touched.remarks && formik.errors.remarks && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.date') })}
+                      {t('validation.required', { name: t('global.remarks') })}
                     </div>
                   )}
                 </div>

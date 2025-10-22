@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updateStaffSalary} from 'redux/staffSalary/StaffSalarySlice'
+import {updateStaffSalary} from 'redux/staffPayment/StaffPaymentSlice'
 import { getStaffsList } from 'redux/staff/StaffSlice'
 
 interface EditStaffSalaryModalProps {
@@ -56,8 +56,10 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
     initialValues: {
       id: '',
       staffId: '',
-      amount: '',
-      date: '',
+      paidAmount: '',
+      unpaidAmount: '',
+      paymentDate: '',
+      remarks: '',
     },
     validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
@@ -117,15 +119,18 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
           {/* Name and Username Fields */}
-          <div className='row'>
             <input type="hidden" {...formik.getFieldProps('id')}  />
-            <div className='col-md-6 mb-3'>
-              <label className='form-label'>
-                {t('staffSalary.staffSalary')} <span className='text-danger'>*</span>
-              </label>
-             <select
+         <div className='row'>
+            <div className='col-md-12'>
+              <div className='row'>
+                {/* Name Field */}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('staffSalary.staffSalary')} <span className='text-danger'>*</span>
+                  </label>
+                  <select
                     {...formik.getFieldProps('staffId')}
-                    className={clsx('form-control', {
+                    className={clsx('form-select', {
                       'is-invalid': formik.touched.staffId && formik.errors.staffId,
                       'is-valid': formik.touched.staffId && !formik.errors.staffId,
                     })}
@@ -137,50 +142,90 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
                       </option>
                     ))}
                   </select>
-              {formik.touched.staffId && formik.errors.staffId && (
-                <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('staffSalary.staffSalary')})}
+                  {formik.touched.staffId && formik.errors.staffId && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('staff.staff') })}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <div className='col-md-6 mb-3'>
-              <label className='form-label'>
-                {t('global.amount')} <span className='text-danger'>*</span>
-              </label>
-              <input
-                type='text'
-                {...formik.getFieldProps('amount')}
-                className={clsx('form-control', {
-                  'is-invalid': formik.touched.amount && formik.errors.amount,
-                  'is-valid': formik.touched.amount && !formik.errors.amount,
-                })}
-              />
-              {formik.touched.amount && formik.errors.amount && (
-                <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('staffSalary.salaryAmount')})}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.paymentDate')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='paymentDate'
+                    {...formik.getFieldProps('paymentDate')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.paymentDate && formik.errors.paymentDate,
+                      'is-valid': formik.touched.paymentDate && !formik.errors.paymentDate,
+                    })}
+                  />
+                  {formik.touched.paymentDate && formik.errors.paymentDate && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.paymentDate') })}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
-          <div className='row'>
-            <div className='col-md-12 mb-3'>
-              <label className='form-label'>
-                {t('global.date')} <span className='text-danger'>*</span>
-              </label>
-              <input
-                type='text'
-                {...formik.getFieldProps('date')}
-                className={clsx('form-control', {
-                  'is-invalid': formik.touched.date && formik.errors.date,
-                  'is-valid': formik.touched.date && !formik.errors.date,
-                })}
-              />
-              {formik.touched.date && formik.errors.date && (
-                <div className='invalid-feedback'>
-                  {t('validation.required', {name: t('global.date')})}
+              </div>
+              <div className='row'>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.paidAmount')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('paidAmount')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.paidAmount && Boolean(formik.errors.paidAmount),
+                      'is-valid': formik.touched.paidAmount && !formik.errors.paidAmount,
+                    })}
+                  />
+                  {formik.touched.paidAmount && formik.errors.paidAmount && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.paidAmount') })}
+                    </div>
+                  )}
                 </div>
-              )}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.unpaidAmount')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('unpaidAmount')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.unpaidAmount && Boolean(formik.errors.unpaidAmount),
+                      'is-valid': formik.touched.unpaidAmount && !formik.errors.unpaidAmount,
+                    })}
+                  />
+                  {formik.touched.unpaidAmount && formik.errors.unpaidAmount && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.unpaidAmount') })}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className='row'>
+                {/* Name Field */}
+                <div className='col-md-12 mb-3'>
+                  <label className='form-label'>
+                    {t('global.remarks')} <span className='text-danger'>*</span>
+                  </label>
+                  <textarea
+                    {...formik.getFieldProps('remarks')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.remarks && formik.errors.remarks,
+                      'is-valid': formik.touched.remarks && !formik.errors.remarks,
+                    })}
+                  >
+                    </textarea>
+                  {formik.touched.remarks && formik.errors.remarks && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.remarks') })}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
