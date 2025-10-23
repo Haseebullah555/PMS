@@ -10,7 +10,7 @@ import goodSlice from './good/GoodSlice'
 import extraExpenseSlice from './extraExpense/ExtraExpenseSlice'
 import partnerSlice from './partner/PartnerSlice'
 import staffSlice from './staff/StaffSlice'
-import staffSalarySlice from './staffPayment/StaffPaymentSlice'
+import staffPaymentSlice from './staffPayment/StaffPaymentSlice'
 import partnerTransactionSlice from './partnerTransaction/PartnerTransactionSlice'
 
 export const store = configureStore({
@@ -28,7 +28,7 @@ export const store = configureStore({
     ExtraExpenses : extraExpenseSlice,
     partners : partnerSlice,
     staffs: staffSlice,
-    staffSalaries: staffSalarySlice,
+    staffPayments: staffPaymentSlice,
     partnerTransactions: partnerTransactionSlice,
   },
 })

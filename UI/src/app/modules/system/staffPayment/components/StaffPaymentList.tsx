@@ -35,7 +35,7 @@ const StaffPaymentList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('staffPayment.staffSalaries')})}
+                {t('global.list', {name: t('staffPayment.staffPayments')})}
               </h3>
             </div>
             <div>

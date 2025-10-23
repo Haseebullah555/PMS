@@ -9,7 +9,7 @@ namespace Domain.Models
         [Required]
         public int StaffId { get; set; }
         [ForeignKey(nameof(StaffId))]
-        public Staff? Staff { get; set; }
+        public Staff? Staff { get; set; } = null!;
         public DateOnly PaymentDate { get; set; }
         public decimal PaidAmount { get; set; }
         public decimal UnpaidAmount { get; set; }

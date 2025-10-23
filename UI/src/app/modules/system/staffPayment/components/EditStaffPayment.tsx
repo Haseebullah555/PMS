@@ -7,23 +7,23 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updateStaffSalary} from 'redux/staffPayment/StaffPaymentSlice'
+import {updateStaffPayment} from 'redux/staffPayment/StaffPaymentSlice'
 import { getStaffsList } from 'redux/staff/StaffSlice'
 
-interface EditStaffSalaryModalProps {
+interface EditStaffPaymentModalProps {
   isOpen: boolean
   onClose: () => void
-  selectedStaffSalary: any // Type it as appropriate based on your data structure
+  selectedStaffPayment: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
 interface Staff{
   id: any,
   fullName: any
 }
-const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
+const EditStaffPaymentModal: React.FC<EditStaffPaymentModalProps> = ({
   isOpen,
   onClose,
-  selectedStaffSalary,
+  selectedStaffPayment,
   handleReloadTable,
 }) => {
   const intl = useIntl()
@@ -33,20 +33,20 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   const [loading, setLoading] = useState(false)
   const [staffs, setStaffs] = useState<Staff[]>([])
 
-  // Populate form with user data when `selectedStaffSalary` changes
+  // Populate form with user data when `selectedStaffPayment` changes
   useEffect(() => {
-    if (selectedStaffSalary) {
-      formik.setFieldValue('id', selectedStaffSalary.id || '')
-      formik.setFieldValue('staffId', selectedStaffSalary.staffId || '')
-      formik.setFieldValue('amount', selectedStaffSalary.amount || '')
-      formik.setFieldValue('date', selectedStaffSalary.date || '')
+    if (selectedStaffPayment) {
+      formik.setFieldValue('id', selectedStaffPayment.id || '')
+      formik.setFieldValue('staffId', selectedStaffPayment.staffId || '')
+      formik.setFieldValue('amount', selectedStaffPayment.amount || '')
+      formik.setFieldValue('date', selectedStaffPayment.date || '')
     }
-  }, [selectedStaffSalary])
+  }, [selectedStaffPayment])
 
   // Validation schema
   const userSchema = Yup.object().shape({
-    staffId: Yup.string().required(t('validation.required', { name: t('staffSalary.staffSalary') })),
-        date: Yup.string().required(t('validation.required', { name: t('staffSalary.date') })),
+    staffId: Yup.string().required(t('validation.required', { name: t('staffPayment.staffPayment') })),
+        date: Yup.string().required(t('validation.required', { name: t('staffPayment.date') })),
         amount: Yup.string()
           .required(t('validation.required', { name: t('global.amount') }))
   })
@@ -64,8 +64,8 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
     validationSchema: userSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
-        const response = await dispatch(updateStaffSalary(values) as any)
-        if (updateStaffSalary.fulfilled.match(response)) {
+        const response = await dispatch(updateStaffPayment(values) as any)
+        if (updateStaffPayment.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -114,7 +114,7 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.edit', {name: t('staffSalary.staffSalarys')})}</Modal.Title>
+        <Modal.Title>{t('global.edit', {name: t('staffPayment.staffPayments')})}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
@@ -126,7 +126,7 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('staffSalary.staffSalary')} <span className='text-danger'>*</span>
+                    {t('staffPayment.staffPayment')} <span className='text-danger'>*</span>
                   </label>
                   <select
                     {...formik.getFieldProps('staffId')}
@@ -244,4 +244,4 @@ const EditStaffSalaryModal: React.FC<EditStaffSalaryModalProps> = ({
   )
 }
 
-export default EditStaffSalaryModal
+export default EditStaffPaymentModal

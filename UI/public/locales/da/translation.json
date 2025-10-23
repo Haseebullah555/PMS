@@ -315,13 +315,13 @@
     "staffs": "کارمندان",
     "position": "موقف",
     "staff": "کارمند",
-    "paidAmount": "مقدار پرداخت شده",
-    "unpaidAmount": "مقدار پرداخت نشده",
     "hireDate": "تاریخ تقرر",
     "salary": "معاش"
   },
   "staffPayment": {
     "staffPayments": "پرداخت های کارمندان",
-    "staffPayment": "پرداخت کارمند"
+    "staffPayment": "پرداخت کارمند",
+    "paidAmount": "مقدار پرداخت شده",
+    "unpaidAmount": "مقدار پرداخت نشده"
   }
 }

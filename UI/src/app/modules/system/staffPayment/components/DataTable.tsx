@@ -32,7 +32,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const {t} = useTranslation()
   const dispatch = useAppDispatch()
 
-  const {staffSalaries} = useAppSelector((state) => state.staffSalaries)
+  const {staffSalaries} = useAppSelector((state) => state.staffPayments)
   const [staffs, setStaffs] = useState<Staff[]>([])
   const handleSort = (column: string) => {
     if (column === sortColumn) {
