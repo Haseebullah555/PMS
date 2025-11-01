@@ -1,9 +1,11 @@
 using API.Controllers.Common;
+using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Application.Features.Staff.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
+using Persistence.Database;
 
 namespace API.Controllers
 {

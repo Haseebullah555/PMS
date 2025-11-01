@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace Application.Contracts.Interfaces.Common
 {
     public interface IUnitOfWork : IDisposable
@@ -10,6 +12,12 @@ namespace Application.Contracts.Interfaces.Common
         public IPartnerTransactionRepository PartnerTransactions { get; }
         public IStaffRepository Staffs { get; }
         public IStaffPaymentRepository StaffPayments { get; }
+        public IFinancialTransactionsRepository FinancialTransactions { get; }
+        public IPurchaseRepository Purchases { get; }
+        public IPurchaseDetailsRepository PurchaseDetails { get; }
+        public IStockRepository Stocks { get; }
+        public ISupplierLoansRepository SupplierLoans{ get; }
         Task SaveChanges(CancellationToken cancellationToken);
+        Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

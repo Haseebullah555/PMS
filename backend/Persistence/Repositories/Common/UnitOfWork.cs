@@ -1,6 +1,6 @@
-using Application.Contracts;
 using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
+using Microsoft.EntityFrameworkCore.Storage;
 using Persistence.Database;
 
 namespace Persistence.Repositories.Common
@@ -18,6 +18,11 @@ namespace Persistence.Repositories.Common
         private IPartnerTransactionRepository _partnerTransactionRepository;
         private IStaffRepository _staffRepository;
         private IStaffPaymentRepository _staffPaymentRepository;
+        private IFinancialTransactionsRepository _financialTransactionsRepository;
+        private IPurchaseRepository _purchaseRepository;
+        private IPurchaseDetailsRepository _purchaseDetailsRepository;
+        private IStockRepository _stockRepository;
+        private ISupplierLoansRepository _supplierLoansRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -32,6 +37,15 @@ namespace Persistence.Repositories.Common
         public IPartnerTransactionRepository PartnerTransactions => _partnerTransactionRepository ??= new PartnerTransactionRepository(_context);
         public IStaffRepository Staffs => _staffRepository ??= new StaffRepository(_context);
         public IStaffPaymentRepository StaffPayments => _staffPaymentRepository ??= new StaffPaymentRepository(_context);
+        public IFinancialTransactionsRepository FinancialTransactions => _financialTransactionsRepository ??= new FinancialTransactionsRepository(_context);
+
+        public IPurchaseRepository Purchases => _purchaseRepository ??= new PurchaseRepository(_context);
+
+        public IPurchaseDetailsRepository PurchaseDetails => _purchaseDetailsRepository ??= new PurchaseDetailsRepository(_context);
+
+        public IStockRepository Stocks => _stockRepository ??= new StockRepository(_context);
+
+        public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
 
         public void Dispose()
         {
@@ -42,6 +56,10 @@ namespace Persistence.Repositories.Common
         {
             await _context.SaveChangesAsync(cancellationToken);
         }
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
+    {
+        return await _context.Database.BeginTransactionAsync();
+    }
 
 
     }
