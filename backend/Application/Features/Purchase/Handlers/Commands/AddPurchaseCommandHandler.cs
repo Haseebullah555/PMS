@@ -21,115 +21,114 @@ namespace Application.Features.Purchase.Handlers.Commands
             var availableFund = await _unitOfWork.FinancialTransactions
             .GetAvailableFundAsync();
 
-        if (request.PaidAmount > availableFund)
-            throw new InvalidOperationException("Not enough business funds for this purchase payment.");
+            if (request.PaidAmount > availableFund)
+                throw new InvalidOperationException("Not enough business funds for this purchase payment.");
 
-        // Calculate total
-        decimal totalAmount = request.Items.Sum(i => i.UnitPrice * i.Quantity);
-        decimal unpaidAmount = totalAmount - request.PaidAmount;
+            // Calculate total
+            decimal totalAmount = request.Items.Sum(i => i.UnitPrice * i.Quantity);
+            decimal unpaidAmount = totalAmount - request.PaidAmount;
 
-        var purchase = new Domain.Models.Purchase
-        {
-            SupplierId = request.SupplierId,
-            PurchaseDate = request.PurchaseDate,
-            TotalAmount = totalAmount,
-            PaidAmount = request.PaidAmount,
-            UnpaidAmount = unpaidAmount
-        };
-
-        await using var tx = await _unitOfWork.BeginTransactionAsync();
-
-        try
-        {
-            // Save Purchase
-            await _unitOfWork.Purchases.Add(purchase);
-            await _unitOfWork.SaveChanges(cancellationToken);
-
-            // Handle each item
-            foreach (var item in request.Items)
+            var purchase = new Domain.Models.Purchase
             {
-                var good = await _unitOfWork.Goods.Get(item.GoodId)
-                    ?? throw new Exception($"Good {item.GoodId} not found");
+                SupplierId = request.SupplierId,
+                PurchaseDate = request.PurchaseDate,
+                TotalAmount = totalAmount,
+                PaidAmount = request.PaidAmount,
+                UnpaidAmount = unpaidAmount
+            };
 
-                // Find or create Stock
-                var stock = await _unitOfWork.Stocks.GetByGoodIdAsync(item.GoodId);
-                if (stock == null)
+            await using var tx = await _unitOfWork.BeginTransactionAsync();
+
+            try
+            {
+                // Save Purchase
+                await _unitOfWork.Purchases.Add(purchase);
+                await _unitOfWork.SaveChanges(cancellationToken);
+
+                // Handle each item
+                foreach (var item in request.Items)
                 {
-                    stock = new Stock
+                    var good = await _unitOfWork.Goods.Get(item.GoodId)
+                        ?? throw new Exception($"Good {item.GoodId} not found");
+
+                    // Find or create Stock
+                    var stock = await _unitOfWork.Stocks.GetByGoodIdAsync(item.GoodId);
+                    if (stock == null)
                     {
-                        // Good = good.Name,
-                        Description = good.Description,
-                        Quantity = 0,
-                        UnitPrice = item.UnitPrice
+                        stock = new Stock
+                        {
+                            GoodId = good.Id,
+                            Description = good.Description,
+                            Quantity = 0,
+                            UnitPrice = item.UnitPrice
+                        };
+                        await _unitOfWork.Stocks.Add(stock);
+                        await _unitOfWork.SaveChanges(cancellationToken);
+                    }
+
+                    // Update stock quantity
+                    int newQty = stock.Quantity + item.Quantity;
+                    // Weighted average cost
+                    stock.UnitPrice = ((stock.Quantity * stock.UnitPrice) + (item.Quantity * item.UnitPrice)) / newQty;
+                    stock.Quantity = newQty;
+
+                    await  _unitOfWork.Stocks.Update(stock);
+
+                    // Create PurchaseDetail
+                    var detail = new PurchaseDetail
+                    {
+                        PurchaseId = purchase.Id,
+                        GoodId = item.GoodId,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice,
+                        TotalPrice = item.UnitPrice * item.Quantity
                     };
-                    await _unitOfWork.Stocks.Add(stock);
-                    await _unitOfWork.SaveChanges(cancellationToken);
+
+                    await _unitOfWork.PurchaseDetails.Add(detail);
                 }
 
-                // Update stock quantity
-                int newQty = stock.Quantity + item.Quantity;
-                // Weighted average cost
-                stock.UnitPrice = ((stock.Quantity * stock.UnitPrice) + (item.Quantity * item.UnitPrice)) / newQty;
-                stock.Quantity = newQty;
+                await _unitOfWork.SaveChanges(cancellationToken);
 
-                _unitOfWork.Stocks.Update(stock);
-
-                // Create PurchaseDetail
-                var detail = new PurchaseDetail
+                // Record financial transaction (paid part)
+                if (request.PaidAmount > 0)
                 {
-                    PurchaseId = purchase.Id,
-                    GoodId = item.GoodId,
-                    Quantity = item.Quantity,
-                    UnitPrice = item.UnitPrice,
-                    TotalPrice = item.UnitPrice * item.Quantity
-                };
+                    var txn = new FinancialTransaction
+                    {
+                        Date = DateTime.UtcNow,
+                        Type = "Purchase",
+                        ReferenceId = purchase.Id,
+                        PartyType = "Supplier",
+                        PartyId = purchase.SupplierId,
+                        Amount = request.PaidAmount,
+                        Direction = "OUT"
+                    };
+                    await _unitOfWork.FinancialTransactions.Add(txn);
+                }
 
-                await _unitOfWork.PurchaseDetails.Add(detail);
+                // Record supplier loan (if unpaid)
+                if (unpaidAmount > 0)
+                {
+                    var loan = new SupplierLoan
+                    {
+                        SupplierId = request.SupplierId,
+                        Amount = unpaidAmount,
+                        LoanDate = DateTime.UtcNow,
+                        IsSettled = false
+                    };
+                    await _unitOfWork.SupplierLoans.Add(loan);
+                }
+
+                await _unitOfWork.SaveChanges(cancellationToken);
+                await tx.CommitAsync(cancellationToken);
+
+                return purchase.Id;
             }
-
-            await _unitOfWork.SaveChanges(cancellationToken);
-
-            // Record financial transaction (paid part)
-            if (request.PaidAmount > 0)
+            catch (Exception ex)
             {
-                var txn = new FinancialTransaction
-                {
-                    Date = DateTime.UtcNow,
-                    Type = "Purchase",
-                    ReferenceId = purchase.Id,
-                    PartyType = "Supplier",
-                    PartyId = purchase.SupplierId,
-                    Amount = request.PaidAmount,
-                    Direction = "OUT"
-                };
-                await _unitOfWork.FinancialTransactions.Add(txn);
+                await tx.RollbackAsync(cancellationToken);
+                _logger.LogError(ex, "Error while adding purchase");
+                throw;
             }
-
-            // Record supplier loan (if unpaid)
-            if (unpaidAmount > 0)
-            {
-                var loan = new SupplierLoan
-                {
-                    SupplierId = request.SupplierId,
-                    Amount = unpaidAmount,
-                    LoanDate = DateTime.UtcNow,
-                    IsSettled = false
-                };
-                await _unitOfWork.SupplierLoans.Add(loan);
-            }
-
-            await _unitOfWork.SaveChanges(cancellationToken);
-            await tx.CommitAsync(cancellationToken);
-
-            return purchase.Id;
-        }
-        catch (Exception ex)
-        {
-            await tx.RollbackAsync(cancellationToken);
-            _logger.LogError(ex, "Error while adding purchase");
-            throw;
-        }
-    }
         }
     }
 }
