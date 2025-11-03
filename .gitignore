@@ -17,10 +17,11 @@
 *.vssscc
 # testing
 /coverage
-
+[Mm]igrations/
 # production
 /build
-
+appsettings.json
+appsettings.Development.json
 # misc
 .env
 .DS_Store
