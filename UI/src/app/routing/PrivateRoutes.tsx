@@ -14,6 +14,7 @@ import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagemen
 import StaffManagementRoutes from 'app/modules/system/staff/StaffManagementRoutes'
 import StaffPaymentManagementRoutes from 'app/modules/system/staffPayment/StaffPaymentManagementRoutes'
 import PartnerTransactionManagementRoutes from 'app/modules/system/partnerRransaction/PartnerTransactionManagementRoutes'
+import PurchasesManagementRoutes from 'app/modules/system/purchases/PurchasesManagementRoutes'
 const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const AuthPage = lazy(() => import('../modules/authentication/AuthPage'))
@@ -102,6 +103,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <StaffPaymentManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='purchases/*'
+          element={
+            <SuspensedView>
+              <PurchasesManagementRoutes />
             </SuspensedView>
           }
         />

@@ -4100,11 +4100,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
+      "projectUniqueName": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
+      "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
       "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\obj\\",
+      "outputPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -4119,11 +4119,11 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj": {
-              "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj"
+            "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj": {
+              "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj"
             },
-            "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj": {
-              "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj"
+            "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj": {
+              "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj"
             }
           }
         }

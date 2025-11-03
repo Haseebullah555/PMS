@@ -4,9 +4,21 @@ import { storePurchase } from '../../../../../redux/purchases/PurchaseSlice'
 import { getSupplier } from '../../../../../redux/supplier/SupplierSlice'
 import { getGood } from '../../../../../redux/good/GoodSlice'
 import { AppDispatch } from '../../../../../redux/store'
+import { Button } from 'react-bootstrap'
 // import { Button } from '@mui/material'
-
-const CreatePurchase: React.FC = () => {
+type PurchaseDetail = {
+  goodId: string
+  quantity: number
+  unitPrice: number
+  totalPrice: number
+}
+// Define the props for the modal
+interface CreatePurchaseModalProps {
+  isOpen: boolean
+  onClose: () => void
+  handleReloadTable: () => void
+}
+const CreatePurchase: React.FC<CreatePurchaseModalProps> = () => {
   const dispatch = useDispatch<AppDispatch>()
 
   const { goods } = useSelector((state: any) => state.good)
@@ -42,7 +54,11 @@ const CreatePurchase: React.FC = () => {
     recalculateTotals(updated)
   }
 
-  const handleDetailChange = (index: number, field: string, value: any) => {
+  const handleDetailChange = <K extends keyof PurchaseDetail>(
+    index: number,
+    field: K,
+    value: PurchaseDetail[K]
+  ) => {
     const updated = [...purchase.details]
     updated[index][field] = value
 
@@ -166,7 +182,7 @@ const CreatePurchase: React.FC = () => {
                     className="form-control"
                     min="1"
                     value={detail.quantity}
-                    onChange={(e) => handleDetailChange(index, 'quantity', e.target.value)}
+                    onChange={(e) => handleDetailChange(index, 'quantity', Number(e.target.value))}
                   />
                 </td>
                 <td>
@@ -175,7 +191,7 @@ const CreatePurchase: React.FC = () => {
                     className="form-control"
                     min="0"
                     value={detail.unitPrice}
-                    onChange={(e) => handleDetailChange(index, 'unitPrice', e.target.value)}
+                    onChange={(e) => handleDetailChange(index, 'unitPrice', Number(e.target.value))}
                   />
                 </td>
                 <td>{detail.totalPrice.toFixed(2)}</td>
@@ -183,7 +199,7 @@ const CreatePurchase: React.FC = () => {
                   <Button
                     color="error"
                     variant="contained"
-                    size="small"
+                    size="sm"
                     onClick={() => handleRemoveRow(index)}
                     disabled={purchase.details.length === 1}
                   >

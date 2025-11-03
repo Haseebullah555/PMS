@@ -50,6 +50,7 @@ export function MenuInner() {
           <MenuItem title={t('partnerTransaction.partnerTransactions')} to='/partnerTransaction/list' />
           <MenuItem title={t('staff.staffs')} to='/staff/list' />
           <MenuItem title={t('staffPayment.staffPayments')} to='/staffPayment/list' />
+          <MenuItem title={t('purchase.purchases')} to='/purchases/list' />
       </>
     )
   }
