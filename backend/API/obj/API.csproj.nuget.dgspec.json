@@ -1,42 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "D:\\D Drive data\\PMS\\backend\\API\\API.csproj": {}
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj": {}
   },
   "projects": {
-    "D:\\D Drive data\\PMS\\backend\\API\\API.csproj": {
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "D:\\D Drive data\\PMS\\backend\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\D Drive data\\PMS\\backend\\API\\obj\\",
+        "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj"
               },
-              "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -51,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -99,40 +93,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj": {
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj",
+        "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\D Drive data\\PMS\\backend\\Application\\obj\\",
+        "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj"
               }
             }
           }
@@ -147,7 +135,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -190,32 +178,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj": {
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\D Drive data\\PMS\\backend\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -234,7 +216,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -255,43 +237,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj": {
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
+        "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj",
         "projectName": "Identity",
-        "projectPath": "D:\\D Drive data\\PMS\\backend\\Identity\\Identity.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\D Drive data\\PMS\\backend\\Identity\\obj\\",
+        "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\Identity.csproj",
+        "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Identity\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj"
               },
-              "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -306,7 +282,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -333,43 +309,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj": {
+    "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\D Drive data\\PMS\\backend\\Persistence\\Persistence.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\D Drive data\\PMS\\backend\\Persistence\\obj\\",
+        "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Application\\Application.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj"
               },
-              "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\D Drive data\\PMS\\backend\\Domain\\Domain.csproj"
+              "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj"
               }
             }
           }
@@ -384,7 +354,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -439,7 +409,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
