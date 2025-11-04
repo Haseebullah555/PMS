@@ -85,7 +85,6 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const memoizedLoading = useMemo(() => loading, [loading])
   return (
     <div>
-      {isAuthorized ? (
         <>
           <div className='form collapse' id='movementSearch'>
             <div className='row mb-3'>
@@ -206,9 +205,6 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
             />
           )}
         </>
-      ) : (
-        <UnAuthorized />
-      )}
     </div>
   )
 }
