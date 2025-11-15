@@ -4,7 +4,14 @@ import { storePurchase } from '../../../../../redux/purchases/PurchaseSlice'
 import { getSupplier } from '../../../../../redux/supplier/SupplierSlice'
 import { getGood } from '../../../../../redux/good/GoodSlice'
 import { AppDispatch } from '../../../../../redux/store'
-import { Button } from 'react-bootstrap'
+import * as Yup from 'yup'
+import { Button, Modal } from 'react-bootstrap'
+import { useIntl } from 'react-intl'
+import { useTranslation } from 'react-i18next'
+import { useAppDispatch } from 'redux/hooks'
+import { useFormik } from 'formik'
+import { initialValues } from './_module'
+import { toast } from 'react-toastify'
 // import { Button } from '@mui/material'
 type PurchaseDetail = {
   goodId: string
@@ -18,12 +25,22 @@ interface CreatePurchaseModalProps {
   onClose: () => void
   handleReloadTable: () => void
 }
-const CreatePurchase: React.FC<CreatePurchaseModalProps> = () => {
-  const dispatch = useDispatch<AppDispatch>()
+const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+  const intl = useIntl()
+    const { t } = useTranslation()
+    const dispatch = useAppDispatch()
 
   const { goods } = useSelector((state: any) => state.good)
   const { suppliers } = useSelector((state: any) => state.supplier)
-
+    // Form Validation Schema
+    const PurchaseSchema = Yup.object().shape({
+      name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
+      address: Yup.string().required(t('validation.required', { name: t('global.address') })),
+      phoneNumber: Yup.string()
+        .required(t('validation.required', { name: t('global.phone') })) 
+        .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
+        .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
+    })
   const [purchase, setPurchase] = useState({
     supplierId: '',
     purchaseDate: new Date().toISOString().split('T')[0],
@@ -92,30 +109,71 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = () => {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      await dispatch(storePurchase(purchase)).unwrap()
-      alert('✅ Purchase saved successfully!')
-      setPurchase({
-        supplierId: '',
-        purchaseDate: new Date().toISOString().split('T')[0],
-        totalAmount: 0,
-        paidAmount: 0,
-        unpaidAmount: 0,
-        details: [{ goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 }],
-      })
-    } catch (err) {
-      alert('❌ Error saving purchase')
-      console.error(err)
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   try {
+  //     await dispatch(storePurchase(purchase)).unwrap()
+  //     alert('✅ Purchase saved successfully!')
+  //     setPurchase({
+  //       supplierId: '',
+  //       purchaseDate: new Date().toISOString().split('T')[0],
+  //       totalAmount: 0,
+  //       paidAmount: 0,
+  //       unpaidAmount: 0,
+  //       details: [{ goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 }],
+  //     })
+  //   } catch (err) {
+  //     alert('❌ Error saving purchase')
+  //     console.error(err)
+  //   }
+  // }
+  const formik = useFormik({
+    initialValues,
+    validationSchema: PurchaseSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        const response = await dispatch(storePurchase(values) as any)
+        if (storePurchase.fulfilled.match(response)) {
+          handleFulfilledResponse(response)
+          handleReloadTable()
+          onClose()
+          resetForm()
+        } else {
+          handleRejectedResponse(response)
+        }
+      } catch (error) {
+        handleError(error)
+      } finally {
+        // setLoading(false)
+        setSubmitting(false)
+      }
+    },
+  })
+    const handleFulfilledResponse = (response: any) => {
+      const { meta, payload } = response
+      if (meta.requestStatus === 'fulfilled') {
+        toast.success(<p className='fs-4 fw-bold'>{payload.message}</p>)
+      } else {
+        toast.error(<p className='fs-4 fw-bold'>{t('validation.required')}</p>)
+      }
     }
-  }
-
+  
+    const handleRejectedResponse = (response: any) => {
+      const { payload } = response
+      toast.error(<p className='fs-4 fw-bold'>{payload}</p>)
+    }
+  
+    const handleError = (error: any) => {
+      console.error('Error creating supplier:', error.message)
+    }
   return (
-    <div className="card p-4 shadow-sm">
-      <h3 className="mb-4">🛒 New Purchase</h3>
+    <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
+      <Modal.Header closeButton>
+        <Modal.Title>{t('global.add', { name: t('purchase.purchase') })}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         {/* Supplier & Date */}
         <div className="row mb-4">
           <div className="col-md-6">
@@ -257,7 +315,8 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = () => {
           </Button>
         </div>
       </form>
-    </div>
+    </Modal.Body>
+    </Modal>
   )
 }
 
