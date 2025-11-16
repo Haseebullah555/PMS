@@ -1,132 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { storePurchase } from '../../../../../redux/purchases/PurchaseSlice'
-import { getSupplier } from '../../../../../redux/supplier/SupplierSlice'
-import { getGood } from '../../../../../redux/good/GoodSlice'
-import { AppDispatch } from '../../../../../redux/store'
-import * as Yup from 'yup'
-import { Button, Modal } from 'react-bootstrap'
-import { useIntl } from 'react-intl'
-import { useTranslation } from 'react-i18next'
+import React, { useEffect } from 'react'
+import { Modal, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { useFormik, FormikProvider, FieldArray } from 'formik'
 import { useAppDispatch } from 'redux/hooks'
-import { useFormik } from 'formik'
-import { initialValues } from './_module'
+import { storePurchase } from 'redux/purchases/PurchaseSlice'
+import { getSupplier } from 'redux/supplier/SupplierSlice'
+import { getGood } from 'redux/good/GoodSlice'
+import { useTranslation } from 'react-i18next'
+import * as Yup from 'yup'
 import { toast } from 'react-toastify'
-// import { Button } from '@mui/material'
-type PurchaseDetail = {
-  goodId: string
-  quantity: number
-  unitPrice: number
-  totalPrice: number
-}
-// Define the props for the modal
+import { initialValues } from './_module'
+
 interface CreatePurchaseModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
-const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
-  const intl = useIntl()
-    const { t } = useTranslation()
-    const dispatch = useAppDispatch()
 
-  const { goods } = useSelector((state: any) => state.good)
+const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+  const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
   const { suppliers } = useSelector((state: any) => state.supplier)
-    // Form Validation Schema
-    const PurchaseSchema = Yup.object().shape({
-      name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
-      address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-      phoneNumber: Yup.string()
-        .required(t('validation.required', { name: t('global.phone') })) 
-        .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
-        .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
-    })
-  const [purchase, setPurchase] = useState({
-    supplierId: '',
-    purchaseDate: new Date().toISOString().split('T')[0],
-    totalAmount: 0,
-    paidAmount: 0,
-    unpaidAmount: 0,
-    details: [
-      { goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 },
-    ],
-  })
+  const { goods } = useSelector((state: any) => state.good)
 
   useEffect(() => {
     dispatch(getSupplier({}))
     dispatch(getGood({}))
   }, [dispatch])
 
-  const handleAddRow = () => {
-    setPurchase({
-      ...purchase,
-      details: [...purchase.details, { goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 }],
-    })
-  }
+  // Validation Schema
+  const PurchaseSchema = Yup.object().shape({
+    supplierId: Yup.string().required('Supplier is required'),
 
-  const handleRemoveRow = (index: number) => {
-    const updated = [...purchase.details]
-    updated.splice(index, 1)
-    setPurchase({ ...purchase, details: updated })
-    recalculateTotals(updated)
-  }
+    details: Yup.array().of(
+      Yup.object().shape({
+        goodId: Yup.string().required('Good is required'),
+        quantity: Yup.number().required('Qty required').min(1),
+        unitPrice: Yup.number().required('Unit price required').min(0),
+      })
+    )
+  })
 
-  const handleDetailChange = <K extends keyof PurchaseDetail>(
-    index: number,
-    field: K,
-    value: PurchaseDetail[K]
-  ) => {
-    const updated = [...purchase.details]
-    updated[index][field] = value
-
-    if (field === 'quantity' || field === 'unitPrice') {
-      const qty = Number(updated[index].quantity)
-      const price = Number(updated[index].unitPrice)
-      updated[index].totalPrice = qty * price
-    }
-
-    setPurchase({ ...purchase, details: updated })
-    recalculateTotals(updated)
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    const updated = { ...purchase, [name]: value }
-
-    if (name === 'paidAmount') {
-      updated.unpaidAmount = updated.totalAmount - Number(value)
-    }
-
-    setPurchase(updated)
-  }
-
-  const recalculateTotals = (details: any[]) => {
-    const total = details.reduce((sum, d) => sum + d.totalPrice, 0)
-    setPurchase((prev) => ({
-      ...prev,
-      totalAmount: total,
-      unpaidAmount: total - prev.paidAmount,
-    }))
-  }
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault()
-  //   try {
-  //     await dispatch(storePurchase(purchase)).unwrap()
-  //     alert('✅ Purchase saved successfully!')
-  //     setPurchase({
-  //       supplierId: '',
-  //       purchaseDate: new Date().toISOString().split('T')[0],
-  //       totalAmount: 0,
-  //       paidAmount: 0,
-  //       unpaidAmount: 0,
-  //       details: [{ goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 }],
-  //     })
-  //   } catch (err) {
-  //     alert('❌ Error saving purchase')
-  //     console.error(err)
-  //   }
-  // }
   const formik = useFormik({
     initialValues,
     validationSchema: PurchaseSchema,
@@ -134,188 +49,212 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
       try {
         const response = await dispatch(storePurchase(values) as any)
         if (storePurchase.fulfilled.match(response)) {
-          handleFulfilledResponse(response)
+          toast.success(<p className="fs-4 fw-bold">{response.payload.message}</p>)
           handleReloadTable()
           onClose()
           resetForm()
         } else {
-          handleRejectedResponse(response)
+          toast.error(<p className="fs-4 fw-bold">{response.payload}</p>)
         }
-      } catch (error) {
-        handleError(error)
+      } catch (error: any) {
+        console.error('Error creating supplier:', error.message)
       } finally {
-        // setLoading(false)
         setSubmitting(false)
       }
     },
   })
-    const handleFulfilledResponse = (response: any) => {
-      const { meta, payload } = response
-      if (meta.requestStatus === 'fulfilled') {
-        toast.success(<p className='fs-4 fw-bold'>{payload.message}</p>)
-      } else {
-        toast.error(<p className='fs-4 fw-bold'>{t('validation.required')}</p>)
-      }
-    }
-  
-    const handleRejectedResponse = (response: any) => {
-      const { payload } = response
-      toast.error(<p className='fs-4 fw-bold'>{payload}</p>)
-    }
-  
-    const handleError = (error: any) => {
-      console.error('Error creating supplier:', error.message)
-    }
+
+  // Recalculate totals when details change
+  const recalcTotals = (details: any[]) => {
+    const total = details.reduce((sum, d) => sum + d.totalPrice, 0)
+    formik.setFieldValue('totalAmount', total)
+    formik.setFieldValue('unpaidAmount', total - Number(formik.values.paidAmount))
+  }
+
   return (
-    <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
+    <Modal show={isOpen} onHide={onClose} backdrop="static" size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('purchase.purchase') })}</Modal.Title>
+        <Modal.Title>Add Purchase</Modal.Title>
       </Modal.Header>
+
       <Modal.Body>
+      <FormikProvider value={formik}>
+        <form onSubmit={formik.handleSubmit}>
 
-      <form onSubmit={formik.handleSubmit}>
-        {/* Supplier & Date */}
-        <div className="row mb-4">
-          <div className="col-md-6">
-            <label className="form-label">Supplier</label>
-            <select
-              name="supplierId"
-              value={purchase.supplierId}
-              onChange={handleInputChange}
-              className="form-select"
-              required
-            >
-              <option value="">Select Supplier</option>
-              {suppliers?.data?.map((s: any) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="col-md-6">
-            <label className="form-label">Date</label>
-            <input
-              type="date"
-              name="purchaseDate"
-              value={purchase.purchaseDate}
-              onChange={handleInputChange}
-              className="form-control"
-            />
-          </div>
-        </div>
+          {/* Supplier & Date */}
+          <div className="row mb-4">
+            <div className="col-md-6">
+              <label className="form-label">Supplier</label>
+              <select
+                name="supplierId"
+                value={formik.values.supplierId}
+                onChange={formik.handleChange}
+                className="form-select"
+              >
+                <option value="">Select Supplier</option>
+                {suppliers?.data?.map((s: any) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
+            </div>
 
-        {/* Purchase Details Table */}
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Good</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Total</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {purchase.details.map((detail, index) => (
-              <tr key={index}>
-                <td>
-                  <select
-                    className="form-select"
-                    value={detail.goodId}
-                    onChange={(e) => handleDetailChange(index, 'goodId', e.target.value)}
-                    required
-                  >
-                    <option value="">Select Good</option>
-                    {goods?.data?.map((g: any) => (
-                      <option key={g.id} value={g.id}>
-                        {g.name}
-                      </option>
-                    ))}
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    className="form-control"
-                    min="1"
-                    value={detail.quantity}
-                    onChange={(e) => handleDetailChange(index, 'quantity', Number(e.target.value))}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    className="form-control"
-                    min="0"
-                    value={detail.unitPrice}
-                    onChange={(e) => handleDetailChange(index, 'unitPrice', Number(e.target.value))}
-                  />
-                </td>
-                <td>{detail.totalPrice.toFixed(2)}</td>
-                <td>
-                  <Button
-                    color="error"
-                    variant="contained"
-                    size="sm"
-                    onClick={() => handleRemoveRow(index)}
-                    disabled={purchase.details.length === 1}
-                  >
-                    🗑️
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <Button variant="outlined" color="primary" onClick={handleAddRow}>
-          ➕ Add Item
-        </Button>
-
-        {/* Totals */}
-        <div className="mt-4">
-          <div className="row">
-            <div className="col-md-4">
-              <label>Total Amount</label>
+            <div className="col-md-6">
+              <label className="form-label">Date</label>
               <input
-                type="number"
-                name="totalAmount"
-                value={purchase.totalAmount}
+                type="date"
+                name="purchaseDate"
+                value={formik.values.purchaseDate}
+                onChange={formik.handleChange}
                 className="form-control"
-                disabled
               />
             </div>
+          </div>
+
+          {/* Purchase Details */}
+          <FieldArray
+            name="details"
+            render={(arrayHelpers) => (
+              <table className="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Good</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {formik.values.details.map((detail, index) => (
+                    <tr key={index}>
+                      <td>
+                        <select
+                          className="form-select"
+                          value={detail.goodId}
+                          onChange={(e) => {
+                            const val = e.target.value
+                            formik.setFieldValue(`details.${index}.goodId`, val)
+                          }}
+                        >
+                          <option value="">Select Good</option>
+                          {goods?.data?.map((g: any) => (
+                            <option key={g.id} value={g.id}>{g.name}</option>
+                          ))}
+                        </select>
+                      </td>
+
+                      <td>
+                        <input
+                          type="number"
+                          className="form-control"
+                          min="1"
+                          value={detail.quantity}
+                          onChange={(e) => {
+                            const qty = Number(e.target.value)
+                            const total = qty * detail.unitPrice
+
+                            formik.setFieldValue(`details.${index}.quantity`, qty)
+                            formik.setFieldValue(`details.${index}.totalPrice`, total)
+
+                            recalcTotals([
+                              ...formik.values.details.map((d, i) =>
+                                i === index ? { ...d, totalPrice: total, quantity: qty } : d
+                              ),
+                            ])
+                          }}
+                        />
+                      </td>
+
+                      <td>
+                        <input
+                          type="number"
+                          className="form-control"
+                          min="0"
+                          value={detail.unitPrice}
+                          onChange={(e) => {
+                            const price = Number(e.target.value)
+                            const total = price * detail.quantity
+
+                            formik.setFieldValue(`details.${index}.unitPrice`, price)
+                            formik.setFieldValue(`details.${index}.totalPrice`, total)
+
+                            recalcTotals([
+                              ...formik.values.details.map((d, i) =>
+                                i === index ? { ...d, totalPrice: total, unitPrice: price } : d
+                              ),
+                            ])
+                          }}
+                        />
+                      </td>
+
+                      <td>{detail.totalPrice.toFixed(2)}</td>
+
+                      <td>
+                        <Button
+                          variant="danger"
+                          disabled={formik.values.details.length === 1}
+                          onClick={() => {
+                            arrayHelpers.remove(index)
+                            recalcTotals(formik.values.details.filter((_, i) => i !== index))
+                          }}
+                        >
+                          🗑️
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+
+                  <tr>
+                    <td colSpan={5}>
+                      <button type="button" onClick={() =>
+                        arrayHelpers.push({ goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 })
+                      }>
+                        Add Item
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
+          />
+
+          {/* Totals */}
+          <div className="row mt-4">
+            <div className="col-md-4">
+              <label>Total Amount</label>
+              <input type="number" value={formik.values.totalAmount} disabled className="form-control" />
+            </div>
+
             <div className="col-md-4">
               <label>Paid Amount</label>
               <input
                 type="number"
                 name="paidAmount"
-                value={purchase.paidAmount}
-                onChange={handleInputChange}
+                value={formik.values.paidAmount}
+                onChange={(e) => {
+                  formik.handleChange(e)
+                  formik.setFieldValue(
+                    'unpaidAmount',
+                    Number(formik.values.totalAmount) - Number(e.target.value)
+                  )
+                }}
                 className="form-control"
               />
             </div>
+
             <div className="col-md-4">
               <label>Unpaid Amount</label>
-              <input
-                type="number"
-                name="unpaidAmount"
-                value={purchase.unpaidAmount}
-                className="form-control"
-                disabled
-              />
+              <input type="number" value={formik.values.unpaidAmount} disabled className="form-control" />
             </div>
           </div>
-        </div>
 
-        <div className="mt-4 text-end">
-          <Button variant="contained" color="success" type="submit">
-            💾 Save Purchase
-          </Button>
-        </div>
-      </form>
-    </Modal.Body>
+          <div className="mt-4 text-end">
+            <Button variant="success" type="submit">💾 Save Purchase</Button>
+          </div>
+        </form>
+        </FormikProvider>
+      </Modal.Body>
     </Modal>
   )
 }

@@ -1411,11 +1411,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
       "projectName": "Persistence",
-      "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
+      "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\Persistence.csproj",
       "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\obj\\",
+      "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
