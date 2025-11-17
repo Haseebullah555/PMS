@@ -199,7 +199,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                             recalcTotals(formik.values.details.filter((_, i) => i !== index))
                           }}
                         >
-                          🗑️
+                          Remove
                         </Button>
                       </td>
                     </tr>
@@ -250,7 +250,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
           </div>
 
           <div className="mt-4 text-end">
-            <Button variant="success" type="submit">💾 Save Purchase</Button>
+            <Button variant="success" type="submit">Save Purchase</Button>
           </div>
         </form>
         </FormikProvider>
