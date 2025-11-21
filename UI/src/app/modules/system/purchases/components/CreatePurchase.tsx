@@ -33,7 +33,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   const PurchaseSchema = Yup.object().shape({
     supplierId: Yup.string().required('Supplier is required'),
 
-    details: Yup.array().of(
+    items: Yup.array().of(
       Yup.object().shape({
         goodId: Yup.string().required('Good is required'),
         quantity: Yup.number().required('Qty required').min(1),
@@ -64,9 +64,9 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
     },
   })
 
-  // Recalculate totals when details change
-  const recalcTotals = (details: any[]) => {
-    const total = details.reduce((sum, d) => sum + d.totalPrice, 0)
+  // Recalculate totals when items change
+  const recalcTotals = (items: any[]) => {
+    const total = items.reduce((sum, d) => sum + d.totalPrice, 0)
     formik.setFieldValue('totalAmount', total)
     formik.setFieldValue('unpaidAmount', total - Number(formik.values.paidAmount))
   }
@@ -88,7 +88,9 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
               <select
                 name="supplierId"
                 value={formik.values.supplierId}
-                onChange={formik.handleChange}
+                 onChange={(e) => {
+                            formik.setFieldValue(`supplierId`, Number(e.target.value))
+                          }}
                 className="form-select"
               >
                 <option value="">Select Supplier</option>
@@ -110,11 +112,11 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
             </div>
           </div>
 
-          {/* Purchase Details */}
+          {/* Purchase items */}
           <FieldArray
-            name="details"
+            name="items"
             render={(arrayHelpers) => (
-              <table className="table table-bordered">
+              <table className="table table-responsive">
                 <thead>
                   <tr>
                     <th>Good</th>
@@ -126,18 +128,18 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                 </thead>
 
                 <tbody>
-                  {formik.values.details.map((detail, index) => (
+                  {formik.values.items.map((item, index) => (
                     <tr key={index}>
                       <td>
                         <select
                           className="form-select"
-                          value={detail.goodId}
+                          value={item.goodId}
                           onChange={(e) => {
-                            const val = e.target.value
-                            formik.setFieldValue(`details.${index}.goodId`, val)
+                            const val = Number(e.target.value)
+                            formik.setFieldValue(`items.${index}.goodId`, val)
                           }}
                         >
-                          <option value="">Select Good</option>
+                          <option value={0}>Select Good</option>
                           {goods?.data?.map((g: any) => (
                             <option key={g.id} value={g.id}>{g.name}</option>
                           ))}
@@ -149,16 +151,16 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                           type="number"
                           className="form-control"
                           min="1"
-                          value={detail.quantity}
+                          value={item.quantity}
                           onChange={(e) => {
                             const qty = Number(e.target.value)
-                            const total = qty * detail.unitPrice
+                            const total = qty * item.unitPrice
 
-                            formik.setFieldValue(`details.${index}.quantity`, qty)
-                            formik.setFieldValue(`details.${index}.totalPrice`, total)
+                            formik.setFieldValue(`items.${index}.quantity`, qty)
+                            formik.setFieldValue(`items.${index}.totalPrice`, total)
 
                             recalcTotals([
-                              ...formik.values.details.map((d, i) =>
+                              ...formik.values.items.map((d, i) =>
                                 i === index ? { ...d, totalPrice: total, quantity: qty } : d
                               ),
                             ])
@@ -171,16 +173,16 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                           type="number"
                           className="form-control"
                           min="0"
-                          value={detail.unitPrice}
+                          value={item.unitPrice}
                           onChange={(e) => {
                             const price = Number(e.target.value)
-                            const total = price * detail.quantity
+                            const total = price * item.quantity
 
-                            formik.setFieldValue(`details.${index}.unitPrice`, price)
-                            formik.setFieldValue(`details.${index}.totalPrice`, total)
+                            formik.setFieldValue(`items.${index}.unitPrice`, price)
+                            formik.setFieldValue(`items.${index}.totalPrice`, total)
 
                             recalcTotals([
-                              ...formik.values.details.map((d, i) =>
+                              ...formik.values.items.map((d, i) =>
                                 i === index ? { ...d, totalPrice: total, unitPrice: price } : d
                               ),
                             ])
@@ -188,18 +190,19 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                         />
                       </td>
 
-                      <td>{detail.totalPrice.toFixed(2)}</td>
+                      <td>{item.totalPrice.toFixed(2)}</td>
 
                       <td>
                         <Button
                           variant="danger"
-                          disabled={formik.values.details.length === 1}
+                          className='btn btn-sm'
+                          disabled={formik.values.items.length === 1}
                           onClick={() => {
                             arrayHelpers.remove(index)
-                            recalcTotals(formik.values.details.filter((_, i) => i !== index))
+                            recalcTotals(formik.values.items.filter((_, i) => i !== index))
                           }}
                         >
-                          Remove
+                          <i className="fa-solid fa-trash"></i>
                         </Button>
                       </td>
                     </tr>
@@ -207,10 +210,10 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
 
                   <tr>
                     <td colSpan={5}>
-                      <button type="button" onClick={() =>
-                        arrayHelpers.push({ goodId: '', quantity: 1, unitPrice: 0, totalPrice: 0 })
+                      <button type="button" className='btn btn-sm btn-success' onClick={() =>
+                        arrayHelpers.push({ goodId: 0, quantity: 1, unitPrice: 0, totalPrice: 0 })
                       }>
-                        Add Item
+                        <span className="fa fa-plus"></span>
                       </button>
                     </td>
                   </tr>

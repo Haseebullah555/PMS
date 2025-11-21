@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const getPurchases = async (params: any) => {
   const response = await axios.get(`/Purchases/list`, { params })
+  console.log(response,"fgdgdfgdfgdgdfgdfgdfgdf");
   return response.data
 }
 

@@ -22,18 +22,19 @@ namespace Domain.Models
         // public double UnitPrice { get; set; }
         // [Required]
         // public double TotalPrice { get; set; }
+
         // [Required]
         // public double PaidAmount { get; set; }
         // [Required]
         // public double UnpaidAmount { get; set; }
         // public string? Remarks { get; set; }
         public int SupplierId { get; set; }
-        public Supplier Supplier { get; set; } = null!;
-        public DateTime PurchaseDate { get; set; }
+        public Supplier? Supplier { get; set; }
+        public DateOnly PurchaseDate { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal PaidAmount { get; set; }
         public decimal UnpaidAmount { get; set; }
 
-        public ICollection<PurchaseDetail> Details { get; set; } = new List<PurchaseDetail>();
+        public ICollection<PurchaseDetail>? PurchaseDetails  { get; set; } = new List<PurchaseDetail>();
     }
 }

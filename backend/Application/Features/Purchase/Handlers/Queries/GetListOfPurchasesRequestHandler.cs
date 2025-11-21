@@ -20,7 +20,7 @@ namespace Application.Features.Purchase.Handlers.Queries
         }
         public async Task<PaginatedResult<PurchaseDto>> Handle(GetListOfPurchasesRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Purchases.GetAll();
+            var query = _unitOfWork.Purchases.GetListOfPurchases();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

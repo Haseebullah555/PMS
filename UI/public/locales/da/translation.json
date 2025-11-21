@@ -323,5 +323,11 @@
     "staffPayment": "پرداخت کارمند",
     "paidAmount": "مقدار پرداخت شده",
     "unpaidAmount": "مقدار پرداخت نشده"
+  },
+  "purchase": {
+    "purchases": "خریداری ها",
+    "purchase": "خریداری",
+    "purchaseDate": "تاریخ خریداری",
+    "totalAmount": "جمله شد"
   }
 }

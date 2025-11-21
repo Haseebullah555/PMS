@@ -6,7 +6,7 @@ namespace Application.Features.Purchase.Requests.Commands
     public class AddPurchaseCommand : IRequest<int>
     {
         public int SupplierId { get; set; }
-        public DateTime PurchaseDate { get; set; } = DateTime.UtcNow;
+        public DateOnly PurchaseDate { get; set; }
         public decimal PaidAmount { get; set; }
         public List<PurchaseItemDto> Items { get; set; } = new();
     }

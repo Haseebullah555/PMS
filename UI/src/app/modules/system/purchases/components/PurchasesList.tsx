@@ -1,106 +1,3 @@
-// import React, { useEffect, useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { AppDispatch, RootState } from '../../../../../redux/store'
-// import { getPurchases } from '../../../../../redux/purchases/PurchaseSlice'
-// import { Button } from 'react-bootstrap' // or your Metronic Button
-// import { useNavigate } from 'react-router-dom'
-
-// const PurchasesList: React.FC = () => {
-//   const dispatch = useDispatch<AppDispatch>()
-//   const navigate = useNavigate()
-//   const { purchases } = useSelector((state: RootState) => state.purchases)
-
-//   const [search, setSearch] = useState('')
-//   const [filtered, setFiltered] = useState<any[]>([])
-
-//   useEffect(() => {
-//     dispatch(getPurchases({}))
-//   }, [dispatch])
-
-//   useEffect(() => {
-//     if (search.trim()) {
-//       const s = search.toLowerCase()
-//       setFiltered(
-//         purchases.data?.filter(
-//           (p: any) =>
-//             p.supplierName?.toLowerCase().includes(s) ||
-//             p.invoiceNumber?.toLowerCase().includes(s)
-//         )
-//       )
-//     } else {
-//       setFiltered(purchases.data || [])
-//     }
-//   }, [search, purchases])
-
-//   return (
-//     <div className="card shadow-sm p-4">
-//       <div className="d-flex justify-content-between align-items-center mb-4">
-//         <h3 className="fw-bold">Purchase List</h3>
-//         <Button variant="primary" onClick={() => navigate('/purchases/create')}>
-//           + New Purchase
-//         </Button>
-//       </div>
-
-//       <div className="mb-3">
-//         <input
-//           type="text"
-//           className="form-control"
-//           placeholder="Search by supplier or invoice number..."
-//           value={search}
-//           onChange={(e) => setSearch(e.target.value)}
-//         />
-//       </div>
-
-//       <div className="table-responsive">
-//         <table className="table table-striped align-middle">
-//           <thead>
-//             <tr>
-//               <th>#</th>
-//               <th>Date</th>
-//               <th>Invoice No.</th>
-//               <th>Purchase</th>
-//               <th>Total Amount</th>
-//               <th>Paid</th>
-//               <th>Unpaid</th>
-//               <th>Actions</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {filtered && filtered.length > 0 ? (
-//               filtered.map((p: any, index: number) => (
-//                 <tr key={p.id}>
-//                   <td>{index + 1}</td>
-//                   <td>{new Date(p.date).toLocaleDateString()}</td>
-//                   <td>{p.invoiceNumber}</td>
-//                   <td>{p.supplierName}</td>
-//                   <td>{p.totalAmount.toFixed(2)}</td>
-//                   <td>{p.paidAmount.toFixed(2)}</td>
-//                   <td>{p.unpaidAmount.toFixed(2)}</td>
-//                   <td>
-//                     <Button
-//                       size="sm"
-//                       variant="outline-primary"
-//                       onClick={() => navigate(`/purchases/view/${p.id}`)}
-//                     >
-//                       View
-//                     </Button>
-//                   </td>
-//                 </tr>
-//               ))
-//             ) : (
-//               <tr>
-//                 <td colSpan={8} className="text-center text-muted py-3">
-//                   No purchases found.
-//                 </td>
-//               </tr>
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   )
-// }
-
 // export default PurchasesList
 import {Fragment, useState} from 'react'
 import {Link} from 'react-router-dom'
@@ -139,7 +36,7 @@ const PurchasesList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('supplier.suppliers')})}
+                {t('global.list', {name: t('purchase.purchases')})}
               </h3>
             </div>
             <div>
@@ -150,7 +47,7 @@ const PurchasesList = () => {
                     onClick={openModal}
                   >
                     <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('supplier.suppliers')})}
+                    {t('global.add', {name: t('purchase.purchase')})}
                   </button>
 
                   <div className='me-2 ms-2'>
@@ -230,19 +127,19 @@ const PurchasesList = () => {
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('global.purchaseDate')}`,
+                  headerName: `${t('purchase.purchaseDate')}`,
                   sort: 'purchaseDate',
                 },
                 {
-                  headerName: `${t('global.totalAmount')}`,
+                  headerName: `${t('purchase.totalAmount')}`,
                   sort: 'totalAmount',
                 },
                 {
-                  headerName: `${t('global.paidAmount')}`,
+                  headerName: `${t('staffPayment.paidAmount')}`,
                   sort: 'paidAmount',
                 },
                 {
-                  headerName: `${t('global.unpaidAmount')}`,
+                  headerName: `${t('staffPayment.unpaidAmount')}`,
                   sort: 'unpaidAmount',
                 },
                 {

@@ -18,11 +18,11 @@ namespace Application.Features.Purchase.Handlers.Commands
         }
         public async Task<int> Handle(AddPurchaseCommand request, CancellationToken cancellationToken)
         {
-            var availableFund = await _unitOfWork.FinancialTransactions
-            .GetAvailableFundAsync();
+            // var availableFund = await _unitOfWork.FinancialTransactions
+            // .GetAvailableFundAsync();
 
-            if (request.PaidAmount > availableFund)
-                throw new InvalidOperationException("Not enough business funds for this purchase payment.");
+            // if (request.PaidAmount > availableFund)
+            //     throw new InvalidOperationException("Not enough business funds for this purchase payment.");
 
             // Calculate total
             decimal totalAmount = request.Items.Sum(i => i.UnitPrice * i.Quantity);
@@ -34,7 +34,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                 PurchaseDate = request.PurchaseDate,
                 TotalAmount = totalAmount,
                 PaidAmount = request.PaidAmount,
-                UnpaidAmount = unpaidAmount
+                UnpaidAmount = unpaidAmount,
             };
 
             await using var tx = await _unitOfWork.BeginTransactionAsync();
@@ -72,7 +72,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                     stock.UnitPrice = ((stock.Quantity * stock.UnitPrice) + (item.Quantity * item.UnitPrice)) / newQty;
                     stock.Quantity = newQty;
 
-                    await  _unitOfWork.Stocks.Update(stock);
+                    await _unitOfWork.Stocks.Update(stock);
 
                     // Create PurchaseDetail
                     var detail = new PurchaseDetail
