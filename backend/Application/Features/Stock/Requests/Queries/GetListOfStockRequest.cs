@@ -2,9 +2,9 @@ using Application.Dtos;
 using Application.Dtos.Common;
 using MediatR;
 
-namespace Application.Features.Purchase.Requests.Queries
+namespace Application.Features.Stock.Requests.Queries
 {
-    public class GetListOfPurchasesRequest : IRequest<PaginatedResult<PurchaseDto>>
+    public class GetListOfStocksRequest : IRequest<PaginatedResult<StockDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }

@@ -55,7 +55,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                     var stock = await _unitOfWork.Stocks.GetByGoodIdAsync(item.GoodId);
                     if (stock == null)
                     {
-                        stock = new Stock
+                        stock = new Domain.Models.Stock
                         {
                             GoodId = good.Id,
                             Description = good.Description,

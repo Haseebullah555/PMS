@@ -135,6 +135,7 @@
     "amount": "مقدار",
     "deposit": "واریز",
     "withdrawal": "برداشت",
+    "description": "توضیحات",
     "": "",
     "": "",
     "": "",
@@ -277,8 +278,7 @@
   },
   "book": {
     "books": "کتاب ها",
-    "book": "کتاب",
-    "description": "توضیحات"
+    "book": "کتاب"
   },
   "supplier": {
     "suppliers": "تأمین کنندگان",
@@ -329,5 +329,10 @@
     "purchase": "خریداری",
     "purchaseDate": "تاریخ خریداری",
     "totalAmount": "جمله شد"
+  },
+  "stock": {
+    "aviliableStock": "انبار موجود",
+    "quantity": "مقدار",
+    "unitPrice": "قیمت فی واحد"
   }
 }

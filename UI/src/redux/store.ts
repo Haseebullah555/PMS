@@ -13,6 +13,7 @@ import staffSlice from './staff/StaffSlice'
 import staffPaymentSlice from './staffPayment/StaffPaymentSlice'
 import partnerTransactionSlice from './partnerTransaction/PartnerTransactionSlice'
 import purchaseSlice from './purchases/PurchaseSlice'
+import stockSlice from './stock/StockSlice'
 
 export const store = configureStore({
   reducer: {
@@ -32,6 +33,7 @@ export const store = configureStore({
     staffPayments: staffPaymentSlice,
     partnerTransactions: partnerTransactionSlice,
     purchases: purchaseSlice,
+    stock: stockSlice,
   },
 })
 

@@ -6,5 +6,6 @@ namespace Application.Contracts.Interfaces
     public interface IStockRepository : IGenericRepository<Stock>
     {
         Task<Stock?> GetByGoodIdAsync(int goodId);
+        IQueryable<Stock> GetAllStockItems();
     }
 }
