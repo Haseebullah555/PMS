@@ -13,6 +13,14 @@ namespace Persistence.Repositories
         {
             _context = context;
         }
+
+        public IQueryable<Stock> GetAllStockItems()
+        {
+            return _context.Stocks
+                .Include(s => s.Good)
+                .AsQueryable();
+        }
+
         public async Task<Stock?> GetByGoodIdAsync(int goodId)
         {
             return await _context.Stocks
