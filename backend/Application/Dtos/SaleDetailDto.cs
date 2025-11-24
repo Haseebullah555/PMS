@@ -10,8 +10,8 @@ namespace Application.Dtos
         public int StockId { get; set; }
         public string? Stock { get; set; }
 
-        public int GoodId { get; set; }
-        public string? Good { get; set; }
+        public int FuelTypeId { get; set; }
+        public string? FuelType { get; set; }
 
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }

@@ -3,21 +3,21 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
-import CreateUserModal from './CreateGood'
-import EditGoodModal from './EditGood'
+import CreateUserModal from './CreateFuelType'
+import EditFuelTypeModal from './EditFuelType'
 
-const GoodList = () => {
+const FuelTypeList = () => {
   const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
-  const [selectedGood, setSelectedGood] = useState(null)
+  const [selectedFuelType, setSelectedFuelType] = useState(null)
 
   const closeModal = () => setModalOpen(false)
   const openModal = () => setModalOpen(true)
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (Good: any) => {
-    setSelectedGood(Good)
+  const openEditModal = (FuelType: any) => {
+    setSelectedFuelType(FuelType)
     setEditModalOpen(true)
   }
 
@@ -161,14 +161,14 @@ const GoodList = () => {
         />
       )}
       {isEditModalOpen && (
-        <EditGoodModal
+        <EditFuelTypeModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
-          selectedGood={selectedGood}
+          selectedFuelType={selectedFuelType}
           handleReloadTable={handleReloadTable}
         />
       )}
     </>
   )
 }
-export default GoodList
+export default FuelTypeList

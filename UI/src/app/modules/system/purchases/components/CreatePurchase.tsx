@@ -5,7 +5,7 @@ import { useFormik, FormikProvider, FieldArray } from 'formik'
 import { useAppDispatch } from 'redux/hooks'
 import { storePurchase } from 'redux/purchases/PurchaseSlice'
 import { getSupplier } from 'redux/supplier/SupplierSlice'
-import { getGood } from 'redux/good/GoodSlice'
+import { getFuelType } from 'redux/good/FuelTypeSlice'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
@@ -26,7 +26,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
 
   useEffect(() => {
     dispatch(getSupplier({}))
-    dispatch(getGood({}))
+    dispatch(getFuelType({}))
   }, [dispatch])
 
   // Validation Schema
@@ -35,7 +35,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
 
     items: Yup.array().of(
       Yup.object().shape({
-        goodId: Yup.string().required('Good is required'),
+        goodId: Yup.string().required('FuelType is required'),
         quantity: Yup.number().required('Qty required').min(1),
         unitPrice: Yup.number().required('Unit price required').min(0),
       })
@@ -119,7 +119,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
               <table className="table table-responsive">
                 <thead>
                   <tr>
-                    <th>Good</th>
+                    <th>FuelType</th>
                     <th>Qty</th>
                     <th>Unit Price</th>
                     <th>Total</th>
@@ -139,7 +139,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                             formik.setFieldValue(`items.${index}.goodId`, val)
                           }}
                         >
-                          <option value={0}>Select Good</option>
+                          <option value={0}>Select FuelType</option>
                           {goods?.data?.map((g: any) => (
                             <option key={g.id} value={g.id}>{g.name}</option>
                           ))}

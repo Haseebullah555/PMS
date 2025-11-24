@@ -1,4 +1,4 @@
-export interface GoodForm {
+export interface FuelTypeForm {
   name: string
   description: string
   unit: string
@@ -6,7 +6,7 @@ export interface GoodForm {
   sellPrice: number
 }
 
-export const initialValues: GoodForm = {
+export const initialValues: FuelTypeForm = {
   name: '',
   description: '',
   unit: '',

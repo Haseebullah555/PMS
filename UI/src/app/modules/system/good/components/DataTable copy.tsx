@@ -7,16 +7,16 @@ import Loader from '../../../../pages/loading/Loader'
 import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
-import {GoodForm} from './_module'
+import {FuelTypeForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getGood } from 'redux/good/GoodSlice'
+import { getFuelType } from 'redux/good/FuelTypeSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
-  const [data, setData] = useState<GoodForm[]>([])
+  const [data, setData] = useState<FuelTypeForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -66,7 +66,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
       page: currentPage,
     }
 
-    dispatch(getGood(params)).then((res) => {
+    dispatch(getFuelType(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {

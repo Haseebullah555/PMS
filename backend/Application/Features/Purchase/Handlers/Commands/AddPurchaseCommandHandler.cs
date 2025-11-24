@@ -32,9 +32,7 @@ namespace Application.Features.Purchase.Handlers.Commands
             {
                 SupplierId = request.SupplierId,
                 PurchaseDate = request.PurchaseDate,
-                TotalAmount = totalAmount,
-                PaidAmount = request.PaidAmount,
-                UnpaidAmount = unpaidAmount,
+                PaidAmount = request.PaidAmount
             };
 
             await using var tx = await _unitOfWork.BeginTransactionAsync();
@@ -48,19 +46,17 @@ namespace Application.Features.Purchase.Handlers.Commands
                 // Handle each item
                 foreach (var item in request.Items)
                 {
-                    var good = await _unitOfWork.Goods.Get(item.GoodId)
-                        ?? throw new Exception($"Good {item.GoodId} not found");
+                    var fuelType = await _unitOfWork.FuelTypes.Get(item.FuelTypeId)
+                        ?? throw new Exception($"FuelType {item.FuelTypeId} not found");
 
                     // Find or create Stock
-                    var stock = await _unitOfWork.Stocks.GetByGoodIdAsync(item.GoodId);
+                    var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
                     if (stock == null)
                     {
                         stock = new Domain.Models.Stock
                         {
-                            GoodId = good.Id,
-                            Description = good.Description,
+                            FuelTypeId = fuelType.Id,
                             Quantity = 0,
-                            UnitPrice = item.UnitPrice
                         };
                         await _unitOfWork.Stocks.Add(stock);
                         await _unitOfWork.SaveChanges(cancellationToken);
@@ -69,7 +65,6 @@ namespace Application.Features.Purchase.Handlers.Commands
                     // Update stock quantity
                     int newQty = stock.Quantity + item.Quantity;
                     // Weighted average cost
-                    stock.UnitPrice = ((stock.Quantity * stock.UnitPrice) + (item.Quantity * item.UnitPrice)) / newQty;
                     stock.Quantity = newQty;
 
                     await _unitOfWork.Stocks.Update(stock);
@@ -78,10 +73,9 @@ namespace Application.Features.Purchase.Handlers.Commands
                     var detail = new PurchaseDetail
                     {
                         PurchaseId = purchase.Id,
-                        GoodId = item.GoodId,
+                        FuelTypeId = item.FuelTypeId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
-                        TotalPrice = item.UnitPrice * item.Quantity
                     };
 
                     await _unitOfWork.PurchaseDetails.Add(detail);

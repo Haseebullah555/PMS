@@ -7,19 +7,19 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updateGood} from 'redux/good/GoodSlice'
+import {updateFuelType} from 'redux/good/FuelTypeSlice'
 
-interface EditGoodModalProps {
+interface EditFuelTypeModalProps {
   isOpen: boolean
   onClose: () => void
-  selectedGood: any // Type it as appropriate based on your data structure
+  selectedFuelType: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
 
-const EditGoodModal: React.FC<EditGoodModalProps> = ({
+const EditFuelTypeModal: React.FC<EditFuelTypeModalProps> = ({
   isOpen,
   onClose,
-  selectedGood,
+  selectedFuelType,
   handleReloadTable,
 }) => {
   const intl = useIntl()
@@ -27,20 +27,20 @@ const EditGoodModal: React.FC<EditGoodModalProps> = ({
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
-  // Populate form with user data when `selectedGood` changes
+  // Populate form with user data when `selectedFuelType` changes
   useEffect(() => {
-    if (selectedGood) {
-      formik.setFieldValue('id', selectedGood.id || '')
-      formik.setFieldValue('name', selectedGood.name || '')
-      formik.setFieldValue('unit', selectedGood.unit || '')
-      formik.setFieldValue('description', selectedGood.description || '')
-      formik.setFieldValue('costPrice', selectedGood.costPrice || '')
-      formik.setFieldValue('sellPrice', selectedGood.sellPrice || '')
+    if (selectedFuelType) {
+      formik.setFieldValue('id', selectedFuelType.id || '')
+      formik.setFieldValue('name', selectedFuelType.name || '')
+      formik.setFieldValue('unit', selectedFuelType.unit || '')
+      formik.setFieldValue('description', selectedFuelType.description || '')
+      formik.setFieldValue('costPrice', selectedFuelType.costPrice || '')
+      formik.setFieldValue('sellPrice', selectedFuelType.sellPrice || '')
     }
-  }, [selectedGood])
+  }, [selectedFuelType])
 
   // Validation schema
-  const GoodSchema = Yup.object().shape({
+  const FuelTypeSchema = Yup.object().shape({
       name: Yup.string().required(t('validation.required', { name: t('good.goodName') })),
       description: Yup.string().required(t('validation.required', { name: t('global.remarks') })),
       unit: Yup.string()
@@ -57,11 +57,11 @@ const EditGoodModal: React.FC<EditGoodModalProps> = ({
       costPrice: '',
       sellPrice: '',
     },
-    validationSchema: GoodSchema,
+    validationSchema: FuelTypeSchema,
     onSubmit: async (values, {setSubmitting, resetForm}) => {
       try {
-        const response = await dispatch(updateGood(values) as any)
-        if (updateGood.fulfilled.match(response)) {
+        const response = await dispatch(updateFuelType(values) as any)
+        if (updateFuelType.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -103,7 +103,7 @@ console.log(formik.values)
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Good Name Fields */}
+          {/* Name and FuelType Name Fields */}
           <div className='row'>
             <input type="hidden" {...formik.getFieldProps('id')}  />
             <div className='col-md-12'>
@@ -226,4 +226,4 @@ console.log(formik.values)
   )
 }
 
-export default EditGoodModal
+export default EditFuelTypeModal

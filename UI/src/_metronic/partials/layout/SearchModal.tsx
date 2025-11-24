@@ -40,9 +40,9 @@ const SearchModal: React.FC<Props> = ({show, handleClose}) => {
             </form>
             {/* end::Search */}
 
-            {/* begin::Shop Goods */}
+            {/* begin::Shop FuelTypes */}
             <div className='py-10'>
-              <h3 className='fw-bolder mb-8'>Shop Goods</h3>
+              <h3 className='fw-bolder mb-8'>Shop FuelTypes</h3>
 
               {/* begin::Row */}
               <div className='row g-5'>
@@ -127,7 +127,7 @@ const SearchModal: React.FC<Props> = ({show, handleClose}) => {
               </div>
               {/* end::Row */}
             </div>
-            {/* end::Shop Goods */}
+            {/* end::Shop FuelTypes */}
 
             {/* begin::Framework Users */}
             <div>

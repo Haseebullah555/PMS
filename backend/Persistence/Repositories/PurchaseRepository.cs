@@ -19,7 +19,7 @@ namespace Persistence.Repositories
             return _context.Purchases
             .Include(p => p.Supplier)
             .Include(p => p.PurchaseDetails)
-                .ThenInclude(d => d.Good)
+                .ThenInclude(d => d.FuelType)
             .AsQueryable();
         }
     }

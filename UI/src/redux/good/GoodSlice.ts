@@ -6,7 +6,7 @@
 
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import GoodService from './GoodService'
+import FuelTypeService from './FuelTypeService'
 
 type goodSate = {
   goods: any
@@ -18,10 +18,10 @@ const initialState: goodSate = {
   },
 }
 
-//get Good from server
-export const getGood = createAsyncThunk('api/Good/fgh', async (params: any, thunkAPI) => {
+//get FuelType from server
+export const getFuelType = createAsyncThunk('api/FuelType/fgh', async (params: any, thunkAPI) => {
   try {
-    return await GoodService.getGoods(params)
+    return await FuelTypeService.getFuelTypes(params)
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -31,11 +31,11 @@ export const getGood = createAsyncThunk('api/Good/fgh', async (params: any, thun
   }
 })
 
-// store Good
-export const storeGood = createAsyncThunk('api/Good/store', async (formData: any, thunkAPI) => {
+// store FuelType
+export const storeFuelType = createAsyncThunk('api/FuelType/store', async (formData: any, thunkAPI) => {
   try {
     console.log('formDataaaaaaaaaaaa', formData);
-    return await GoodService.store(formData)
+    return await FuelTypeService.store(formData)
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -46,10 +46,10 @@ export const storeGood = createAsyncThunk('api/Good/store', async (formData: any
 })
 
 // update user
-export const updateGood = createAsyncThunk('api/Good/update', async (formData: any, thunkAPI) => {
+export const updateFuelType = createAsyncThunk('api/FuelType/update', async (formData: any, thunkAPI) => {
   try {
     console.log(formData);
-    return await GoodService.update(formData)
+    return await FuelTypeService.update(formData)
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -60,13 +60,13 @@ export const updateGood = createAsyncThunk('api/Good/update', async (formData: a
 })
 
 export const goodSlice = createSlice({
-  name: 'Good',
+  name: 'FuelType',
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getGood.fulfilled, (state, action: PayloadAction) => {
+    builder.addCase(getFuelType.fulfilled, (state, action: PayloadAction) => {
         console.log('action.payload', action.payload)
       state.goods = action.payload
     })

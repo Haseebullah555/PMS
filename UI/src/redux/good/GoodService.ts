@@ -1,26 +1,26 @@
 import axios from 'axios'
 
 // Get users
-const getGoods = async (params: any) => {
-  const response = await axios.get(`/Good/list`, {params})
+const getFuelTypes = async (params: any) => {
+  const response = await axios.get(`/FuelType/list`, {params})
   return response.data
 }
 
 const store = async (formData: any) => {
   console.log('formData', formData);
-  const response = await axios.post('/Good/create', formData)
+  const response = await axios.post('/FuelType/create', formData)
   return response.data
 }
 
 const update = async (formData: any) => {
-  const response = await axios.post('/Good/update', formData)
+  const response = await axios.post('/FuelType/update', formData)
   return response.data
 }
 
-const GoodService = {
-  getGoods,
+const FuelTypeService = {
+  getFuelTypes,
   store,
   update,
 }
 
-export default GoodService
+export default FuelTypeService

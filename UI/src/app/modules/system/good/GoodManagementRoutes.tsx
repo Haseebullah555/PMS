@@ -1,15 +1,15 @@
 import {Routes, Route, Outlet} from 'react-router-dom'
-import GoodList from './components/GoodList'
+import FuelTypeList from './components/FuelTypeList'
 
-const GoodManagementRoutes = () => {
+const FuelTypeManagementRoutes = () => {
   return (
     <Routes>
       <Route element={<Outlet />}>
         {/* User Routes */}
-        <Route path='/list' element={<GoodList />} />
+        <Route path='/list' element={<FuelTypeList />} />
         {/* Role Routes */}
       </Route>
     </Routes>
   )
 }
-export default GoodManagementRoutes
+export default FuelTypeManagementRoutes

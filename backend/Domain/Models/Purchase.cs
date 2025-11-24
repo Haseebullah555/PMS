@@ -15,11 +15,11 @@ namespace Domain.Models
         [Required]
         public DateOnly PurchaseDate { get; set; }
         [Required]
-        public double Quantity { get; set; }
+        public decimal Quantity { get; set; }
         [Required]
-        public double UnitPrice { get; set; }
+        public decimal UnitPrice { get; set; }
         [Required]
-        public double PaidAmount { get; set; }
+        public decimal PaidAmount { get; set; }
         public string? Remarks { get; set; }
         public decimal Density { get; set; }
         public ICollection<PurchaseDetail>? PurchaseDetails  { get; set; } = new List<PurchaseDetail>();

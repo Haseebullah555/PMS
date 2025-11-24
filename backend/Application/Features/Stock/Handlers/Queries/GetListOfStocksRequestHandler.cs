@@ -25,7 +25,7 @@ namespace Application.Features.sample.Handlers.Queries
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                query = query.Where(s => s.GoodId.ToString().Contains(request.Search));
+                query = query.Where(s => s.FuelTypeId.ToString().Contains(request.Search));
             }
 
             // Sorting
@@ -34,8 +34,8 @@ namespace Application.Features.sample.Handlers.Queries
                 if (request.SortField.Equals("name", StringComparison.OrdinalIgnoreCase))
                 {
                     query = request.SortOrder == "desc"
-                        ? query.OrderByDescending(s => s.GoodId)
-                        : query.OrderBy(s => s.GoodId);
+                        ? query.OrderByDescending(s => s.FuelTypeId)
+                        : query.OrderBy(s => s.FuelTypeId);
                 }
                 else if (request.SortField.Equals("id", StringComparison.OrdinalIgnoreCase))
                 {

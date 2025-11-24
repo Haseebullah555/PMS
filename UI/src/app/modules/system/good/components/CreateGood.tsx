@@ -10,23 +10,23 @@ import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
 import { storeUser } from 'redux/authentication/user/userManagementSlice'
-import { storeGood } from 'redux/good/GoodSlice'
+import { storeFuelType } from 'redux/good/FuelTypeSlice'
 
 // Define the props for the modal
-interface CreateGoodModalProps {
+interface CreateFuelTypeModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreateGoodModal: React.FC<CreateGoodModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateFuelTypeModal: React.FC<CreateFuelTypeModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const GoodSchema = Yup.object().shape({
+  const FuelTypeSchema = Yup.object().shape({
     name: Yup.string().required(t('validation.required', { name: t('good.goodName') })),
     description: Yup.string().required(t('validation.required', { name: t('global.remarks') })),
     unit: Yup.string()
@@ -36,11 +36,11 @@ const CreateGoodModal: React.FC<CreateGoodModalProps> = ({ isOpen, onClose, hand
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: GoodSchema,
+    validationSchema: FuelTypeSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeGood(values) as any)
-        if (storeGood.fulfilled.match(response)) {
+        const response = await dispatch(storeFuelType(values) as any)
+        if (storeFuelType.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -81,7 +81,7 @@ const CreateGoodModal: React.FC<CreateGoodModalProps> = ({ isOpen, onClose, hand
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Good Name Fields */}
+          {/* Name and FuelType Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
@@ -208,4 +208,4 @@ const CreateGoodModal: React.FC<CreateGoodModalProps> = ({ isOpen, onClose, hand
   )
 }
 
-export default CreateGoodModal
+export default CreateFuelTypeModal
