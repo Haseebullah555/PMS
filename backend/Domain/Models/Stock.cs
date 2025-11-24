@@ -4,8 +4,8 @@ namespace Domain.Models
 {
     public class Stock : BaseDomainEntity
     {
-        public int GoodId { get; set; }
-        public Good? Good { get; set; }
+        public int FuelTypeId { get; set; }
+        public FuelTypes? FuelType { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
 
