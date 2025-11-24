@@ -1,5 +1,3 @@
-
-using System.ComponentModel.DataAnnotations.Schema;
 using Domain.Common;
 
 namespace Domain.Models
@@ -10,7 +8,6 @@ namespace Domain.Models
         public Good? Good { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
-        public decimal UnitPrice { get; set; } // optional (for valuation)
 
         public ICollection<PurchaseDetail> Purchases { get; set; } = new List<PurchaseDetail>();
         public ICollection<SaleDetail> Sales { get; set; } = new List<SaleDetail>();

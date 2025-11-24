@@ -10,7 +10,7 @@ namespace Domain.Models
         public string Name { get; set; }
         [Required]
         public FuelUnits FuelUnit { get; set; }
-        [Required]
-        public double Density { get; set; }
+        // [Required]
+        // public double Density { get; set; }
     }
 }

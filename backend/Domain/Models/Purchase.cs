@@ -33,7 +33,7 @@ namespace Domain.Models
         public DateOnly PurchaseDate { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal PaidAmount { get; set; }
-        public decimal UnpaidAmount { get; set; }
+        public decimal UnpaidAmount { get; set; }// should remove
 
         public ICollection<PurchaseDetail>? PurchaseDetails  { get; set; } = new List<PurchaseDetail>();
     }

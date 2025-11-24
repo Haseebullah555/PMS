@@ -10,6 +10,6 @@ namespace Domain.Models
         public Good? Good { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }// should remove
     }
 }
