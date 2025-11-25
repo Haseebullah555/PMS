@@ -7,6 +7,8 @@ namespace Application.Contracts.Interfaces.Common
         public ICustomerRepository Customers { get; }
         public ISupplierRepository Suppliers { get; }
         public IFuelTypeRepository FuelTypes { get; }
+        public IFuelGunRepository FuelGuns { get; }
+        public IFuelStandRepository FuelStands { get; }
         public IExtraExpensesRepository ExtraExpenses { get; }
         public IPartnerRepository Partners { get; }
         public IPartnerTransactionRepository PartnerTransactions { get; }
