@@ -5,7 +5,7 @@ import { useFormik, FormikProvider, FieldArray } from 'formik'
 import { useAppDispatch } from 'redux/hooks'
 import { storePurchase } from 'redux/purchases/PurchaseSlice'
 import { getSupplier } from 'redux/supplier/SupplierSlice'
-import { getFuelType } from 'redux/good/FuelTypeSlice'
+// import { getFuelType } from 'redux/good/FuelTypeSlice'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
@@ -26,7 +26,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
 
   useEffect(() => {
     dispatch(getSupplier({}))
-    dispatch(getFuelType({}))
+    // dispatch(getFuelType({}))
   }, [dispatch])
 
   // Validation Schema

@@ -8,7 +8,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import LibraryManagementRoutes from 'app/modules/system/library/LibraryManagementRoutes'
 import SupplierManagementRoutes from 'app/modules/system/supplier/SupplierManagementRoutes'
 import CustomerManagementRoutes from 'app/modules/system/customer/CustomerManagementRoutes'
-import FuelTypeManagementRoutes from 'app/modules/system/good/FuelTypeManagementRoutes'
+// import FuelTypeManagementRoutes from 'app/modules/system/good/FuelTypeManagementRoutes'
 import ExtraExpenseManagementRoutes from 'app/modules/system/extraExpense/ExtraExpensemanagementRoutes'
 import PartnerManagementRoutes from 'app/modules/system/partner/PartnerManagementRoutes'
 import StaffManagementRoutes from 'app/modules/system/staff/StaffManagementRoutes'
@@ -59,14 +59,14 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        <Route
+        {/* <Route
           path='good/*'
           element={
             <SuspensedView>
               <FuelTypeManagementRoutes />
             </SuspensedView>
           }
-        />
+        /> */}
         <Route
           path='extraExpense/*'
           element={
