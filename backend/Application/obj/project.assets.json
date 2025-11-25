@@ -760,11 +760,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
+      "projectUniqueName": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
       "projectName": "Application",
-      "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
+      "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\Application.csproj",
       "packagesPath": "C:\\Users\\Haseehullah Shirzad\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\obj\\",
+      "outputPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Application\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Haseehullah Shirzad\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -779,8 +779,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj": {
-              "projectPath": "c:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj"
+            "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj": {
+              "projectPath": "C:\\Users\\Haseehullah Shirzad\\Desktop\\PMS\\backend\\Domain\\Domain.csproj"
             }
           }
         }
