@@ -12,7 +12,6 @@ namespace Domain.Models
         public Staff? Staff { get; set; } = null!;
         public DateOnly PaymentDate { get; set; }
         public decimal PaidAmount { get; set; }
-        public decimal UnpaidAmount { get; set; }
         public string? Remarks { get; set; }
         
     }

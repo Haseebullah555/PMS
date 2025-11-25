@@ -12,7 +12,9 @@ namespace Persistence.Repositories.Common
         #region Private fields
         private ICustomerRepository _customerRepository;
         private ISupplierRepository _supplierRepository;
-        private IGoodRepository _goodRepository;
+        private IFuelTypeRepository _fuelTypeRepository;
+        private IFuelGunRepository _fuelGunRepository;
+        private IFuelStandRepository _fuelStandRepository;
         private IExtraExpensesRepository _extraExpensesRepository;
         private IPartnerRepository _partnerRepository;
         private IPartnerTransactionRepository _partnerTransactionRepository;
@@ -31,7 +33,9 @@ namespace Persistence.Repositories.Common
 
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
-        public IGoodRepository Goods => _goodRepository ??= new GoodRepository(_context);
+        public IFuelTypeRepository FuelTypes => _fuelTypeRepository ??= new FuelTypeRepository(_context);
+        public IFuelGunRepository FuelGuns => _fuelGunRepository ??= new FuelGunRepository(_context);
+        public IFuelStandRepository FuelStands => _fuelStandRepository ??= new FuelStandRepository(_context);
         public IExtraExpensesRepository ExtraExpenses => _extraExpensesRepository ??= new ExtraExpensesRepository(_context);
         public IPartnerRepository Partners => _partnerRepository ??= new PartnerRepository(_context);
         public IPartnerTransactionRepository PartnerTransactions => _partnerTransactionRepository ??= new PartnerTransactionRepository(_context);

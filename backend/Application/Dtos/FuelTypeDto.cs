@@ -1,16 +1,14 @@
 using System.ComponentModel.DataAnnotations;
-using Domain.Common;
+using Application.Dtos.Common;
 using Domain.Enums;
 
-namespace Domain.Models
+namespace Application.Dtos
 {
-    public class FuelTypes : BaseDomainEntity
+    public class FuelTypeDto : BaseDto
     {
         [Required]
         public string Name { get; set; }
         [Required]
         public FuelUnits FuelUnit { get; set; }
-        // [Required]
-        // public double Density { get; set; }
     }
 }

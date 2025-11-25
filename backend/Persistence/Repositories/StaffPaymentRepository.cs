@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Application.Contracts.Interfaces;
 using Application.Dtos;
 using Domain.Models;
@@ -26,7 +25,6 @@ namespace Persistence.Repositories
                     Staff = s.FullName,
                     PaymentDate = sp.PaymentDate,
                     PaidAmount = sp.PaidAmount,
-                    UnpaidAmount = sp.UnpaidAmount,
                     Remarks = sp.Remarks
                 }).ToListAsync();
             return staffPayments;

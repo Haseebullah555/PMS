@@ -17,14 +17,15 @@ namespace Persistence.Repositories
         public IQueryable<Stock> GetAllStockItems()
         {
             return _context.Stocks
-                .Include(s => s.Good)
+                .Include(s => s.FuelType)
                 .AsQueryable();
         }
 
-        public async Task<Stock?> GetByGoodIdAsync(int goodId)
+        public async Task<Stock?> GetByFuelTypeIdAsync(int fuelTypeId)
         {
             return await _context.Stocks
-                .FirstOrDefaultAsync(s => s.GoodId == goodId);
+                .FirstOrDefaultAsync(s => s.FuelTypeId == fuelTypeId);
         }
+
     }
 }

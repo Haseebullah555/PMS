@@ -6,7 +6,7 @@ import provinceSlice from './authentication/province/provinceSlice'
 import bookSlice from './library/book/bookSlice'
 import  supplierSlice from './supplier/SupplierSlice'
 import customerSlice  from './customer/CustomerSlice'
-import goodSlice from './good/GoodSlice'
+// import goodSlice from './good/FuelTypeSlice'
 import extraExpenseSlice from './extraExpense/ExtraExpenseSlice'
 import partnerSlice from './partner/PartnerSlice'
 import staffSlice from './staff/StaffSlice'
@@ -26,7 +26,7 @@ export const store = configureStore({
     book: bookSlice,
     supplier: supplierSlice,
     customer: customerSlice,
-    good: goodSlice,
+    // good: goodSlice,
     ExtraExpenses : extraExpenseSlice,
     partners : partnerSlice,
     staffs: staffSlice,

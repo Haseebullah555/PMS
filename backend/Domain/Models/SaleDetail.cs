@@ -5,16 +5,14 @@ namespace Domain.Models
     public class SaleDetail : BaseDomainEntity
     {
         public int SaleId { get; set; }
-        public Sale Sale { get; set; } = null!;
+        public Sale? Sale { get; set; }
 
         public int StockId { get; set; }
-        public Stock Stock { get; set; } = null!;
+        public Stock? Stock { get; set; }
 
-        public int GoodId { get; set; }
-        public Good Good { get; set; } = null!;
-
+        public int FuelTypeId { get; set; }
+        public FuelTypes? FuelType { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public decimal TotalPrice { get; set; }
     }
 }

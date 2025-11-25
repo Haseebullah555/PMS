@@ -11,9 +11,11 @@ namespace Domain.Models
         public string Phone { get; set; }
         [Required]
         public decimal Salary { get; set; }
+        public decimal Balance { get; set; } = 0;
         [Required]
         public DateOnly HireDate { get; set; }
         public bool Status { get; set; }
+
         public ICollection<StaffPayment> SalaryPayments { get; set; } = new List<StaffPayment>();
     }
 }
