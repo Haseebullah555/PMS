@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useFormik, FormikProvider, FieldArray } from 'formik'
-import { useAppDispatch } from 'redux/hooks'
-import { storePurchase } from 'redux/purchases/PurchaseSlice'
-import { getSupplier } from 'redux/supplier/SupplierSlice'
-// import { getFuelType } from 'redux/good/FuelTypeSlice'
-import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import { initialValues } from './_module'
+import { useAppDispatch } from '../../../../../redux/hooks'
+import { useTranslation } from 'react-i18next'
+import { getSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
+import { storePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 
 interface CreatePurchaseModalProps {
   isOpen: boolean

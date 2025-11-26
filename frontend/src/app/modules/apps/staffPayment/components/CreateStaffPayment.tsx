@@ -9,8 +9,8 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeStaffPayment } from 'redux/staffPayment/StaffPaymentSlice'
-import { getStaffsList } from 'redux/staff/StaffSlice'
+import { storeStaffPayment } from '../../../../../redux/slices/staffPayment/StaffPaymentSlice'
+import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 
 // Define the props for the modal
 interface CreateStaffPaymentModalProps {

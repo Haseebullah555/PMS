@@ -7,7 +7,7 @@ import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
-import { updateStaff } from 'redux/staff/StaffSlice'
+import { updateStaff } from '../../../../../redux/slices/staff/StaffSlice'
 
 interface EditStaffModalProps {
   isOpen: boolean

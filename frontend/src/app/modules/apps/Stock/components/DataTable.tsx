@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next'
 import {StockForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getStock } from 'redux/stock/StockSlice'
+import { getStock } from '../../../../../redux/slices/stock/StockSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'

@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updatePurchase} from 'redux/purchases/PurchaseSlice'
+import { updatePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 
 interface EditPurchaseModalProps {
   isOpen: boolean
