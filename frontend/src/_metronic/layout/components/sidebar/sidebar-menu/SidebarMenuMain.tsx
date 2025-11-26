@@ -37,6 +37,12 @@ const SidebarMenuMain = () => {
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
+      <SidebarMenuItem
+        to='/customer/list'
+        title={t("customer.customers")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
     </>
   )
 }
