@@ -13,12 +13,14 @@ import {
   getPermissions,
 } from '../../../../redux/slices/authorizationSlice/authorizationSlice'
 import AssignPermissionToRole from './components/AssignPermissionToRole'
-import SetLang from '../../../custom/SetLang'
 import RoleCreate from './components/RoleCreate'
 import RoleUpdate from './components/RoleUpdate'
 import CustomLoader from './../../../custom/loader/CustomLoader'
+import { useTranslation } from 'react-i18next'
 
 export default function RoleList() {
+
+  const {t} = useTranslation()
   const dispatch = useDispatch()
 
   const [tableData, setTableData] = useState([])
@@ -58,7 +60,7 @@ export default function RoleList() {
           handleSetPermissions(res.payload)
         })
         .catch((err) => {
-          toast.warning(SetLang('Error in performing the action'))
+          toast.warning(t('Error in performing the action'))
         })
     } else {
       setData([{id: null, name: null}])
@@ -128,14 +130,14 @@ export default function RoleList() {
 
   const handleDelete = (id) => {
     Swal.fire({
-      title: SetLang('Are you sure?'),
-      text: SetLang("You won't be able to revert this!"),
+      title: t('Are you sure?'),
+      text: t("You won't be able to revert this!"),
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      cancelButtonText: SetLang('Cancel'),
-      confirmButtonText: SetLang('Yes, delete it!'),
+      cancelButtonText: t('Cancel'),
+      confirmButtonText: t('Yes, delete it!'),
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteRole(id))
@@ -154,23 +156,23 @@ export default function RoleList() {
 
   const columns = [
     {
-      name: SetLang('ID'),
+      name: t('ID'),
       selector: (row) => row.id,
       sortable: true,
     },
     {
-      name: SetLang('Name'),
+      name: t('Name'),
       selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: SetLang('Guard Name'),
+      name: t('Guard Name'),
       selector: (row) => row.guard_name,
       sortable: true,
     },
 
     {
-      name: SetLang('Assign Permissions'),
+      name: t('Assign Permissions'),
       cell: (row) => (
         <button
           onClick={() => {
@@ -181,13 +183,13 @@ export default function RoleList() {
           data-bs-target='#permissionsForRoleModal'
         >
           <i className='mx-1 fa fa-plus' />
-          {SetLang('Assign Permissions')}
+          {t('Assign Permissions')}
         </button>
       ),
     },
 
     {
-      name: SetLang('Action'),
+      name: t('Action'),
       cell: (row) => (
         <>
           <span
@@ -217,7 +219,7 @@ export default function RoleList() {
             data-bs-toggle='modal'
             data-bs-target='#rolePost'
           >
-            {SetLang('New')}
+            {t('New')}
             {/* New */}
           </span>
           <button className='btn btn-primary btn-sm fa fa-filter'></button>

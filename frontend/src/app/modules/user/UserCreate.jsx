@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 import {useFormik} from 'formik'
 import {useIntl} from 'react-intl'
-import SetLang from '../../custom/SetLang'
 import * as yup from 'yup'
 
 import {
@@ -21,9 +20,11 @@ import {getRoles, getPermissions} from '../../../redux/slices/authorizationSlice
 import {postUser, getUsers} from './../../../redux/slices/userSlice/userSlice'
 import {toast} from 'react-toastify'
 import AllPermissionsAndRoles from './components/AllPermissionsAndRoles'
+import { useTranslation } from 'react-i18next'
 
 // const ProfileDetails: React.FC = () => {
 const UserCreate = () => {
+  const {t} = useTranslation()
   const intl = useIntl()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
@@ -154,82 +155,82 @@ const UserCreate = () => {
       .trim()
       .matches(
         /^[\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*[^\d\u06F0-\u06F9\s][\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*$/,
-        SetLang('Only letters are allowed')
+        t('Only letters are allowed')
       )
       .test(
         'no-numbers',
-        SetLang('Only letters are allowed'),
+        t('Only letters are allowed'),
         (value) => !/[0-9\u06F0-\u06F9]/.test(value)
       )
-      .min(3, SetLang('This field can not be less than 3 chracters'))
-      .required(SetLang('This field can not be empty')),
+      .min(3, t('This field can not be less than 3 chracters'))
+      .required(t('This field can not be empty')),
     father_name: yup
       .string()
       .trim()
       .matches(
         /^[\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*[^\d\u06F0-\u06F9\s][\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*$/,
-        SetLang('Only letters are allowed')
+        t('Only letters are allowed')
       )
       .test(
         'no-numbers',
-        SetLang('Only letters are allowed'),
+        t('Only letters are allowed'),
         (value) => !/[0-9\u06F0-\u06F9]/.test(value)
       )
-      .min(3, SetLang('This field can not be less than 3 chracters'))
-      .required(SetLang('This field can not be empty')),
+      .min(3, t('This field can not be less than 3 chracters'))
+      .required(t('This field can not be empty')),
 
     g_father_name: yup
       .string()
       .trim()
       .matches(
         /^[\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*[^\d\u06F0-\u06F9\s][\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*$/,
-        SetLang('Only letters are allowed')
+        t('Only letters are allowed')
       )
       .test(
         'no-numbers',
-        SetLang('Only letters are allowed'),
+        t('Only letters are allowed'),
         (value) => !/[0-9\u06F0-\u06F9]/.test(value)
       )
-      .min(3, SetLang('This field can not be less than 3 chracters'))
-      .required(SetLang('This field can not be empty')),
-    gender_id: yup.string().required(SetLang('This field can not be empty')),
-    email: yup.string().required(SetLang('This field can not be empty')),
+      .min(3, t('This field can not be less than 3 chracters'))
+      .required(t('This field can not be empty')),
+    gender_id: yup.string().required(t('This field can not be empty')),
+    email: yup.string().required(t('This field can not be empty')),
     birth_date: yup
       .string()
-      .min(4, SetLang('This field can not be less than 4 chracters'))
-      .required(SetLang('This field can not be empty')),
+      .min(4, t('This field can not be less than 4 chracters'))
+      .required(t('This field can not be empty')),
     birth_place: yup
       .string()
-      .min(4, SetLang('This field can not be less than 4 chracters'))
-      .required(SetLang('This field can not be empty')),
-    district: yup.string().required(SetLang('This field can not be empty')),
-    province: yup.string().required(SetLang('This field can not be empty')),
-    department_generals_id: yup.string().required(SetLang('This field can not be empty')),
+      .min(4, t('This field can not be less than 4 chracters'))
+      .required(t('This field can not be empty')),
+    district: yup.string().required(t('This field can not be empty')),
+    province: yup.string().required(t('This field can not be empty')),
+    department_generals_id: yup.string().required(t('This field can not be empty')),
 
     password: yup
       .string()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        SetLang(
+        t(
           'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
         )
       )
-      .required(SetLang('This field can not be empty')),
+      .required(t('This field can not be empty')),
 
     re_password: yup
       .string()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-        SetLang(
+        t(
           'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
         )
       )
-      .required(SetLang('This field can not be empty'))
-      .oneOf([yup.ref('password')], SetLang('Passwords do not match')),
+      .required(t('This field can not be empty'))
+      .oneOf([yup.ref('password')], t('Passwords do not match')),
 
     profile_image:
       fileField &&
-      yup.mixed().test('file', SetLang('This feild should be an image'), (value) => {
+      yup.mixed().test('file', t('This feild should be an image'), (value) => {
         if (value) {
           return value.type.includes('image')
         }
@@ -272,7 +273,7 @@ const UserCreate = () => {
             formik.resetForm()
             setFileField(null)
             dispatch(getUsers())
-            toast.success(SetLang('Successfuly Done'))
+            toast.success(t('Successfuly Done'))
           }
           setLoading(false)
         })
@@ -755,7 +756,7 @@ const UserCreate = () => {
                       data-bs-target='#roleModal'
                     >
                       <i className='fa fa-plus' />
-                      {SetLang('Role')}
+                      {t('Role')}
                     </span>
                     <span
                       className='btn btn-success'
@@ -764,7 +765,7 @@ const UserCreate = () => {
                     >
                       <i className='fa fa-plus' />
 
-                      {SetLang('Permission')}
+                      {t('Permission')}
                     </span>
                   </div>
                 </div>

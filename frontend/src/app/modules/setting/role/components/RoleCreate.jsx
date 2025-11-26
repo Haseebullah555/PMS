@@ -4,11 +4,12 @@ import * as yup from 'yup'
 import {useFormik} from 'formik'
 
 import {getRoles, postRole} from '../../../../../redux/slices/authorizationSlice/authorizationSlice'
-import SetLang from '../../../../custom/SetLang'
 import {useIntl} from 'react-intl'
+import { useTranslation } from 'react-i18next'
 
 export default function RoleCreate() {
   const intl = useIntl()
+  const {t} = useTranslation()
 
   const dispatch = useDispatch()
 
@@ -22,8 +23,8 @@ export default function RoleCreate() {
     validationSchema: yup.object().shape({
       name: yup
         .string()
-        .min(4, SetLang('This field can not be less than 4 chracters'))
-        .required(SetLang('This field can not be empty')),
+        .min(4, t('This field can not be less than 4 chracters'))
+        .required(t('This field can not be empty')),
     }),
 
     onSubmit: async ({name}) => {

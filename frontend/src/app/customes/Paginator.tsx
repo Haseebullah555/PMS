@@ -1,7 +1,9 @@
 import {useEffect, useState} from 'react'
-import SetLang from '../custom/SetLang'
+import { useTranslation } from 'react-i18next'
 const OFFSET = 4
 const Paginator = ({pagination, pageChanged}: any) => {
+  const {t} = useTranslation()
+
   const [pageNumbers, setPageNumbers] = useState([])
   useEffect(() => {
     ;(async () => {
@@ -25,18 +27,18 @@ const Paginator = ({pagination, pageChanged}: any) => {
     <div className='d-flex flex-stack flex-wrap pt-10'>
       <div className='fs-6 fw-bold text-gray-700 d-none d-lg-flex'>
         <span className='pagination-total pagination__desc'>
-          {SetLang('global.PAGINATIONTOTALRECORD')}
+          {t('global.PAGINATIONTOTALRECORD')}
           <span>
             <b>{pagination?.total}</b>
           </span>
-          &nbsp; {SetLang('global.PAGINATIONFROM')}
+          &nbsp; {t('global.PAGINATIONFROM')}
           <span>
             <b>
               {pagination.from} الا - {pagination.to}
             </b>
             &nbsp;&nbsp;
           </span>
-          {SetLang('global.PAGINATIONPAGE')}
+          {t('global.PAGINATIONPAGE')}
           <span>
             <b>{pagination.current_page}</b>
           </span>

@@ -6,62 +6,16 @@ import {useFormik} from 'formik'
 import {IUpdateEmail, IUpdatePassword, updateEmail, updatePassword} from '../SettingsModel'
 import {useIntl} from 'react-intl'
 import CustomLoader from '../../../../../custom/loader/CustomLoader'
-import SetLang from '../../../../../custom/SetLang'
 import axios from 'axios'
 import {toast} from 'react-toastify'
 import {apiUrl} from '../../../../../../apiUrl'
-// import SetLang from '../../custom/SetLang'
+import { useTranslation } from 'react-i18next'
+// import t from '../../custom/t'
 
-const emailFormValidationSchema = Yup.object().shape({
-  newEmail: Yup.string()
-    .email(SetLang('Wrong email format'))
-    .min(3, SetLang('Minimum 3 symbols'))
-    .max(50, SetLang('Maximum 50 symbols'))
-    .required(SetLang('Email is required')),
-
-  confirmPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-})
-
-const passwordFormValidationSchema = Yup.object().shape({
-  currentPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-
-  newPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-
-  passwordConfirmation: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty'))
-    .oneOf([Yup.ref('newPassword')], SetLang('Passwords do not match')),
-})
 
 const SignInMethod: React.FC<any> = ({data}) => {
   const intl = useIntl()
-
+  const {t} = useTranslation()
   const [emailUpdateData, setEmailUpdateData] = useState<IUpdateEmail>(updateEmail)
   const [passwordUpdateData, setPasswordUpdateData] = useState<IUpdatePassword>(updatePassword)
 
@@ -74,7 +28,23 @@ const SignInMethod: React.FC<any> = ({data}) => {
     initialValues: {
       ...emailUpdateData,
     },
-    validationSchema: emailFormValidationSchema,
+    validationSchema: Yup.object().shape({
+  newEmail: Yup.string()
+    .email(t('Wrong email format'))
+    .min(3, t('Minimum 3 symbols'))
+    .max(50, t('Maximum 50 symbols'))
+    .required(t('Email is required')),
+
+  confirmPassword: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      t(
+        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+      )
+    )
+    .required(t('This field can not be empty')),
+})
+,
     onSubmit: (values) => {
       setLoading1(true)
 
@@ -82,7 +52,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
         .post(`${apiUrl}/update-email`, values)
         .then((res) => {
           setLoading1(false)
-          toast.success(SetLang('Successfuly Done'))
+          toast.success(t('Successfuly Done'))
 
           // formik1.resetForm()
         })
@@ -104,14 +74,42 @@ const SignInMethod: React.FC<any> = ({data}) => {
     initialValues: {
       ...passwordUpdateData,
     },
-    validationSchema: passwordFormValidationSchema,
+    validationSchema:  Yup.object().shape({
+  currentPassword: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      t(
+        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+      )
+    )
+    .required(t('This field can not be empty')),
+
+  newPassword: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      t(
+        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+      )
+    )
+    .required(t('This field can not be empty')),
+
+  passwordConfirmation: Yup.string()
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      t(
+        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+      )
+    )
+    .required(t('This field can not be empty'))
+    .oneOf([Yup.ref('newPassword')], t('Passwords do not match')),
+}),
     onSubmit: (values) => {
       setLoading2(true)
       axios
         .post(`${apiUrl}/update-password`, values)
         .then((res) => {
           setLoading2(false)
-          toast.success(SetLang('Successfuly Done'))
+          toast.success(t('Successfuly Done'))
 
           // formik1.resetForm()
         })

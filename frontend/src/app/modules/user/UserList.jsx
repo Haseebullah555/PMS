@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { getUsers, deleteUser } from "../../../redux/slices/userSlice/userSlice";
-import SetLang from "../../custom/SetLang";
 import DataTable from 'react-data-table-component';
 import CustomLoader from './../../custom/loader/CustomLoader';
+import { useTranslation } from "react-i18next";
 
 export default function UserList() {
+	const {t} = useTranslation()
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
@@ -58,24 +60,24 @@ export default function UserList() {
 
 	const columns = [
 		{
-			name: SetLang("ID"),
+			name: t("ID"),
 			selector: (row) => row.id,
 			sortable: true,
 			width: "60px",
 		},
 		{
-			name: SetLang("Name"),
+			name: t("Name"),
 			selector: (row) => row.name,
 			sortable: true,
 		},
 		{
-			name: SetLang("Email"),
+			name: t("Email"),
 			selector: (row) => row.email,
 			sortable: true,
 		},
 
 		{
-			name: SetLang("Action"),
+			name: t("Action"),
 			cell: (row) => (
 				<>
 					<span
@@ -110,7 +112,7 @@ export default function UserList() {
 					<button
 						className="btn btn-success"
 						onClick={() => navigate("/users/create")}>
-						{SetLang("New")}
+						{t("New")}
 					</button>
 				</div>
 				<div className="col-sm-12 col-md-4">

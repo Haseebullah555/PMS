@@ -4,13 +4,16 @@ import {KTIcon, toAbsoluteUrl} from '../../../helpers'
 import {useLayout} from '../../core'
 import {MutableRefObject, useEffect, useRef} from 'react'
 import {ToggleComponent} from '../../../assets/ts/components'
-import SetLang from '../../../../app/custom/SetLang'
+import { useTranslation } from 'react-i18next'
 
 type PropsType = {
   sidebarRef: MutableRefObject<HTMLDivElement | null>
 }
 
 const SidebarLogo = (props: PropsType) => {
+
+  const {t} = useTranslation()
+
   const {config} = useLayout()
   const toggleRef = useRef<HTMLDivElement>(null)
 
@@ -58,7 +61,7 @@ const SidebarLogo = (props: PropsType) => {
               src={toAbsoluteUrl('/media/logos/moi_logo.png')}
               className='h-80px p-3 app-sidebar-logo-default theme-light-show'
             />
-            <div className='h5 mt-5 text-primary text-center'>{SetLang('System Name')}</div>
+            <div className='h5 mt-5 text-primary text-center'>{t('System Name')}</div>
           </div>
         ) : (
           <div className=' d-flex justify-content-center align-items-center'>
@@ -67,7 +70,7 @@ const SidebarLogo = (props: PropsType) => {
               src={toAbsoluteUrl('/media/logos/moi_logo.png')}
               className='h-80px p-3 app-sidebar-logo-default theme-light-show'
             />
-            <div className='h5 mt-5 text-primary text-center'>{SetLang('System Name')}</div>
+            <div className='h5 mt-5 text-primary text-center'>{t('System Name')}</div>
           </div>
         )}
       </Link>

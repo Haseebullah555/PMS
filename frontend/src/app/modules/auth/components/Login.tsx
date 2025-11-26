@@ -1,15 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {useState} from 'react'
+import { useState } from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
-import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {useAuth} from '../core/Auth'
-import {useDispatch} from 'react-redux'
-import {setAuthUser} from '../../../../redux/slices/authenticationSlices/authenticationSlice'
-import {useIntl} from 'react-intl'
+import { Link } from 'react-router-dom'
+import { useFormik } from 'formik'
+import { getUserByToken, login } from '../core/_requests'
+import { toAbsoluteUrl } from '../../../../_metronic/helpers'
+import { useAuth } from '../core/Auth'
+import { useDispatch } from 'react-redux'
+import { setAuthUser } from '../../../../redux/slices/authenticationSlices/authenticationSlice'
+import { useIntl } from 'react-intl'
 import { useTranslation } from 'react-i18next'
 
 /*
@@ -20,12 +20,10 @@ import { useTranslation } from 'react-i18next'
 
 export function Login() {
   const intl = useIntl()
-  const {t} = useTranslation()
-
-
+  const { t } = useTranslation()
 
   const [loading, setLoading] = useState(false)
-  const {saveAuth, setCurrentUser} = useAuth()
+  const { saveAuth, setCurrentUser } = useAuth()
   const dispatch = useDispatch()
 
   const loginSchema = Yup.object().shape({
@@ -34,38 +32,35 @@ export function Login() {
       // .min(3, 'Minimum 3 symbols')
       // .max(50, 'Maximum 50 symbols')
       // .required('Email is required'),
-      .email(intl.formatMessage({id: 'LOGIN_PAGE.WRONG_EMAIL_FORMATE'}))
-      .min(3, `${intl.formatMessage({id: 'LOGIN_PAGE.MINIMUM_CHARACTERS'})} 3`)
-      .max(50, `${intl.formatMessage({id: 'LOGIN_PAGE.MAXIMUM_CHARACTERS'})} 50`)
-      .required(intl.formatMessage({id: 'LOGIN_PAGE.EMAIL_IS_REQUIRED'})),
+      .email(t('global.LOGIN_PAGE.WRONG_EMAIL_FORMAT'))
+      .min(3, t('global.LOGIN_PAGE.MINIMUM_CHARACTERS', { count: 3 }))
+      .max(50, t('global.LOGIN_PAGE.MAXIMUM_CHARACTERS', { count: 50 }))
+      .required(t('global.LOGIN_PAGE.EMAIL_IS_REQUIRED')),
     password: Yup.string()
-      .min(3, `${intl.formatMessage({id: 'LOGIN_PAGE.MINIMUM_CHARACTERS'})} 3`)
-      .max(50, `${intl.formatMessage({id: 'LOGIN_PAGE.MAXIMUM_CHARACTERS'})} 50`)
-      .required(intl.formatMessage({id: 'LOGIN_PAGE.PASSWORD_IS_REQUIRED'})),
+      .min(3, t('global.LOGIN_PAGE.MINIMUM_CHARACTERS', { count: 3 }))
+      .max(50, t('global.LOGIN_PAGE.MAXIMUM_CHARACTERS', { count: 50 }))
+      .required(t('global.LOGIN_PAGE.PASSWORD_IS_REQUIRED')),
   })
 
   const initialValues = {
     email: '',
     password: '',
   }
-
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, {setStatus, setSubmitting}) => {
+    onSubmit: async (values, { setStatus, setSubmitting }) => {
       setLoading(true)
       try {
-        console.log(values, 'valuessssssssss')
-        const {data: auth} = await login(values.email, values.password)
-               console.log(auth.accessToken, '==================')
+        const { data: auth } = await login(values.email, values.password)
         saveAuth(auth)
-         const {data: user} = await getUserByToken(auth.accessToken)
+        const { data: user } = await getUserByToken(auth.accessToken)
         setCurrentUser(user)
         dispatch(setAuthUser(user))
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
-        setStatus(intl.formatMessage({id: 'LOGIN_PAGE.THE_LOGIN_DETAIL_ARE_INCORRECT'}))
+        setStatus(t('global.LOGIN_PAGE.THE_LOGIN_DETAIL_ARE_INCORRECT'))
         setSubmitting(false)
         setLoading(false)
       }
@@ -92,13 +87,13 @@ export function Login() {
               />
               <h1 className='fw-bolder mb-3 text-center text-primary h1'>
                 {/* {intl.formatMessage({id: 'LOGIN_PAGE.SING_UP'})} */}
-                        {t('global.MINISTYRYOFINTROIRAFFARIS')}
+                {t('global.MINISTYRYOFINTROIRAFFARIS')}
                 {/* وزارت امور داخله */}
               </h1>
             </div>
             <div className='text-center mb-11'>
               <h1 className='text-dark fw-bolder mb-3'>
-                {intl.formatMessage({id: 'LOGIN_PAGE.SING_UP'})}
+                {t('global.LOGINPAGESINGUP')}
               </h1>
               {/* <div className='text-gray-500 fw-semibold fs-6'>Your Social Campaigns</div> */}
             </div>
@@ -141,7 +136,7 @@ export function Login() {
             {/* begin::Separator */}
             <div className='separator separator-content my-14'>
               <span className='w-125px text-gray-500 fw-semibold fs-7'>
-                {intl.formatMessage({id: 'LOGIN_PAGE.SING_UP'})}
+                {t('global.LOGINPAGESINGUP')}
               </span>
             </div>
             {/* end::Separator */}
@@ -163,14 +158,14 @@ export function Login() {
             {/* begin::Form group */}
             <div className='fv-row mb-8'>
               <label className='form-label fs-6 fw-bolder text-dark'>
-                {intl.formatMessage({id: 'LOGIN_PAGE.EMAIL'})}
+                {t('global.email')}
               </label>
               <input
-                placeholder={intl.formatMessage({id: 'LOGIN_PAGE.EMAIL'})}
+                placeholder={intl.formatMessage({ id: 'LOGIN_PAGE.EMAIL' })}
                 {...formik.getFieldProps('email')}
                 className={clsx(
                   'form-control bg-transparent text-start',
-                  {'is-invalid': formik.touched.email && formik.errors.email},
+                  { 'is-invalid': formik.touched.email && formik.errors.email },
                   {
                     'is-valid': formik.touched.email && !formik.errors.email,
                   }
@@ -196,11 +191,11 @@ export function Login() {
             {/* begin::Form group */}
             <div className='fv-row mb-3'>
               <label className='form-label fw-bolder text-dark fs-6 mb-0'>
-                {intl.formatMessage({id: 'LOGIN_PAGE.PASSWORD'})}
+                {t('global.password')}
               </label>
               <input
                 type='password'
-                placeholder={intl.formatMessage({id: 'LOGIN_PAGE.PASSWORD'})}
+                placeholder={intl.formatMessage({ id: 'LOGIN_PAGE.PASSWORD' })}
                 autoComplete='off'
                 {...formik.getFieldProps('password')}
                 className={clsx(
@@ -230,7 +225,7 @@ export function Login() {
               {/* begin::Link */}
               {/* <Link to='/auth/forgot-password' className='link-primary'> */}
               <Link to='' className='link-primary'>
-                {intl.formatMessage({id: 'LOGIN_PAGE.FORGOT_PASSWORD'})}
+                {t('global.LOGIN_PAGE.FORGOT_PASSWORD')}
               </Link>
               {/* end::Link */}
             </div>
@@ -246,12 +241,12 @@ export function Login() {
               >
                 {!loading && (
                   <span className='indicator-label'>
-                    {intl.formatMessage({id: 'LOGIN_PAGE.LOGIN'})}
+                    {t('global.LOGIN_PAGE.LOGIN')}
                   </span>
                 )}
                 {loading && (
-                  <span className='indicator-progress' style={{display: 'block'}}>
-                    {intl.formatMessage({id: 'LOGIN_PAGE.PLEASE_WAIT'})}
+                  <span className='indicator-progress' style={{ display: 'block' }}>
+                    {t('global.LOGIN_PAGE.PLEASE_WAIT')}
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                   </span>
                 )}

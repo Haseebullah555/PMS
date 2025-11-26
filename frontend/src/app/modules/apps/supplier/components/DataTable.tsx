@@ -6,15 +6,17 @@ import Loader from '../../../../pages/loading/Loader'
 import { SupplierForm } from './_module'
 import '../../../../../_metronic/assets/css/dataTable.css'
 import { getSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
-import SetLang from '../../../../custom/SetLang'
 import Paginator from '../../../../customes/Paginator'
 import UnAuthorized from '../../../../custom/UnAuthorized'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
+import { useTranslation } from 'react-i18next'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
+
+  const {t} = useTranslation()
   const [data, setData] = useState<SupplierForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
@@ -175,7 +177,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                           >
                             <i className='fas fa-edit text-primary'></i>
                             <span className='btn btn-sm fw-bolder text-primary'>
-                              {SetLang('global.edit')}
+                              {t('global.edit')}
                             </span>
                           </Dropdown.Item>
                         </DropdownButton>
@@ -187,7 +189,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                   <tr>
                     <td colSpan={9}>
                       <p className='fs-2 text-center text-danger fw-bolder'>
-                        {SetLang('global.noRecordFound')}
+                        {t('global.noRecordFound')}
                       </p>
                     </td>
                   </tr>

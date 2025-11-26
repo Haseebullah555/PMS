@@ -1,6 +1,18 @@
 {
   "global": {
     "dashboard": "صفحه اصلی",
+    "MINISTYRYOFINTROIRAFFARIS": "وزارت امور داخله",
+    "LOGINPAGESINGUP": "ورود به سیستم ثبت اسناد معینیت تامینات",
+    "LOGIN_PAGE.FORGOT_PASSWORD": "رمز را فراموش کرده اید؟",
+    "LOGIN_PAGE.LOGIN": "ورود به سیستم",
+    "PLEASE_WAIT": "لطفا منتظر باشید...",
+    "LOGIN_PAGE.WRONG_EMAIL_FORMATE": "فارمت ایمیل درست نمی باشد",
+    "LOGIN_PAGE.MINIMUM_CHARACTERS": "حد اعقل حروف",
+    "LOGIN_PAGE.MAXIMUM_CHARACTERS": "حد اکثر حروف",
+    "LOGIN_PAGE.EMAIL_IS_REQUIRED": "ایمیل آلزامی است",
+    "LOGIN_PAGE.PASSWORD_IS_REQUIRED": "رمز آلزامی است",
+    "LOGIN_PAGE.THE_LOGIN_DETAIL_ARE_INCORRECT": "ایمیل و یا رمز عبوز درست نمی باشد",
+    "LOGIN_PAGE.PLEASE_WAIT": "لطفا منتظر باشید ...",
     "MIN": "معلومات درج شده کمتر از 3 کرکتر نباشد!",
     "MAX": "معلومات درج شده حداکثر بیشتر 50 کرکتر نباشد!",
     "SAVE": "ثبت ریکارد",
@@ -18,7 +30,6 @@
     "SYSTEMANAGEMENT": "مدیریت سیستم",
     "DARI": "دری",
     "PASHTO": "پشتو",
-    "MINISTYRYOFINTROIRAFFARIS": "وزارت امور داخله",
     "MOINARSHAD": "معینیت ارشد امور امنیتی",
     "GCPSU": "قوماندانی عمومی قطعات خاص",
     "ADMINISTRATION": "مدیریت سیستم",
@@ -90,7 +101,7 @@
     "status": "حالت",
     "departmentName": "ارگان",
     "regDate": "تاریخ و وقت ثبت",
-    "password": "رمز ورود",
+    "password": "رمز",
     "password_confirmation": "تایید رمز ورود",
     "province": "ولایت",
     "district": "ولسوالی",
@@ -136,11 +147,7 @@
     "deposit": "واریز",
     "withdrawal": "برداشت",
     "description": "توضیحات",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "SYSTEM.PART": "بخش سیستم"
   },
   "validation": {
     "required": "درج {{name}} ضروری میباشد!",
@@ -248,18 +255,7 @@
     "job": "وظیفه",
     "job_place": "موقعیت وظیفه",
     "doubt": "مشکوکیت یا عدم مشکوکیت",
-    "type_of_guarantor": "نوعیت ضمانت کننده",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
+    "type_of_guarantor": "نوعیت ضمانت کننده"
   },
   "zone": {
     "zones": "زون ها",
