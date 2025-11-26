@@ -2,13 +2,13 @@ import {useState} from 'react'
 import {useDispatch} from 'react-redux'
 import * as yup from 'yup'
 import {useFormik} from 'formik'
-import SetLang from '../../../../custom/SetLang'
 import {getRoles, putRole} from '../../../../../redux/slices/authorizationSlice/authorizationSlice'
 import {useIntl} from 'react-intl'
+import { useTranslation } from 'react-i18next'
 
 export default function RoleUpdate({data, handleSelect}) {
   const intl = useIntl()
-
+  const {t} = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const formik = useFormik({
@@ -20,8 +20,8 @@ export default function RoleUpdate({data, handleSelect}) {
     validationSchema: yup.object().shape({
       name: yup
         .string()
-        .min(4, SetLang('This field can not be less than 4 chracters'))
-        .required(SetLang('This field can not be empty')),
+        .min(4, t('This field can not be less than 4 chracters'))
+        .required(t('This field can not be empty')),
     }),
 
     onSubmit: async ({name}) => {

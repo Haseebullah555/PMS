@@ -4,8 +4,8 @@ import {KTIcon} from '../../../../../../_metronic/helpers'
 import {deactivateAccount, IDeactivateAccount} from '../SettingsModel'
 import * as Yup from 'yup'
 import {useFormik} from 'formik'
-import SetLang from '../../../../../custom/SetLang'
 import { useIntl } from 'react-intl';
+import { useTranslation } from 'react-i18next'
 
 
 const deactivateAccountSchema = Yup.object().shape({
@@ -13,6 +13,7 @@ const deactivateAccountSchema = Yup.object().shape({
 })
 
 const DeactivateAccount: React.FC<any> = ({data}) => {
+  const {t} = useTranslation()
   const intl = useIntl();
   const [loading, setLoading] = useState(false)
   const formik = useFormik<IDeactivateAccount>({

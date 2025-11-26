@@ -3,11 +3,12 @@ import {useRef} from 'react'
 import {useImperativeHandle} from 'react'
 import {forwardRef} from 'react'
 import {Modal} from 'bootstrap'
-import SetLang from '../../../../custom/SetLang'
+import { useTranslation } from 'react-i18next'
 
 const AssignPermissionToRole = forwardRef(
   ({permissionSelector, currentPermissions = [], handleChange, handleSave, isLoading}, ref) => {
     const modalRef = useRef(null)
+    const {t} = useTranslation()
     useImperativeHandle(ref, () => ({
       dismissModal() {
         const modalElement = modalRef.current
@@ -44,7 +45,7 @@ const AssignPermissionToRole = forwardRef(
           <div className='modal-content'>
             <div className='modal-header'>
               <h1 className='modal-title fs-5' id='permissionModalLabel'>
-                {SetLang('Permissions List')}
+                {t('Permissions List')}
               </h1>
               <button
                 type='button'
@@ -72,7 +73,7 @@ const AssignPermissionToRole = forwardRef(
             </div>
             <div className='modal-footer'>
               <button type='button' className='btn btn-danger' data-bs-dismiss='modal'>
-                {SetLang('Close')}
+                {t('Close')}
               </button>
               <button
                 onClick={() => handleSave()}
@@ -87,7 +88,7 @@ const AssignPermissionToRole = forwardRef(
                     <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                   </span>
                 ) : (
-                  <span>{SetLang('Save')}</span>
+                  <span>{t('Save')}</span>
                 )}
               </button>
             </div>

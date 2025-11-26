@@ -1,63 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState, useTransition } from 'react'
 import * as Yup from 'yup'
-import {useFormik} from 'formik'
-import {IUpdateEmail, IUpdatePassword, updateEmail, updatePassword} from './SettingsModel'
-import {useIntl} from 'react-intl'
+import { useFormik } from 'formik'
+import { IUpdateEmail, IUpdatePassword, updateEmail, updatePassword } from './SettingsModel'
+import { useIntl } from 'react-intl'
 import axios from 'axios'
-import {toast} from 'react-toastify'
-import SetLang from '../../../custom/SetLang'
-import {apiUrl} from '../../../../apiUrl'
-// import SetLang from '../../custom/SetLang'
+import { toast } from 'react-toastify'
+import { apiUrl } from '../../../../apiUrl'
+import { useTranslation } from 'react-i18next'
 
-const emailFormValidationSchema = Yup.object().shape({
-  newEmail: Yup.string()
-    .email(SetLang('Wrong email format'))
-    .min(3, SetLang('Minimum 3 symbols'))
-    .max(50, SetLang('Maximum 50 symbols'))
-    .required(SetLang('Email is required')),
+const SignInMethod: React.FC<any> = ({ data }) => {
 
-  confirmPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-})
-
-const passwordFormValidationSchema = Yup.object().shape({
-  currentPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-
-  newPassword: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty')),
-
-  passwordConfirmation: Yup.string()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
-      SetLang(
-        'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
-      )
-    )
-    .required(SetLang('This field can not be empty'))
-    .oneOf([Yup.ref('newPassword')], SetLang('Passwords do not match')),
-})
-
-const SignInMethod: React.FC<any> = ({data}) => {
+  const { t } = useTranslation()
   const intl = useIntl()
 
   const [emailUpdateData, setEmailUpdateData] = useState<IUpdateEmail>(updateEmail)
@@ -71,7 +25,23 @@ const SignInMethod: React.FC<any> = ({data}) => {
     initialValues: {
       ...emailUpdateData,
     },
-    validationSchema: emailFormValidationSchema,
+    validationSchema: Yup.object().shape({
+
+      newEmail: Yup.string()
+        .email(t('Wrong email format'))
+        .min(3, t('Minimum 3 symbols'))
+        .max(50, t('Maximum 50 symbols'))
+        .required(t('Email is required')),
+
+      confirmPassword: Yup.string()
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+          t(
+            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+          )
+        )
+        .required(t('This field can not be empty')),
+    }),
     onSubmit: (values) => {
       setLoading1(true)
 
@@ -79,7 +49,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
         .post(`${apiUrl}/update-user-email`, values)
         .then((res) => {
           setLoading1(false)
-          toast.success(SetLang('Successfuly Done'))
+          toast.success(t('Successfuly Done'))
 
           // formik1.resetForm()
         })
@@ -101,14 +71,42 @@ const SignInMethod: React.FC<any> = ({data}) => {
     initialValues: {
       ...passwordUpdateData,
     },
-    validationSchema: passwordFormValidationSchema,
+    validationSchema: Yup.object().shape({
+      currentPassword: Yup.string()
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+          t(
+            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+          )
+        )
+        .required(t('This field can not be empty')),
+
+      newPassword: Yup.string()
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+          t(
+            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+          )
+        )
+        .required(t('This field can not be empty')),
+
+      passwordConfirmation: Yup.string()
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+          t(
+            'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'
+          )
+        )
+        .required(t('This field can not be empty'))
+        .oneOf([Yup.ref('newPassword')], t('Passwords do not match')),
+    }),
     onSubmit: (values) => {
       setLoading2(true)
       axios
         .post(`${apiUrl}/update-user-password`, values)
         .then((res) => {
           setLoading2(false)
-          toast.success(SetLang('Successfuly Done'))
+          toast.success(t('Successfuly Done'))
 
           // formik1.resetForm()
         })
@@ -144,7 +142,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
         data-bs-target='#kt_account_signin_method'
       >
         <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>{intl.formatMessage({id: 'SETTING.SIGN_IN_METHOD'})}</h3>
+          <h3 className='fw-bolder m-0'>{intl.formatMessage({ id: 'SETTING.SIGN_IN_METHOD' })}</h3>
         </div>
       </div>
 
@@ -153,7 +151,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
           <div className='d-flex flex-wrap align-items-center'>
             <div id='kt_signin_email' className={' ' + (showEmailForm && 'd-none')}>
               <div className='fs-6 fw-bolder mb-1'>
-                {intl.formatMessage({id: 'SETTING.EMAIL_ADDRESS'})}
+                {intl.formatMessage({ id: 'SETTING.EMAIL_ADDRESS' })}
               </div>
               <div className='fw-bold text-gray-600'>{data.email}</div>
             </div>
@@ -172,13 +170,13 @@ const SignInMethod: React.FC<any> = ({data}) => {
                   <div className='col-lg-6 mb-4 mb-lg-0'>
                     <div className='fv-row mb-0'>
                       <label htmlFor='emailaddress' className='form-label fs-6 fw-bolder mb-3'>
-                        {intl.formatMessage({id: 'SETTING.ENTER_NEW_EMAIL_ADDRESS'})}
+                        {intl.formatMessage({ id: 'SETTING.ENTER_NEW_EMAIL_ADDRESS' })}
                       </label>
                       <input
                         type='email'
                         className='form-control form-control-lg form-control-solid'
                         id='emailaddress'
-                        placeholder={intl.formatMessage({id: 'SETTING.EMAIL_ADDRESS'})}
+                        placeholder={intl.formatMessage({ id: 'SETTING.EMAIL_ADDRESS' })}
                         {...formik1.getFieldProps('newEmail')}
                       />
                       {formik1.touched.newEmail && formik1.errors.newEmail && (
@@ -194,13 +192,13 @@ const SignInMethod: React.FC<any> = ({data}) => {
                         htmlFor='confirmemailpassword'
                         className='form-label fs-6 fw-bolder mb-3'
                       >
-                        {intl.formatMessage({id: 'SETTING.PASSWORD'})}
+                        {intl.formatMessage({ id: 'SETTING.PASSWORD' })}
                       </label>
                       <input
                         type='password'
                         className='form-control form-control-lg form-control-solid'
                         id='confirmemailpassword'
-                        placeholder={intl.formatMessage({id: 'SETTING.PASSWORD'})}
+                        placeholder={intl.formatMessage({ id: 'SETTING.PASSWORD' })}
                         {...formik1.getFieldProps('confirmPassword')}
                       />
                       {formik1.touched.confirmPassword && formik1.errors.confirmPassword && (
@@ -217,10 +215,10 @@ const SignInMethod: React.FC<any> = ({data}) => {
                     type='submit'
                     className='btn btn-primary  me-2 px-6'
                   >
-                    {!loading1 && intl.formatMessage({id: 'SETTING.UPDATE_EMAIL'})}
+                    {!loading1 && intl.formatMessage({ id: 'SETTING.UPDATE_EMAIL' })}
                     {loading1 && (
-                      <span className='indicator-progress' style={{display: 'block'}}>
-                        {intl.formatMessage({id: 'PLEASE_WAIT'})}
+                      <span className='indicator-progress' style={{ display: 'block' }}>
+                        {intl.formatMessage({ id: 'PLEASE_WAIT' })}
                         <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                       </span>
                     )}
@@ -233,7 +231,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                     }}
                     className='btn  btn-light btn-active-light-primary px-6'
                   >
-                    {intl.formatMessage({id: 'SETTING.CANCEL'})}
+                    {intl.formatMessage({ id: 'SETTING.CANCEL' })}
                   </button>
                 </div>
               </form>
@@ -246,7 +244,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                 }}
                 className='btn btn-light btn-active-light-primary'
               >
-                {intl.formatMessage({id: 'SETTING.CHANGE_EMAIL'})}
+                {intl.formatMessage({ id: 'SETTING.CHANGE_EMAIL' })}
               </button>
             </div>
           </div>
@@ -256,7 +254,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
           <div className='d-flex flex-wrap align-items-center mb-10'>
             <div id='kt_signin_password' className={' ' + (showPasswordForm && 'd-none')}>
               <div className='fs-6 fw-bolder mb-1'>
-                {intl.formatMessage({id: 'SETTING.PASSWORD'})}
+                {intl.formatMessage({ id: 'SETTING.PASSWORD' })}
               </div>
               <div className='fw-bold text-gray-600'>**********</div>
             </div>
@@ -275,7 +273,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                   <div className='col-lg-4'>
                     <div className='fv-row mb-0'>
                       <label htmlFor='currentpassword' className='form-label fs-6 fw-bolder mb-3'>
-                        {intl.formatMessage({id: 'SETTING.CURRENT_PASSWORD'})}
+                        {intl.formatMessage({ id: 'SETTING.CURRENT_PASSWORD' })}
                       </label>
                       <input
                         type='password'
@@ -294,7 +292,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                   <div className='col-lg-4'>
                     <div className='fv-row mb-0'>
                       <label htmlFor='newpassword' className='form-label fs-6 fw-bolder mb-3'>
-                        {intl.formatMessage({id: 'SETTING.NEW_PASSWORD'})}
+                        {intl.formatMessage({ id: 'SETTING.NEW_PASSWORD' })}
                       </label>
                       <input
                         type='password'
@@ -313,7 +311,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                   <div className='col-lg-4'>
                     <div className='fv-row mb-0'>
                       <label htmlFor='confirmpassword' className='form-label fs-6 fw-bolder mb-3'>
-                        {intl.formatMessage({id: 'SETTING.CONFIRM_NEW_PASSWORD'})}
+                        {intl.formatMessage({ id: 'SETTING.CONFIRM_NEW_PASSWORD' })}
                       </label>
                       <input
                         type='password'
@@ -342,10 +340,10 @@ const SignInMethod: React.FC<any> = ({data}) => {
                     type='submit'
                     className='btn btn-primary me-2 px-6'
                   >
-                    {!loading2 && intl.formatMessage({id: 'SETTING.UPDATE_PASSWORD'})}
+                    {!loading2 && intl.formatMessage({ id: 'SETTING.UPDATE_PASSWORD' })}
                     {loading2 && (
-                      <span className='indicator-progress' style={{display: 'block'}}>
-                        {intl.formatMessage({id: 'PLEASE_WAIT'})}
+                      <span className='indicator-progress' style={{ display: 'block' }}>
+                        {intl.formatMessage({ id: 'PLEASE_WAIT' })}
                         <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
                       </span>
                     )}
@@ -358,7 +356,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                     type='button'
                     className='btn btn-light btn-active-light-primary px-6'
                   >
-                    {intl.formatMessage({id: 'SETTING.CANCEL'})}
+                    {intl.formatMessage({ id: 'SETTING.CANCEL' })}
                   </button>
                 </div>
               </form>
@@ -374,7 +372,7 @@ const SignInMethod: React.FC<any> = ({data}) => {
                 }}
                 className='btn btn-light btn-active-light-primary'
               >
-                {intl.formatMessage({id: 'SETTING.RESET_PASSWORD'})}
+                {intl.formatMessage({ id: 'SETTING.RESET_PASSWORD' })}
               </button>
             </div>
           </div>
@@ -405,4 +403,4 @@ const SignInMethod: React.FC<any> = ({data}) => {
   )
 }
 
-export {SignInMethod}
+export { SignInMethod }
