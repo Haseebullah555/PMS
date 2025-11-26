@@ -1,47 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { initialValues } from './_module'
+import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
-import { useTranslation } from 'react-i18next'
+import { storePartner } from 'redux/partner/PartnerSlice'
 
 // Define the props for the modal
-interface CreateSupplierModalProps {
+interface CreatePartnerModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreatePartnerModal: React.FC<CreatePartnerModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const SupplierSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
-    address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-    phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') })) 
-      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
-      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
+  const PartnerSchema = Yup.object().shape({
+    fullName: Yup.string().required(t('validation.required', { fullName: t('partner.partner') })),
+    ownershipPercentage: Yup.string().required(t('validation.required', { fullName: t('partner.ownershipPercentage') })),
+    initialInvestment: Yup.string()
+      .required(t('validation.required', { fullName: t('partner.initialInvestment') }))
   })
 
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: SupplierSchema,
+    validationSchema: PartnerSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeSupplier(values) as any)
-        if (storeSupplier.fulfilled.match(response)) {
+        const response = await dispatch(storePartner(values) as any)
+        if (storePartner.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -73,55 +71,56 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating supplier:', error.message)
+    console.error('Error creating partner:', error.message)
   }
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('supplier.suppliers') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('partner.partners') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Supplier Name Fields */}
+          {/* Name and Partner Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('supplier.supplier')} <span className='text-danger'>*</span>
+                    {t('partner.partner')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('name')}
+                    {...formik.getFieldProps('fullName')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.name && formik.errors.name,
-                      'is-valid': formik.touched.name && !formik.errors.name,
+                      'is-invalid': formik.touched.fullName && formik.errors.fullName,
+                      'is-valid': formik.touched.fullName && !formik.errors.fullName,
                     })}
                   />
-                  {formik.touched.name && formik.errors.name && (
+                  {formik.touched.fullName && formik.errors.fullName && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('supplier.supplier') })}
+                      {t('validation.required', { name: t('partner.partner') })}
                     </div>
                   )}
                 </div>
 
-                {/* Supplier phoneNumber Field */}
+                {/* Partner initialInvestment Field */}
+                {/* Partner initialInvestment Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.phone')} <span className='text-danger'>*</span>
+                    {t('partner.initialInvestment')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('phoneNumber')}
+                    {...formik.getFieldProps('initialInvestment')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),
-                      'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
+                      'is-invalid': formik.touched.initialInvestment && Boolean(formik.errors.initialInvestment),
+                      'is-valid': formik.touched.initialInvestment && !formik.errors.initialInvestment,
                     })}
                   />
-                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  {formik.touched.initialInvestment && formik.errors.initialInvestment && (
                     <div className='invalid-feedback'>
-                      {formik.errors.phoneNumber}
+                      {t('validation.required', { name: t('partner.initialInvestment') })}
                     </div>
                   )}
                 </div>
@@ -131,19 +130,19 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                 {/* Name Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
-                    {t('global.address')} <span className='text-danger'>*</span>
+                    {t('partner.ownershipPercentage')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('address')}
+                    {...formik.getFieldProps('ownershipPercentage')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.address && formik.errors.address,
-                      'is-valid': formik.touched.address && !formik.errors.address,
+                      'is-invalid': formik.touched.ownershipPercentage && formik.errors.ownershipPercentage,
+                      'is-valid': formik.touched.ownershipPercentage && !formik.errors.ownershipPercentage,
                     })}
                   />
-                  {formik.touched.address && formik.errors.address && (
+                  {formik.touched.ownershipPercentage && formik.errors.ownershipPercentage && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.address') })}
+                      {t('validation.required', { name: t('partner.ownershipPercentage') })}
                     </div>
                   )}
                 </div>
@@ -160,7 +159,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
               variant='primary'
               type='submit'
               disabled={formik.isSubmitting}
-            // classname='me-2 '
+            // classfullName='me-2 '
             >
               {t('global.SAVE')}
             </Button>
@@ -171,4 +170,4 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   )
 }
 
-export default CreateSupplierModal
+export default CreatePartnerModal

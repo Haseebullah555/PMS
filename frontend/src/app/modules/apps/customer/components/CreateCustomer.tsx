@@ -1,32 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { initialValues } from './_module'
+import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
-
 import { toast } from 'react-toastify'
-import { storeSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
-import { useTranslation } from 'react-i18next'
+import { storeCustomer } from '../../../../../redux/slices/customer/CustomerSlice'
 
 // Define the props for the modal
-interface CreateSupplierModalProps {
+interface CreateCustomerModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateCustomerModal: React.FC<CreateCustomerModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const SupplierSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
+  const CustomerSchema = Yup.object().shape({
+    name: Yup.string().required(t('validation.required', { name: t('customer.customer') })),
     address: Yup.string().required(t('validation.required', { name: t('global.address') })),
     phoneNumber: Yup.string()
       .required(t('validation.required', { name: t('global.phone') })) 
@@ -37,11 +36,11 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: SupplierSchema,
+    validationSchema: CustomerSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeSupplier(values) as any)
-        if (storeSupplier.fulfilled.match(response)) {
+        const response = await dispatch(storeCustomer(values) as any)
+        if (storeCustomer.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -73,23 +72,23 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating supplier:', error.message)
+    console.error('Error creating Customer:', error.message)
   }
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('supplier.suppliers') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('customer.customer') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Supplier Name Fields */}
+          {/* Name and Customer Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('supplier.supplier')} <span className='text-danger'>*</span>
+                    {t('customer.customer')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
@@ -101,12 +100,13 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                   />
                   {formik.touched.name && formik.errors.name && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('supplier.supplier') })}
+                      {t('validation.required', { name: t('customer.customer') })}
                     </div>
                   )}
                 </div>
 
-                {/* Supplier phoneNumber Field */}
+                {/* Customer phoneNumber Field */}
+                {/* Customer phoneNumber Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
                     {t('global.phone')} <span className='text-danger'>*</span>
@@ -171,4 +171,4 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   )
 }
 
-export default CreateSupplierModal
+export default CreateCustomerModal

@@ -1,47 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { initialValues } from './_module'
+import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
-import { useTranslation } from 'react-i18next'
+import { storeExtraExpense } from '../../../../../redux/slices/extraExpense/ExtraExpenseSlice'
 
 // Define the props for the modal
-interface CreateSupplierModalProps {
+interface CreateExtraExpenseModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
 }
 
-const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateExtraExpenseModal: React.FC<CreateExtraExpenseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
 
   // Form Validation Schema
-  const SupplierSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
-    address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-    phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') })) 
-      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
-      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
+  const ExtraExpenseSchema = Yup.object().shape({
+    expenseType: Yup.string().required(t('validation.required', { name: t('extraExpense.expenseType') })),
+    expenseDate: Yup.date().required(t('validation.required', { name: t('global.date') })),
+    amount: Yup.number()
+      .required(t('validation.required', { name: t('extraExpense.amount') }))
   })
 
   // Formik Hook
   const formik = useFormik({
     initialValues,
-    validationSchema: SupplierSchema,
+    validationSchema: ExtraExpenseSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeSupplier(values) as any)
-        if (storeSupplier.fulfilled.match(response)) {
+        const response = await dispatch(storeExtraExpense(values) as any)
+        if (storeExtraExpense.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -73,55 +71,56 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   }
 
   const handleError = (error: any) => {
-    console.error('Error creating supplier:', error.message)
+    console.error('Error creating extraExpense:', error.message)
   }
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('global.add', { name: t('supplier.suppliers') })}</Modal.Title>
+        <Modal.Title>{t('global.add', { name: t('extraExpense.extraExpenses') })}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={formik.handleSubmit}>
-          {/* Name and Supplier Name Fields */}
+          {/* Name and ExtraExpense Name Fields */}
           <div className='row'>
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('supplier.supplier')} <span className='text-danger'>*</span>
+                    {t('extraExpense.expenseType')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('name')}
+                    {...formik.getFieldProps('expenseType')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.name && formik.errors.name,
-                      'is-valid': formik.touched.name && !formik.errors.name,
+                      'is-invalid': formik.touched.expenseType && formik.errors.expenseType,
+                      'is-valid': formik.touched.expenseType && !formik.errors.expenseType,
                     })}
                   />
-                  {formik.touched.name && formik.errors.name && (
+                  {formik.touched.expenseType && formik.errors.expenseType && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('supplier.supplier') })}
+                      {t('validation.required', { name: t('extraExpense.expenseType') })}
                     </div>
                   )}
                 </div>
 
-                {/* Supplier phoneNumber Field */}
+                {/* ExtraExpense amount Field */}
+                {/* ExtraExpense amount Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.phone')} <span className='text-danger'>*</span>
+                    {t('extraExpense.amount')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('phoneNumber')}
+                    {...formik.getFieldProps('amount')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),
-                      'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
+                      'is-invalid': formik.touched.amount && Boolean(formik.errors.amount),
+                      'is-valid': formik.touched.amount && !formik.errors.amount,
                     })}
                   />
-                  {formik.touched.phoneNumber && formik.errors.phoneNumber && (
+                  {formik.touched.amount && formik.errors.amount && (
                     <div className='invalid-feedback'>
-                      {formik.errors.phoneNumber}
+                      {t('validation.required', { name: t('extraExpense.amount') })}
                     </div>
                   )}
                 </div>
@@ -129,21 +128,39 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
               </div>
               <div className='row'>
                 {/* Name Field */}
-                <div className='col-md-12 mb-3'>
+                <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.address')} <span className='text-danger'>*</span>
+                    {t('global.date')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='date'
+                    {...formik.getFieldProps('expenseDate')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.expenseDate && formik.errors.expenseDate,
+                      'is-valid': formik.touched.expenseDate && !formik.errors.expenseDate,
+                    })}
+                  />
+                  {formik.touched.expenseDate && formik.errors.expenseDate && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.date') })}
+                    </div>
+                  )}
+                </div>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('global.remarks')}
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('address')}
+                    {...formik.getFieldProps('notes')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.address && formik.errors.address,
-                      'is-valid': formik.touched.address && !formik.errors.address,
+                      'is-invalid': formik.touched.notes && formik.errors.notes,
+                      'is-valid': formik.touched.notes && !formik.errors.notes,
                     })}
                   />
-                  {formik.touched.address && formik.errors.address && (
+                  {formik.touched.notes && formik.errors.notes && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.address') })}
+                      {t('validation.required', { name: t('global.remarks') })}
                     </div>
                   )}
                 </div>
@@ -171,4 +188,4 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
   )
 }
 
-export default CreateSupplierModal
+export default CreateExtraExpenseModal

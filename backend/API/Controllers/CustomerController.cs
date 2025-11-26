@@ -42,9 +42,9 @@ namespace API.Controllers
             if (ModelState.IsValid)
             {
                 await _mediator.Send(new AddCustomerCommand { CustomerDto = CustomerDto });
-                return Ok(new { message = " مشتری با موفقیت ایجاد شد" });
+                return Ok(new { message = " مشتری با موفقیت اضافه گردید" });
             }
-            return BadRequest(new { message = "ایجاد مشتری ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
+            return BadRequest(new { message = "اضافه نمودن مشتری ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("Update")]
         public async Task<ActionResult> Update(CustomerDto CustomerDto)

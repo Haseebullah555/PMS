@@ -5,6 +5,14 @@ import employeeReducer from '../slices/employeeSlice/employeeSlice'
 import authorizationReducer from '../slices/authorizationSlice/authorizationSlice'
 import supplierSlice from '../slices/supplier/SupplierSlice'
 import { configureStore } from '@reduxjs/toolkit'
+import customerSlice from '../slices/customer/CustomerSlice'
+import extraExpenseSlice from '../slices/extraExpense/ExtraExpenseSlice'
+import stockSlice from '../slices/stock/StockSlice'
+import purchaseSlice from '../slices/purchases/PurchaseSlice'
+import staffPaymentSlice from '../slices/staffPayment/StaffPaymentSlice'
+import staffSlice from '../slices/staff/StaffSlice'
+import partnerSlice from '../slices/partner/PartnerSlice'
+import partnerTransactionSlice from '../slices/partnerTransaction/PartnerTransactionSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +22,16 @@ export const store = configureStore({
     general: generalReducer,
     employee: employeeReducer,
     supplier: supplierSlice,
+    customer: customerSlice,
+    extraExpense: extraExpenseSlice,
+    ExtraExpenses: extraExpenseSlice,
+    partners: partnerSlice,
+    staffs: staffSlice,
+    staffPayments: staffPaymentSlice,
+    partnerTransactions: partnerTransactionSlice,
+    purchases: purchaseSlice,
+    stock: stockSlice,
+
   },
 })
 
