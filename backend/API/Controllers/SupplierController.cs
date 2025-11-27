@@ -2,6 +2,7 @@ using API.Controllers.Common;
 using Application.Dtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
+using Application.Features.Supplier.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -56,5 +57,12 @@ namespace API.Controllers
             }
             return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
-    }
+
+        [HttpGet("listAll")]
+        public async Task<IActionResult> GetListOfSuppliers()
+        {
+            var suppliers = await _mediator.Send(new GetAllSuppliers());
+            return Ok(suppliers);
+        }
+    }   
 }

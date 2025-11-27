@@ -1,7 +1,6 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Features.sample.Requests.Commands;
 using AutoMapper;
-using Domain.Models;
 using MediatR;
 
 namespace Application.Features.sample.Handlers.Commands
@@ -18,7 +17,7 @@ namespace Application.Features.sample.Handlers.Commands
         }
         public async Task Handle(AddSupplierCommand request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<Supplier>(request.SupplierDto);
+            var result = _mapper.Map<Domain.Models.Supplier>(request.SupplierDto);
             await _unitOfWork.Suppliers.Add(result);
             await _unitOfWork.SaveChanges(cancellationToken);
         }

@@ -14,6 +14,10 @@ const getSuppliers = async (params: any) => {
   console.log(response, 'ressssponnnnnnnnnnnn')
   return response.data
 }
+const getAllSuppliers = async () => {
+  const response = await axiosInterceptor.get(`/Supplier/listAll`)
+  return response.data
+}
 // Get roles by system id.
 const getRolesBySystemId = async (systems_id: any) => {
   const response = await axiosInterceptor.post(`api/role/get-roles-by-system-id`, {systems_id: systems_id})
@@ -33,6 +37,7 @@ const update = async (formData: any) => {
 
 const supplierService = {
   getSuppliers,
+  getAllSuppliers,
   getRolesBySystemId,
   store,
   update,

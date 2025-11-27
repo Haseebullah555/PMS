@@ -9,6 +9,7 @@ import supplierService from './SupplierService'
 
 type supplierSate = {
   suppliers: any
+  allSuppliers: any
 }
 
 const initialState: supplierSate = {
@@ -16,6 +17,9 @@ const initialState: supplierSate = {
     data: [],
     meta: {}
   },
+  allSuppliers: {
+    data: [],
+  }
 }
 
 
@@ -24,6 +28,19 @@ export const getSupplier = createAsyncThunk('/Supplier/list', async (params: any
   try {
 
     return await supplierService.getSuppliers(params)
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+//get All supplier from server
+export const getAllSupplier = createAsyncThunk('/Supplier/listAll', async ({ }, thunkAPI) => {
+  try {
+
+    return await supplierService.getAllSuppliers()
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -70,10 +87,9 @@ export const supplierSlice = createSlice({
     builder.addCase(getSupplier.fulfilled, (state, action) => {
       state.suppliers = action.payload;
     });
-
-    // builder.addCase(getSupplier.fulfilled, (state, action: PayloadAction) => {
-    //   state.suppliers = action.payload
-    // })
+    builder.addCase(getAllSupplier.fulfilled, (state, action) => {
+      state.allSuppliers = action.payload;
+    });
   },
 })
 
