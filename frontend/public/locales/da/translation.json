@@ -324,7 +324,9 @@
     "purchases": "خریداری ها",
     "purchase": "خریداری",
     "purchaseDate": "تاریخ خریداری",
-    "totalAmount": "جمله شد"
+    "totalAmount": "جمله شد",
+    "driverName" : "نام درایور",
+    "carPlate" : "نمبر پلیت موتر"
   },
   "stock": {
     "aviliableStock": "انبار موجود",

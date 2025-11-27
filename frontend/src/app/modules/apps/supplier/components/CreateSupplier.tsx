@@ -128,7 +128,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
 
               </div>
               <div className='row'>
-                {/* Name Field */}
+                {/* address Field */}
                 <div className='col-md-12 mb-3'>
                   <label className='form-label'>
                     {t('global.address')} <span className='text-danger'>*</span>
@@ -146,6 +146,45 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       {t('validation.required', { name: t('global.address') })}
                     </div>
                   )}
+                </div>
+              </div>
+              <div className='row'>
+                {/* address Field */}
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('purchase.driverName')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('driverName')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.driverName && formik.errors.driverName,
+                      'is-valid': formik.touched.driverName && !formik.errors.driverName,
+                    })}
+                  />
+                  {/* {formik.touched.driverName && formik.errors.driverName && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.driverName') })}
+                    </div>
+                  )} */}
+                </div>
+                <div className='col-md-6 mb-3'>
+                  <label className='form-label'>
+                    {t('purchase.carPlate')} <span className='text-danger'>*</span>
+                  </label>
+                  <input
+                    type='text'
+                    {...formik.getFieldProps('carPlate')}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.carPlate && formik.errors.carPlate,
+                      'is-valid': formik.touched.carPlate && !formik.errors.carPlate,
+                    })}
+                  />
+                  {/* {formik.touched.carPlate && formik.errors.carPlate && (
+                    <div className='invalid-feedback'>
+                      {t('validation.required', { name: t('global.carPlate') })}
+                    </div>
+                  )} */}
                 </div>
               </div>
             </div>
