@@ -7,8 +7,8 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updateStaffPayment} from 'redux/staffPayment/StaffPaymentSlice'
-import { getStaffsList } from 'redux/staff/StaffSlice'
+import { updateStaffPayment } from '../../../../../redux/slices/staffPayment/StaffPaymentSlice'
+import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 
 interface EditStaffPaymentModalProps {
   isOpen: boolean

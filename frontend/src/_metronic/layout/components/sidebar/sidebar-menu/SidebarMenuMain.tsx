@@ -1,10 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React from 'react'
 import { useIntl } from 'react-intl'
-import { KTIcon } from '../../../../helpers'
-import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
 import { SidebarMenuItem } from './SidebarMenuItem'
-import UserCan from './../../../../../app/custom/UserCan'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -38,8 +34,50 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
       <SidebarMenuItem
+        to='/purchase/list'
+        title={t('purchase.purchases')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
         to='/customer/list'
-        title={t("customer.customers")}
+        title={t('customer.customers')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/partner/list'
+        title={t('partner.partners')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/partnerTransaction/list'
+        title={t('partnerTransaction.partnerTransactions')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/staff/list'
+        title={t('staff.staffs')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/staffPayment/list'
+        title={t("staffPayment.staffpayments")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/stock/list'
+        title={t("stock.aviliableStock")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/extraExpense/list'
+        title={t("extraExpense.extraExpenses")}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />

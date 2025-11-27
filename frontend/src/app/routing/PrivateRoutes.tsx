@@ -9,6 +9,13 @@ import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import SupplierManagementRoutes from '../modules/apps/supplier/SupplierManagementRoutes'
 import CustomerManagementRoutes from '../modules/apps/customer/CustomerManagementRoutes'
+import StaffManagementRoutes from '../modules/apps/staff/StaffManagementRoutes'
+import StockManagementRoutes from '../modules/apps/Stock/StockManagementRoutes'
+import PurchaseManagementRoutes from '../modules/apps/purchases/PurchasesManagementRoutes'
+import PartnerManagementRoutes from '../modules/apps/partner/PartnerManagementRoutes'
+import PartnerTransactionList from '../modules/apps/partnerTransaction/components/PartnerTransactionList'
+import PartnerTransactionManagementRoutes from '../modules/apps/partnerTransaction/PartnerTransactionManagementRoutes'
+import ExtraExpenseManagementRoutes from '../modules/apps/extraExpense/ExtraExpensemanagementRoutes'
 
 const PrivateRoutes = () => {
 
@@ -16,7 +23,7 @@ const PrivateRoutes = () => {
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const RolePage = lazy(() => import('./../modules/setting/role/components/RolePage'))
   const UserNewPage = lazy(() => import('../modules/user/components/UserNewPage'))
-  
+
   return (
     <Routes>
       <Route element={<MasterLayout />}>
@@ -77,6 +84,62 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <CustomerManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='extraExpence/*'
+          element={
+            <SuspensedView>
+              <ExtraExpenseManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='partner/*'
+          element={
+            <SuspensedView>
+              <PartnerManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='partnerTransaction/*'
+          element={
+            <SuspensedView>
+              <PartnerTransactionManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='purchase/*'
+          element={
+            <SuspensedView>
+              <PurchaseManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='staff/*'
+          element={
+            <SuspensedView>
+              <StaffManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='staffPayment/*'
+          element={
+            <SuspensedView>
+              <StaffManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='stock/*'
+          element={
+            <SuspensedView>
+              <StockManagementRoutes />
             </SuspensedView>
           }
         />

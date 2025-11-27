@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
-import { storeStaff } from 'redux/staff/StaffSlice'
+import { storeStaff } from '../../../../../redux/slices/staff/StaffSlice'
 
 
 // Define the props for the modal

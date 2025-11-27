@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 import {PurchaseForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getPurchases } from 'redux/purchases/PurchaseSlice'
+import { getPurchases } from '../../../../../redux/slices/purchases/PurchaseSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'

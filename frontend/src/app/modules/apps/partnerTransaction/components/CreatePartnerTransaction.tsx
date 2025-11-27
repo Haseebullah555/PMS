@@ -9,8 +9,8 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storePartnerTransaction } from 'redux/partnerTransaction/PartnerTransactionSlice'
-import { getPartnersList } from 'redux/partner/PartnerSlice'
+import { storePartnerTransaction } from '../../../../../redux/slices/partnerTransaction/PartnerTransactionSlice'
+import { getPartnersList } from '../../../../../redux/slices/partner/PartnerSlice'
 
 // Define the props for the modal
 interface CreatePartnerTransactionModalProps {

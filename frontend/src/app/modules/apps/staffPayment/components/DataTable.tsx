@@ -10,8 +10,8 @@ import {useTranslation} from 'react-i18next'
 import {StaffPaymentForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getStaffSalaries } from 'redux/staffPayment/StaffPaymentSlice'
-import { getStaffsList } from 'redux/staff/StaffSlice'
+import { getStaffSalaries } from '../../../../../redux/slices/staffPayment/StaffPaymentSlice'
+import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -87,7 +87,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   }, [staffSalaries])
  useEffect(() => {
   const fetchStaffs = async () => {
-    setLoading(true); // Set loading to true before fetching
+    setLoading(true);
     const res = await dispatch(getStaffsList());
     if (res.meta.requestStatus === 'fulfilled') {
       setStaffs(res.payload);

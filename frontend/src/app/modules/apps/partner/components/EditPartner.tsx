@@ -7,7 +7,7 @@ import {useAppDispatch} from '../../../../../redux/hooks'
 import {Button, Modal} from 'react-bootstrap'
 import {useIntl} from 'react-intl'
 import {toast} from 'react-toastify'
-import {updatePartner} from 'redux/partner/PartnerSlice'
+import { updatePartner } from '../../../../../redux/slices/partner/PartnerSlice'
 
 interface EditPartnerModalProps {
   isOpen: boolean

@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next'
 import {PartnerTransactionForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getPartnerTransaction } from 'redux/partnerTransaction/PartnerTransactionSlice'
+import { getPartnerTransaction } from '../../../../../redux/slices/partnerTransaction/PartnerTransactionSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'

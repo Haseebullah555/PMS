@@ -9,7 +9,7 @@ import {useTranslation} from 'react-i18next'
 import {StaffForm} from './_module'
 import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getStaff } from 'redux/staff/StaffSlice'
+import { getStaff } from '../../../../../redux/slices/staff/StaffSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
