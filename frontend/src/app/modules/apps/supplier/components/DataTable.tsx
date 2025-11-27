@@ -179,7 +179,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                           >
                             <i className='fas fa-edit text-primary'></i>
                             <span className='btn btn-sm fw-bolder text-primary'>
-                              {t('global.edit')}
+                                {t('global.edit', {name: t('supplier.supplier')})}
                             </span>
                           </Dropdown.Item>
                         </DropdownButton>
