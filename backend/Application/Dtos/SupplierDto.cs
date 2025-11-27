@@ -11,5 +11,9 @@ namespace Application.Dtos
         public string PhoneNumber { get; set; }
         [Display(Name = "Address")]
         public string Address { get; set; }
+        [Display(Name = "Driver Name")]
+        public string DriverName { get; set; }
+        [Display(Name = "Car Plate")]
+        public string CarPlate { get; set; }
     }
 }

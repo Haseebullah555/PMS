@@ -92,7 +92,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
 
-  console.log(suppliers, 'meeeeeeeeeeeee')
+
   return (
     <div>
       {isAuthorized ? (
@@ -163,6 +163,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                       <td>{item.name}</td>
                       <td>{item.phoneNumber}</td>
                       <td>{item.address}</td>
+                      <td>{item.driverName}</td>
+                      <td>{item.carPlate}</td>
 
                       <td className='text-center'>
                         <DropdownButton

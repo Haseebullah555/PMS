@@ -7,6 +7,8 @@ namespace Domain.Models
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
+        public string DriverName { get; set; }
+        public string CarPlate { get; set; }
         public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
         public ICollection<SupplierLoan> Loans { get; set; } = new List<SupplierLoan>();
     }

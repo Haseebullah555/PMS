@@ -132,14 +132,22 @@ const SupplierList = () => {
                 },
                 {
                   headerName: `${t('global.address')}`,
-                  sort: 'phoneNumber',
+                  sort: 'address',
+                },
+                {
+                  headerName: `${t('purchase.driverName')}`,
+                  sort: 'driverName',
+                },
+                {
+                  headerName: `${t('purchase.carPlate')}`,
+                  sort: 'carPlate',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber']}
+              columns={['id', 'name', 'phoneNumber','address','driverName','carPlate']}
               handleEdit={openEditModal}
             />
           </div>
