@@ -138,7 +138,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                     <th
                       key={header.headerName}
                       onClick={() => handleSort(header.sort)}
-                      className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                      className={`fs-6  text-white fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
                     >
                       {header.headerName}
                       {header.sort === sortColumn && (

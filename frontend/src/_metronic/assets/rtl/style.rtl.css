@@ -33224,8 +33224,10 @@ h6 {
   color: var(--bs-light-active);
 }
 .btn.btn-primary {
+
+  background-color: #153a81;
   border-color: var(--bs-primary);
-  background-color: var(--bs-primary);
+  /* background-color: var(--bs-primary); */
 }
 .btn.btn-primary,
 .btn.btn-primary.dropdown-toggle:after,
@@ -33243,7 +33245,8 @@ h6 {
 .show > .btn.btn-primary {
   color: var(--bs-primary-inverse);
   border-color: var(--bs-primary-active);
-  background-color: var(--bs-primary-active) !important;
+  /* background-color: var(--bs-primary-active) !important; */
+    background-color: #153a81;
 }
 .btn-check:active + .btn.btn-primary.dropdown-toggle:after,
 .btn-check:active + .btn.btn-primary .svg-icon,

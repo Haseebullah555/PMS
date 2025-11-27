@@ -88,7 +88,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='extraExpence/*'
+          path='extraExpense/*'
           element={
             <SuspensedView>
               <ExtraExpenseManagementRoutes />
