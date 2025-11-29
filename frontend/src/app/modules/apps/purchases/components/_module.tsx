@@ -1,7 +1,7 @@
 // initialValues.ts
 
 export interface PurchaseDetail {
-  fuelTypeId: number
+  fuelTypeId: number | null
   quantity: number
   unitPrice: number
   totalPrice: number
@@ -18,7 +18,7 @@ export interface PurchaseForm {
 }
 
 export const initialValues = {
-  supplierId: 0,
+  supplierId: null,
   purchaseDate: new Date().toISOString().split('T')[0],
   totalAmount: 0,
   paidAmount: 0,

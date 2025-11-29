@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
 import { useFormik, FormikProvider, FieldArray } from 'formik'
 import * as Yup from 'yup'
 import { toast } from 'react-toastify'
 import { initialValues } from './_module'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { useTranslation } from 'react-i18next'
-import { getAllSupplier, getSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
+import { getAllSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
 import { storePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
+import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 
 interface CreatePurchaseModalProps {
   isOpen: boolean
@@ -17,14 +17,12 @@ interface CreatePurchaseModalProps {
 }
 
 const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
-  const dispatch = useAppDispatch()
+  
   const { t } = useTranslation()
-
+  const dispatch = useAppDispatch()
   const suppliers = useAppSelector((state) => state.supplier.allSuppliers)
-  const { fuelTypes } = useSelector((state: any) => state.fuelType.fuelTypes)
+  const fuelTypes  = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
-
-  console.log(useAppSelector((state) => state), "supplierssssssssssssssss");
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
     supplierId: Yup.string().required('Supplier is required'),
@@ -66,19 +64,28 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
     formik.setFieldValue('totalAmount', total)
     formik.setFieldValue('unpaidAmount', total - Number(formik.values.paidAmount))
   }
-  useEffect(() => {
 
-    dispatch(getAllSupplier()).then((res) => {
-      if (res.meta.requestStatus === 'fulfilled') {
-        const suppliersList = suppliers?.data ?? []
-        console.log(res,"ddddddddddddddddddddddddddddd")
-        const meta = suppliers?.meta ?? {}
-      } else if (res.meta.requestStatus === 'rejected') {
-      }
-    })
-  }, [suppliers])
+
+  useEffect(() => {
+   if (!suppliers) {
+      dispatch(getAllSupplier())
+        .then((res) => { })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    if (!fuelTypes) {
+      dispatch(getAllFuelType())
+        .then((res) => { })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }, [])
+
+
   return (
-    <Modal show={isOpen} onHide={onClose} backdrop="static" size="lg">
+    <Modal show={isOpen} onHide={onClose} backdrop="static" size="xl">
       <Modal.Header closeButton>
         <Modal.Title>Add Purchase</Modal.Title>
       </Modal.Header>
@@ -93,19 +100,22 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                 <label className="form-label">Supplier</label>
                 <select
                   name="supplierId"
-                  value={formik.values.supplierId}
+                  value={formik.values.supplierId ?? ""}
                   onChange={(e) => {
                     formik.setFieldValue(`supplierId`, Number(e.target.value))
                   }}
                   className="form-select"
                 >
-                  <option value="">Select Supplier</option>
-                  {suppliers?.data?.map((s: any) => (
+                  <option value="" disabled selected>
+                      {t('global.SELECT.OPTION')}
+                    </option>
+                  {
+                  suppliers?.map((s: any) => (
                     <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
+                  ))
+                }
                 </select>
               </div>
-
               <div className="col-md-6">
                 <label className="form-label">Date</label>
                 <input
@@ -197,11 +207,9 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                         </td>
 
                         <td>{item.totalPrice.toFixed(2)}</td>
-
                         <td>
                           <Button
-                            variant="danger"
-                            className='btn btn-sm'
+                            className='btn btn-danger btn-sm'
                             disabled={formik.values.items.length === 1}
                             onClick={() => {
                               arrayHelpers.remove(index)

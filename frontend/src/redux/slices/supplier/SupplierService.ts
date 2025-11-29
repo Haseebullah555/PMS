@@ -11,11 +11,10 @@ console.log('Base URL:', process.env.REACT_APP_API_URL);
 // console.log(api, 'axioxxxxxxxxxxxxulr')
 const getSuppliers = async (params: any) => {
   const response = await axiosInterceptor.get(`/Supplier/list`, {params})
-  console.log(response, 'ressssponnnnnnnnnnnn')
   return response.data
 }
 const getAllSuppliers = async () => {
-  const response = await axiosInterceptor.get(`/Supplier/listAll`)
+  const response = await axiosInterceptor.get(`Supplier/listAll`)
   return response.data
 }
 // Get roles by system id.

@@ -68,12 +68,13 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setLoading(false)
         })
     }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
+   
     useEffect(() => {
         setData(fuelTypes.data)
         setPagination(fuelTypes.meta)
     }, [fuelTypes])
 
-
+console.log(fuelTypes, 'fuleeeeeeeeeee');
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
     return (
@@ -118,7 +119,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                         <th
                                             key={header.headerName}
                                             onClick={(e) => handleSort(header.sort)}
-                                            className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                                            className={`fs-6 text-center text-white fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
                                         >
                                             {header.headerName.toUpperCase().replace('_', ' ')}
                                             {header.sort === sortColumn ? (
@@ -137,13 +138,10 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                             <tbody>
                                 {!memoizedLoading &&
                                     memoizedData.map((item, index) => (
-                                        <tr key={index} className='fs-5'>
+                                        <tr key={index} className='fs-5 text-center'>
                                             <td className='fw-bolder'>{index + 1}</td>
-                                            <td>{item.expenseType}</td>
-                                            <td>{item.amount}</td>
-                                            <td>{item.expenseDate}</td>
-                                            <td>{item.notes}</td>
-
+                                            <td className='fw-bolder'>{item.name}</td>
+                                            <td className='fw-bolder'>{item.fuelUnit == 0 ? 'لیتر' : 'تن'}</td>
                                             <td className='text-center'>
                                                 <DropdownButton
                                                     id='dropdown-item-button'

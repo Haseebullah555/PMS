@@ -1,0 +1,40 @@
+.custom-border-sm {
+  border-width: 1px;
+}
+
+.react-time-picker {
+  width: 100%;
+  max-width: 300px;
+}
+
+.react-time-picker__wrapper {
+  border: 1px solid #b6b1b1 !important;
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.custom-time-picker,
+.custom-time-picker * {
+  font-size: 18px !important;
+}
+
+.modal-md-custom {
+  max-width: 600px; /* whatever your MD size should be */
+}
+
+input[type="text"], input[type="text"]:focus, input[type="text"]:focus::placeholder
+ {
+  font-weight: bold;
+  font-size: 16px;
+  color: #092250;
+}
+
+select {
+  font-weight: bold;
+  font-size: 16px;
+  color: #092250;
+}
+
+option {
+  font-weight: bold;
+}

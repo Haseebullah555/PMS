@@ -1,13 +1,9 @@
 export interface FuelTypeForm{
-    expenseType: string
-    amount: any
-    expenseDate: any
-    notes: string
+    name: string
+    fuelUnit: any 
 }
 
 export const initialValues: FuelTypeForm = {
-    expenseType: '',
-    amount: null,
-    expenseDate: null,
-    notes: ""
+    name: '',
+    fuelUnit: null,
 }

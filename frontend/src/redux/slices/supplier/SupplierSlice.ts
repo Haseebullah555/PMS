@@ -17,16 +17,14 @@ const initialState: supplierSate = {
     data: [],
     meta: {}
   },
-  allSuppliers: {
-    data: [],
-  }
+  allSuppliers: null,
 }
 
 
 //get supplier from server
 export const getSupplier = createAsyncThunk('/Supplier/list', async (params: any, thunkAPI) => {
   try {
-
+    console.log('------------------');
     return await supplierService.getSuppliers(params)
   } catch (error: any) {
     const message =
@@ -37,9 +35,8 @@ export const getSupplier = createAsyncThunk('/Supplier/list', async (params: any
   }
 })
 //get All supplier from server
-export const getAllSupplier = createAsyncThunk('/Supplier/listAll', async ({ }, thunkAPI) => {
+export const getAllSupplier = createAsyncThunk('/Supplier/listAll', async (_, thunkAPI) => {
   try {
-
     return await supplierService.getAllSuppliers()
   } catch (error: any) {
     const message =
@@ -48,7 +45,9 @@ export const getAllSupplier = createAsyncThunk('/Supplier/listAll', async ({ }, 
       error.toString()
     return thunkAPI.rejectWithValue(message)
   }
-})
+}
+)
+
 
 // store supplier
 export const storeSupplier = createAsyncThunk('api/supplier/store', async (formData: any, thunkAPI) => {
@@ -89,6 +88,8 @@ export const supplierSlice = createSlice({
     });
     builder.addCase(getAllSupplier.fulfilled, (state, action) => {
       state.allSuppliers = action.payload;
+    });
+    builder.addCase(getAllSupplier.rejected, (state, action) => {
     });
   },
 })

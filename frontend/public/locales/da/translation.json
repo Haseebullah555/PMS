@@ -147,7 +147,10 @@
     "deposit": "واریز",
     "withdrawal": "برداشت",
     "description": "توضیحات",
-    "SYSTEM.PART": "بخش سیستم"
+    "SYSTEM.PART": "بخش سیستم",
+    "SYSTEM.MANAGEMENT.PART": "بخش مدیریت سیستم",
+    "SELECT.OPTION": "یکی از گزینه‌ های پایین را انتخاب کنید",
+    "WRITE.HERE": "اینجا بنویسید..."
   },
   "validation": {
     "required": "درج {{name}} ضروری میباشد!",
@@ -332,5 +335,10 @@
     "aviliableStock": "انبار موجود",
     "quantity": "مقدار",
     "unitPrice": "قیمت فی واحد"
+  },
+  "fuelType": {
+    "fuelTypes": "نوع تیل",
+    "name": "اسم نوع تیل",
+    "unit": "واحد تیل"
   }
 }

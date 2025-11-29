@@ -34,7 +34,7 @@ const FuelTypeList = () => {
           <div className='card-header cursor-pointer'>
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
-                <i className='fas fa-users fs-4 text-primary'></i>{' '}
+                <i className='fas fa-users text-primary fs-4'></i>{' '}
                 {t('global.list', {name: t('fuelType.fuelTypes')})}
               </h3>
             </div>
@@ -42,28 +42,12 @@ const FuelTypeList = () => {
               <div className='d-none d-lg-flex mt-5'>
                 <div className='d-flex align-items-center'>
                   <button
-                    className='btn btn-primary btn-sm align-self-center fw-bold'
+                    className='btn btn-primary btn-sm align-self-center fw-bold mx-2'
                     onClick={openModal}
                   >
                     <i className='fas fa-plus'></i>
                     {t('global.add', {name: t('fuelType.fuelTypes')})}
                   </button>
-
-                  <div className='me-2 ms-2'>
-                    <button
-                      className='btn btn-sm btn-flex btn-primary fw-bolder'
-                      data-bs-toggle='collapse'
-                      data-bs-target='#movementSearch'
-                      aria-expanded='true'
-                      aria-controls='movementSearch'
-                    >
-                      <span className='svg-icon svg-icon-5 svg-icon-gray-500 me-1'>
-                        <i className='fa-solid fa-arrow-down-short-wide'></i>
-                      </span>
-                      {t('global.search')}
-                    </button>
-                  </div>
-
                   <Link className='btn btn-sm btn-flex btn-danger fw-bold' to='/dashboard'>
                     <b>
                       <i className='fa-solid fa-reply-all'></i>
@@ -72,45 +56,6 @@ const FuelTypeList = () => {
                 </div>
               </div>
 
-              <div className='dropdown d-lg-none mt-5'>
-                <DropdownButton
-                  id='dropdown-item-button'
-                  size='sm'
-                  title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
-                >
-                  <>
-                    <Dropdown.Item as='button'>
-                      <Link className='fw-bolder text-primary' to={'/authentication/create-user'}>
-                        <i className='fa-solid fa-plus  text-primary me-2'></i>
-
-                        {t('global.add', {name: t('global.user')})}
-                      </Link>
-                    </Dropdown.Item>
-                    <Dropdown.Item as='button'>
-                      <span
-                        className='fw-bolder text-primary'
-                        data-bs-toggle='collapse'
-                        data-bs-target='#movementSearch'
-                        aria-expanded='true'
-                        aria-controls='movementSearch'
-                      >
-                        <span className='svg-icon svg-icon-5 svg-icon-gray-500 me-1'>
-                          <i className='fa-solid fa-arrow-down-short-wide text-primary'></i>
-                        </span>
-                        {t('global.search')}
-                      </span>
-                    </Dropdown.Item>
-
-                    <Dropdown.Item as='button'>
-                      <Link className='fw-bold' to='/dashboard'>
-                        <b>
-                          <i className='fa-solid fa-reply-all text-danger'></i>
-                        </b>
-                      </Link>
-                    </Dropdown.Item>
-                  </>
-                </DropdownButton>
-              </div>
             </div>
           </div>
           <div className='card-body p-9 table-responsive'>
@@ -122,27 +67,19 @@ const FuelTypeList = () => {
                   sort: 'id',
                 },
                 {
-                  headerName: `${t('fuelType.expenseType')}`,
-                  sort: 'expenseType',
+                  headerName: `${t('fuelType.name')}`,
+                  sort: 'name',
                 },
                 {
-                  headerName: `${t('fuelType.amount')}`,
-                  sort: 'amount',
-                },
-                {
-                  headerName: `${t('global.date')}`,
-                  sort: 'date',
-                },
-                {
-                  headerName: `${t('global.remarks')}`,
-                  sort: 'remarks',
+                  headerName: `${t('fuelType.unit')}`,
+                  sort: 'name',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'expenseType', 'amount', 'date', 'remarks']}
+              columns={['id', 'name', 'unit']}
               handleEdit={openEditModal}
             />
           </div>

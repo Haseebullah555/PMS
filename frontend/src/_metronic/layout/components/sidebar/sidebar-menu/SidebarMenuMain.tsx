@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl'
 import { SidebarMenuItem } from './SidebarMenuItem'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
 
 const SidebarMenuMain = () => {
 
@@ -88,18 +89,26 @@ const SidebarMenuMain = () => {
           </span>
         </div>
       </div>
-      <SidebarMenuItem
+        <SidebarMenuItemWithSub
         to='/fuelType/list'
-        title={t("fuelType.fuelTypes")}
-        icon='element-11'
-        fontIcon='bi-app-indicator'
-      />
-      <SidebarMenuItem
+        title={t('global.SYSTEM.MANAGEMENT.PART')}
+        fontIcon='bi-archive'
+        icon='element-plus'
+      >
+        <SidebarMenuItem
+          to='/fuelType/list'
+          title={t("fuelType.fuelTypes")}
+          hasBullet={true}
+        />
+           <SidebarMenuItem
         to='/fuelStand/list'
         title={t("fuelStand.fuelStands")}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
+
+      </SidebarMenuItemWithSub>
+   
     </>
   )
 }

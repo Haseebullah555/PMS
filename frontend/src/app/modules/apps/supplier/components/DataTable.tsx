@@ -138,7 +138,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                     <th
                       key={header.headerName}
                       onClick={() => handleSort(header.sort)}
-                      className={`fs-6  text-white fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                      className={`fs-6 text-center text-white fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
                     >
                       {header.headerName}
                       {header.sort === sortColumn && (
@@ -158,8 +158,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
               <tbody>
                 {!memoizedLoading &&
                   memoizedData.map((item, index) => (
-                    <tr key={index} className='fs-5'>
-                      <td>{index}</td>
+                    <tr key={index} className='fs-5 text-center'>
+                      <td className='text-center'>{index + 1}</td>
                       <td>{item.name}</td>
                       <td>{item.phoneNumber}</td>
                       <td>{item.address}</td>
