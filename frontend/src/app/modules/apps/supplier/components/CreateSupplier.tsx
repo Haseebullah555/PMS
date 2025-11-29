@@ -113,6 +113,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                   </label>
                   <input
                     type='text'
+                    maxLength={10}
                     {...formik.getFieldProps('phoneNumber')}
                     className={clsx('form-control', {
                       'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),

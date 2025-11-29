@@ -34,7 +34,7 @@ const Paginator = ({pagination, pageChanged}: any) => {
           &nbsp; {t('global.PAGINATIONFROM')}
           <span>
             <b>
-              {pagination.from} الا - {pagination.to}
+              {pagination.from} الی - {pagination.to}
             </b>
             &nbsp;&nbsp;
           </span>

@@ -4,6 +4,7 @@ import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
 import CreateUserModal from './CreateSupplier'
+import EditSupplierModal from './EditSupplier'
 
 const SupplierList = () => {
   const {t} = useTranslation()
@@ -161,14 +162,14 @@ const SupplierList = () => {
           handleReloadTable={handleReloadTable}
         />
       )}
-      {/* {isEditModalOpen && (
+      {isEditModalOpen && (
         <EditSupplierModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
           selectedSupplier={selectedSupplier}
           handleReloadTable={handleReloadTable}
         />
-      )} */}
+      )}
     </>
   )
 }
