@@ -10,12 +10,14 @@ import staffService from './StaffService'
 
 type staffSate = {
   staffs: any
+  allStaffs : any
 }
 
 const initialState: staffSate = {
   staffs: {
     data: [],
   },
+  allStaffs : null
 }
 
 //get staff from server
@@ -81,6 +83,10 @@ export const staffSlice = createSlice({
     builder.addCase(getStaff.fulfilled, (state, action: PayloadAction) => {
       console.log('action.payload', action.payload)
       state.staffs = action.payload
+    })
+    builder.addCase(getStaffsList.fulfilled, (state, action: PayloadAction) => {
+      console.log('action.payload', action.payload)
+      state.allStaffs = action.payload
     })
   },
 })

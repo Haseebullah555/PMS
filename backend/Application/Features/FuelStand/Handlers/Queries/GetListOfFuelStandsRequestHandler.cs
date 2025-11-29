@@ -54,7 +54,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var FuelStands = query
+            var FuelStands = await query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
                 .ToListAsync(cancellationToken);

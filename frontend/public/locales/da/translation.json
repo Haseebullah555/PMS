@@ -337,8 +337,12 @@
     "unitPrice": "قیمت فی واحد"
   },
   "fuelType": {
-    "fuelTypes": "نوع تیل",
+    "fuelTypes": "انواع تیل",
     "name": "اسم نوع تیل",
     "unit": "واحد تیل"
+  },
+  "fuelStand": {
+    "fuelStands": "پایه های تیل",
+    "name": "اسم پایه تیل"
   }
 }

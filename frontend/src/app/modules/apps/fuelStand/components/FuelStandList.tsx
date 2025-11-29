@@ -126,7 +126,7 @@ const FuelStandList = () => {
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('staff.staffs')}`,
+                  headerName: `${t('staff.staff')}`,
                   sort: 'staffId',
                 },
                 {

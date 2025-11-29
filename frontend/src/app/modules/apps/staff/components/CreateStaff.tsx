@@ -177,6 +177,7 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
                     {t('global.phone')} <span className='text-danger'>*</span>
                   </label>
                   <input
+                  maxLength={10}
                     type='text'
                     {...formik.getFieldProps('phone')}
                     className={clsx('form-control', {
