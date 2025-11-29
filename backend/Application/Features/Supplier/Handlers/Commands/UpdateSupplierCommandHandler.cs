@@ -19,8 +19,8 @@ namespace Application.Features.sample.Handlers.Commands
         public async Task Handle(UpdateSupplierCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.Supplier>(request.SupplierDto);
-            await _unitOfWork.Suppliers.Update(result);
-            await _unitOfWork.SaveChanges(cancellationToken);
+            _unitOfWork.Suppliers.Update(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

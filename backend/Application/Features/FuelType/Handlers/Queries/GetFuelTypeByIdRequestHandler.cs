@@ -18,7 +18,7 @@ namespace Application.Features.FuelType.Handlers.Queries
         }
         public async Task<FuelTypeDto> Handle(GetFuelTypeByIdRequest request, CancellationToken cancellationToken)
         {
-            var fuelTypes = _unitOfWork.FuelTypes.Get(request.FuelTypeId);
+            var fuelTypes = _unitOfWork.FuelTypes.GetByIdAsync(request.FuelTypeId);
             return _mapper.Map<FuelTypeDto>(fuelTypes);
         }
     }

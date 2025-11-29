@@ -19,8 +19,8 @@ namespace Application.Features.sample.Handlers.Commands
         public async Task Handle(AddCustomerCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.Customer>(request.CustomerDto);
-            await _unitOfWork.Customers.Add(result);
-            await _unitOfWork.SaveChanges(cancellationToken);
+            await _unitOfWork.Customers.AddAsync(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

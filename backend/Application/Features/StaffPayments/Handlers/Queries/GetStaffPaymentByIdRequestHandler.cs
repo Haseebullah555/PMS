@@ -18,7 +18,7 @@ namespace Application.Features.StaffPayments.Handlers.Queries
         }
         public async Task<StaffPaymentDto> Handle(GetStaffPaymentByIdRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.StaffPayments.Get(request.Id);
+            var result = await _unitOfWork.StaffPayments.GetByIdAsync(request.Id);
             return _mapper.Map<StaffPaymentDto>(result);
         }
     }

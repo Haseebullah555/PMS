@@ -19,7 +19,7 @@ namespace Application.Contracts.Interfaces.Common
         public IPurchaseDetailsRepository PurchaseDetails { get; }
         public IStockRepository Stocks { get; }
         public ISupplierLoansRepository SupplierLoans{ get; }
-        Task SaveChanges(CancellationToken cancellationToken);
+        Task SaveAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

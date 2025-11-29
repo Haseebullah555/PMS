@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { initialValues } from './_module'
 import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
-import { useAppDispatch } from '../../../../../redux/hooks'
+import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
@@ -23,7 +23,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
-
+  const staffs = useAppSelector((state) => state.staffs.staffs)
   // Form Validation Schema
   const FuelStandSchema = Yup.object().shape({
     expenseType: Yup.string().required(t('validation.required', { name: t('fuelStand.expenseType') })),
@@ -87,40 +87,19 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                 {/* Name Field */}
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('fuelStand.expenseType')} <span className='text-danger'>*</span>
+                    {t('fuelStand.name')} <span className='text-danger'>*</span>
                   </label>
                   <input
                     type='text'
-                    {...formik.getFieldProps('expenseType')}
+                    {...formik.getFieldProps('name')}
                     className={clsx('form-control', {
-                      'is-invalid': formik.touched.expenseType && formik.errors.expenseType,
-                      'is-valid': formik.touched.expenseType && !formik.errors.expenseType,
+                      'is-invalid': formik.touched.name && formik.errors.name,
+                      'is-valid': formik.touched.name && !formik.errors.name,
                     })}
                   />
-                  {formik.touched.expenseType && formik.errors.expenseType && (
+                  {formik.touched.name && formik.errors.name && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('fuelStand.expenseType') })}
-                    </div>
-                  )}
-                </div>
-
-                {/* FuelStand amount Field */}
-                {/* FuelStand amount Field */}
-                <div className='col-md-6 mb-3'>
-                  <label className='form-label'>
-                    {t('fuelStand.amount')} <span className='text-danger'>*</span>
-                  </label>
-                  <input
-                    type='text'
-                    {...formik.getFieldProps('amount')}
-                    className={clsx('form-control', {
-                      'is-invalid': formik.touched.amount && Boolean(formik.errors.amount),
-                      'is-valid': formik.touched.amount && !formik.errors.amount,
-                    })}
-                  />
-                  {formik.touched.amount && formik.errors.amount && (
-                    <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('fuelStand.amount') })}
+                      {t('validation.required', { name: t('fuelStand.name') })}
                     </div>
                   )}
                 </div>
@@ -128,39 +107,27 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
               </div>
               <div className='row'>
                 {/* Name Field */}
+
                 <div className='col-md-6 mb-3'>
                   <label className='form-label'>
-                    {t('global.date')} <span className='text-danger'>*</span>
+                    {t('staff.staff')}
                   </label>
-                  <input
-                    type='date'
-                    {...formik.getFieldProps('expenseDate')}
-                    className={clsx('form-control', {
-                      'is-invalid': formik.touched.expenseDate && formik.errors.expenseDate,
-                      'is-valid': formik.touched.expenseDate && !formik.errors.expenseDate,
-                    })}
-                  />
-                  {formik.touched.expenseDate && formik.errors.expenseDate && (
+                  <select
+                    name="staffId"
+                    value={formik.values.staffId}
+                    onChange={(e) => {
+                      formik.setFieldValue(`supplierId`, Number(e.target.value))
+                    }}
+                    className="form-select"
+                  >
+                    <option value="">Select Supplier</option>
+                    {staffs?.data?.map((s: any) => (
+                      <option key={s.id} value={s.id}>{s.name}</option>
+                    ))}
+                  </select>
+                  {formik.touched.staffId && formik.errors.staffId && (
                     <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.date') })}
-                    </div>
-                  )}
-                </div>
-                <div className='col-md-6 mb-3'>
-                  <label className='form-label'>
-                    {t('global.remarks')}
-                  </label>
-                  <input
-                    type='text'
-                    {...formik.getFieldProps('notes')}
-                    className={clsx('form-control', {
-                      'is-invalid': formik.touched.notes && formik.errors.notes,
-                      'is-valid': formik.touched.notes && !formik.errors.notes,
-                    })}
-                  />
-                  {formik.touched.notes && formik.errors.notes && (
-                    <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('global.remarks') })}
+                      {t('validation.required', { name: t('staff.staff') })}
                     </div>
                   )}
                 </div>

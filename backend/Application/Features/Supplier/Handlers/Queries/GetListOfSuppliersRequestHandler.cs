@@ -20,7 +20,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<PaginatedResult<SupplierDto>> Handle(GetListOfSuppliersRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Suppliers.GetAll();
+            var query = _unitOfWork.Suppliers.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

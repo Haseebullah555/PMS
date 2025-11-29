@@ -20,7 +20,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<PaginatedResult<StaffDto>> Handle(GetListOfStaffsRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Staffs.GetAll();
+            var query = _unitOfWork.Staffs.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

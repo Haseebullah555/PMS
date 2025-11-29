@@ -18,7 +18,7 @@ namespace Application.Features.Staff.Handlers.Queries
         }
         public async Task<List<StaffDto>> Handle(GetStaffsListRequest request, CancellationToken cancellationToken)
         {
-            var staffs = _unitOfWork.Staffs.GetAll();
+            var staffs = _unitOfWork.Staffs.GetAllAsync();
             return _mapper.Map<List<StaffDto>>(staffs);
         }
     }

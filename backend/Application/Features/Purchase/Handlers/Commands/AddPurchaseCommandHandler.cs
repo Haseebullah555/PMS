@@ -40,13 +40,13 @@ namespace Application.Features.Purchase.Handlers.Commands
             try
             {
                 // Save Purchase
-                await _unitOfWork.Purchases.Add(purchase);
-                await _unitOfWork.SaveChanges(cancellationToken);
+                await _unitOfWork.Purchases.AddAsync(purchase);
+                await _unitOfWork.SaveAsync(cancellationToken);
 
                 // Handle each item
                 foreach (var item in request.Items)
                 {
-                    var fuelType = await _unitOfWork.FuelTypes.Get(item.FuelTypeId)
+                    var fuelType = await _unitOfWork.FuelTypes.GetByIdAsync(item.FuelTypeId)
                         ?? throw new Exception($"FuelType {item.FuelTypeId} not found");
 
                     // Find or create Stock
@@ -58,8 +58,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                             FuelTypeId = fuelType.Id,
                             Quantity = 0,
                         };
-                        await _unitOfWork.Stocks.Add(stock);
-                        await _unitOfWork.SaveChanges(cancellationToken);
+                        await _unitOfWork.Stocks.AddAsync(stock);
+                        await _unitOfWork.SaveAsync(cancellationToken);
                     }
 
                     // Update stock quantity
@@ -67,7 +67,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                     // Weighted average cost
                     stock.Quantity = newQty;
 
-                    await _unitOfWork.Stocks.Update(stock);
+                    _unitOfWork.Stocks.Update(stock);
 
                     // Create PurchaseDetail
                     var detail = new PurchaseDetail
@@ -78,10 +78,10 @@ namespace Application.Features.Purchase.Handlers.Commands
                         UnitPrice = item.UnitPrice,
                     };
 
-                    await _unitOfWork.PurchaseDetails.Add(detail);
+                    await _unitOfWork.PurchaseDetails.AddAsync(detail);
                 }
 
-                await _unitOfWork.SaveChanges(cancellationToken);
+                await _unitOfWork.SaveAsync(cancellationToken);
 
                 // Record financial transaction (paid part)
                 if (request.PaidAmount > 0)
@@ -96,7 +96,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                         Amount = request.PaidAmount,
                         Direction = "OUT"
                     };
-                    await _unitOfWork.FinancialTransactions.Add(txn);
+                    await _unitOfWork.FinancialTransactions.AddAsync(txn);
                 }
 
                 // Record supplier loan (if unpaid)
@@ -109,10 +109,10 @@ namespace Application.Features.Purchase.Handlers.Commands
                         LoanDate = DateTime.UtcNow,
                         IsSettled = false
                     };
-                    await _unitOfWork.SupplierLoans.Add(loan);
+                    await _unitOfWork.SupplierLoans.AddAsync(loan);
                 }
 
-                await _unitOfWork.SaveChanges(cancellationToken);
+                await _unitOfWork.SaveAsync(cancellationToken);
                 await tx.CommitAsync(cancellationToken);
 
                 return purchase.Id;

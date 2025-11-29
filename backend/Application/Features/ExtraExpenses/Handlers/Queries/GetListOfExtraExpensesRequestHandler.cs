@@ -20,7 +20,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<PaginatedResult<ExtraExpensesDto>> Handle(GetListOfExtraExpensesRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.ExtraExpenses.GetAll();
+            var query = _unitOfWork.ExtraExpenses.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

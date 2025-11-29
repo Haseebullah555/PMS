@@ -18,7 +18,8 @@ namespace Application.Features.FuelGun.Handlers.Commands
         public async Task Handle(UpdateFuelGunCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.FuelGun>(request.FuelGunDto);
-            await _unitOfWork.FuelGuns.Update(result);
+            _unitOfWork.FuelGuns.Update(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

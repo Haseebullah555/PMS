@@ -19,8 +19,8 @@ namespace Application.Features.StaffPayments.Handlers.Commands
         public async Task Handle(AddStaffPaymentCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<StaffPayment>(request.StaffPaymentDto);
-            await _unitOfWork.StaffPayments.Add(result);
-            await _unitOfWork.SaveChanges(cancellationToken);
+            await _unitOfWork.StaffPayments.AddAsync(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

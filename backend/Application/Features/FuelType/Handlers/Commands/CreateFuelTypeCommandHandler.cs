@@ -18,7 +18,8 @@ namespace Application.Features.FuelType.Handlers.Commands
         public async Task Handle(CreateFuelTypeCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.FuelTypes>(request.FuelTypeDto);
-            await _unitOfWork.FuelTypes.Add(result);
+            await _unitOfWork.FuelTypes.AddAsync(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

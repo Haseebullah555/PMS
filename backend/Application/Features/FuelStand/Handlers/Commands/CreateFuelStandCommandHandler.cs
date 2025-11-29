@@ -18,7 +18,8 @@ namespace Application.Features.FuelStand.Handlers.Commands
         public async Task Handle(CreateFuelStandCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.FuelStand>(request.FuelStandDto);
-            await _unitOfWork.FuelStands.Add(result);
+            await _unitOfWork.FuelStands.AddAsync(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

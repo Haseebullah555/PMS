@@ -20,7 +20,7 @@ namespace Application.Features.FuelType.Handlers.Queries
         }
         public async Task<PaginatedResult<FuelTypeDto>> Handle(GetListOfFuelTypesRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.FuelTypes.GetAll();
+            var query = _unitOfWork.FuelTypes.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

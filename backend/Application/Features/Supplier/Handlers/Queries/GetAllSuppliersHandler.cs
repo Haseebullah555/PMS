@@ -18,7 +18,7 @@ namespace Application.Features.Supplier.Handlers.Queries
         }
         public async Task<List<SupplierDto>> Handle(GetAllSuppliers request, CancellationToken cancellationToken)
         {
-            var result = _unitOfWork.Suppliers.GetAll();
+            var result = _unitOfWork.Suppliers.GetAllAsync();
             return _mapper.Map<List<SupplierDto>>(result);
         }
     }

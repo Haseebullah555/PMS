@@ -94,6 +94,12 @@ const SidebarMenuMain = () => {
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
+      <SidebarMenuItem
+        to='/fuelStand/list'
+        title={t("fuelStand.fuelStands")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
     </>
   )
 }

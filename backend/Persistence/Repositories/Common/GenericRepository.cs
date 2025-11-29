@@ -14,41 +14,41 @@ namespace Persistence.Repositories.Common
             _context = context;
             _dbSet = _context.Set<T>();
         }
-        public async Task<T> Add(T entity)
+
+        public IQueryable<T> Query()
         {
-            _context.Add(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            return _dbSet.AsQueryable();
         }
 
-        public async Task<List<T>> AddRanges(List<T> entity)
+        public async Task<List<T>> GetAllAsync()
         {
-            await _context.AddRangeAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            return await _dbSet.ToListAsync();
         }
 
-        public async Task Delete(T entity)
+        public async Task<T?> GetByIdAsync(int id)
         {
-            _context.Set<T>().Remove(entity);
-            await _context.SaveChangesAsync();
+            return await _dbSet.FindAsync(id);
         }
 
-        public async Task<T> Get(int id)
+        public async Task AddAsync(T entity)
         {
-            return await _context.Set<T>().FindAsync(id);
+            await _dbSet.AddAsync(entity);
         }
 
-        public IQueryable<T> GetAll()
+        public async Task AddRangeAsync(List<T> entities)
         {
-            return _context.Set<T>().AsQueryable();
+            await _dbSet.AddRangeAsync(entities);
         }
 
-
-        public async Task Update(T entity)
+        public void Update(T entity)
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
+            _dbSet.Update(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
         }
     }
+
 }

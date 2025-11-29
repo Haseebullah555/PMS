@@ -15,23 +15,21 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<FuelStandDto>> GetAllFuelStands()
+        public IQueryable<FuelStandDto> GetAllFuelStands()
         {
-            var fuelStands = _context.FuelStands
+            return _context.FuelStands
                 .Select(fs => new FuelStandDto
                 {
                     Id = fs.Id,
                     Name = fs.Name,
                     StaffId = fs.StaffId,
                     Staff = fs.Staff.FullName
-                })
-                .ToList();
-            return fuelStands;
+                });
         }
 
-        public Task<FuelStandDto> GetFuelStandById(int id)
+        public async Task<FuelStandDto> GetFuelStandById(int id)
         {
-            var fuelStands = _context.FuelStands
+            return await _context.FuelStands
                 .Where(fs => fs.Id == id)
                 .Select(fs => new FuelStandDto
                 {
@@ -41,7 +39,6 @@ namespace Persistence.Repositories
                     Staff = fs.Staff.FullName
                 })
                 .FirstOrDefaultAsync();
-            return fuelStands;
         }
     }
 }

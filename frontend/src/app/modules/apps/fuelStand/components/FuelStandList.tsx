@@ -122,27 +122,19 @@ const FuelStandList = () => {
                   sort: 'id',
                 },
                 {
-                  headerName: `${t('fuelStand.expenseType')}`,
-                  sort: 'expenseType',
+                  headerName: `${t('fuelStand.name')}`,
+                  sort: 'name',
                 },
                 {
-                  headerName: `${t('fuelStand.amount')}`,
-                  sort: 'amount',
-                },
-                {
-                  headerName: `${t('global.date')}`,
-                  sort: 'date',
-                },
-                {
-                  headerName: `${t('global.remarks')}`,
-                  sort: 'remarks',
+                  headerName: `${t('staff.staffs')}`,
+                  sort: 'staffId',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'expenseType', 'amount', 'date', 'remarks']}
+              columns={['id', 'name', 'staffId']}
               handleEdit={openEditModal}
             />
           </div>

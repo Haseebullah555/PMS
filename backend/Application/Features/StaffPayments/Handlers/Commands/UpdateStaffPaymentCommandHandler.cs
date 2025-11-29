@@ -18,7 +18,8 @@ namespace Application.Features.StaffPayments.Handlers.Commands
         public async Task Handle(UpdateStaffPaymentCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.StaffPayment>(request.StaffPaymentDto);
-            await _unitOfWork.StaffPayments.Update(result);
+            _unitOfWork.StaffPayments.Update(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

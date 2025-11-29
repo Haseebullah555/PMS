@@ -18,7 +18,8 @@ namespace Application.Features.PartnerTransaction.Handlers.Commands
         public async Task Handle(CreatePartnerTransactionCommand request, CancellationToken cancellationToken)
         {
             var result = _mapper.Map<Domain.Models.PartnerTransaction>(request.PartnerTransactionDto);
-            await _unitOfWork.PartnerTransactions.Add(result);
+            await _unitOfWork.PartnerTransactions.AddAsync(result);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }

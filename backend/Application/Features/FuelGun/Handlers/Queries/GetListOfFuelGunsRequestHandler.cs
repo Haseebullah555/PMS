@@ -20,7 +20,7 @@ namespace Application.Features.FuelGun.Handlers.Queries
         public async Task<PaginatedResult<FuelGunDto>> Handle(GetListOfFuelGunsRequest request, CancellationToken cancellationToken)
         {
             // Await the repository task first, then operate on the resulting in-memory list as IQueryable
-            var query = (await _unitOfWork.FuelGuns.GetAllFuelGuns()).AsQueryable();
+            var query = _unitOfWork.FuelGuns.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

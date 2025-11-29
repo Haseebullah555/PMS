@@ -18,7 +18,7 @@ namespace Application.Features.Partner.Handlers.Queries
         }
         public async Task<List<PartnerDto>> Handle(GetPartnersListRequest request, CancellationToken cancellationToken)
         {
-            var partners = _unitOfWork.Partners.GetAll();
+            var partners = _unitOfWork.Partners.GetAllAsync();
             return _mapper.Map<List<PartnerDto>>(partners);
         }
     }

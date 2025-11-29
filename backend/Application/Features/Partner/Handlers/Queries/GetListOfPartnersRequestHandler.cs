@@ -20,7 +20,7 @@ namespace Application.Features.Partner.Handlers.Queries
         }
         public async Task<PaginatedResult<PartnerDto>> Handle(GetListOfPartnersRequest request, CancellationToken cancellationToken)
         {
-             var query = _unitOfWork.Partners.GetAll();
+             var query = _unitOfWork.Partners.Query();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))

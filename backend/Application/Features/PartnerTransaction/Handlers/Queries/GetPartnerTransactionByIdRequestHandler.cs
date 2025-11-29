@@ -18,7 +18,7 @@ namespace Application.Features.PartnerTransaction.Handlers.Queries
         }
         public async Task<PartnerTransactionDto> Handle(GetPartnerTransactionByIdRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.PartnerTransactions.Get(request.Id);
+            var result = await _unitOfWork.PartnerTransactions.GetByIdAsync(request.Id);
             return _mapper.Map<PartnerTransactionDto>(result);
         }
     }

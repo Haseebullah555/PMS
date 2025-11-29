@@ -18,7 +18,7 @@ namespace Application.Features.Purchase.Handlers.Queries
         }
         public async Task<PurchaseDto> Handle(GetPurchaseByIdRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.Purchases.Get(request.PurchaseId);
+            var result = await _unitOfWork.Purchases.GetByIdAsync(request.PurchaseId);
             return _mapper.Map<PurchaseDto>(result);
         }
     }

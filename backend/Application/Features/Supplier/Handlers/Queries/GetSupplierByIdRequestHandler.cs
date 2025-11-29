@@ -19,7 +19,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<SupplierDto> Handle(GetSupplierByIdRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.Suppliers.Get(request.Id);
+            var result = await _unitOfWork.Suppliers.GetByIdAsync(request.Id);
             return _mapper.Map<SupplierDto>(result);
         }
     }

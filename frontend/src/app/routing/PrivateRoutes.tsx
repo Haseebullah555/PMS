@@ -17,6 +17,7 @@ import PartnerTransactionList from '../modules/apps/partnerTransaction/component
 import PartnerTransactionManagementRoutes from '../modules/apps/partnerTransaction/PartnerTransactionManagementRoutes'
 import ExtraExpenseManagementRoutes from '../modules/apps/extraExpense/ExtraExpensemanagementRoutes'
 import FuelTypeManagementRoutes from '../modules/apps/fuelType/FuelTypemanagementRoutes'
+import FuelStandManagementRoutes from '../modules/apps/fuelStand/FuelStandmanagementRoutes'
 
 const PrivateRoutes = () => {
 
@@ -149,6 +150,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <FuelTypeManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='fuelStand/*'
+          element={
+            <SuspensedView>
+              <FuelStandManagementRoutes />
             </SuspensedView>
           }
         />

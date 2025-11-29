@@ -18,7 +18,7 @@ namespace Application.Features.sample.Handlers.Queries
         }
         public async Task<ExtraExpensesDto> Handle(GetExtraExpenseByIdRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.ExtraExpenses.Get(request.Id);
+            var result = await _unitOfWork.ExtraExpenses.GetByIdAsync(request.Id);
             return _mapper.Map<ExtraExpensesDto>(result);
         }
     }

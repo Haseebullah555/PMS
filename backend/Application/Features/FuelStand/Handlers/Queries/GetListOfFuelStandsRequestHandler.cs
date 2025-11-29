@@ -20,7 +20,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
         }
         public async Task<PaginatedResult<FuelStandDto>> Handle(GetListOfFuelStandsRequest request, CancellationToken cancellationToken)
         {
-            var query =  (await _unitOfWork.FuelStands.GetAllFuelStands()).AsQueryable();
+            var query = _unitOfWork.FuelStands.GetAllFuelStands();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
@@ -54,7 +54,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var FuelStands = await query
+            var FuelStands = query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
                 .ToListAsync(cancellationToken);

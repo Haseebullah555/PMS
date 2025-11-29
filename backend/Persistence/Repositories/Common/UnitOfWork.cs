@@ -56,7 +56,7 @@ namespace Persistence.Repositories.Common
             _context.Dispose();
             GC.SuppressFinalize(this);
         }
-        public async Task SaveChanges(CancellationToken cancellationToken)
+        public async Task SaveAsync(CancellationToken cancellationToken)
         {
             await _context.SaveChangesAsync(cancellationToken);
         }

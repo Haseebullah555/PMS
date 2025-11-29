@@ -139,11 +139,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                     memoizedData.map((item, index) => (
                                         <tr key={index} className='fs-5'>
                                             <td className='fw-bolder'>{index + 1}</td>
-                                            <td>{item.expenseType}</td>
-                                            <td>{item.amount}</td>
-                                            <td>{item.expenseDate}</td>
-                                            <td>{item.notes}</td>
-
+                                            <td>{item.name}</td>
+                                            <td>{item.staffName}</td>
                                             <td className='text-center'>
                                                 <DropdownButton
                                                     id='dropdown-item-button'
