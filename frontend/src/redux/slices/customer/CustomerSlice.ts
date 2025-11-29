@@ -1,8 +1,6 @@
 // -- name: roleSlice.
 // -- date: 01-21-2024.
 // -- desc: redux toolkit slice for the roles components.
-// -- author: Abdul Rafi Muhammadi.
-// -- email: ab.rafimuhammadi@gmail.com
 
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'

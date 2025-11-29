@@ -9,7 +9,7 @@ const getFuelTypes = async (params: any) => {
     return response.data
 }
 const getAllFuelType = async () => {
-  const response = await axiosInterceptor.get(`FuelType/listAll`)
+  const response = await axiosInterceptor.get(`/FuelType/listAll`)
   return response.data
 }
 const storeFuelType = async (formData : any) => {

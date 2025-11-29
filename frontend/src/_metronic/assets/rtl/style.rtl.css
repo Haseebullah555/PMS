@@ -35,7 +35,7 @@
   --bs-light: #f9f9f9;
   --bs-primary: #3e97ff;
   --bs-secondary: #dbdfe9;
-  --bs-success: #50cd89;
+  --bs-success: #109f51;
   --bs-info: #7239ea;
   --bs-warning: #ffc700;
   --bs-danger: #d10029;
@@ -123,8 +123,8 @@
   --bs-focus-ring-width: 0.25rem;
   --bs-focus-ring-opacity: 0.25;
   --bs-focus-ring-color: rgba(62, 151, 255, 0.25);
-  --bs-form-valid-color: #50cd89;
-  --bs-form-valid-border-color: #50cd89;
+  --bs-form-valid-color: #109f51;
+  --bs-form-valid-border-color: #109f51;
   --bs-form-invalid-color: #d10029;
   --bs-form-invalid-border-color: #d10029;
 }
@@ -3130,8 +3130,8 @@ fieldset:disabled .btn {
 }
 .btn-success {
   --bs-btn-color: #000;
-  --bs-btn-bg: #50cd89;
-  --bs-btn-border-color: #50cd89;
+  --bs-btn-bg: #109f51;
+  --bs-btn-border-color: #109f51;
   --bs-btn-hover-color: #000;
   --bs-btn-hover-bg: #6ad59b;
   --bs-btn-hover-border-color: #62d295;
@@ -3141,8 +3141,8 @@ fieldset:disabled .btn {
   --bs-btn-active-border-color: #62d295;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   --bs-btn-disabled-color: #000;
-  --bs-btn-disabled-bg: #50cd89;
-  --bs-btn-disabled-border-color: #50cd89;
+  --bs-btn-disabled-bg: #109f51;
+  --bs-btn-disabled-border-color: #109f51;
 }
 .btn-info {
   --bs-btn-color: #fff;
@@ -3257,19 +3257,19 @@ fieldset:disabled .btn {
   --bs-gradient: none;
 }
 .btn-outline-success {
-  --bs-btn-color: #50cd89;
-  --bs-btn-border-color: #50cd89;
+  --bs-btn-color: #109f51;
+  --bs-btn-border-color: #109f51;
   --bs-btn-hover-color: #000;
-  --bs-btn-hover-bg: #50cd89;
-  --bs-btn-hover-border-color: #50cd89;
+  --bs-btn-hover-bg: #109f51;
+  --bs-btn-hover-border-color: #109f51;
   --bs-btn-focus-shadow-rgb: 80, 205, 137;
   --bs-btn-active-color: #000;
-  --bs-btn-active-bg: #50cd89;
-  --bs-btn-active-border-color: #50cd89;
+  --bs-btn-active-bg: #109f51;
+  --bs-btn-active-border-color: #109f51;
   --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #50cd89;
+  --bs-btn-disabled-color: #109f51;
   --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #50cd89;
+  --bs-btn-disabled-border-color: #109f51;
   --bs-gradient: none;
 }
 .btn-outline-info {
@@ -26879,7 +26879,7 @@ fieldset:disabled .btn {
   --bs-light: #f9f9f9;
   --bs-primary: #3e97ff;
   --bs-secondary: #dbdfe9;
-  --bs-success: #50cd89;
+  --bs-success: #109f51;
   --bs-info: #7239ea;
   --bs-warning: #ffc700;
   --bs-danger: #d10029;
@@ -26919,7 +26919,7 @@ fieldset:disabled .btn {
   --bs-text-primary: #3e97ff;
   --bs-text-secondary: #dbdfe9;
   --bs-text-light: #f9f9f9;
-  --bs-text-success: #50cd89;
+  --bs-text-success: #109f51;
   --bs-text-info: #7239ea;
   --bs-text-warning: #ffc700;
   --bs-text-danger: #d10029;
@@ -27025,7 +27025,7 @@ fieldset:disabled .btn {
   --bs-white: #fff;
   --bs-light: #2b2b40;
   --bs-primary: #3e97ff;
-  --bs-success: #50cd89;
+  --bs-success: #109f51;
   --bs-info: #7239ea;
   --bs-warning: #ffc700;
   --bs-danger: #d10029;
@@ -27067,7 +27067,7 @@ fieldset:disabled .btn {
   --bs-text-primary: #3e97ff;
   --bs-text-secondary: #323248;
   --bs-text-light: #2b2b40;
-  --bs-text-success: #50cd89;
+  --bs-text-success: #109f51;
   --bs-text-info: #7239ea;
   --bs-text-warning: #ffc700;
   --bs-text-danger: #d10029;
@@ -27700,7 +27700,7 @@ h6 {
 }
 .separator.separator-content.border-success:after,
 .separator.separator-content.border-success:before {
-  border-color: #50cd89 !important;
+  border-color: #109f51 !important;
 }
 .separator.separator-content.border-info:after,
 .separator.separator-content.border-info:before {
@@ -44414,7 +44414,7 @@ label.rating-label:hover ~ .rating-label > i {
 }
 .explore-btn-outline.active,
 .explore-btn-outline:hover {
-  border: 1px dashed #50cd89 !important;
+  border: 1px dashed #109f51 !important;
   background-color: #e8fff3;
 }
 .explore-link {
@@ -44427,7 +44427,7 @@ label.rating-label:hover ~ .rating-label > i {
   color: #00b2ff !important;
 }
 .explore-icon-success {
-  color: #50cd89;
+  color: #109f51;
 }
 .explore-icon-danger {
   color: #d10029;
@@ -44438,7 +44438,7 @@ label.rating-label:hover ~ .rating-label > i {
 }
 .explore-label-pro {
   color: #fff;
-  background-color: #50cd89;
+  background-color: #109f51;
 }
 .app-engage {
   position: fixed;

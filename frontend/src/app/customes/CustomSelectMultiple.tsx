@@ -1,8 +1,6 @@
 // -- name: react select multiple.
 // -- date: 01-21-2024.
 // -- desc: multiple custom select for storing and also use for dependent options.
-// -- author: Abdul Rafi Muhammadi.
-// -- email: ab.rafimuhammadi@gmail.com
 
 import Select from 'react-select'
 const CustomSelectMultiple = ({onChange, options, defaultValues, className, placeholder}: any) => {

@@ -1,8 +1,6 @@
 // -- name: react select multiple.
 // -- date: 01-21-2024.
 // -- desc: multiple custom select for edit that have default values selected.
-// -- author: Abdul Rafi Muhammadi.
-// -- email: ab.rafimuhammadi@gmail.com
 
 import Select from 'react-select'
 const CustomeSelectEditMultiple = ({

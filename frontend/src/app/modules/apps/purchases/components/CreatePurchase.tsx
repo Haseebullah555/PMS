@@ -17,11 +17,11 @@ interface CreatePurchaseModalProps {
 }
 
 const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
-  
+
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const suppliers = useAppSelector((state) => state.supplier.allSuppliers)
-  const fuelTypes  = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
+  const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
@@ -67,7 +67,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
 
 
   useEffect(() => {
-   if (!suppliers) {
+    if (!suppliers) {
       dispatch(getAllSupplier())
         .then((res) => { })
         .catch((err) => {
@@ -87,7 +87,10 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   return (
     <Modal show={isOpen} onHide={onClose} backdrop="static" size="xl">
       <Modal.Header closeButton>
-        <Modal.Title>Add Purchase</Modal.Title>
+        <Modal.Title>
+         <i className='fas fa-plus fs-4 text-primary bg-gray-200 rounded p-2'></i> {" "}
+         {" "}{t('fuelType.addPurchase')}
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -97,7 +100,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
             {/* Supplier & Date */}
             <div className="row mb-4">
               <div className="col-md-6">
-                <label className="form-label">Supplier</label>
+                <label className="form-label">{t('supplier.suppliers')}</label>
                 <select
                   name="supplierId"
                   value={formik.values.supplierId ?? ""}
@@ -107,17 +110,17 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                   className="form-select"
                 >
                   <option value="" disabled selected>
-                      {t('global.SELECT.OPTION')}
-                    </option>
+                    {t('global.SELECT.OPTION')}
+                  </option>
                   {
-                  suppliers?.map((s: any) => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))
-                }
+                    suppliers?.map((s: any) => (
+                      <option key={s.id} value={s.id}>{s.name}</option>
+                    ))
+                  }
                 </select>
               </div>
               <div className="col-md-6">
-                <label className="form-label">Date</label>
+                <label className="form-label">{t('global.date')}</label>
                 <input
                   type="date"
                   name="purchaseDate"
@@ -129,122 +132,126 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
             </div>
 
             {/* Purchase items */}
-            <FieldArray
-              name="items"
-              render={(arrayHelpers) => (
-                <table className="table table-responsive">
-                  <thead>
-                    <tr>
-                      <th>FuelType</th>
-                      <th>Qty</th>
-                      <th>Unit Price</th>
-                      <th>Total</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
+            <div className='card bg-gray-200'>
+              <div className='card-body'>
+                <FieldArray
+                  name="items"
+                  render={(arrayHelpers) => (
+                    <table className="table table-responsive">
+                      <thead className='fw-bold fs-5'>
+                        <tr>
+                          <th>{t('fuelType.fuelTypes')}</th>
+                          <th>{t('fuelType.qtn')}</th>
+                          <th>{t('fuelType.unitPrice')}</th>
+                          <th className='text-center'>{t('fuelType.total')}</th>
+                          <th>{t('global.ACTION')}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {formik.values.items.map((item, index) => (
+                          <tr key={index}>
+                            <td className="w-25">
+                              <select
+                                className="form-select"
+                                value={item.fuelTypeId}
+                                onChange={(e) => {
+                                  const val = Number(e.target.value)
+                                  formik.setFieldValue(`items.${index}.fuelTypeId`, val)
+                                }}
+                              >
+                                <option value={0} disabled selected>{t('global.WRITE.HERE')}</option>
+                                {fuelTypes?.data?.map((g: any) => (
+                                  <option key={g.id} value={g.id}>{g.name}</option>
+                                ))}
+                              </select>
+                            </td>
+                            <td className="w-25">
+                              <input
+                                type="number"
+                                className="form-control"
+                                min="1"
+                                value={item.quantity}
+                                onChange={(e) => {
+                                  const qty = Number(e.target.value)
+                                  const total = qty * item.unitPrice
 
-                  <tbody>
-                    {formik.values.items.map((item, index) => (
-                      <tr key={index}>
-                        <td>
-                          <select
-                            className="form-select"
-                            value={item.fuelTypeId}
-                            onChange={(e) => {
-                              const val = Number(e.target.value)
-                              formik.setFieldValue(`items.${index}.fuelTypeId`, val)
-                            }}
-                          >
-                            <option value={0}>Select FuelType</option>
-                            {fuelTypes?.data?.map((g: any) => (
-                              <option key={g.id} value={g.id}>{g.name}</option>
-                            ))}
-                          </select>
-                        </td>
+                                  formik.setFieldValue(`items.${index}.quantity`, qty)
+                                  formik.setFieldValue(`items.${index}.totalPrice`, total)
 
-                        <td>
-                          <input
-                            type="number"
-                            className="form-control"
-                            min="1"
-                            value={item.quantity}
-                            onChange={(e) => {
-                              const qty = Number(e.target.value)
-                              const total = qty * item.unitPrice
+                                  recalcTotals([
+                                    ...formik.values.items.map((d, i) =>
+                                      i === index ? { ...d, totalPrice: total, quantity: qty } : d
+                                    ),
+                                  ])
+                                }}
+                              />
+                            </td>
+                            <td className="w-25">
+                              <input
+                                type="number"
+                                className="form-control"
+                                min="0"
+                                value={item.unitPrice}
+                                onChange={(e) => {
+                                  const price = Number(e.target.value)
+                                  const total = price * item.quantity
 
-                              formik.setFieldValue(`items.${index}.quantity`, qty)
-                              formik.setFieldValue(`items.${index}.totalPrice`, total)
+                                  formik.setFieldValue(`items.${index}.unitPrice`, price)
+                                  formik.setFieldValue(`items.${index}.totalPrice`, total)
 
-                              recalcTotals([
-                                ...formik.values.items.map((d, i) =>
-                                  i === index ? { ...d, totalPrice: total, quantity: qty } : d
-                                ),
-                              ])
-                            }}
-                          />
-                        </td>
+                                  recalcTotals([
+                                    ...formik.values.items.map((d, i) =>
+                                      i === index ? { ...d, totalPrice: total, unitPrice: price } : d
+                                    ),
+                                  ])
+                                }}
+                              />
+                            </td>
+                            <td className='w-25 text-center'>
+                              <span className="fw-bold fs-3">
+                              {item.totalPrice.toFixed(2)}
+                              </span>
+                              </td>
+                            <td className="w-25">
+                              <Button
+                                className='btn btn-danger btn-sm'
+                                disabled={formik.values.items.length === 1}
+                                onClick={() => {
+                                  arrayHelpers.remove(index)
+                                  recalcTotals(formik.values.items.filter((_, i) => i !== index))
+                                }}
+                              >
+                                <i className="fa-solid fa-trash"></i>
+                              </Button>
+                            </td>
+                          </tr>
+                        ))}
 
-                        <td>
-                          <input
-                            type="number"
-                            className="form-control"
-                            min="0"
-                            value={item.unitPrice}
-                            onChange={(e) => {
-                              const price = Number(e.target.value)
-                              const total = price * item.quantity
-
-                              formik.setFieldValue(`items.${index}.unitPrice`, price)
-                              formik.setFieldValue(`items.${index}.totalPrice`, total)
-
-                              recalcTotals([
-                                ...formik.values.items.map((d, i) =>
-                                  i === index ? { ...d, totalPrice: total, unitPrice: price } : d
-                                ),
-                              ])
-                            }}
-                          />
-                        </td>
-
-                        <td>{item.totalPrice.toFixed(2)}</td>
-                        <td>
-                          <Button
-                            className='btn btn-danger btn-sm'
-                            disabled={formik.values.items.length === 1}
-                            onClick={() => {
-                              arrayHelpers.remove(index)
-                              recalcTotals(formik.values.items.filter((_, i) => i !== index))
-                            }}
-                          >
-                            <i className="fa-solid fa-trash"></i>
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-
-                    <tr>
-                      <td colSpan={5}>
-                        <button type="button" className='btn btn-sm btn-success' onClick={() =>
-                          arrayHelpers.push({ fuelTypeId: 0, quantity: 1, unitPrice: 0, totalPrice: 0 })
-                        }>
-                          <span className="fa fa-plus"></span>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              )}
-            />
+                        <tr>
+                          <td colSpan={5}>
+                            <button type="button" className='btn btn-sm btn-success' onClick={() =>
+                              arrayHelpers.push({ fuelTypeId: 0, quantity: 1, unitPrice: 0, totalPrice: 0 })
+                            }>
+                              <span className="fa fa-plus"></span>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
+                />
+              </div>
+            </div>
 
             {/* Totals */}
             <div className="row mt-4">
               <div className="col-md-4">
-                <label>Total Amount</label>
+                <label className='fw-bold fs-6 mb-2'>{t('global.TOTAL')}</label>
                 <input type="number" value={formik.values.totalAmount} disabled className="form-control" />
               </div>
 
               <div className="col-md-4">
-                <label>Paid Amount</label>
+                 <label className='fw-bold fs-6 mb-2'>{t('fuelType.PaidAmount')}</label>
                 <input
                   type="number"
                   name="paidAmount"
@@ -261,13 +268,13 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
               </div>
 
               <div className="col-md-4">
-                <label>Unpaid Amount</label>
+                 <label className='fw-bold fs-6 mb-2'>{t('fuelType.unPaidAmount')}</label>
                 <input type="number" value={formik.values.unpaidAmount} disabled className="form-control" />
               </div>
             </div>
 
             <div className="mt-4 text-end">
-              <Button variant="success" type="submit">Save Purchase</Button>
+              <Button variant="success" type="submit">{t('fuelType.addPurchase')}</Button>
             </div>
           </form>
         </FormikProvider>

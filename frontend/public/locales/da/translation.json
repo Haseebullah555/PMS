@@ -75,6 +75,7 @@
     "ENTRYANDEXITADDEW": "درج معلومات دخول و خروج قرآول",
     "ENTRYANDEXITVIEW": "نمایش معلومات دخول و خروج قرآول",
     "ENTRYANDEXITRECORDOWNER": "مسول ثبت",
+    "TOTAL": "مجموعه عمومی",
     "PRINT": "چاپ کردن",
     "PHOTO": "عکس",
     "SELECTALL": "همه",
@@ -149,7 +150,7 @@
     "description": "توضیحات",
     "SYSTEM.PART": "بخش سیستم",
     "SYSTEM.MANAGEMENT.PART": "بخش مدیریت سیستم",
-    "SELECT.OPTION": "یکی از گزینه‌ های پایین را انتخاب کنید",
+    "SELECT.OPTION": "یکی از گزینه‌ را انتخاب کنید",
     "WRITE.HERE": "اینجا بنویسید..."
   },
   "validation": {
@@ -328,8 +329,8 @@
     "purchase": "خریداری",
     "purchaseDate": "تاریخ خریداری",
     "totalAmount": "جمله شد",
-    "driverName" : "نام درایور",
-    "carPlate" : "نمبر پلیت موتر"
+    "driverName": "نام درایور",
+    "carPlate": "نمبر پلیت موتر"
   },
   "stock": {
     "aviliableStock": "انبار موجود",
@@ -337,9 +338,16 @@
     "unitPrice": "قیمت فی واحد"
   },
   "fuelType": {
+    "addPurchase": "ثبت خریداری",
     "fuelTypes": "انواع تیل",
     "name": "اسم نوع تیل",
-    "unit": "واحد تیل"
+    "unit": "واحد تیل",
+    "qtn": "مقدار",
+    "unitPrice": "قیمت واحد",
+    "total": "مجموعه",
+    "PaidAmount": "مقدار پرداخت شده",
+    "unPaidAmount": "باقی مانده",
+    "": ""
   },
   "fuelStand": {
     "fuelStands": "پایه های تیل",
