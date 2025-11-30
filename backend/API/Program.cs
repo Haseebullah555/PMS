@@ -79,7 +79,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // ✅ Swagger + JWT Support
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
