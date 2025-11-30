@@ -1,7 +1,7 @@
 // initialValues.ts
 
 export interface PurchaseDetail {
-  fuelTypeId: number | null
+  fuelTypeId: string | null
   quantity: number
   unitPrice: number
   totalPrice: number
@@ -24,7 +24,7 @@ export const initialValues = {
   paidAmount: 0,
   unpaidAmount: 0,
   items: [
-    { fuelTypeId: 0, quantity: 1, unitPrice: 0, totalPrice: 0 },
+    { fuelTypeId: "", quantity: 1, unitPrice: 0, totalPrice: 0 },
   ],
 }
 

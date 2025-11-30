@@ -54,17 +54,17 @@ namespace Application.Features.Purchase.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var purchases = await query
+            var purchases = query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
-                .ToListAsync(cancellationToken);
+                .ToList();
 
             // Map to DTO
             var purchaseDtos = _mapper.Map<List<PurchaseDto>>(purchases);
 
             return new PaginatedResult<PurchaseDto>
             {
-                Data = purchaseDtos,
+            Data = purchaseDtos,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage

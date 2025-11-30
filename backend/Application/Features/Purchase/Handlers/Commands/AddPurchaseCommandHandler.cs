@@ -18,72 +18,70 @@ namespace Application.Features.Purchase.Handlers.Commands
         }
         public async Task<int> Handle(AddPurchaseCommand request, CancellationToken cancellationToken)
         {
-            // var availableFund = await _unitOfWork.FinancialTransactions
-            // .GetAvailableFundAsync();
-
-            // if (request.PaidAmount > availableFund)
-            //     throw new InvalidOperationException("Not enough business funds for this purchase payment.");
-
-            // Calculate total
-            decimal totalAmount = request.Items.Sum(i => i.UnitPrice * i.Quantity);
-            decimal unpaidAmount = totalAmount - request.PaidAmount;
-
-            var purchase = new Domain.Models.Purchase
-            {
-                SupplierId = request.SupplierId,
-                PurchaseDate = request.PurchaseDate,
-                PaidAmount = request.PaidAmount
-            };
-
             await using var tx = await _unitOfWork.BeginTransactionAsync();
 
             try
             {
-                // Save Purchase
+                // 1️⃣ Calculate totals
+                decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
+                decimal unpaidAmount = totalAmount - request.PaidAmount;
+
+                // 2️⃣ Create purchase invoice
+                var purchase = new Domain.Models.Purchase
+                {
+                    SupplierId = request.SupplierId,
+                    PurchaseDate = request.PurchaseDate,
+                    PaidAmount = request.PaidAmount,
+                    Remarks = request.Remarks
+                };
+
                 await _unitOfWork.Purchases.AddAsync(purchase);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
-                // Handle each item
+                // 3️⃣ Create purchase details + update stock
                 foreach (var item in request.Items)
                 {
-                    var fuelType = await _unitOfWork.FuelTypes.GetByIdAsync(item.FuelTypeId)
-                        ?? throw new Exception($"FuelType {item.FuelTypeId} not found");
-
-                    // Find or create Stock
-                    var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
-                    if (stock == null)
-                    {
-                        stock = new Domain.Models.Stock
-                        {
-                            FuelTypeId = fuelType.Id,
-                            Quantity = 0,
-                        };
-                        await _unitOfWork.Stocks.AddAsync(stock);
-                        await _unitOfWork.SaveAsync(cancellationToken);
-                    }
-
-                    // Update stock quantity
-                    int newQty = stock.Quantity + item.Quantity;
-                    // Weighted average cost
-                    stock.Quantity = newQty;
-
-                    _unitOfWork.Stocks.Update(stock);
-
-                    // Create PurchaseDetail
                     var detail = new PurchaseDetail
                     {
                         PurchaseId = purchase.Id,
                         FuelTypeId = item.FuelTypeId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
+                        TotalPrice = item.Quantity * item.UnitPrice
                     };
 
                     await _unitOfWork.PurchaseDetails.AddAsync(detail);
+
+                    // Stock update
+                    var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
+
+                    if (stock == null)
+                    {
+                        stock = new Domain.Models.Stock
+                        {
+                            FuelTypeId = item.FuelTypeId,
+                            Quantity = item.Quantity,
+                            UnitPrice = item.UnitPrice // First time purchase
+                        };
+
+                        await _unitOfWork.Stocks.AddAsync(stock);
+                    }
+                    else
+                    {
+                        // Weighted average calculation
+                        decimal oldValue = stock.Quantity * stock.UnitPrice;
+                        decimal newValue = oldValue + detail.TotalPrice;
+
+                        stock.Quantity += item.Quantity;
+                        stock.UnitPrice = newValue / stock.Quantity;
+
+                        _unitOfWork.Stocks.Update(stock);
+                    }
                 }
 
                 await _unitOfWork.SaveAsync(cancellationToken);
 
-                // Record financial transaction (paid part)
+                // 4️⃣ Record payment transaction (if any)
                 if (request.PaidAmount > 0)
                 {
                     var txn = new FinancialTransaction
@@ -96,23 +94,26 @@ namespace Application.Features.Purchase.Handlers.Commands
                         Amount = request.PaidAmount,
                         Direction = "OUT"
                     };
+
                     await _unitOfWork.FinancialTransactions.AddAsync(txn);
                 }
 
-                // Record supplier loan (if unpaid)
+                // 5️⃣ Create Supplier Loan (if unpaid)
                 if (unpaidAmount > 0)
                 {
                     var loan = new SupplierLoan
                     {
-                        SupplierId = request.SupplierId,
+                        PurchaseId = purchase.Id,
                         Amount = unpaidAmount,
                         LoanDate = DateTime.UtcNow,
                         IsSettled = false
                     };
+
                     await _unitOfWork.SupplierLoans.AddAsync(loan);
                 }
 
                 await _unitOfWork.SaveAsync(cancellationToken);
+
                 await tx.CommitAsync(cancellationToken);
 
                 return purchase.Id;
@@ -120,9 +121,10 @@ namespace Application.Features.Purchase.Handlers.Commands
             catch (Exception ex)
             {
                 await tx.RollbackAsync(cancellationToken);
-                _logger.LogError(ex, "Error while adding purchase");
+                _logger.LogError(ex, "Error adding purchase");
                 throw;
             }
         }
+
     }
 }

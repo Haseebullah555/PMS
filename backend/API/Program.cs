@@ -8,7 +8,9 @@ using Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.OpenApi.Models; // ✅ Add this for Swagger security
+using Microsoft.OpenApi.Models;
+using Application.Contracts.Interfaces;
+using Persistence.Repositories; // ✅ Add this for Swagger security
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
@@ -77,6 +79,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 // ✅ Swagger + JWT Support
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });

@@ -155,11 +155,11 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                 className="form-select"
                                 value={item.fuelTypeId}
                                 onChange={(e) => {
-                                  const val = Number(e.target.value)
+                                  const val = e.target.value
                                   formik.setFieldValue(`items.${index}.fuelTypeId`, val)
                                 }}
                               >
-                                <option value={0} disabled selected>{t('global.WRITE.HERE')}</option>
+                                <option value="" disabled selected>{t('global.WRITE.HERE')}</option>
                                 {fuelTypes?.data?.map((g: any) => (
                                   <option key={g.id} value={g.id}>{g.name}</option>
                                 ))}
