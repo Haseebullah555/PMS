@@ -1,14 +1,14 @@
 // export default PurchasesList
-import {Fragment, useState} from 'react'
-import {Link} from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 import DataTable from './Datatable'
-import {Dropdown, DropdownButton} from 'react-bootstrap'
-import {useTranslation} from 'react-i18next'
+import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 import CreatePurchaseModal from './CreatePurchase'
 import EditPurchaseModal from './EditPurchase'
 
 const PurchasesList = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedPurchase, setSelectedPurchase] = useState(null)
@@ -35,8 +35,9 @@ const PurchasesList = () => {
           <div className='card-header cursor-pointer'>
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
-                <i className='fas fa-users fs-4 text-primary'></i>{' '}
-                {t('global.list', {name: t('purchase.purchases')})}
+                <i className="fas fa-shopping-cart fs-4 text-primary"></i>
+                {' '}
+                {t('global.list', { name: t('purchase.purchases') })}
               </h3>
             </div>
             <div>
@@ -47,7 +48,7 @@ const PurchasesList = () => {
                     onClick={openModal}
                   >
                     <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('purchase.purchase')})}
+                    {t('global.add', { name: t('purchase.purchase') })}
                   </button>
 
                   <div className='me-2 ms-2'>
@@ -84,7 +85,7 @@ const PurchasesList = () => {
                       <Link className='fw-bolder text-primary' to={'/authentication/create-user'}>
                         <i className='fa-solid fa-plus  text-primary me-2'></i>
 
-                        {t('global.add', {name: t('global.user')})}
+                        {t('global.add', { name: t('global.user') })}
                       </Link>
                     </Dropdown.Item>
                     <Dropdown.Item as='button'>
