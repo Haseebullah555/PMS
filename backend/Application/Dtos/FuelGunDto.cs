@@ -16,5 +16,6 @@ namespace Application.Dtos
         public string? FuelStand { get; set; }
         [Display(Name = "Quantity"),Required(ErrorMessage ="Quantity is required")]
         public decimal Quantity { get; set; }
+        public ICollection<FuelGunDto> FuelGunDtos { get; set; } = new List<FuelGunDto>();
     }
 }

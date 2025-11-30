@@ -88,7 +88,6 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
     if (!staffs) {
       dispatch(getStaffsList())
         .then((res) => {
-          console.log(res, "hiiiiiiiiiiiiiiiii")
         })
         .catch((err) => {
           console.log(err)
@@ -97,7 +96,6 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
     if (!fuelTypes) {
       dispatch(getAllFuelType())
         .then((res) => {
-          console.log(res, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         })
         .catch((err) => {
           console.log(err)
@@ -117,7 +115,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
             <div className='col-md-12'>
               <div className='row'>
                 {/* Name Field */}
-                <div className='col-md-6 mb-3'>
+                <div className='col-md-12 mb-3'>
                   <label className='form-label'>
                     {t('fuelStand.name')} <span className='text-danger'>*</span>
                   </label>
@@ -137,7 +135,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                 </div>
                 {/* Name Field */}
 
-                <div className='col-md-6 mb-3'>
+                {/* <div className='col-md-6 mb-3'>
                   <label className='form-label'>
                     {t('staff.staff')}
                   </label>
@@ -163,13 +161,13 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                       {t('validation.required', { name: t('staff.staff') })}
                     </div>
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
           {/* Fuel Guns Section */}
           <div className="mt-4">
-            <h5>{t("fuelStand.fuelGuns")}</h5>
+            <h5>{t("fuelGun.fuelGuns")}</h5>
 
             {formik.values.fuelGuns.map((gun, index) => (
               <div key={index} className="border rounded p-3 mb-3">
@@ -190,7 +188,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
 
                   {/* Fuel Type */}
                   <div className="col-md-4 mb-3">
-                    <label>{t("fuelGun.fuelType")} *</label>
+                    <label>{t("fuelType.fuelType")} *</label>
                     <select
                       className="form-select"
                       value={gun.fuelTypeId}
@@ -206,7 +204,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                   </div>
 
                   {/* Quantity */}
-                  <div className="col-md-4 mb-3">
+                  {/* <div className="col-md-4 mb-3">
                     <label>{t("fuelGun.quantity")} *</label>
                     <input
                       type="number"
@@ -216,30 +214,32 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                         formik.setFieldValue(`fuelGuns[${index}].quantity`, Number(e.target.value))
                       }
                     />
+                  </div> */}
+                  <div className='col-md-4 mt-5'>
+                    {formik.values.fuelGuns.length > 1 && (
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-danger mt-2"
+                        onClick={() => {
+                          const updated = [...formik.values.fuelGuns]
+                          updated.splice(index, 1)
+                          formik.setFieldValue("fuelGuns", updated)
+                        }}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    )}
                   </div>
+                {/* Remove Gun Button (only show if more than 1 gun) */}
                 </div>
 
-                {/* Remove Gun Button (only show if more than 1 gun) */}
-                {formik.values.fuelGuns.length > 1 && (
-                  <button
-                    type="button"
-                    className="btn btn-danger mt-2"
-                    onClick={() => {
-                      const updated = [...formik.values.fuelGuns]
-                      updated.splice(index, 1)
-                      formik.setFieldValue("fuelGuns", updated)
-                    }}
-                  >
-                    {t("global.DELETE")}
-                  </button>
-                )}
               </div>
             ))}
 
             {/* Add More Gun Button */}
             <button
               type="button"
-              className="btn btn-success"
+              className="btn btn-sm btn-success"
               onClick={() =>
                 formik.setFieldValue("fuelGuns", [
                   ...formik.values.fuelGuns,
@@ -247,7 +247,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                 ])
               }
             >
-              {t("global.ADD.MORE")}
+              <span className="fas fa-plus"></span>
             </button>
           </div>
 
