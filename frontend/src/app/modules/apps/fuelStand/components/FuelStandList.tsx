@@ -34,7 +34,7 @@ const FuelStandList = () => {
           <div className='card-header cursor-pointer'>
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
-                <i className='fas fa-users fs-4 text-primary'></i>{' '}
+                <i className="fa-solid fa-gas-pump"></i>{' '}
                 {t('global.list', {name: t('fuelStand.fuelStands')})}
               </h3>
             </div>
