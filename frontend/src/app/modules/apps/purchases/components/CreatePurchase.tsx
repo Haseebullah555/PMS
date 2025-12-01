@@ -25,27 +25,41 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
   // Validation Schema
-const PurchaseSchema = Yup.object().shape({
-  supplierId: Yup.string().required('Supplier is required'),
+  const PurchaseSchema = Yup.object().shape({
+    supplierId: Yup.string().required('Supplier is required'),
+    paidAmount: Yup.number()
+      .nullable()
+      .test(
+        "paid-less-than-total",
+        "paidAmount must be less than totalAmount",
+        function (value) {
+          const { totalAmount } = this.parent;
+          if (value == null) return true;   // allow nullable before user types
+          return value <= totalAmount;
+        }
+      ),
+    items: Yup.array().of(
+      Yup.object().shape({
+        fuelTypeId: Yup.string().required('FuelType is required'),
 
-  items: Yup.array().of(
-    Yup.object().shape({
-      fuelTypeId: Yup.string().required('FuelType is required'),
+        quantity: Yup.number()
+          .nullable()                    // allow null for Formik initialValues
+          .typeError('Qty required')     // catch string inputs
+          .required('Qty required')
+          .min(1, 'Qty must be at least 1'),
 
-      quantity: Yup.number()
-        .nullable()                    // allow null for Formik initialValues
-        .typeError('Qty required')     // catch string inputs
-        .required('Qty required')
-        .min(1, 'Qty must be at least 1'),
+        unitPrice: Yup.number()
+          .nullable()
+          .typeError('Unit price required')
+          .required('Unit price required')
+          .min(0, 'Unit price must be >= 0'),
 
-      unitPrice: Yup.number()
-        .nullable()
-        .typeError('Unit price required')
-        .required('Unit price required')
-        .min(0, 'Unit price must be >= 0'),
-    })
-  ),
-});
+
+
+
+      })
+    ),
+  });
 
 
   const formik = useFormik({
@@ -95,6 +109,7 @@ const PurchaseSchema = Yup.object().shape({
     }
   }, [])
 
+  console.log(formik.values, 'formik values');
   console.log(formik.errors, 'errrrrrrrrrr');
   console.log(formik.touched, 'touched touched');
 
@@ -255,7 +270,7 @@ const PurchaseSchema = Yup.object().shape({
                                   ])
                                 }}
                               />
-                               {(formik.touched.items?.[index] as any)?.unitPrice &&
+                              {(formik.touched.items?.[index] as any)?.unitPrice &&
                                 (formik.errors.items?.[index] as any)?.unitPrice && (
                                   <div className="invalid-feedback">
                                     {t('validation.required', { name: t('purchase.unitPrice') })}
@@ -309,7 +324,6 @@ const PurchaseSchema = Yup.object().shape({
                 <label className='fw-bold fs-6 mb-2'>{t('fuelType.PaidAmount')}</label>
                 <input
                   type="number"
-                  dir='ltr'
                   name="paidAmount"
                   placeholder={Number(formik.values.paidAmount).toString()}
                   value={formik.values.paidAmount || ""}
@@ -320,8 +334,15 @@ const PurchaseSchema = Yup.object().shape({
                       Number(formik.values.totalAmount) - Number(e.target.value)
                     )
                   }}
-                  className="form-control"
+                  className={clsx("form-control", {
+                    "is-invalid": formik.touched.paidAmount && formik.errors.paidAmount,
+                  })}
                 />
+                {formik.touched.paidAmount && formik.errors.paidAmount && (
+                  <div className='invalid-feedback'>
+                    { t('purchase.paidAmount must be less than totalAmount') }
+                  </div>
+                )}
               </div>
 
               <div className="col-md-4">

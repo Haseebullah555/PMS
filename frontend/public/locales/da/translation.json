@@ -335,6 +335,7 @@
     "fuelType": "انواع تیل",
     "quantity": "مقدار",
     "unitPrice": "قیمت فی واحد",
+    "paidAmount must be less than totalAmount": "مقدار پرداخت شده باید کمتر از مجموعه عمومی باشد",
     "carPlate": "نمبر پلیت موتر"
   },
   "stock": {

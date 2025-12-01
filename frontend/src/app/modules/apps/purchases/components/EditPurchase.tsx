@@ -68,7 +68,17 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
     supplierId: Yup.string().required('Supplier is required'),
-
+ paidAmount: Yup.number()
+      .nullable()
+      .test(
+        "paid-less-than-total",
+        "paidAmount must be less than totalAmount",
+        function (value) {
+          const { totalAmount } = this.parent;
+          if (value == null) return true;   // allow nullable before user types
+          return value <= totalAmount;
+        }
+      ),
     items: Yup.array().of(
       Yup.object().shape({
         fuelTypeId: Yup.string().required('FuelType is required'),
@@ -155,7 +165,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
   }, [])
 
 
-  console.log(formik.values, 'formik.valuesformik.values');
+  console.log(formik.errors, 'errrrrrrrrrrrrrrr');
 
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl'>
@@ -390,8 +400,15 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                       Number(formik.values.totalAmount) - Number(e.target.value)
                     )
                   }}
-                  className="form-control"
+                     className={clsx("form-control", {
+                    "is-invalid": formik.touched.paidAmount && formik.errors.paidAmount,
+                  })}
                 />
+                  {formik.touched.paidAmount && formik.errors.paidAmount && (
+                  <div className='invalid-feedback'>
+                    { t('purchase.paidAmount must be less than totalAmount') }
+                  </div>
+                )}
               </div>
 
               <div className="col-md-4">

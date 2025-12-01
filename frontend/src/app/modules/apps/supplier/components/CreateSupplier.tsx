@@ -29,9 +29,10 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
     name: Yup.string().required(t('validation.required', { name: t('supplier.supplier') })),
     address: Yup.string().required(t('validation.required', { name: t('global.address') })),
     phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') })) 
-      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))                       
-      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))                
+      .required(t('validation.required', { name: t('global.phone') }))
+      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))
+      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))
+    
   })
 
   // Formik Hook
@@ -98,6 +99,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       'is-invalid': formik.touched.name && formik.errors.name,
                       'is-valid': formik.touched.name && !formik.errors.name,
                     })}
+                    placeholder={t('global.WRITE.HERE')}
                   />
                   {formik.touched.name && formik.errors.name && (
                     <div className='invalid-feedback'>
@@ -119,6 +121,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       'is-invalid': formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber),
                       'is-valid': formik.touched.phoneNumber && !formik.errors.phoneNumber,
                     })}
+                    placeholder={t('global.WRITE.HERE')}
                   />
                   {formik.touched.phoneNumber && formik.errors.phoneNumber && (
                     <div className='invalid-feedback'>
@@ -141,6 +144,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       'is-invalid': formik.touched.address && formik.errors.address,
                       'is-valid': formik.touched.address && !formik.errors.address,
                     })}
+                    placeholder={t('global.WRITE.HERE')}
                   />
                   {formik.touched.address && formik.errors.address && (
                     <div className='invalid-feedback'>
@@ -162,6 +166,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       'is-invalid': formik.touched.driverName && formik.errors.driverName,
                       'is-valid': formik.touched.driverName && !formik.errors.driverName,
                     })}
+                    placeholder={t('global.WRITE.HERE')}
                   />
                   {/* {formik.touched.driverName && formik.errors.driverName && (
                     <div className='invalid-feedback'>
@@ -180,6 +185,7 @@ const CreateSupplierModal: React.FC<CreateSupplierModalProps> = ({ isOpen, onClo
                       'is-invalid': formik.touched.carPlate && formik.errors.carPlate,
                       'is-valid': formik.touched.carPlate && !formik.errors.carPlate,
                     })}
+                    placeholder={t('global.WRITE.HERE')}
                   />
                   {/* {formik.touched.carPlate && formik.errors.carPlate && (
                     <div className='invalid-feedback'>
