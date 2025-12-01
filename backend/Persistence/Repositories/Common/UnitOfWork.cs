@@ -51,6 +51,8 @@ namespace Persistence.Repositories.Common
 
         public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
 
+        public IStudentRespository Students => throw new NotImplementedException();
+
         public void Dispose()
         {
             _context.Dispose();

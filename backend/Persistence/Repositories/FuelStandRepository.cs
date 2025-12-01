@@ -22,8 +22,6 @@ namespace Persistence.Repositories
                 {
                     Id = fs.Id,
                     Name = fs.Name,
-                    StaffId = fs.StaffId,
-                    Staff = fs.Staff.FullName
                 });
         }
 
@@ -35,8 +33,6 @@ namespace Persistence.Repositories
                 {
                     Id = fs.Id,
                     Name = fs.Name,
-                    StaffId = fs.StaffId,
-                    Staff = fs.Staff.FullName
                 })
                 .FirstOrDefaultAsync();
         }
