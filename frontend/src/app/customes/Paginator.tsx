@@ -67,7 +67,7 @@ const Paginator = ({pagination, pageChanged}: any) => {
               key={pageNumber}
               onClick={() => pageChanged(pageNumber)}
             >
-              <button className='page-link '>{pageNumber}</button>
+              <button className='btn btn-primary btn-sm page-link'>{pageNumber}</button>
             </li>
           )
         })}

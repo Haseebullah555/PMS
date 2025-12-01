@@ -118,13 +118,13 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
 
           <div className='tableFixHead  table-responsive' dir='rtl'>
             <table className='table table-hover table-striped gy-4 gs-5'>
-              <thead className='bg-gray-500  text-white'>
+              <thead className='bg-gray-500 text-white'>
                 <tr>
                   {headers.map((header: any) => (
                     <th
                       key={header.headerName}
                       onClick={(e) => handleSort(header.sort)}
-                      className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                      className={`fs-6 text-center fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
                     >
                       {header.headerName.toUpperCase().replace('_', ' ')}
                       {header.sort === sortColumn ? (
@@ -140,11 +140,11 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                   ))}
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='fw-bold fs-6 text-center'>
                 {!memoizedLoading &&
                   memoizedData.map((item, index) => (
-                    <tr key={index} className='fs-5'>
-                      <td className='fw-bolder'>{index+ 1}</td>
+                    <tr>
+                      <td>{index+ 1}</td>
                       <td>{item.supplierName}</td>
                       <td>{item.purchaseDate}</td>
                       <td>{item.totalAmount}</td>
@@ -165,7 +165,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                             >
                               <i className='fas fa-edit text-primary'></i>
                               <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                                {t('global.edit', {name: t('global.user')})}
+                                {t('global.edit', {name: t('purchase.purchase')})}
                               </span>
                             </Dropdown.Item>
                           </>

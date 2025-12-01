@@ -1,5 +1,6 @@
 {
   "global": {
+    "SYSTEM_NAME": "سیستم محاسبه عواید",
     "dashboard": "صفحه اصلی",
     "MINISTYRYOFINTROIRAFFARIS": "وزارت امور داخله",
     "LOGINPAGESINGUP": "ورود به سیستم ثبت اسناد معینیت تامینات",
@@ -330,6 +331,10 @@
     "purchaseDate": "تاریخ خریداری",
     "totalAmount": "جمله شد",
     "driverName": "نام درایور",
+    "supplier": "تامین کننده",
+    "fuelType": "انواع تیل",
+    "quantity": "مقدار",
+    "unitPrice": "قیمت فی واحد",
     "carPlate": "نمبر پلیت موتر"
   },
   "stock": {

@@ -61,7 +61,7 @@ const SidebarLogo = (props: PropsType) => {
               src={toAbsoluteUrl('/media/logos/moi_logo.png')}
               className='h-80px p-3 app-sidebar-logo-default theme-light-show'
             />
-            <div className='h5 mt-5 text-primary text-center'>{t('System Name')}</div>
+            <div className='h5 mt-5 text-primary text-center'>{t('global.SYSTEM_NAME')}</div>
           </div>
         ) : (
           <div className=' d-flex justify-content-center align-items-center'>
@@ -70,7 +70,7 @@ const SidebarLogo = (props: PropsType) => {
               src={toAbsoluteUrl('/media/logos/moi_logo.png')}
               className='h-80px p-3 app-sidebar-logo-default theme-light-show'
             />
-            <div className='h5 mt-5 text-primary text-center'>{t('System Name')}</div>
+            <div className='h5 mt-5 text-primary text-center'>{t('global.SYSTEM_NAME')}</div>
           </div>
         )}
       </Link>

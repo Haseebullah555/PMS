@@ -22,6 +22,7 @@ namespace Application.Features.Purchase.Handlers.Queries
         {
             var query = _unitOfWork.Purchases.GetListOfPurchases();
 
+
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {

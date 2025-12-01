@@ -1,6 +1,8 @@
 using API.Controllers.Common;
+using Application.Dtos;
 using Application.Features.Purchase.Requests.Commands;
 using Application.Features.Purchase.Requests.Queries;
+using Application.Features.sample.Requests.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -54,6 +56,17 @@ namespace API.Controllers
             {
                 return StatusCode(500, new { message = "خطا در ثبت خرید", error = ex.Message });
             }
+        }
+
+        [HttpPost("update")]
+        public async Task<ActionResult> Update(PurchaseDto purchaseDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdatePurchaseCommand { PurchaseDto = purchaseDto });
+                return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
+            }
+            return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
 
         // ✅ GET: api/Purchase/{id}

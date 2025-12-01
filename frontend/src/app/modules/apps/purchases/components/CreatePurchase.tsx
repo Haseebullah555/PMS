@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { getAllSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
 import { storePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import clsx from 'clsx'
 
 interface CreatePurchaseModalProps {
   isOpen: boolean
@@ -24,17 +25,28 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
   // Validation Schema
-  const PurchaseSchema = Yup.object().shape({
-    supplierId: Yup.string().required('Supplier is required'),
+const PurchaseSchema = Yup.object().shape({
+  supplierId: Yup.string().required('Supplier is required'),
 
-    items: Yup.array().of(
-      Yup.object().shape({
-        fuelTypeId: Yup.string().required('FuelType is required'),
-        quantity: Yup.number().required('Qty required').min(1),
-        unitPrice: Yup.number().required('Unit price required').min(0),
-      })
-    )
-  })
+  items: Yup.array().of(
+    Yup.object().shape({
+      fuelTypeId: Yup.string().required('FuelType is required'),
+
+      quantity: Yup.number()
+        .nullable()                    // allow null for Formik initialValues
+        .typeError('Qty required')     // catch string inputs
+        .required('Qty required')
+        .min(1, 'Qty must be at least 1'),
+
+      unitPrice: Yup.number()
+        .nullable()
+        .typeError('Unit price required')
+        .required('Unit price required')
+        .min(0, 'Unit price must be >= 0'),
+    })
+  ),
+});
+
 
   const formik = useFormik({
     initialValues,
@@ -83,13 +95,16 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
     }
   }, [])
 
+  console.log(formik.errors, 'errrrrrrrrrr');
+  console.log(formik.touched, 'touched touched');
+
 
   return (
     <Modal show={isOpen} onHide={onClose} backdrop="static" size="xl">
       <Modal.Header closeButton>
         <Modal.Title>
-         <i className='fas fa-plus fs-4 text-primary bg-gray-200 rounded p-2'></i> {" "}
-         {" "}{t('fuelType.addPurchase')}
+          <i className='fas fa-plus fs-4 text-primary bg-gray-200 rounded p-2'></i> {" "}
+          {" "}{t('fuelType.addPurchase')}
         </Modal.Title>
       </Modal.Header>
 
@@ -107,7 +122,9 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                   onChange={(e) => {
                     formik.setFieldValue(`supplierId`, Number(e.target.value))
                   }}
-                  className="form-select"
+                  className={clsx('form-select', {
+                    'is-invalid': formik.touched.supplierId && formik.errors.supplierId,
+                  })}
                 >
                   <option value="" disabled selected>
                     {t('global.SELECT.OPTION')}
@@ -117,7 +134,13 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                       <option key={s.id} value={s.id}>{s.name}</option>
                     ))
                   }
+
                 </select>
+                {formik.touched.supplierId && formik.errors.supplierId && (
+                  <div className="invalid-feedback">
+                    {t('validation.required', { name: t('purchase.supplier') })}
+                  </div>
+                )}
               </div>
               <div className="col-md-6">
                 <label className="form-label">{t('global.date')}</label>
@@ -152,28 +175,43 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                           <tr key={index}>
                             <td className="w-25">
                               <select
-                                className="form-select"
                                 value={item.fuelTypeId}
                                 onChange={(e) => {
                                   const val = e.target.value
                                   formik.setFieldValue(`items.${index}.fuelTypeId`, val)
                                 }}
+                                className={clsx("form-select", {
+                                  "is-invalid":
+                                    (formik.touched.items?.[index] as any)?.fuelTypeId &&
+                                    (formik.errors.items?.[index] as any)?.fuelTypeId,
+                                })}
                               >
                                 <option value="" disabled selected>{t('global.WRITE.HERE')}</option>
                                 {fuelTypes?.data?.map((g: any) => (
                                   <option key={g.id} value={g.id}>{g.name}</option>
                                 ))}
                               </select>
+                              {(formik.touched.items?.[index] as any)?.fuelTypeId &&
+                                (formik.errors.items?.[index] as any)?.fuelTypeId && (
+                                  <div className="invalid-feedback">
+                                    {t('validation.required', { name: t('purchase.fuelType') })}
+                                  </div>
+                                )}
                             </td>
                             <td className="w-25">
                               <input
                                 type="number"
-                                className="form-control"
+                                className={clsx("form-control", {
+                                  "is-invalid":
+                                    (formik.touched.items?.[index] as any)?.quantity &&
+                                    (formik.errors.items?.[index] as any)?.quantity,
+                                })}
                                 min="1"
-                                value={item.quantity}
+                                placeholder={Number(item.quantity).toString()}
+                                value={Number(item.quantity) || ""}
                                 onChange={(e) => {
                                   const qty = Number(e.target.value)
-                                  const total = qty * item.unitPrice
+                                  const total = qty * (item.unitPrice || 0)
 
                                   formik.setFieldValue(`items.${index}.quantity`, qty)
                                   formik.setFieldValue(`items.${index}.totalPrice`, total)
@@ -185,16 +223,27 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                   ])
                                 }}
                               />
+                              {(formik.touched.items?.[index] as any)?.quantity &&
+                                (formik.errors.items?.[index] as any)?.quantity && (
+                                  <div className="invalid-feedback">
+                                    {t('validation.required', { name: t('purchase.quantity') })}
+                                  </div>
+                                )}
                             </td>
                             <td className="w-25">
                               <input
                                 type="number"
-                                className="form-control"
+                                className={clsx("form-control", {
+                                  "is-invalid":
+                                    (formik.touched.items?.[index] as any)?.unitPrice &&
+                                    (formik.errors.items?.[index] as any)?.unitPrice,
+                                })}
                                 min="0"
-                                value={item.unitPrice}
+                                placeholder={Number(item.unitPrice).toString()}
+                                value={item.unitPrice || ""}
                                 onChange={(e) => {
                                   const price = Number(e.target.value)
-                                  const total = price * item.quantity
+                                  const total = price * (item.quantity || 0)
 
                                   formik.setFieldValue(`items.${index}.unitPrice`, price)
                                   formik.setFieldValue(`items.${index}.totalPrice`, total)
@@ -206,12 +255,18 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                   ])
                                 }}
                               />
+                               {(formik.touched.items?.[index] as any)?.unitPrice &&
+                                (formik.errors.items?.[index] as any)?.unitPrice && (
+                                  <div className="invalid-feedback">
+                                    {t('validation.required', { name: t('purchase.unitPrice') })}
+                                  </div>
+                                )}
                             </td>
                             <td className='w-25 text-center'>
                               <span className="fw-bold fs-3">
-                              {item.totalPrice.toFixed(2)}
+                                {item.totalPrice.toFixed(2)}
                               </span>
-                              </td>
+                            </td>
                             <td className="w-25">
                               <Button
                                 className='btn btn-danger btn-sm'
@@ -230,7 +285,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                         <tr>
                           <td colSpan={5}>
                             <button type="button" className='btn btn-sm btn-success' onClick={() =>
-                              arrayHelpers.push({ fuelTypeId: 0, quantity: 1, unitPrice: 0, totalPrice: 0 })
+                              arrayHelpers.push({ fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0 })
                             }>
                               <span className="fa fa-plus"></span>
                             </button>
@@ -251,11 +306,13 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
               </div>
 
               <div className="col-md-4">
-                 <label className='fw-bold fs-6 mb-2'>{t('fuelType.PaidAmount')}</label>
+                <label className='fw-bold fs-6 mb-2'>{t('fuelType.PaidAmount')}</label>
                 <input
                   type="number"
+                  dir='ltr'
                   name="paidAmount"
-                  value={formik.values.paidAmount}
+                  placeholder={Number(formik.values.paidAmount).toString()}
+                  value={formik.values.paidAmount || ""}
                   onChange={(e) => {
                     formik.handleChange(e)
                     formik.setFieldValue(
@@ -268,13 +325,16 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
               </div>
 
               <div className="col-md-4">
-                 <label className='fw-bold fs-6 mb-2'>{t('fuelType.unPaidAmount')}</label>
+                <label className='fw-bold fs-6 mb-2'>{t('fuelType.unPaidAmount')}</label>
                 <input type="number" value={formik.values.unpaidAmount} disabled className="form-control" />
               </div>
             </div>
 
             <div className="mt-4 text-end">
-              <Button variant="success" type="submit">{t('fuelType.addPurchase')}</Button>
+              <Button variant='danger' onClick={onClose} className='me-2 '>
+                {t('global.BACK')}
+              </Button>
+              <Button variant="primary" type="submit">{t('fuelType.addPurchase')}</Button>
             </div>
           </form>
         </FormikProvider>
