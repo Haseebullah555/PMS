@@ -7,6 +7,11 @@ namespace Persistence.Database
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            UserSeeder.Seed(modelBuilder);
+        }
         #region DbSets
         public DbSet<User> Users { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -33,7 +38,7 @@ namespace Persistence.Database
         public DbSet<PartnerTransaction> PartnerTransactions { get; set; }
         public DbSet<ProfitSharing> ProfitSharings { get; set; }
         public DbSet<ProfitSharingAgreement> ProfitSharingAgreements { get; set; }
-        
+
         #endregion
     }
 }

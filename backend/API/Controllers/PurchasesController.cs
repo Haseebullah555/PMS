@@ -59,11 +59,11 @@ namespace API.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<ActionResult> Update(PurchaseDto purchaseDto)
+        public async Task<ActionResult> Update([FromBody] UpdatePurchaseCommand command)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdatePurchaseCommand { PurchaseDto = purchaseDto });
+                await _mediator.Send(command);
                 return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

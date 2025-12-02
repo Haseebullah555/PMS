@@ -31,6 +31,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                 {
                     SupplierId = request.SupplierId,
                     PurchaseDate = request.PurchaseDate,
+                    TotalAmount = totalAmount,
                     PaidAmount = request.PaidAmount,
                     Remarks = request.Remarks
                 };
