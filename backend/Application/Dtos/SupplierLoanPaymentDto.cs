@@ -1,11 +1,11 @@
-using Domain.Common;
+using Application.Dtos.Common;
 
-namespace Domain.Models
+namespace Application.Dtos
 {
-    public class SupplierLoanPayment : BaseDomainEntity
+    public class SupplierLoanPaymentDto : BaseDto
     {
         public int PurchaseId { get; set; }
-        public Purchase? Purchase { get; set; }
+        public string? Purchase { get; set; }
         public decimal PaidLoanAmount { get; set; }
         public DateTime PaymentDate { get; set; }
     }

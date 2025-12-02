@@ -338,7 +338,6 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                             <td className="w-25">
                               <Button
                                 className='btn btn-primary btn-sm mx-1'
-                                disabled={formik.values.items.length === 1}
                                 onClick={() => {
                                   setEditableRows((prev) => [...prev, index]); // make this row editable
                                 }}
@@ -347,7 +346,6 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                               </Button>
                               <Button
                                 className='btn btn-danger btn-sm'
-                                disabled={formik.values.items.length === 1}
                                 onClick={() => {
                                   arrayHelpers.remove(index)
                                   recalcTotals(formik.values.items.filter((_, i) => i !== index))
