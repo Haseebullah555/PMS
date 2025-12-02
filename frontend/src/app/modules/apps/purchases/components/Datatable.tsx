@@ -149,7 +149,8 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                       <td>{item.purchaseDate}</td>
                       <td>{item.totalAmount}</td>
                       <td>{item.paidAmount}</td>
-                      <td>{item.unpaidAmount}</td>
+                     <td>{item.unpaidAmount}</td>
+
 
                       <td className='text-center'>
                         <DropdownButton

@@ -28,12 +28,18 @@ namespace Application.Features.sample.Handlers.Commands
             // if (purchase == null)
             //     throw new NotFoundException("Purchase not found");
 
+
+            // 1️⃣ Calculate totals
+            decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
+            decimal unpaidAmount = totalAmount - request.PaidAmount;
+
             // --- Update parent ---
             purchase.SupplierId = request.SupplierId;
             purchase.PurchaseDate = request.PurchaseDate;
             purchase.TotalAmount = request.TotalAmount;
             purchase.PaidAmount = request.PaidAmount;
-
+            purchase.UnPaidAmount = unpaidAmount;
+            
             // --- Remove deleted items ---
             foreach (var detail in purchase.PurchaseDetails.ToList())
             {

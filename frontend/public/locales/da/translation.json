@@ -323,7 +323,7 @@
     "staffPayments": "پرداخت های کارمندان",
     "staffPayment": "پرداخت کارمند",
     "paidAmount": "مقدار پرداخت شده",
-    "unpaidAmount": "مقدار پرداخت نشده"
+    "unpaidAmount": "مقدار باقیمانده"
   },
   "purchase": {
     "purchases": "خریداری ها",
