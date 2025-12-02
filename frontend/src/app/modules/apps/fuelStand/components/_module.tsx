@@ -1,17 +1,13 @@
 export interface FuelStandForm{
-    name: string
-    staffId : number
-    staffName : string    
+    name: string   
 }
 
 export const initialValues = {
   name: "",
-  staffId: "",
   fuelGuns: [
     {
       name: "",
-      fuelTypeId: "",
-      quantity: ""
+      fuelTypeId: ""
     }
   ]
 }

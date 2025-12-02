@@ -24,10 +24,10 @@ namespace Persistence.Repositories
                 Id = fg.Id,
                 Name = fg.Name,
                 FuelTypeId = fg.FuelTypeId,
-                FuelType = fg.FuelType.Name,
-                FuelStand = fg.FuelStand.Name,
+                // FuelType = fg.FuelType.Name,
+                // FuelStand = fg.FuelStand.Name,
                 FuelStandId = fg.FuelStandId,
-                Quantity = fg.Quantity
+                // Quantity = fg.Quantity
             }).ToList();
             return fuelGuns;
         }
@@ -41,10 +41,10 @@ namespace Persistence.Repositories
                 Id = fg.Id,
                 Name = fg.Name,
                 FuelTypeId = fg.FuelTypeId,
-                FuelType = fg.FuelType.Name,
-                FuelStand = fg.FuelStand.Name,
+                // FuelType = fg.FuelType.Name,
+                // FuelStand = fg.FuelStand.Name,
                 FuelStandId = fg.FuelStandId,
-                Quantity = fg.Quantity
+                // Quantity = fg.Quantity
             }).FirstOrDefaultAsync();
             return fuelGun;
         }

@@ -44,7 +44,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] FuelStandDto fuelStandDto)
+        public async Task<ActionResult> Create([FromBody] CreateFuelStandDto fuelStandDto)
         {
             if (ModelState.IsValid)
             {
