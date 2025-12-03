@@ -38,3 +38,11 @@ select {
 option {
   font-weight: bold;
 }
+
+input[type="date"], input[type="number"] {
+  text-align: right;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  text-align: right;
+}

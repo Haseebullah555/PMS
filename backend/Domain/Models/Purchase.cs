@@ -16,6 +16,7 @@ namespace Domain.Models
     public string? Remarks { get; set; }
 
     public ICollection<PurchaseDetail> PurchaseDetails { get; set; } = new List<PurchaseDetail>();
-}
 
+    public ICollection<SupplierLoanPayment> SupplierLoanPayments { get; set; } = new List<SupplierLoanPayment>();
+}
 }

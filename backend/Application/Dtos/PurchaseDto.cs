@@ -14,5 +14,6 @@ namespace Application.Dtos
         public decimal UnpaidAmount { get; set; }
 
         public List<PurchaseDetailDto> PurchaseDetails { get; set; }
+        public List<SupplierLoanPaymentDto> SupplierLoanPayment { get; set; }
     }
 }

@@ -363,5 +363,14 @@
     "fuelGuns": "تفنگچه های تیل",
     "name": "اسم تفنگچه تیل",
     "fuelGun": "تفنگچه تیل"
+  },
+  "supplierLoanPayment": {
+    "supplierLoanPayments": "پرداخت قرضه تامین کننده",
+    "loanPayment": "پرداخت قرضه",
+    "paidAmount": "مقدار پرداخت شده",
+    "unPaidAmound": "مقدار باقی مانده", 
+    "purchaseDetial": "جزیات خریداری",  
+    "paidLoanAmount": "مقدار پرداخت",   
+    "paymentDate": "تاریخ پرداخت"   
   }
 }

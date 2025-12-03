@@ -7,5 +7,6 @@ namespace Application.Contracts.Interfaces
     public interface IPurchaseRepository : IGenericRepository<Purchase>
     {
         IQueryable<Purchase> GetListOfPurchases();
+        IQueryable<Purchase> GetPurchasesWithSupplierLoanPayment();
     }
 }

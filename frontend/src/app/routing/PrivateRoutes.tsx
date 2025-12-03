@@ -8,6 +8,7 @@ import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
 import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import SupplierManagementRoutes from '../modules/apps/supplier/SupplierManagementRoutes'
+import SupplierLoanPaymentManagementRoutes from '../modules/apps/supplierLoanPayment/SupplierLoanPaymentManagementRoutes'
 import CustomerManagementRoutes from '../modules/apps/customer/CustomerManagementRoutes'
 import StaffManagementRoutes from '../modules/apps/staff/StaffManagementRoutes'
 import StockManagementRoutes from '../modules/apps/Stock/StockManagementRoutes'
@@ -78,6 +79,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <SupplierManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='supplier-loan-payment/*'
+          element={
+            <SuspensedView>
+              <SupplierLoanPaymentManagementRoutes />
             </SuspensedView>
           }
         />

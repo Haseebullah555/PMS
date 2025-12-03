@@ -42,7 +42,7 @@ const SidebarMenuMain = () => {
       />
       <SidebarMenuItem
         to='/supplier-loan-payment/list'
-        title={t('.purchases')}
+        title={t('supplierLoanPayment.supplierLoanPayments')}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
