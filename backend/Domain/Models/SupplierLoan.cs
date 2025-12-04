@@ -11,6 +11,6 @@ namespace Domain.Models
         public bool IsSettled { get; set; }
 
 
-        public ICollection<SupplierLoanPayment> Payments { get; set; } = new List<SupplierLoanPayment>();
+        // public ICollection<SupplierLoanPayment> Payments { get; set; } = new List<SupplierLoanPayment>();
     }
 }

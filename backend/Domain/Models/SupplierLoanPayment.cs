@@ -7,6 +7,6 @@ namespace Domain.Models
         public int PurchaseId { get; set; }
         public Purchase? Purchase { get; set; }
         public decimal PaidLoanAmount { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateOnly PaymentDate { get; set; }
     }
 }

@@ -19,6 +19,7 @@ namespace Application.Contracts.Interfaces.Common
         public IPurchaseDetailsRepository PurchaseDetails { get; }
         public IStockRepository Stocks { get; }
         public ISupplierLoansRepository SupplierLoans{ get; }
+        public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
 
         public  IStudentRespository Students { get; }
         Task SaveAsync(CancellationToken cancellationToken);

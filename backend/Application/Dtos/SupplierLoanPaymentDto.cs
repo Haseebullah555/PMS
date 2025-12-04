@@ -5,8 +5,7 @@ namespace Application.Dtos
     public class SupplierLoanPaymentDto : BaseDto
     {
         public int PurchaseId { get; set; }
-        public string? Purchase { get; set; }
         public decimal PaidLoanAmount { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateOnly PaymentDate { get; set; }
     }
 }

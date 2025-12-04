@@ -14,12 +14,17 @@ const getPurchasesWithSupplierLoanPayment = async (params: any) => {
   return response.data
 }
 
-const store = async (formData: any) => {
+const storePurchases = async (formData: any) => {
   const response = await axiosInterceptor.post('/Purchases/create', formData)
   return response.data
 }
 
-const update = async (formData: any) => {
+const storePurchasePayment = async (formData: any) => {
+  const response = await axiosInterceptor.post('/Purchases/purchase-payment', formData)
+  return response.data
+}
+
+const updatePurchases = async (formData: any) => {
   const response = await axiosInterceptor.post('/Purchases/update', formData)
   return response.data
 }
@@ -27,8 +32,9 @@ const update = async (formData: any) => {
 const PurchaseService = {
   getPurchases,
   getPurchasesWithSupplierLoanPayment,
-  store,
-  update,
+  storePurchases,
+  storePurchasePayment,
+  updatePurchases,
 }
 
 export default PurchaseService

@@ -1,7 +1,6 @@
 import { debounce } from 'lodash'
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import Paginator from '../../../../customes/Paginator'
-import UnAuthorized from '../../../../customes/UnAuthorized'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
 import Loader from '../../../../pages/loading/Loader'
 import { Link } from 'react-router-dom'
@@ -28,7 +27,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const  purchases  = useAppSelector((state) => state.purchases.purchasesWithUnPaidAmount)
+  const  purchases  = useAppSelector((state) => state.purchases.purchaseWithSupplierLoanPayment)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))

@@ -82,6 +82,26 @@ namespace API.Controllers
                 return StatusCode(500, new { message = "خطا در ثبت خرید", error = ex.Message });
             }
         }
+        [HttpPost("purchase-payment")]
+         public async Task<ActionResult> CreateSupplierLoanPayment(SupplierLoanPaymentDto supplierLoanPaymentDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "ورودی نادرست است", errors = ModelState });
+
+            try
+            {
+                await _mediator.Send(new AddPuchasePaymentCommand{SupplierLoanPaymentDto = supplierLoanPaymentDto});
+                return Ok(new { message = "خرید با موفقیت ثبت شد"});
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "خطا در ثبت خرید", error = ex.Message });
+            }
+        }
 
         [HttpPost("update")]
         public async Task<ActionResult> Update([FromBody] UpdatePurchaseCommand command)

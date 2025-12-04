@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react'
-import { FormikProvider, useFormik } from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { initialValues } from './_module'
 import { useTranslation } from 'react-i18next'
-import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
+import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { toast } from 'react-toastify'
-import { updatePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
-import { getAllSupplier } from '../../../../../redux/slices/supplier/SupplierSlice'
-import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import { storePuchasePayment, updatePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 import clsx from 'clsx'
 
 interface EditSupplierLoanPaymentModalProps {
@@ -24,63 +22,18 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
+  useEffect(() => {
+    if (selectedSupplierLoanPayment) {
+       formik.setFieldValue('purchaseId', selectedSupplierLoanPayment.id)
+    }
+  }, [selectedSupplierLoanPayment])
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
-    supplierId: Yup.string().required('Supplier is required'),
-    paidAmount: Yup.number()
-      .nullable()
-      .test(
-        "paid-less-than-total",
-        "paidAmount must be less than totalAmount",
-        function (value) {
-          const { totalAmount } = this.parent;
-          if (value == null) return true;   // allow nullable before user types
-          return value <= totalAmount;
-        }
-      ),
-    items: Yup.array().of(
-      Yup.object().shape({
-        fuelTypeId: Yup.string().required('FuelType is required'),
-
-        quantity: Yup.number()
-          .nullable()                    // allow null for Formik initialValues
-          .typeError('Qty required')     // catch string inputs
-          .required('Qty required')
-          .min(1, 'Qty must be at least 1'),
-
-        unitPrice: Yup.number()
-          .nullable()
-          .typeError('Unit price required')
-          .required('Unit price required')
-          .min(0, 'Unit price must be >= 0'),
-      })
-    ),
+    paidLoanAmount: Yup.string().required(),
+    paymentDate: Yup.date().required("Payment date is required"),
   });
 
-  // Formik setup
-  const formik = useFormik({
-    initialValues,
-    validationSchema: PurchaseSchema,
-    onSubmit: async (values, { setSubmitting, resetForm }) => {
-      try {
-        const response = await dispatch(updatePurchase(values) as any)
-        if (updatePurchase.fulfilled.match(response)) {
-          handleFulfilledResponse(response)
-          handleReloadTable()
-          onClose()
-          resetForm()
-        } else {
-          handleRejectedResponse(response)
-        }
-      } catch (error) {
-        handleError(error)
-      } finally {
-        // setLoading(false)
-        setSubmitting(false)
-      }
-    },
-  })
-
+  
   const handleFulfilledResponse = (response: any) => {
     const { meta, payload } = response
     if (meta.requestStatus === 'fulfilled') {
@@ -98,11 +51,31 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
   const handleError = (error: any) => {
     console.error('Error creating department:', error.message)
   }
-
-
-
-
-  console.log(formik.values, 'valuessssssss');
+  
+  // Formik setup
+  const formik = useFormik({
+    initialValues,
+    validationSchema: PurchaseSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      try {
+        const response = await dispatch(storePuchasePayment(values) as any)
+        if (updatePurchase.fulfilled.match(response)) {
+          handleFulfilledResponse(response)
+          handleReloadTable()
+          onClose()
+          resetForm()
+        } else {
+          handleRejectedResponse(response)
+        }
+      } catch (error) {
+        handleError(error)
+      } finally {
+        // setLoading(false)
+        setSubmitting(false)
+      }
+    },
+  })
+  console.log(formik.values, 'valuessssssssss');
 
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl'>
@@ -162,7 +135,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
               </label>
               <input
                 type='number'
-                {...formik.getFieldProps('address')}
+                {...formik.getFieldProps('paidLoanAmount')}
                 className={clsx('form-control', {
                   'is-invalid': formik.touched.paidLoanAmount && formik.errors.paidLoanAmount,
                   'is-valid': formik.touched.paidLoanAmount && !formik.errors.paidLoanAmount,
@@ -171,7 +144,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
               />
               {formik.touched.paidLoanAmount && formik.errors.paidLoanAmount && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', { name: t('global.paidLoanAmount') })}
+                  {t('validation.required', { name: t('supplierLoanPayment.paidLoanAmount') })}
                 </div>
               )}
             </div>

@@ -6,14 +6,14 @@ type PurchaseState = {
   purchases: any
   loading: boolean
   error: string | null
-  purchasesWithUnPaidAmount: any
+  purchaseWithSupplierLoanPayment: any
 }
 
 const initialState: PurchaseState = {
   purchases: {
     data: [],
   },
-  purchasesWithUnPaidAmount: null,
+  purchaseWithSupplierLoanPayment: null,
   loading: false,
   error: null,
 }
@@ -33,7 +33,7 @@ export const getPurchases = createAsyncThunk(
     }
   }
 )
-
+// Get purchases with supplierLoanPayment from API
 export const getPurchasesWithSupplierLoanPayment = createAsyncThunk(
   'api/Purchase/supplierLoanPayment',
   async (params: any, thunkAPI) => {
@@ -54,7 +54,23 @@ export const storePurchase = createAsyncThunk(
   'api/Purchase/store',
   async (formData: any, thunkAPI) => {
     try {
-      return await PurchaseService.store(formData)
+      return await PurchaseService.storePurchases(formData)
+    } catch (error: any) {
+      const message =
+        (error.response && error.response.data && error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
+// Store purchase payment
+export const storePuchasePayment = createAsyncThunk(
+  'api/Purchase/purchasePayment',
+  async (formData: any, thunkAPI) => {
+    try {
+      return await PurchaseService.storePurchasePayment(formData)
     } catch (error: any) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -70,7 +86,7 @@ export const updatePurchase = createAsyncThunk(
   'api/Purchase/update',
   async (formData: any, thunkAPI) => {
     try {
-      return await PurchaseService.update(formData)
+      return await PurchaseService.updatePurchases(formData)
     } catch (error: any) {
       const message =
         (error.response && error.response.data && error.response.data.message) ||
@@ -102,9 +118,8 @@ export const purchaseSlice = createSlice({
         state.error = action.payload
       })
       .addCase(getPurchasesWithSupplierLoanPayment.fulfilled, (state, action: PayloadAction<any>) => {
-        console.log(action, '--------------')
         state.loading = false
-        state.purchasesWithUnPaidAmount = action.payload
+        state.purchaseWithSupplierLoanPayment = action.payload
       })
 
       // Store Purchase
@@ -115,6 +130,18 @@ export const purchaseSlice = createSlice({
         state.loading = false
       })
       .addCase(storePurchase.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      
+      // Store purchase payment
+      .addCase(storePuchasePayment.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(storePuchasePayment.fulfilled, (state) => {
+        state.loading = false
+      })
+      .addCase(storePuchasePayment.rejected, (state, action: PayloadAction<any>) => {
         state.loading = false
         state.error = action.payload
       })

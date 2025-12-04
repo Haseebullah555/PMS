@@ -8,7 +8,6 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
 import { updateFuelStand } from '../../../../../redux/slices/fuelStand/FuelStandSlice'
-import { initialValues } from './_module'
 import { name } from '../../../../custom/persian_fa'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 
@@ -55,17 +54,31 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
 
 
   // Validation schema
-  const userSchema = Yup.object().shape({
-    expenseType: Yup.string().required(t('validation.required', { name: t('expense.expenseType') })),
-    notes: Yup.string().required(t('validation.required', { name: t('global.expenseDate') })),
-    amount: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') }))
+  const FuelStandSchema = Yup.object().shape({
+    name: Yup.string().required("Required"),
+    fuelGuns: Yup.array()
+      .of(
+        Yup.object().shape({
+          name: Yup.string().required("Required"),
+          fuelTypeId: Yup.number().required("Required")
+        })
+      )
+      .min(1, "At least one fuel gun is required"),
   })
 
   // Formik setup
   const formik = useFormik({
-    initialValues,
-    validationSchema: userSchema,
+    initialValues: {
+        id: null,
+        name: '',
+        fuelGuns: [
+          {
+            fuelTypeId: "",
+            name: "",
+          },
+        ],  
+    },
+    validationSchema: FuelStandSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
         const response = await dispatch(updateFuelStand(values) as any)
