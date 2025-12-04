@@ -40,7 +40,7 @@ namespace API.Controllers
         [HttpGet("purchase-list-with-loan-payments")]
         public async Task<ActionResult> GetPurchasesWithSupplierLoanPayment([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var result = await _mediator.Send(new GetListOfPurchasesRequest
+            var result = await _mediator.Send(new GetPurchaseWithSupplierLoanPaymentRequest
             {
                 Search = search,
                 SortField = sort_field,
@@ -48,8 +48,7 @@ namespace API.Controllers
                 Page = page,
                 PerPage = per_page
             });
-
-            return Ok(new
+             return Ok(new
             {
                 data = result.Data,
                 meta = new

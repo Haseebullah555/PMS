@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { PurchaseForm } from './_module'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getPurchases } from '../../../../../redux/slices/purchases/PurchaseSlice'
+import { getPurchases, getPurchasesWithSupplierLoanPayment } from '../../../../../redux/slices/purchases/PurchaseSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -28,7 +28,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const { purchases } = useAppSelector((state) => state.purchases)
+  const  purchasessss  = useAppSelector((state) => state.purchases.purchasesWithUnPaidAmount)
+  console.log(purchasessss, '==============')
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -66,7 +67,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
       page: currentPage,
     }
 
-    dispatch(getPurchases(params)).then((res) => {
+    dispatch(getPurchasesWithSupplierLoanPayment(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {

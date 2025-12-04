@@ -24,10 +24,10 @@ namespace Persistence.Repositories
         }
         public IQueryable<Purchase> GetPurchasesWithSupplierLoanPayment()
         {
-            return _context.Purchases
+            return _context.Purchases.Where(p=> p.UnPaidAmount > 0)
             .Include(p => p.Supplier)
             .Include(p => p.PurchaseDetails)
-                .ThenInclude(d => d.FuelType)
+            .ThenInclude(d => d.FuelType)
             .Include(p => p.SupplierLoanPayments) 
             .AsQueryable();
         }

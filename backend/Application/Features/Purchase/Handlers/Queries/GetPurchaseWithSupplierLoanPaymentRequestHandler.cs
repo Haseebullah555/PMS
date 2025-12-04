@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Purchase.Handlers.Queries
 {
-    public class GetPurchaseWithSupplierLoanPaymentRequestHandler : IRequestHandler<GetListOfPurchasesRequest, PaginatedResult<PurchaseDto>>
+    public class GetPurchaseWithSupplierLoanPaymentRequestHandler : IRequestHandler<GetPurchaseWithSupplierLoanPaymentRequest, PaginatedResult<PurchaseDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,9 +18,9 @@ namespace Application.Features.Purchase.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<PurchaseDto>> Handle(GetListOfPurchasesRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<PurchaseDto>> Handle(GetPurchaseWithSupplierLoanPaymentRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Purchases.GetListOfPurchases();
+            var query = _unitOfWork.Purchases.GetPurchasesWithSupplierLoanPayment();
 
 
             // Search
