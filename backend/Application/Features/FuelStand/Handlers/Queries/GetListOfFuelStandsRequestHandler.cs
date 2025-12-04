@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.FuelStand.Handlers.Queries
 {
-    public class GetListOfFuelStandsRequestHandler : IRequestHandler<GetListOfFuelStandsRequest, PaginatedResult<FuelStandDto>>
+    public class GetListOfFuelStandsRequestHandler : IRequestHandler<GetListOfFuelStandsRequest, PaginatedResult<CreateFuelStandDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<FuelStandDto>> Handle(GetListOfFuelStandsRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<CreateFuelStandDto>> Handle(GetListOfFuelStandsRequest request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.FuelStands.GetAllFuelStands();
 
@@ -60,11 +60,21 @@ namespace Application.Features.FuelStand.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var FuelStandDtos = _mapper.Map<List<FuelStandDto>>(FuelStands);
-
-            return new PaginatedResult<FuelStandDto>
+            var fuelStandDtos = FuelStands.Select(fs => new CreateFuelStandDto
             {
-                Data = FuelStandDtos,
+                Id = fs.Id,
+                Name = fs.Name,
+                FuelGuns = fs.FuelGuns.Select(g => new FuelGunDto
+                {
+                    Id = g.Id,
+                    Name = g.Name,
+                    FuelTypeId = g.FuelTypeId
+                }).ToList()
+            }).ToList();
+
+            return new PaginatedResult<CreateFuelStandDto>
+            {
+                Data = fuelStandDtos,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage

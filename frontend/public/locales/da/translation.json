@@ -357,7 +357,8 @@
   },
   "fuelStand": {
     "fuelStands": "پایه های تیل",
-    "name": "اسم پایه تیل"
+    "name": "اسم پایه تیل",
+    "fuelStand": "پایه تیل"
   },
   "fuelGun": {
     "fuelGuns": "تفنگچه های تیل",

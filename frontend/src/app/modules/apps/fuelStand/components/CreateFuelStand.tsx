@@ -45,7 +45,6 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
     initialValues,
     validationSchema: FuelStandSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      console.log(values,"flsdkfklsjdkfskdlflsdjfjsdf1000000000000");
       try {
         const response = await dispatch(storeFuelStand(values) as any)
         if (storeFuelStand.fulfilled.match(response)) {
@@ -67,7 +66,6 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
 
   const handleFulfilledResponse = (response: any) => {
     const { meta, payload } = response
-    console.log(response,"rrrrrrrrrrrrrrrrrrrr")
     if (meta.requestStatus === 'fulfilled') {
       toast.success(<p className='fs-4 fw-bold'>{payload.message}</p>)
     } else {
@@ -93,6 +91,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
         })
     }
   }, [])
+  console.log(formik.values,"fooooooooooooooooooooooooooooooooooooooo")
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>

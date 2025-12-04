@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Application.Contracts.Interfaces;
 using Application.Dtos;
 using Domain.Models;
@@ -15,15 +16,13 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public IQueryable<FuelStandDto> GetAllFuelStands()
+        public IQueryable<FuelStand> GetAllFuelStands()
         {
             return _context.FuelStands
-                .Select(fs => new FuelStandDto
-                {
-                    Id = fs.Id,
-                    Name = fs.Name,
-                });
+            .Include(f => f.FuelGuns)
+            .AsQueryable();
         }
+
 
         public async Task<FuelStandDto> GetFuelStandById(int id)
         {

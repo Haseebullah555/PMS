@@ -34,7 +34,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                     TotalAmount = totalAmount,
                     PaidAmount = request.PaidAmount,
                     UnPaidAmount = unpaidAmount,
-                    Remarks = request.Remarks
+                    Remarks = request.Remarks,
+                    CreatedAt = DateTime.UtcNow
                 };
 
                 await _unitOfWork.Purchases.AddAsync(purchase);
@@ -49,7 +50,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                         FuelTypeId = item.FuelTypeId,
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
-                        TotalPrice = item.Quantity * item.UnitPrice
+                        TotalPrice = item.Quantity * item.UnitPrice,
+                        CreatedAt = DateTime.UtcNow
                     };
 
                     await _unitOfWork.PurchaseDetails.AddAsync(detail);
@@ -63,7 +65,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                         {
                             FuelTypeId = item.FuelTypeId,
                             Quantity = item.Quantity,
-                            UnitPrice = item.UnitPrice // First time purchase
+                            UnitPrice = item.UnitPrice, // First time purchase
+                            CreatedAt = DateTime.UtcNow
                         };
 
                         await _unitOfWork.Stocks.AddAsync(stock);
@@ -94,7 +97,8 @@ namespace Application.Features.Purchase.Handlers.Commands
                         PartyType = "Supplier",
                         PartyId = purchase.SupplierId,
                         Amount = request.PaidAmount,
-                        Direction = "OUT"
+                        Direction = "OUT",
+                        CreatedAt = DateTime.UtcNow
                     };
 
                     await _unitOfWork.FinancialTransactions.AddAsync(txn);

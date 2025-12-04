@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
 import { FuelStandForm } from "./_module";
-import { t } from "i18next";
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import { getFuelStands } from "../../../../../redux/slices/fuelStand/FuelStandSlice";
 import UnAuthorized from "../../../../customes/UnAuthorized";
+import { useTranslation } from "react-i18next";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -19,10 +19,11 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const [sortColumn, setSortColumn] = useState<string>(columns[0]);
     const [data, setData] = useState<FuelStandForm[]>([]);
     const dispatch = useAppDispatch();
+    const { t } = useTranslation()
 
     const fuelStands = useAppSelector((state) => state.fuelStand.fuelStands);
 
-
+    
     const handleSearch = useRef(
         debounce((query: string) => {
             setLoading(true);
@@ -72,7 +73,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
         setData(fuelStands.data)
         setPagination(fuelStands.meta)
     }, [fuelStands])
-
+console.log(fuelStands,"dfsdfsdfsdfsdf")
 
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
@@ -154,7 +155,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                                         >
                                                             <i className='fas fa-edit text-primary'></i>
                                                             <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                                                                {/* {t('global.edit', { name: t('global.user') })} */}
+                                                                {t('global.edit', { name: t('fuelStand.fuelStand') })}
                                                             </span>
                                                         </Dropdown.Item>
                                                     </>

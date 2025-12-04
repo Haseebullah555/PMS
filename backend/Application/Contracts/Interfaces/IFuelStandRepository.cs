@@ -6,7 +6,7 @@ namespace Application.Contracts.Interfaces
 {
     public interface IFuelStandRepository : IGenericRepository<FuelStand>
     {
-        IQueryable<FuelStandDto> GetAllFuelStands();
+        IQueryable<FuelStand> GetAllFuelStands();
 
         Task<FuelStandDto> GetFuelStandById(int id);   
     }

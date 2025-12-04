@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.FuelStand.Requests.Queries
 {
-    public class GetListOfFuelStandsRequest : IRequest<PaginatedResult<FuelStandDto>>
+    public class GetListOfFuelStandsRequest : IRequest<PaginatedResult<CreateFuelStandDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }
