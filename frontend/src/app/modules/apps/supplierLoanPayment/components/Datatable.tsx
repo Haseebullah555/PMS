@@ -77,8 +77,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
-    setData(purchases.data)
-    setPagination(purchases.meta)
+    setData(purchases?.data)
+    setPagination(purchases?.meta)
   }, [purchases])
 
   const memoizedData = useMemo(() => data, [data])
@@ -175,7 +175,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
                   </tr>
                 ))}
 
-              {memoizedData.length === 0 && !memoizedLoading && (
+              {memoizedData?.length === 0 && !memoizedLoading && (
                 <tr>
                   <td colSpan={9}>
                     <p className='fs-2 text-center text-danger fw-bolder'>
