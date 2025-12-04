@@ -28,8 +28,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const  purchasessss  = useAppSelector((state) => state.purchases.purchasesWithUnPaidAmount)
-  console.log(purchasessss, '==============')
+  const  purchases  = useAppSelector((state) => state.purchases.purchasesWithUnPaidAmount)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
