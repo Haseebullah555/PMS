@@ -26,6 +26,7 @@ namespace Persistence.Repositories.Common
         private IStockRepository _stockRepository;
         private ISupplierLoansRepository _supplierLoansRepository;
         private ISupplierLoanPaymentRepository _supplierLoanPaymentRepository;
+        private IStudentRespository _studentRepository;
         #endregion
         public UnitOfWork(AppDbContext context)
         {
@@ -53,7 +54,7 @@ namespace Persistence.Repositories.Common
         public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
         public ISupplierLoanPaymentRepository SupplierLoanPayments => _supplierLoanPaymentRepository ??= new SupplierLoanPaymentRepository(_context);
 
-        public IStudentRespository Students => throw new NotImplementedException();
+        public IStudentRespository Students =>  _studentRepository ??= new StudentRepository(_context);
 
         public void Dispose()
         {
