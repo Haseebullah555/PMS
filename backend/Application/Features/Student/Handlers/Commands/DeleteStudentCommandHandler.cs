@@ -8,24 +8,23 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Student.Handlers.Commands
 {
-    public class AddStudentCommandHandler : IRequestHandler<AddStudentCommand>
+    public class DeleteStudentCommandHandler : IRequestHandler<DeleteStudentCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public AddStudentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public DeleteStudentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public async Task Handle(AddStudentCommand request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteStudentCommand request, CancellationToken cancellationToken)
         {
-            var addStudentRecord = _mapper.Map<Domain.Models.Student>(request.StudentDto);
+            var student = await _unitOfWork.Students.GetByIdAsync(request.Id);
             // Save to DB
-            await _unitOfWork.Students.AddAsync(addStudentRecord);
+                   _unitOfWork.Students.Delete(student); // Remove is usually void
             await _unitOfWork.SaveAsync(cancellationToken);
-
         }
     }
 }
