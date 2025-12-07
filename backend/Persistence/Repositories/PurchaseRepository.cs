@@ -28,7 +28,6 @@ namespace Persistence.Repositories
             .Include(p => p.Supplier)
             .Include(p => p.PurchaseDetails)
             .ThenInclude(d => d.FuelType)
-            .Include(p => p.SupplierLoanPayments) 
             .AsQueryable();
         }
     }

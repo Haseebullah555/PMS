@@ -19,7 +19,6 @@ namespace Application.Features.Purchase.Handlers.Commands
         public async Task Handle(AddPuchasePaymentCommand request, CancellationToken cancellationToken)
         {
            var supplierLoanPayment = _mapper.Map<SupplierLoanPayment>(request.SupplierLoanPaymentDto);
-
         // Save to DB
         await _unitOfWork.SupplierLoanPayments.AddAsync(supplierLoanPayment);
         await _unitOfWork.SaveAsync(cancellationToken);
