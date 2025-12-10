@@ -36,7 +36,11 @@ export const supplierLoanPaymentSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getSupplierWithDetials.fulfilled, (state, action) => {
       console.log('Supplier with details fetched:', action);
-      // state.suppliersWithDetials = action.payload;
+      state.suppliersWithDetials = action.payload;
+    });
+    builder.addCase(getSupplierWithDetials.rejected, (state, action) => {
+      console.log('rejecttttttt:', state, action);
+     
     });
   },
 })

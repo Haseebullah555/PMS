@@ -8,7 +8,7 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class SupplierLoanPaymentController : BaseApiController
     {
-        [HttpGet("getSuppliersWithDetails")]
+        [HttpGet("getSuppliersWithDetials")]
         public async Task<ActionResult> GetSuppliersWithDetials([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
             var result = await _mediator.Send(new GetSuppliersWithDetailsRequest

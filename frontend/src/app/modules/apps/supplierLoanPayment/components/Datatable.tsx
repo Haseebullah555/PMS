@@ -4,7 +4,7 @@ import Paginator from '../../../../customes/Paginator'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
 import Loader from '../../../../pages/loading/Loader'
 import { useTranslation } from 'react-i18next'
-import { PurchaseForm } from './_module'
+import { SupplierLoanPaymentForm } from './_module'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
 import { getSupplierWithDetials } from '../../../../../redux/slices/supplierLoanPayment/SupplierLoanPaymentSlice'
@@ -13,7 +13,7 @@ const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoanPayment }) => {
-  const [data, setData] = useState<PurchaseForm[]>([])
+  const [data, setData] = useState<SupplierLoanPaymentForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -26,6 +26,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const dispatch = useAppDispatch()
 
   const  suppliersWithDetials  = useAppSelector((state) => state.supplierLoanPayment.suppliersWithDetials)
+
+  console.log(suppliersWithDetials, 'kkkkkkkkkkkkkkkkkkk')
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -81,6 +83,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
   return (
+   
     <div>
       <>
         <div className='form collapse' id='movementSearch'>
@@ -142,11 +145,11 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
                 memoizedData.map((item, index) => (
                   <tr>
                     <td>{index + 1}</td>
-                    <td>{item.supplierName}</td>
-                    <td>{item.purchaseDate}</td>
-                    <td>{item.totalAmount}</td>
-                    <td>{item.paidAmount}</td>
-                    <td>{item.unpaidAmount}</td>
+                    <td>{item.name}</td>
+                    <td>{item.phoneNumber}</td>
+                    <td>{item.address}</td>
+                    <td>{item.driverName}</td>
+                    <td>{item.carPlate}</td>
 
 
                     <td className='text-center'>

@@ -1,21 +1,12 @@
 // initialValues.ts
 
-export interface PurchaseDetail {
-  fuelTypeId: string | null
-  quantity: number | null
-  unitPrice: number | null
-  totalPrice: number | null
-}
-
-export interface PurchaseForm {
+export interface SupplierLoanPaymentForm {
   id: number | null
-  supplierId: number
-  supplierName: string
-  purchaseDate: string
-  totalAmount: number
-  paidAmount: number | null
-  unpaidAmount: number
-  items: PurchaseDetail[]
+  name: number
+  phoneNumber: string
+  address: string
+  driverName: number
+  carPlate: number | null
 }
 
 export const initialValues = {
