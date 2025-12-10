@@ -1,10 +1,9 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Features.Purchase.Requests.Commands;
+using Application.Features.SupplierLoanPayment.Requests.Commands;
 using AutoMapper;
-using Domain.Models;
 using MediatR;
 
-namespace Application.Features.Purchase.Handlers.Commands
+namespace Application.Features.SupplierLoanPayment.Handlers.Commands
 {
     public class AddPurchasePaymentCommandHandler : IRequestHandler<AddPuchasePaymentCommand>
     {
@@ -18,7 +17,7 @@ namespace Application.Features.Purchase.Handlers.Commands
         }
         public async Task Handle(AddPuchasePaymentCommand request, CancellationToken cancellationToken)
         {
-           var supplierLoanPayment = _mapper.Map<SupplierLoanPayment>(request.SupplierLoanPaymentDto);
+           var supplierLoanPayment = _mapper.Map<Domain.Models.SupplierLoanPayment>(request.SupplierLoanPaymentDto);
         // Save to DB
         await _unitOfWork.SupplierLoanPayments.AddAsync(supplierLoanPayment);
         await _unitOfWork.SaveAsync(cancellationToken);

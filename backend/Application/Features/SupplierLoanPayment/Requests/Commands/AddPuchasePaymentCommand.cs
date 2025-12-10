@@ -2,7 +2,7 @@
 
 using Application.Dtos;
 using MediatR;
-namespace Application.Features.Purchase.Requests.Commands
+namespace Application.Features.SupplierLoanPayment.Requests.Commands
 {
     public class AddPuchasePaymentCommand : IRequest
     {

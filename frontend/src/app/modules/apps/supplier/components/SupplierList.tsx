@@ -7,22 +7,18 @@ import CreateUserModal from './CreateSupplier'
 import EditSupplierModal from './EditSupplier'
 
 const SupplierList = () => {
-  const {t} = useTranslation()
 
-  console.log(t, 'tranllllllllllllll')
+  const {t} = useTranslation()
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedSupplier, setSelectedSupplier] = useState(null)
-
   const closeModal = () => setModalOpen(false)
   const openModal = () => setModalOpen(true)
-
   const closeEditModal = () => setEditModalOpen(false)
   const openEditModal = (Supplier: any) => {
     setSelectedSupplier(Supplier)
     setEditModalOpen(true)
   }
-
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {

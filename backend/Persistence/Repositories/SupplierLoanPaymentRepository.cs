@@ -22,6 +22,11 @@ namespace Persistence.Repositories
                         .ThenInclude(d => d.FuelType)
                 .Include(s => s.SupplierLoanPayments);
         }
+        public IQueryable<Supplier> GetSuppliersWithSupplierLoanPayments()
+        {
+            return _context.Suppliers
+                .Include(s => s.SupplierLoanPayments);
+        }
 
     }
 }
