@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.Purchase.Requests.Queries
 {
-    public class GetPurchaseWithSupplierLoanPaymentRequest : IRequest<PaginatedResult<PurchaseDto>>
+    public class GetSuppliersWithDetailsRequest : IRequest<PaginatedResult<SupplierDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }

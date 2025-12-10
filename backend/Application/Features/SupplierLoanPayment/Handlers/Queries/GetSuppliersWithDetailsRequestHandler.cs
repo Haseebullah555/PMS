@@ -8,25 +8,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Purchase.Handlers.Queries
 {
-    public class GetPurchaseWithSupplierLoanPaymentRequestHandler : IRequestHandler<GetPurchaseWithSupplierLoanPaymentRequest, PaginatedResult<PurchaseDto>>
+    public class GetSuppliersWithDetailsRequestHandler : IRequestHandler<GetSuppliersWithDetailsRequest, PaginatedResult<SupplierDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public GetPurchaseWithSupplierLoanPaymentRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetSuppliersWithDetailsRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<PurchaseDto>> Handle(GetPurchaseWithSupplierLoanPaymentRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<SupplierDto>> Handle(GetSuppliersWithDetailsRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Purchases.GetPurchasesWithSupplierLoanPayment();
+            var query = _unitOfWork.SupplierLoanPayments.GetSuppliersWithDetails();
 
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                query = query.Where(s => s.Supplier.Name.Contains(request.Search));
+                query = query.Where(s => s.Name.Contains(request.Search));
             }
 
             // Sorting
@@ -35,8 +35,8 @@ namespace Application.Features.Purchase.Handlers.Queries
                 if (request.SortField.Equals("name", StringComparison.OrdinalIgnoreCase))
                 {
                     query = request.SortOrder == "desc"
-                        ? query.OrderByDescending(s => s.Supplier.Name)
-                        : query.OrderBy(s => s.Supplier.Name);
+                        ? query.OrderByDescending(s => s.Name)
+                        : query.OrderBy(s => s.Name);
                 }
                 else if (request.SortField.Equals("id", StringComparison.OrdinalIgnoreCase))
                 {
@@ -61,11 +61,11 @@ namespace Application.Features.Purchase.Handlers.Queries
                 .ToList();
 
             // Map to DTO
-            var purchaseDtos = _mapper.Map<List<PurchaseDto>>(purchases);
+            var supplierDtos = _mapper.Map<List<SupplierDto>>(purchases);
 
-            return new PaginatedResult<PurchaseDto>
+            return new PaginatedResult<SupplierDto>
             {
-            Data = purchaseDtos,
+            Data = supplierDtos,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage

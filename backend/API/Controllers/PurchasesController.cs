@@ -37,31 +37,7 @@ namespace API.Controllers
                 }
             });
         }
-        [HttpGet("purchase-list-with-loan-payments")]
-        public async Task<ActionResult> GetPurchasesWithSupplierLoanPayment([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
-        {
-            var result = await _mediator.Send(new GetPurchaseWithSupplierLoanPaymentRequest
-            {
-                Search = search,
-                SortField = sort_field,
-                SortOrder = sort_order,
-                Page = page,
-                PerPage = per_page
-            });
-             return Ok(new
-            {
-                data = result.Data,
-                meta = new
-                {
-                    total = result.Total,
-                    current_page = result.CurrentPage,
-                    per_page = result.PerPage,
-                    last_page = (int)Math.Ceiling((double)result.Total / result.PerPage),
-                    from = ((result.CurrentPage - 1) * result.PerPage) + 1,
-                    to = Math.Min(result.CurrentPage * result.PerPage, result.Total)
-                }
-            });
-        }
+   
         [HttpPost("create")]
         public async Task<ActionResult> Create([FromBody] AddPurchaseCommand command)
         {
