@@ -1,5 +1,4 @@
 using Application.Contracts.Interfaces;
-using Application.Dtos;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
@@ -17,7 +16,7 @@ namespace Persistence.Repositories
         public IQueryable<Supplier> GetSuppliersWithDetails()
         {
             return _context.Suppliers
-                .Where(s => s.Purchases.Any(p => p.UnPaidAmount > 0))
+                // .Where(s => s.Purchases.Any(p => p.UnPaidAmount > 0))
                 .Include(s => s.Purchases)
                     .ThenInclude(p => p.PurchaseDetails)
                         .ThenInclude(d => d.FuelType)

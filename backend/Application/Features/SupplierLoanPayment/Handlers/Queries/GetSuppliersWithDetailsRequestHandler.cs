@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Purchase.Handlers.Queries
 {
-    public class GetSuppliersWithDetailsRequestHandler : IRequestHandler<GetSuppliersWithDetailsRequest, PaginatedResult<SupplierDto>>
+    public class GetSuppliersWithDetailsRequestHandler : IRequestHandler<GetSuppliersWithDetailsRequest, PaginatedResult<SupplierWithDetialsDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ namespace Application.Features.Purchase.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<SupplierDto>> Handle(GetSuppliersWithDetailsRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<SupplierWithDetialsDto>> Handle(GetSuppliersWithDetailsRequest request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.SupplierLoanPayments.GetSuppliersWithDetails();
 
@@ -55,15 +55,15 @@ namespace Application.Features.Purchase.Handlers.Queries
             var total = await query.CountAsync(cancellationToken);
 
             // Pagination
-            var purchases = query
+            var suppliers = query
                 .Skip((request.Page - 1) * request.PerPage)
                 .Take(request.PerPage)
                 .ToList();
 
             // Map to DTO
-            var supplierDtos = _mapper.Map<List<SupplierDto>>(purchases);
+            var supplierDtos = _mapper.Map<List<SupplierWithDetialsDto>>(suppliers);
 
-            return new PaginatedResult<SupplierDto>
+            return new PaginatedResult<SupplierWithDetialsDto>
             {
             Data = supplierDtos,
                 Total = total,

@@ -3,13 +3,11 @@ import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import Paginator from '../../../../customes/Paginator'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
 import Loader from '../../../../pages/loading/Loader'
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
 import { PurchaseForm } from './_module'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
-import { getPurchases, getPurchasesWithSupplierLoanPayment } from '../../../../../redux/slices/purchases/PurchaseSlice'
+import { getSupplierWithDetials } from '../../../../../redux/slices/supplierLoanPayment/SupplierLoanPaymentSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -27,7 +25,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const  purchases  = useAppSelector((state) => state.purchases.purchaseWithSupplierLoanPayment)
+  const  suppliersWithDetials  = useAppSelector((state) => state.supplierLoanPayment.suppliersWithDetials)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -65,7 +63,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
       page: currentPage,
     }
 
-    dispatch(getPurchasesWithSupplierLoanPayment(params)).then((res) => {
+    dispatch(getSupplierWithDetials(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {
@@ -76,9 +74,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleSupplierLoan
   }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
-    setData(purchases?.data)
-    setPagination(purchases?.meta)
-  }, [purchases])
+    setData(suppliersWithDetials?.data)
+    setPagination(suppliersWithDetials?.meta)
+  }, [suppliersWithDetials])
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])

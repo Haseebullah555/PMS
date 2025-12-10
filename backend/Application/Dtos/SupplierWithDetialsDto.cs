@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class SupplierDto : BaseDto
+    public class SupplierWithDetialsDto : BaseDto
     {
         [Display(Name = "Supplier Name"), Required(ErrorMessage = "Supplier Name is required")]
         public string Name { get; set; }
@@ -15,6 +15,8 @@ namespace Application.Dtos
         public string DriverName { get; set; }
         [Display(Name = "Car Plate")]
         public string CarPlate { get; set; }
+        public List<PurchaseDto> Purchases { get; set; }
+        public List<SupplierLoanPaymentDto> SupplierLoanPayment { get; set; }
 
     }
 }

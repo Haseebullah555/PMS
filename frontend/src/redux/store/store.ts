@@ -15,6 +15,7 @@ import partnerSlice from '../slices/partner/PartnerSlice'
 import partnerTransactionSlice from '../slices/partnerTransaction/PartnerTransactionSlice'
 import fuelTypeSlice from '../slices/fuelType/FuelTypeSlice'
 import fuelStandSlice from '../slices/fuelStand/FuelStandSlice'
+import supplierLoanPaymentSlice  from '../slices/supplierLoanPayment/SupplierLoanPaymentSlice'
 
 export const store = configureStore({
   reducer: {
@@ -34,7 +35,8 @@ export const store = configureStore({
     purchases: purchaseSlice,
     stock: stockSlice,
     fuelType: fuelTypeSlice,
-    fuelStand: fuelStandSlice
+    fuelStand: fuelStandSlice,
+    supplierLoanPayment: supplierLoanPaymentSlice,
 
   },
 })

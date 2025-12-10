@@ -9,5 +9,8 @@ namespace Domain.Models
         public string Address { get; set; }
         public string DriverName { get; set; }
         public string CarPlate { get; set; }
+        public ICollection<Purchase> Purchases { get; set; } = new List<Purchase>();
+        public ICollection<SupplierLoanPayment> SupplierLoanPayments { get; set; } = new List<SupplierLoanPayment>();
+
     }
 }

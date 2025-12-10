@@ -33,21 +33,6 @@ export const getPurchases = createAsyncThunk(
     }
   }
 )
-// Get purchases with supplierLoanPayment from API
-export const getPurchasesWithSupplierLoanPayment = createAsyncThunk(
-  'api/Purchase/supplierLoanPayment',
-  async (params: any, thunkAPI) => {
-    try {
-      return await PurchaseService.getPurchasesWithSupplierLoanPayment(params)
-    } catch (error: any) {
-      const message =
-        (error.response && error.response.data && error.response.data.message) ||
-        error.message ||
-        error.toString()
-      return thunkAPI.rejectWithValue(message)
-    }
-  }
-)
 
 // Store new purchase
 export const storePurchase = createAsyncThunk(
@@ -117,11 +102,7 @@ export const purchaseSlice = createSlice({
         state.loading = false
         state.error = action.payload
       })
-      .addCase(getPurchasesWithSupplierLoanPayment.fulfilled, (state, action: PayloadAction<any>) => {
-        state.loading = false
-        state.purchaseWithSupplierLoanPayment = action.payload
-      })
-
+    
       // Store Purchase
       .addCase(storePurchase.pending, (state) => {
         state.loading = true
