@@ -18,9 +18,17 @@ namespace Application.Features.StaffPayments.Handlers.Commands
         }
         public async Task Handle(AddStaffPaymentCommand request, CancellationToken cancellationToken)
         {
+            await using var tx = await _unitOfWork.BeginTransactionAsync();
             var result = _mapper.Map<StaffPayment>(request.StaffPaymentDto);
+            var staff = await _unitOfWork.Staffs.GetByIdAsync(request.StaffPaymentDto.StaffId);
+            staff.Balance = staff.Balance - request.StaffPaymentDto.PaidAmount;
+            staff.UpdatedAt = DateTime.UtcNow;
+
+            result.CreatedAt = DateTime.UtcNow;
             await _unitOfWork.StaffPayments.AddAsync(result);
+            _unitOfWork.Staffs.Update(staff);
             await _unitOfWork.SaveAsync(cancellationToken);
+            await tx.CommitAsync(cancellationToken);
         }
     }
 }
