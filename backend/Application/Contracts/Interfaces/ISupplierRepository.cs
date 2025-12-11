@@ -5,6 +5,6 @@ namespace Application.Contracts.Interfaces
 {
     public interface ISupplierRepository : IGenericRepository<Supplier>
     {
-        
+        IQueryable<Supplier> GetSuppliersWithSupplierLoanPayments();
     }
 }

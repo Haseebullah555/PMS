@@ -1,12 +1,13 @@
 import { Routes, Route, Outlet } from 'react-router-dom'
-import PurchasesList from './components/SupplierLoanPaymentList'
+import SupplierLoanPayments from './components/SupplierLoanPaymentList'
 
 const SupplierLoanPaymentManagementRoutes = () => {
   return (
     <Routes>
       <Route element={<Outlet />}>
         {/* User Routes */}
-        <Route path='/list' element={<PurchasesList />} />
+        <Route path='/list' element={<SupplierLoanPayments />} />
+        <Route path='/supplierLoanPaymentsList' element={<SupplierLoanPayments />} />
         {/* Role Routes */}
       </Route>
     </Routes>

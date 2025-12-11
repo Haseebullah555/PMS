@@ -283,7 +283,8 @@
   },
   "supplier": {
     "suppliers": "تأمین کنندگان",
-    "supplier": "تأمین کننده"
+    "supplier": "تأمین کننده",
+    "balance":"بیلانس"
   },
   "customer": {
     "customers": "مشتریان",
@@ -372,6 +373,10 @@
     "unPaidAmound": "مقدار باقی مانده",
     "purchaseDetial": "جزیات خریداری",
     "paidLoanAmount": "مقدار پرداخت",
-    "paymentDate": "تاریخ پرداخت"
+    "paymentDate": "تاریخ پرداخت",
+    "makeLoanPayment": "پرداخت قرضه",
+    "save": "ثبت پرداخت",
+    "list" : "قرضه های تامین کننده گان",
+    "payments": "پرداخت های تامین کننده گان"
   }
 }

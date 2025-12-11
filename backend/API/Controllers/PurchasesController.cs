@@ -4,6 +4,7 @@ using Application.Features.Purchase.Requests.Commands;
 using Application.Features.Purchase.Requests.Queries;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.SupplierLoanPayment.Requests.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -101,5 +102,10 @@ namespace API.Controllers
 
             return Ok(result);
         }
+    }
+
+    internal class AddPuchasePaymentCommand : IRequest<object>
+    {
+        public SupplierLoanPaymentDto SupplierLoanPaymentDto { get; set; }
     }
 }

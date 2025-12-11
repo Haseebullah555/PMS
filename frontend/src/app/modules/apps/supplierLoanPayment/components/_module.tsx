@@ -10,7 +10,8 @@ export interface SupplierLoanPaymentForm {
 }
 
 export const initialValues = {
+  supplierId: null,
   purchaseId: null,
-  paidLoanAmount: null,
+  paidLoanAmount:null,
   paymentDate: new Date().toISOString().split('T')[0],
 }

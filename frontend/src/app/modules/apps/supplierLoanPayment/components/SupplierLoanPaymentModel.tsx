@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 import { useAppDispatch } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { toast } from 'react-toastify'
-import { storePuchasePayment, updatePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 import clsx from 'clsx'
+import { storeSupplierLoanPayment } from '../../../../../redux/slices/supplierLoanPayment/SupplierLoanPaymentSlice'
 
 interface EditSupplierLoanPaymentModalProps {
   isOpen: boolean
@@ -61,8 +61,8 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
     validationSchema: PurchaseSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storePuchasePayment(values) as any)
-        if (updatePurchase.fulfilled.match(response)) {
+        const response = await dispatch(storeSupplierLoanPayment(values) as any)
+        if (storeSupplierLoanPayment.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -79,7 +79,11 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
     },
   })
   console.log(formik.values, 'valuessssssssss');
-
+  useEffect(() => {
+    if (selectedSupplierLoanPayment) {
+      formik.setFieldValue('supplierId', selectedSupplierLoanPayment.id || '')
+    }
+  }, [selectedSupplierLoanPayment])
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl'>
       <Modal.Header closeButton>
@@ -176,7 +180,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
         </div>
         <hr />
 
-        <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makePayment')}</h3>
+        <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makeLoanPayment')}</h3>
 
         <form onSubmit={formik.handleSubmit}>
           <div className="row">
@@ -189,15 +193,26 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
 
               <input
                 type="number"
-                {...formik.getFieldProps('paidLoanAmount')}
+                name="paidLoanAmount"
+                value={formik.values.paidLoanAmount ?? ""}
+                placeholder={`${selectedSupplierLoanPayment?.balance}`}
+                onChange={(e) => {
+                  const value = Number(e.target.value)
+                  const balance = selectedSupplierLoanPayment?.balance || 0
+
+                  if (value <= balance) {
+                    formik.setFieldValue("paidLoanAmount", value)
+                  } else {
+                    // Prevent typing above balance
+                    formik.setFieldValue("paidLoanAmount", balance)
+                  }
+                }}
                 className={clsx('form-control', {
                   'is-invalid': formik.touched.paidLoanAmount && formik.errors.paidLoanAmount,
                   'is-valid': formik.touched.paidLoanAmount && !formik.errors.paidLoanAmount,
                 })}
-                min="1"
-                max={selectedSupplierLoanPayment?.balance || 0}
-                placeholder={t('global.WRITE.HERE')}
               />
+
 
               {formik.touched.paidLoanAmount && formik.errors.paidLoanAmount && (
                 <div className='invalid-feedback'>
@@ -232,7 +247,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
             {/* Submit Button */}
             <div className="col-md-4 d-flex align-items-end mt-3">
               <Button variant="success" type="submit" className="w-100 fs-5">
-                {t('global.save')}
+                {t('supplierLoanPayment.save')}
               </Button>
             </div>
           </div>

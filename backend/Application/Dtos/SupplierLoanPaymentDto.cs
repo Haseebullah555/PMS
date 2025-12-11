@@ -7,6 +7,5 @@ namespace Application.Dtos
         public int SupplierId { get; set; }
         public decimal PaidLoanAmount { get; set; }
         public DateOnly PaymentDate { get; set; }
-        public string? Remarks { get; set; }
     }
 }

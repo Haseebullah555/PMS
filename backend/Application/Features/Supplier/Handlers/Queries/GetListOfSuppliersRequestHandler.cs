@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.sample.Handlers.Queries
 {
-    public class GetListOfSuppliersRequestHandler : IRequestHandler<GetListOfSuppliersRequest, PaginatedResult<SupplierDto>>
+    public class GetListOfSuppliersRequestHandler : IRequestHandler<GetListOfSuppliersRequest, PaginatedResult<SuppliersWithSupplierLoanPaymentsDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,9 +18,9 @@ namespace Application.Features.sample.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<SupplierDto>> Handle(GetListOfSuppliersRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<SuppliersWithSupplierLoanPaymentsDto>> Handle(GetListOfSuppliersRequest request, CancellationToken cancellationToken)
         {
-            var query = _unitOfWork.Suppliers.Query();
+            var query = _unitOfWork.Suppliers.GetSuppliersWithSupplierLoanPayments();
 
             // Search
             if (!string.IsNullOrWhiteSpace(request.Search))
@@ -61,9 +61,9 @@ namespace Application.Features.sample.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var supplierDtos = _mapper.Map<List<SupplierDto>>(suppliers);
+            var supplierDtos = _mapper.Map<List<SuppliersWithSupplierLoanPaymentsDto>>(suppliers);
 
-            return new PaginatedResult<SupplierDto>
+            return new PaginatedResult<SuppliersWithSupplierLoanPaymentsDto>
             {
                 Data = supplierDtos,
                 Total = total,
