@@ -45,7 +45,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                 // 3️⃣ Update the supplier balance
                 var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
 
-                supplier.Balance = unpaidAmount;
+               supplier.Balance += unpaidAmount;
 
                 _unitOfWork.Suppliers.Update(supplier);
                 await _unitOfWork.SaveAsync(cancellationToken);
