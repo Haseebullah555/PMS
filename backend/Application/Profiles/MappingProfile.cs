@@ -24,6 +24,7 @@ namespace Application.Profiles
             CreateMap<Stock, StockDto>().ReverseMap();
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Supplier, SupplierWithDetialsDto>().ReverseMap();
+            CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
         }
     }
 }

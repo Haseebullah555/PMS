@@ -15,6 +15,9 @@ namespace Application.Dtos
         public string DriverName { get; set; }
         [Display(Name = "Car Plate")]
         public string CarPlate { get; set; }
+        
+        [Display(Name = "Balance")]
+        public decimal Balance { get; set; }
 
     }
 }

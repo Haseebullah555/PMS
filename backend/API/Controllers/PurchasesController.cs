@@ -3,6 +3,7 @@ using Application.Dtos;
 using Application.Features.Purchase.Requests.Commands;
 using Application.Features.Purchase.Requests.Queries;
 using Application.Features.sample.Requests.Commands;
+using Application.Features.SupplierLoanPayment.Requests.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

@@ -62,11 +62,11 @@ namespace Application.Features.Purchase.Handlers.Queries
                 .ToList();
 
             // Map to DTO
-            var supplierDtos = _mapper.Map<List<SuppliersWithSupplierLoanPaymentsDto>>(suppliers);
+            var supplierWithSupplierLoanPaymentDtos = _mapper.Map<List<SuppliersWithSupplierLoanPaymentsDto>>(suppliers);
 
             return new PaginatedResult<SuppliersWithSupplierLoanPaymentsDto>
             {
-            Data = supplierDtos,
+            Data = supplierWithSupplierLoanPaymentDtos,
                 Total = total,
                 CurrentPage = request.Page,
                 PerPage = request.PerPage
