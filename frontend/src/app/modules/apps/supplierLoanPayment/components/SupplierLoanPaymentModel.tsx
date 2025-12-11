@@ -24,16 +24,19 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
 
   useEffect(() => {
     if (selectedSupplierLoanPayment) {
-       formik.setFieldValue('purchaseId', selectedSupplierLoanPayment.id)
+      formik.setFieldValue('purchaseId', selectedSupplierLoanPayment.id)
     }
   }, [selectedSupplierLoanPayment])
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
-    paidLoanAmount: Yup.string().required(),
+    paidLoanAmount: Yup.number()
+      .required(t('validation.required', { name: t('supplierLoanPayment.paidLoanAmount') }))
+      .max(selectedSupplierLoanPayment?.balance || 0, "Cannot exceed balance"),
     paymentDate: Yup.date().required("Payment date is required"),
   });
 
-  
+
+
   const handleFulfilledResponse = (response: any) => {
     const { meta, payload } = response
     if (meta.requestStatus === 'fulfilled') {
@@ -51,7 +54,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
   const handleError = (error: any) => {
     console.error('Error creating department:', error.message)
   }
-  
+
   // Formik setup
   const formik = useFormik({
     initialValues,
@@ -83,99 +86,166 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
         <Modal.Title>{t('supplierLoanPayment.supplierLoanPayments')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="row">
-          <div className="col-md-2"><h5>{t('global.name')}</h5></div>
-          <div className="col-md-2"><h5>{selectedSupplierLoanPayment?.supplierName}</h5></div>
-          <div className="col-md-4"></div>
-          <div className="col-md-2"><h5>{t('purchase.totalAmount')}</h5></div>
-          <div className="col-md-2"><h5>{selectedSupplierLoanPayment?.totalAmount}</h5></div>
-          <hr />
+        {/* Supplier Header Section */}
+        <div className="row mb-4">
+          <div className="col-md-2">
+            <h5>{t('global.name')}</h5>
+          </div>
+          <div className="col-md-4">
+            <h5>{selectedSupplierLoanPayment?.name}</h5>
+          </div>
+
+          <div className="col-md-2">
+            <h5>{t('supplier.balance')}</h5>
+          </div>
+          <div className="col-md-4">
+            <h5 className="text-danger fw-bold">
+              {selectedSupplierLoanPayment?.balance}
+            </h5>
+          </div>
         </div>
-        <div className="row">
-          <div className="col-md-2"><h5>{t('purchase.purchaseDate')}</h5></div>
-          <div className="col-md-2"><h5>{selectedSupplierLoanPayment?.purchaseDate}</h5></div>
-          <div className="col-md-4"></div>
-          <div className="col-md-2"><h5>{t('supplierLoanPayment.paidAmount')}</h5></div>
-          <div className="col-md-2"><h5>{selectedSupplierLoanPayment?.paidAmount}</h5></div>
-          <hr />
-        </div>
-        <div className="row">
-          <div className="col-md-8"></div>
-          <div className="col-md-2"><h5>{t('supplierLoanPayment.unPaidAmound')}</h5></div>
-          <div className="col-md-2"><h5>{selectedSupplierLoanPayment?.paidAmount}</h5></div>
-          <hr />
-        </div>
-        <h2 className='mb-3'>{t('supplierLoanPayment.purchaseDetial')}</h2>
-        <table className='table table-bordered fs-6 table-hover'>
-          <thead>
-            <tr>
-              <th>{t('fuelType.name')}</th>
-              <th>{t('fuelType.qtn')}</th>
-              <th>{t('fuelType.unitPrice')}</th>
-              <th>{t('fuelType.total')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedSupplierLoanPayment?.purchaseDetails?.map((item: any, index: number) => (
-              <tr key={index}>
-                <td>{item.fuelTypeId}</td>
-                <td>{item.quantity}</td>
-                <td>{item.unitPrice}</td>
-                <td>{item.totalPrice}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
         <hr />
+
+        <h3 className="mb-3">{t('supplierLoanPayment.purchaseDetial')}</h3>
+
+        <div className="accordion" id="purchaseAccordion">
+          {selectedSupplierLoanPayment?.purchases?.map((purchase: any, index: number) => (
+            <div className="accordion-item" key={index}>
+
+              <h2 className="accordion-header" id={`heading-${index}`}>
+                <button
+                  className="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={`#collapse-${index}`}
+                  aria-expanded="false"
+                >
+                  {t('purchase.purchase')} #{purchase.id} —
+                  {t('purchase.totalAmount')}: {purchase.totalAmount} —
+                  {t('purchase.purchaseDate')}: {purchase.purchaseDate}
+                </button>
+              </h2>
+
+              <div
+                id={`collapse-${index}`}
+                className="accordion-collapse collapse"
+                aria-labelledby={`heading-${index}`}
+                data-bs-parent="#purchaseAccordion"
+              >
+                <div className="accordion-body">
+
+                  <div className="row mb-3">
+                    <div className="col-md-3"><strong>{t('purchase.totalAmount')}:</strong></div>
+                    <div className="col-md-3">{purchase.totalAmount}</div>
+
+                    <div className="col-md-3"><strong>{t('supplierLoanPayment.paidAmount')}:</strong></div>
+                    <div className="col-md-3">{purchase.paidAmount}</div>
+
+                    <div className="col-md-3"><strong>{t('supplierLoanPayment.unPaidAmound')}:</strong></div>
+                    <div className="col-md-3">{purchase.unpaidAmount}</div>
+                  </div>
+
+                  <table className="table table-bordered table-hover fs-6">
+                    <thead>
+                      <tr>
+                        <th>{t('fuelType.name')}</th>
+                        <th>{t('fuelType.qtn')}</th>
+                        <th>{t('fuelType.unitPrice')}</th>
+                        <th>{t('fuelType.total')}</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      {purchase.purchaseDetails?.map((item: any, i: number) => (
+                        <tr key={i}>
+                          <td>{item.fuelTypeId}</td>
+                          <td>{item.quantity}</td>
+                          <td>{item.unitPrice}</td>
+                          <td>{item.totalPrice}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+
+            </div>
+          ))}
+        </div>
+        <hr />
+
+        <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makePayment')}</h3>
+
         <form onSubmit={formik.handleSubmit}>
           <div className="row">
-            <div className='col-md-4'>
-              <label className='form-label fs-4'>
-                {t('supplierLoanPayment.paidLoanAmount')} <span className='text-danger'>*</span>
+
+            {/* Amount */}
+            <div className="col-md-4">
+              <label className="form-label fs-5">
+                {t('supplierLoanPayment.paidLoanAmount')} <span className="text-danger">*</span>
               </label>
+
               <input
-                type='number'
+                type="number"
                 {...formik.getFieldProps('paidLoanAmount')}
                 className={clsx('form-control', {
                   'is-invalid': formik.touched.paidLoanAmount && formik.errors.paidLoanAmount,
                   'is-valid': formik.touched.paidLoanAmount && !formik.errors.paidLoanAmount,
                 })}
+                min="1"
+                max={selectedSupplierLoanPayment?.balance || 0}
                 placeholder={t('global.WRITE.HERE')}
               />
+
               {formik.touched.paidLoanAmount && formik.errors.paidLoanAmount && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', { name: t('supplierLoanPayment.paidLoanAmount') })}
+                  {formik.errors.paidLoanAmount}
                 </div>
               )}
             </div>
-            <div className="col-md-4">
 
-              <label className="form-label fs-5">{t('supplierLoanPayment.paymentDate')}</label>
+            {/* Payment Date */}
+            <div className="col-md-4">
+              <label className="form-label fs-5">
+                {t('supplierLoanPayment.paymentDate')} <span className="text-danger">*</span>
+              </label>
+
               <input
                 type="date"
                 name="paymentDate"
                 value={formik.values.paymentDate}
                 onChange={formik.handleChange}
-                className="form-control"
+                className={clsx("form-control", {
+                  "is-invalid": formik.touched.paymentDate && formik.errors.paymentDate,
+                })}
               />
+
               {formik.touched.paymentDate && formik.errors.paymentDate && (
                 <div className='invalid-feedback'>
-                  {t('validation.required', { name: t('global.paymentDate') })}
+                  {formik.errors.paymentDate}
                 </div>
               )}
             </div>
-            <div className="col-md-4 mt-8">
-              <Button variant="success" type="submit">
+
+            {/* Submit Button */}
+            <div className="col-md-4 d-flex align-items-end mt-3">
+              <Button variant="success" type="submit" className="w-100 fs-5">
                 {t('global.save')}
               </Button>
             </div>
           </div>
         </form>
+
+        {/* Back Button */}
         <div className="mt-4 text-end">
-          <Button variant='danger' onClick={onClose} className='me-2 '>
+          <Button variant='danger' onClick={onClose} className='me-2'>
             {t('global.BACK')}
           </Button>
         </div>
+
+
       </Modal.Body>
     </Modal >
   )

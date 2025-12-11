@@ -138,7 +138,7 @@ const SupplierLoanPaymentList = () => {
                 },
               ]}
               columns={['id', 'name', 'phoneNumber']}
-              handleSupplierLoanPayment={openLoanPaymentModal}
+              openLoanPaymentModal={openLoanPaymentModal}
             />
           </div>
         </div>
