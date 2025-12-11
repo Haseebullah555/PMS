@@ -28,5 +28,10 @@ namespace Persistence.Repositories
                 .Include(s => s.SupplierLoanPayments);
         }
 
+        public async Task<Supplier?> GetSupplierByIdAsync(int supplierId)
+        {
+            return await _context.Suppliers
+                .FirstOrDefaultAsync(s => s.Id == supplierId);
+        }
     }
 }

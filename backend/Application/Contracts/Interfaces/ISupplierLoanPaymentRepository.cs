@@ -7,5 +7,6 @@ namespace Application.Contracts.Interfaces
     {
         IQueryable<Supplier> GetSuppliersWithDetails();
         IQueryable<Supplier> GetSuppliersWithSupplierLoanPayments();
+        Task<Supplier?> GetSupplierByIdAsync(int supplierId);
     }
 }

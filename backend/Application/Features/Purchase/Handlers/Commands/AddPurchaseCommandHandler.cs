@@ -41,6 +41,15 @@ namespace Application.Features.Purchase.Handlers.Commands
                 await _unitOfWork.Purchases.AddAsync(purchase);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
+                // 2️⃣ Update the balace column in supplier and set the uppaidAmount
+                // 3️⃣ Update the supplier balance
+                var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
+
+                supplier.Balance = unpaidAmount;
+
+                _unitOfWork.Suppliers.Update(supplier);
+                await _unitOfWork.SaveAsync(cancellationToken);
+
                 // 3️⃣ Create purchase details + update stock
                 foreach (var item in request.Items)
                 {
