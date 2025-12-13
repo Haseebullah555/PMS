@@ -33,7 +33,7 @@ const SupplierLoanPaymentList = () => {
               <h3 className='fw-bolder m-0'>
                 <i className="fas fa-shopping-cart fs-4 text-primary"></i>
                 {' '}
-                {t('global.list', { name: t('supplierLoanPayment.supplierLoanPayments') })}
+                {t('global.list', { name: t('supplierLoanPayment.supplierLoans') })}
               </h3>
             </div>
             <div>
@@ -117,27 +117,27 @@ const SupplierLoanPaymentList = () => {
                   sort: 'name',
                 },
                 {
-                  headerName: `${t('purchase.purchaseDate')}`,
-                  sort: 'purchaseDate',
+                  headerName: `${t('global.phone')}`,
+                  sort: 'phoneNumber',
                 },
                 {
-                  headerName: `${t('purchase.totalAmount')}`,
-                  sort: 'totalAmount',
+                  headerName: `${t('global.address')}`,
+                  sort: 'address',
                 },
                 {
-                  headerName: `${t('staffPayment.paidAmount')}`,
-                  sort: 'paidAmount',
+                  headerName: `${t('purchase.driverName')}`,
+                  sort: 'driverName',
                 },
                 {
-                  headerName: `${t('staffPayment.unpaidAmount')}`,
-                  sort: 'unpaidAmount',
+                  headerName: `${t('purchase.carPlate')}`,
+                  sort: 'carPlate',
                 },
                 {
                   headerName: 'عمل',
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber']}
+              columns={['id', 'name', 'phoneNumber','address','driverName','carPlate']}
               openLoanPaymentModal={openLoanPaymentModal}
             />
           </div>
