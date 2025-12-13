@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import DataTable from './Datatable'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import SupplierWithSupplierLoanPaymentModel from './SupplierWithSupplierLoanPaymentModel'
 import SupplierLoanPaymentModel from './SupplierLoanPaymentModel'
 
 const SupplierLoanPaymentList = () => {
@@ -16,6 +17,14 @@ const SupplierLoanPaymentList = () => {
   const openLoanPaymentModal = (Purchase: any) => {
     setSelectedSupplierLoanPayment(Purchase)
     setIsSupplierLoanPaymentModalOpen(true)
+  }
+  const [isSupplierWithSupplierLoanPaymentModalOpen, setIsSupplierWithSupplierLoanPaymentModalOpen] = useState(false)
+  const [selectedSupplierWithSupplierLoanPayment, setSelectedSupplierWithSupplierLoanPayment] = useState(null)
+  const closeSupplierWithSupplierLoanPaymentEditModal = () => setIsSupplierWithSupplierLoanPaymentModalOpen(false)
+
+  const openSupplierWithSupplierLoanPaymentModal = (Purchase: any) => {
+    setSelectedSupplierWithSupplierLoanPayment(Purchase)
+    setIsSupplierWithSupplierLoanPaymentModalOpen(true)
   }
 
   const [reloadTable, setReloadTable] = useState(false)
@@ -139,6 +148,7 @@ const SupplierLoanPaymentList = () => {
               ]}
               columns={['id', 'name', 'phoneNumber','address','driverName','carPlate']}
               openLoanPaymentModal={openLoanPaymentModal}
+              openSupplierWithSupplierLoanPaymentModal={openSupplierWithSupplierLoanPaymentModal}
             />
           </div>
         </div>
@@ -149,6 +159,14 @@ const SupplierLoanPaymentList = () => {
           isOpen={isSupplierLoanPaymentModalOpen}
           onClose={closeEditModal}
           selectedSupplierLoanPayment={selectedSupplierLoanPayment}
+          handleReloadTable={handleReloadTable}
+        />
+      )}
+      {isSupplierWithSupplierLoanPaymentModalOpen && (
+        <SupplierWithSupplierLoanPaymentModel
+          isOpen={isSupplierWithSupplierLoanPaymentModalOpen}
+          onClose={closeSupplierWithSupplierLoanPaymentEditModal}
+          selectedSupplierWithSupplierLoanPayment={selectedSupplierWithSupplierLoanPayment}
           handleReloadTable={handleReloadTable}
         />
       )}

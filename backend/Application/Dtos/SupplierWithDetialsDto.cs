@@ -17,7 +17,7 @@ namespace Application.Dtos
         public string CarPlate { get; set; }
         public decimal Balance { get; set; }
         public List<PurchaseDto> Purchases { get; set; }
-        public List<SupplierLoanPaymentDto> SupplierLoanPayment { get; set; }
+        public List<SupplierLoanPaymentDto> SupplierLoanPayments { get; set; }
 
     }
 }

@@ -12,7 +12,7 @@ import { getSupplierWithDetials } from '../../../../../redux/slices/supplierLoan
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
-const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentModal }) => {
+const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentModal, openSupplierWithSupplierLoanPaymentModal }) => {
   const [data, setData] = useState<SupplierLoanPaymentForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
@@ -167,6 +167,16 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
                             <i className='fas fa-edit text-primary'></i>
                             <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
                               {t('supplierLoanPayment.loanPayment')}
+                            </span>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            as='button'
+                            className='fw-bold text-primary'
+                            onClick={() => openSupplierWithSupplierLoanPaymentModal(item)}
+                          >
+                            <i className='fas fa-edit text-primary'></i>
+                            <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
+                              {t('supplierLoanPayment.payment')}
                             </span>
                           </Dropdown.Item>
                         </>

@@ -17,10 +17,10 @@ namespace Persistence.Repositories
         {
             return _context.Suppliers
                 // .Where(s => s.Purchases.Any(p => p.UnPaidAmount > 0))
+                .Include(s => s.SupplierLoanPayments)
                 .Include(s => s.Purchases)
                     .ThenInclude(p => p.PurchaseDetails)
-                        .ThenInclude(d => d.FuelType)
-                .Include(s => s.SupplierLoanPayments);
+                        .ThenInclude(d => d.FuelType);
         }
 
         public async Task<Supplier?> GetSupplierByIdAsync(int supplierId)
