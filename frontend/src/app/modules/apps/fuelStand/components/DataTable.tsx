@@ -73,7 +73,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
         setData(fuelStands.data)
         setPagination(fuelStands.meta)
     }, [fuelStands])
-console.log(fuelStands,"dfsdfsdfsdfsdf")
 
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
@@ -119,7 +118,7 @@ console.log(fuelStands,"dfsdfsdfsdfsdf")
                                         <th
                                             key={header.headerName}
                                             onClick={(e) => handleSort(header.sort)}
-                                            className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                                            className={`fs-6 text-center fw-bold}`}
                                         >
                                             {header.headerName.toUpperCase().replace('_', ' ')}
                                             {header.sort === sortColumn ? (
@@ -138,10 +137,10 @@ console.log(fuelStands,"dfsdfsdfsdfsdf")
                             <tbody>
                                 {!memoizedLoading &&
                                     memoizedData.map((item, index) => (
-                                        <tr key={index} className='fs-5'>
+                                        <tr key={index} className='fs-5 text-center'>
                                             <td className='fw-bolder'>{index + 1}</td>
                                             <td>{item.name}</td>
-                                            <td className='text-center'>
+                                            <td>
                                                 <DropdownButton
                                                     id='dropdown-item-button'
                                                     size='sm'

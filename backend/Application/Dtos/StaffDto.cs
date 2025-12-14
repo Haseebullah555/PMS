@@ -16,5 +16,7 @@ namespace Application.Dtos
         [Display(Name = "Hire Date"), Required(ErrorMessage = "{0} is required")]
         public DateOnly HireDate { get; set; }
         public bool Status { get; set; }
+        public FuelStandDto? fuelStand { get; set; }
+
     }
 }

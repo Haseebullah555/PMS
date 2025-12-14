@@ -64,6 +64,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
             {
                 Id = fs.Id,
                 Name = fs.Name,
+                StaffId = fs.StaffId,
                 FuelGuns = fs.FuelGuns.Select(g => new FuelGunDto
                 {
                     Id = g.Id,

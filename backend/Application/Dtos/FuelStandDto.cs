@@ -7,5 +7,6 @@ namespace Application.Dtos
     {
         [Display(Name = "Fuel Stand Name"), Required(ErrorMessage = "Fuel Stand Name is required")]
         public string Name { get; set; }
+        public int StaffId { get; set; }
     }
 }

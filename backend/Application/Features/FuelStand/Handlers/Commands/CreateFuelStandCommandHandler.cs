@@ -20,6 +20,7 @@ namespace Application.Features.FuelStand.Handlers.Commands
         var fuelStand = new Domain.Models.FuelStand
         {
             Name = request.FuelStandDto.Name,
+            StaffId = request.FuelStandDto.StaffId,
             FuelGuns = new List<Domain.Models.FuelGun>()  // initialize list
         };
 

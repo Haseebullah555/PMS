@@ -1,6 +1,5 @@
 export interface FuelGunForm {
   name: string;
-  fuelTypeId: string | number;
 }
 
 export interface FuelStandForm {
@@ -14,8 +13,7 @@ export const initialValues: FuelStandForm = {
   staffId: "",
   fuelGuns: [
     {
-      name: "",
-      fuelTypeId: "",
+      name: ""
     },
   ],
 };
