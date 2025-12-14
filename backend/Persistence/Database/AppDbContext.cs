@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Seeders;
 
 namespace Persistence.Database
 {
@@ -11,6 +12,9 @@ namespace Persistence.Database
         {
             base.OnModelCreating(modelBuilder);
             UserSeeder.Seed(modelBuilder);
+            StaffSeeder.Seed(modelBuilder);
+            FuelStandSeeder.Seed(modelBuilder);
+            FuelGunSeeder.Seed(modelBuilder);
         }
         #region DbSets
         public DbSet<User> Users { get; set; }

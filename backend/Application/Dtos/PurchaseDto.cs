@@ -12,7 +12,7 @@ namespace Application.Dtos
         public decimal TotalAmount { get; set; }     // sum of details
         public decimal PaidAmount { get; set; }
         public decimal UnpaidAmount { get; set; }
-
+        public decimal Density { get; set; }
         public List<PurchaseDetailDto> PurchaseDetails { get; set; }
     }
 }

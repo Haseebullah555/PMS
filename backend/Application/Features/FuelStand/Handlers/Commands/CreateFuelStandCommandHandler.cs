@@ -29,7 +29,7 @@ namespace Application.Features.FuelStand.Handlers.Commands
             fuelStand.FuelGuns.Add(new Domain.Models.FuelGun
             {
                 Name = gun.Name,
-                FuelTypeId = gun.FuelTypeId
+                // FuelTypeId = gun.FuelTypeId
             });
         }
 
