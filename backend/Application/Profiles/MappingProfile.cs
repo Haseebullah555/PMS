@@ -13,6 +13,8 @@ namespace Application.Profiles
             CreateMap<FuelTypes, FuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();
+            CreateMap<FuelStand, CreateFuelStandDto>()
+    .ForMember(d => d.Staffs, o => o.MapFrom(s => s.Staff));
             CreateMap<ExtraExpenses, ExtraExpensesDto>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
             CreateMap<PartnerTransaction, PartnerTransactionDto>().ReverseMap();

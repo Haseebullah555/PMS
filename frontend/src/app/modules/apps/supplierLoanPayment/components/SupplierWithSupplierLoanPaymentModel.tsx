@@ -111,55 +111,59 @@ const SupplierWithSupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModa
 
         <hr />
 
-        <h3 className="mb-3">{t('supplierLoanPayment.purchaseDetial')}</h3>
 
-        <div className="accordion" id="purchaseAccordion">
-          {selectedSupplierWithSupplierLoanPayment?.purchases?.map((purchase: any, index: number) => (
-            <div className="accordion-item" key={index}>
-
-              <h2 className="accordion-header" id={`heading-${index}`}>
-                <button
-                  className="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#collapse-${index}`}
-                  aria-expanded="false"
-                >
-                  {t('supplierLoanPayment.paidLoanAmount')}
-                </button>
-              </h2>
-
-              <div
-                id={`collapse-${index}`}
-                className="accordion-collapse collapse"
-                aria-labelledby={`heading-${index}`}
-                data-bs-parent="#purchaseAccordion"
+        <div className="accordion" id="paidLoanAmountAccordion">
+          <div className="accordion-item">
+            <h2 className="accordion-header" id="headingLoanPayments">
+              <button
+                className="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseLoanPayments"
+                aria-expanded="false"
+                aria-controls="collapseLoanPayments"
               >
-                <div className="accordion-body">
-                  <table className="table table-bordered table-hover fs-6">
-                    <thead>
-                      <tr>
-                        <th>{t('supplierLoanPayment.paidLoanAmount')}</th>
-                        <th>{t('supplierLoanPayment.paymentDate')}</th>
-                      </tr>
-                    </thead>
+                <h6 className="mb-3">{t('supplierLoanPayment.paymentList')}</h6>
+              </button>
+            </h2>
 
-                    <tbody>
-                      {selectedSupplierWithSupplierLoanPayment.supplierLoanPayments?.map((item: any, i: number) => (
-                        <tr key={i}>
-                          <td>{item.paidLoanAmount}</td>
+            <div
+              id="collapseLoanPayments"
+              className="accordion-collapse collapse"
+              aria-labelledby="headingLoanPayments"
+              data-bs-parent="#paidLoanAmountAccordion"
+            >
+              <div className="accordion-body">
+                <table className="table table-bordered table-hover fs-6">
+                  <thead>
+                    <tr>
+                      <th>{t('global.amount')}</th>
+                      <th>{t('global.date')}</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {selectedSupplierWithSupplierLoanPayment?.supplierLoanPayments?.length > 0 ? (
+                      selectedSupplierWithSupplierLoanPayment.supplierLoanPayments.map((item, i) => (
+                        <tr key={item.id ?? i}>
+                          <td>{item.paidLoanAmount.toLocaleString()}</td>
                           <td>{item.paymentDate}</td>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-
-                </div>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={2} className="text-center text-muted">
+                          No loan payments found
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
-
             </div>
-          ))}
+          </div>
         </div>
+
         <hr />
 
         <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makeLoanPayment')}</h3>

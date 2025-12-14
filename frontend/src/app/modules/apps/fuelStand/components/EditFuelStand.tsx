@@ -10,6 +10,7 @@ import { toast } from 'react-toastify'
 import { updateFuelStand } from '../../../../../redux/slices/fuelStand/FuelStandSlice'
 import { name } from '../../../../custom/persian_fa'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 
 interface EditFuelStandModalProps {
   isOpen: boolean
@@ -29,17 +30,16 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
   const dispatch = useAppDispatch()
   const [roles, setRoles] = useState([])
   const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
+  const staffs = useAppSelector((state: any) => state.staffs.allStaffs)
   // Populate form with user data when `selectedFuelStand` changes
   useEffect(() => {
     if (selectedFuelStand) {
       const fuelGuns = selectedFuelStand.fuelGuns?.length
         ? selectedFuelStand.fuelGuns.map((d) => ({
-          fuelTypeId: d.fuelTypeId || 0,
           name: d.name || "",
         }))
         : [
           {
-            fuelTypeId: 0,
             name: "",
           },
         ];
@@ -47,6 +47,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
       formik.setValues({
         id: selectedFuelStand.id || null,
         name: selectedFuelStand.name || "",
+        staffId: selectedFuelStand.staffId || null,
         fuelGuns: fuelGuns
       });
     }
@@ -60,7 +61,6 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
       .of(
         Yup.object().shape({
           name: Yup.string().required("Required"),
-          fuelTypeId: Yup.number().required("Required")
         })
       )
       .min(1, "At least one fuel gun is required"),
@@ -69,14 +69,14 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
   // Formik setup
   const formik = useFormik({
     initialValues: {
-        id: null,
-        name: '',
-        fuelGuns: [
-          {
-            fuelTypeId: "",
-            name: "",
-          },
-        ],  
+      id: null,
+      name: '',
+      staffId: null,
+      fuelGuns: [
+        {
+          name: "",
+        },
+      ],
     },
     validationSchema: FuelStandSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -116,17 +116,26 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
   const handleError = (error: any) => {
     console.error('Error creating department:', error.message)
   }
-    useEffect(() => {
-      if (!fuelTypes) {
-        dispatch(getAllFuelType())
-          .then((res) => { })
-          .catch((err) => {
-            console.log(err)
-          })
-      }
-    }, [])
+  useEffect(() => {
+    if (!fuelTypes) {
+      dispatch(getAllFuelType())
+        .then((res) => { })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    if (!staffs) {
+          dispatch(getStaffsList())
+            .then((res) => {
+              console.log(res,"result")
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
+  }, [])
   return (
-    <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
+    <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false}>
       <Modal.Header closeButton>
         <Modal.Title>{t('global.edit', { name: t('fuelStand.fuelStands') })}</Modal.Title>
       </Modal.Header>
@@ -155,6 +164,31 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
                     </div>
                   )}
                 </div>
+                                  {/* Staffs */}
+                  <div className="col-md-12 mb-3">
+                    <label className='form-label'>{t("staff.staff")} *</label>
+                    <select
+                      className={clsx('form-select', {
+                        'is-invalid': formik.touched.staffId && formik.errors.staffId,
+                        'is-valid': formik.touched.staffId && !formik.errors.staffId,
+                      })}
+                      value={formik.values.staffId ?? ""}
+                      onChange={(e) =>
+                        formik.setFieldValue("staffId", Number(e.target.value))
+                      }
+                    >
+                      <option value="">{t("global.SELECT.OPTION")}</option>
+                      {staffs?.map((f: any) => (
+                        <option key={f.id} value={f.id}>{f.fullName}</option>
+                      ))}
+                    </select>
+                    {formik.touched.staffId &&
+                      formik.errors?.staffId && (
+                        <div className="invalid-feedback">
+                          {t('validation.required', { name: t('staff.staff') })}
+                        </div>
+                      )}
+                  </div>
               </div>
             </div>
           </div>
@@ -163,11 +197,11 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
             <h5>{t("fuelGun.fuelGuns")}</h5>
 
             {formik.values.fuelGuns.map((gun, index) => (
-              <div key={index} className="border rounded p-3 mb-3">
+              <div key={index} className="border rounded p-3 mb-3 bg-gray-200">
 
                 <div className="row">
                   {/* Gun Name */}
-                  <div className="col-md-4 mb-3">
+                  <div className="col-md-10 mb-3">
                     <label>{t("fuelGun.name")} *</label>
                     <input
                       type="text"
@@ -179,23 +213,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
                     />
                   </div>
 
-                  {/* Fuel Type */}
-                  <div className="col-md-4 mb-3">
-                    <label>{t("fuelType.fuelType")} *</label>
-                    <select
-                      className="form-select"
-                      value={gun.fuelTypeId}
-                      onChange={(e) =>
-                        formik.setFieldValue(`fuelGuns[${index}].fuelTypeId`, Number(e.target.value))
-                      }
-                    >
-                      <option value="">{t("global.SELECT.OPTION")}</option>
-                      {fuelTypes?.data?.map((f: any) => (
-                        <option key={f.id} value={f.id}>{f.name}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className='col-md-4 mt-5'>
+                  <div className='col-md-2 mt-5'>
                     {formik.values.fuelGuns.length > 1 && (
                       <button
                         type="button"
