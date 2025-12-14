@@ -10,7 +10,9 @@ namespace Domain.Models
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
 
-        public ICollection<PurchaseDetail> Purchases { get; set; } = new List<PurchaseDetail>();
-        public ICollection<SaleDetail> Sales { get; set; } = new List<SaleDetail>();
+        public decimal Density { get; set; }
+
+        // public ICollection<PurchaseDetail> Purchases { get; set; } = new List<PurchaseDetail>();
+        // public ICollection<SaleDetail> Sales { get; set; } = new List<SaleDetail>();
     }
 }

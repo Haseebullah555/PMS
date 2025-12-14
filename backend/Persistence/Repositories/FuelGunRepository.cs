@@ -23,7 +23,7 @@ namespace Persistence.Repositories
             {
                 Id = fg.Id,
                 Name = fg.Name,
-                FuelTypeId = fg.FuelTypeId,
+                // FuelTypeId = fg.FuelTypeId,
                 // FuelType = fg.FuelType.Name,
                 // FuelStand = fg.FuelStand.Name,
                 FuelStandId = fg.FuelStandId,
@@ -40,7 +40,7 @@ namespace Persistence.Repositories
             {
                 Id = fg.Id,
                 Name = fg.Name,
-                FuelTypeId = fg.FuelTypeId,
+                // FuelTypeId = fg.FuelTypeId,
                 // FuelType = fg.FuelType.Name,
                 // FuelStand = fg.FuelStand.Name,
                 FuelStandId = fg.FuelStandId,

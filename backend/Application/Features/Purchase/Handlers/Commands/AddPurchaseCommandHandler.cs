@@ -45,7 +45,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                 // 3️⃣ Update the supplier balance
                 var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
 
-               supplier.Balance += unpaidAmount;
+                supplier.Balance += unpaidAmount;
 
                 _unitOfWork.Suppliers.Update(supplier);
                 await _unitOfWork.SaveAsync(cancellationToken);
@@ -60,6 +60,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                         Quantity = item.Quantity,
                         UnitPrice = item.UnitPrice,
                         TotalPrice = item.Quantity * item.UnitPrice,
+                        Density = item.Density,
                         CreatedAt = DateTime.UtcNow
                     };
 
@@ -68,13 +69,14 @@ namespace Application.Features.Purchase.Handlers.Commands
                     // Stock update
                     var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
 
-                    if (stock == null)
+                    if (stock == null) // if fuelTypeId not exist in stock table
                     {
                         stock = new Domain.Models.Stock
                         {
                             FuelTypeId = item.FuelTypeId,
                             Quantity = item.Quantity,
                             UnitPrice = item.UnitPrice, // First time purchase
+                            Density = item.Density,
                             CreatedAt = DateTime.UtcNow
                         };
 
@@ -110,7 +112,6 @@ namespace Application.Features.Purchase.Handlers.Commands
                         CreatedAt = DateTime.UtcNow
                     };
 
-                    await _unitOfWork.FinancialTransactions.AddAsync(txn);
                 }
 
                 // 5️⃣ Create Supplier Loan (if unpaid)

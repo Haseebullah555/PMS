@@ -68,7 +68,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
                 {
                     Id = g.Id,
                     Name = g.Name,
-                    FuelTypeId = g.FuelTypeId
+                    // FuelTypeId = g.FuelTypeId
                 }).ToList()
             }).ToList();
 

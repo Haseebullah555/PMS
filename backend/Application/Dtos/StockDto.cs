@@ -10,8 +10,8 @@ namespace Application.Dtos
         public string? Description { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; } // optional (for valuation)
-
-        public ICollection<PurchaseDetailDto> Purchases { get; set; } = new List<PurchaseDetailDto>();
-        public ICollection<SaleDetailDto> Sales { get; set; } = new List<SaleDetailDto>();
+        public decimal Density { get; set; }
+        // public ICollection<PurchaseDetailDto> Purchases { get; set; } = new List<PurchaseDetailDto>();
+        // public ICollection<SaleDetailDto> Sales { get; set; } = new List<SaleDetailDto>();
     }
 }
