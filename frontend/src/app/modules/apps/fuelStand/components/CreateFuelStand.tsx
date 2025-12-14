@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { initialValues } from './_module'
+import { FuelStandForm, initialValues } from './_module'
 import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
@@ -11,6 +11,7 @@ import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
 import { storeFuelStand } from '../../../../../redux/slices/fuelStand/FuelStandSlice'
 import { getAllFuelType, getFuelTypes } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 
 // Define the props for the modal
 interface CreateFuelStandModalProps {
@@ -26,9 +27,11 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
   const [roles, setRoles] = useState([])
 
   const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
+  const staffs = useAppSelector((state: any) => state.staffs.allStaffs)
   // Form Validation Schema
   const FuelStandSchema = Yup.object().shape({
     name: Yup.string().required("Required"),
+    staffId: Yup.number().required("Required"),
     fuelGuns: Yup.array()
       .of(
         Yup.object().shape({
@@ -41,7 +44,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
 
 
   // Formik Hook
-  const formik = useFormik({
+  const formik = useFormik<FuelStandForm>({
     initialValues,
     validationSchema: FuelStandSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
@@ -90,8 +93,17 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
           console.log(err)
         })
     }
+    if (!staffs) {
+      dispatch(getStaffsList())
+        .then((res) => {
+          console.log(res,"result")
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   }, [])
-  console.log(formik.values,"fooooooooooooooooooooooooooooooooooooooo")
+  console.log(staffs, "fooooooooooooooooooooooooooooooooooooooo")
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
@@ -101,27 +113,52 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
         <form onSubmit={formik.handleSubmit}>
           {/* Name and FuelStand Name Fields */}
           <div className='row'>
-            <div className='col-md-12'>
-              <div className='row'>
-                {/* Name Field */}
-                <div className='col-md-12 mb-3'>
-                  <label className='form-label'>
-                    {t('fuelStand.name')} <span className='text-danger'>*</span>
-                  </label>
-                  <input
-                    type='text'
-                    {...formik.getFieldProps('name')}
-                    className={clsx('form-control', {
-                      'is-invalid': formik.touched.name && formik.errors.name,
-                      'is-valid': formik.touched.name && !formik.errors.name,
-                    })}
-                  />
-                  {formik.touched.name && formik.errors.name && (
-                    <div className='invalid-feedback'>
-                      {t('validation.required', { name: t('fuelStand.name') })}
+            <div className='col-md-12'></div>
+            <div className='row'>
+              {/* Name Field */}
+              <div className='col-md-6 mb-3'>
+                <label className='form-label'>
+                  {t('fuelStand.name')} <span className='text-danger'>*</span>
+                </label>
+                <input
+                  type='text'
+                  {...formik.getFieldProps('name')}
+                  className={clsx('form-control', {
+                    'is-invalid': formik.touched.name && formik.errors.name,
+                    'is-valid': formik.touched.name && !formik.errors.name,
+                  })}
+                />
+                {formik.touched.name && formik.errors.name && (
+                  <div className='invalid-feedback'>
+                    {t('validation.required', { name: t('fuelStand.name') })}
+                  </div>
+                )}
+              </div>
+
+              {/* Staffs */}
+              <div className="col-md-6 mb-3">
+                <label className='form-label'>{t("staff.staff")} *</label>
+                <select
+                  className={clsx('form-select', {
+                    'is-invalid': formik.touched.staffId && formik.errors.staffId,
+                    'is-valid': formik.touched.staffId && !formik.errors.staffId,
+                  })}
+                  value={formik.values.staffId ?? ""}
+                  onChange={(e) =>
+                    formik.setFieldValue("staffId", Number(e.target.value))
+                  }
+                >
+                  <option value="">{t("global.SELECT.OPTION")}</option>
+                  {staffs?.map((f: any) => (
+                    <option key={f.id} value={f.id}>{f.fullName}</option>
+                  ))}
+                </select>
+                {formik.touched.staffId &&
+                  formik.errors?.staffId && (
+                    <div className="invalid-feedback">
+                      {t('validation.required', { name: t('staff.staff') })}
                     </div>
                   )}
-                </div>
               </div>
             </div>
           </div>
@@ -134,23 +171,45 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
 
                 <div className="row">
                   {/* Gun Name */}
-                  <div className="col-md-4 mb-3">
-                    <label>{t("fuelGun.name")} *</label>
+                  <div className="col-md-6 mb-3">
+                    <label className='form-label'>{t("fuelGun.name")} *</label>
                     <input
                       type="text"
-                      className="form-control"
+                      className={clsx("form-control", {
+                        "is-invalid":
+                          (formik.touched.fuelGuns?.[index] as any)?.name &&
+                          (formik.touched.fuelGuns?.[index] as any)?.name,
+                        "is-valid":
+                          formik.touched.fuelGuns?.[index]?.name &&
+                          !(formik.touched.fuelGuns?.[index] as any)?.name,
+                      })}
                       value={gun.name}
                       onChange={(e) =>
                         formik.setFieldValue(`fuelGuns[${index}].name`, e.target.value)
                       }
+                      onBlur={formik.handleBlur}
+                      name={`fuelGuns[${index}].name`}
                     />
+                    {(formik.touched.fuelGuns?.[index] as any)?.name &&
+                      (formik.errors.fuelGuns?.[index] as any)?.name && (
+                        <div className="invalid-feedback">
+                          {t('validation.required', { name: t('fuelGun.fuelGun') })}
+                        </div>
+                      )}
                   </div>
 
                   {/* Fuel Type */}
-                  <div className="col-md-4 mb-3">
-                    <label>{t("fuelType.fuelType")} *</label>
+                  <div className="col-md-6 mb-3">
+                    <label className='form-label'>{t("fuelType.fuelType")} *</label>
                     <select
-                      className="form-select"
+                      className={clsx("form-select", {
+                        "is-invalid":
+                          (formik.touched.fuelGuns?.[index] as any)?.fuelTypeId &&
+                          (formik.touched.fuelGuns?.[index] as any)?.fuelTypeId,
+                        "is-valid":
+                          formik.touched.fuelGuns?.[index]?.fuelTypeId &&
+                          !(formik.touched.fuelGuns?.[index] as any)?.fuelTypeId,
+                      })}
                       value={gun.fuelTypeId}
                       onChange={(e) =>
                         formik.setFieldValue(`fuelGuns[${index}].fuelTypeId`, Number(e.target.value))
@@ -161,6 +220,12 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                         <option key={f.id} value={f.id}>{f.name}</option>
                       ))}
                     </select>
+                    {(formik.touched.fuelGuns?.[index] as any)?.fuelTypeId &&
+                      (formik.errors.fuelGuns?.[index] as any)?.fuelTypeId && (
+                        <div className="invalid-feedback">
+                          {t('validation.required', { name: t('fuelType.fuelType') })}
+                        </div>
+                      )}
                   </div>
                   <div className='col-md-4 mt-5'>
                     {formik.values.fuelGuns.length > 1 && (
@@ -177,7 +242,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                       </button>
                     )}
                   </div>
-                {/* Remove Gun Button (only show if more than 1 gun) */}
+                  {/* Remove Gun Button (only show if more than 1 gun) */}
                 </div>
 
               </div>
@@ -190,7 +255,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
               onClick={() =>
                 formik.setFieldValue("fuelGuns", [
                   ...formik.values.fuelGuns,
-                  { name: "", fuelTypeId: ""}
+                  { name: "", fuelTypeId: "" }
                 ])
               }
             >
