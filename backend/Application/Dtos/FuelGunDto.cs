@@ -11,5 +11,8 @@ namespace Application.Dtos
         public int FuelTypeId { get; set; }
         [Display(Name = "Fuel Stand Name"),Required(ErrorMessage ="Fuel Gun Stand is required")]
         public int FuelStandId { get; set; }
+
+        
+        
     }
 }

@@ -8,5 +8,7 @@ namespace Domain.Models
         public int StaffId { get; set; }
         public Staff Staff { get; set; }
         public ICollection<FuelGun> FuelGuns { get; set; } = new List<FuelGun>();
+        public ICollection<FuelDistribution> FuelDistributions { get; set; } = new List<FuelDistribution>();
+
     }
 }

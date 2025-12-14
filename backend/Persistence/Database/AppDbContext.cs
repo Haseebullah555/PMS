@@ -42,6 +42,7 @@ namespace Persistence.Database
         public DbSet<PartnerTransaction> PartnerTransactions { get; set; }
         public DbSet<ProfitSharing> ProfitSharings { get; set; }
         public DbSet<ProfitSharingAgreement> ProfitSharingAgreements { get; set; }
+        public DbSet<FuelDistribution> FuelDistributions { get; set; }
         public DbSet<Student> Students { get; set; }
 
         #endregion

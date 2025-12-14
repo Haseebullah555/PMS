@@ -5,7 +5,7 @@ namespace Application.Dtos
     public class PurchaseDto : BaseDto
     {
         public int SupplierId { get; set; }
-        public string? SupplierName { get; set; }
+        public SupplierDto? Supplier { get; set; }
 
         public DateOnly PurchaseDate { get; set; }
 
