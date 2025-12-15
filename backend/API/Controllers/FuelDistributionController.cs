@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MediatR;
 using API.Controllers.Common;
+using Application.Features.FuelDistribution.Requests.Queries;
 namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class FuelDistributionController : BaseApiController
     {
-         [HttpGet("StandFuelWithDetails")]
+         [HttpGet("StandFuelWithDetials")]
         public async Task<ActionResult> StandFuelWithDetails([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var result = await _mediator.Send(new GetListOfPurchasesRequest
+            var result = await _mediator.Send(new GetFuelStandWithDetialsRequest
             {
                 Search = search,
                 SortField = sort_field,

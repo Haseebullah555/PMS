@@ -2,6 +2,7 @@ import {Routes, Route, Outlet} from 'react-router-dom'
 import FuelStandList from './components/FuelStandList'
 
 const FuelStandManagementRoutes = () => {
+  console.log("---------------")
   return (
     <Routes>
       <Route element={<Outlet />}>

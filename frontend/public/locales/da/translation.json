@@ -382,5 +382,8 @@
     "payment": "پرداخت های تامین کننده",
     "paymentList": "لیست پرداخت ها",
     "supplierLoans":"قرضه های تامین کننده گان"
+  }, 
+  "fuelDistribution": {
+    "fuelStandWithDetial": "توزیع تیل به پایه ها"
   }
 }

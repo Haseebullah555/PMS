@@ -14,11 +14,11 @@ import StaffManagementRoutes from '../modules/apps/staff/StaffManagementRoutes'
 import StockManagementRoutes from '../modules/apps/Stock/StockManagementRoutes'
 import PurchaseManagementRoutes from '../modules/apps/purchases/PurchasesManagementRoutes'
 import PartnerManagementRoutes from '../modules/apps/partner/PartnerManagementRoutes'
-import PartnerTransactionList from '../modules/apps/partnerTransaction/components/PartnerTransactionList'
 import PartnerTransactionManagementRoutes from '../modules/apps/partnerTransaction/PartnerTransactionManagementRoutes'
 import ExtraExpenseManagementRoutes from '../modules/apps/extraExpense/ExtraExpensemanagementRoutes'
 import FuelTypeManagementRoutes from '../modules/apps/fuelType/FuelTypemanagementRoutes'
 import FuelStandManagementRoutes from '../modules/apps/fuelStand/FuelStandmanagementRoutes'
+import FuelDistributionManagementRoutes from '../modules/apps/fuelDistribution/FuelDistributionManagementRoutes'
 
 const PrivateRoutes = () => {
 
@@ -170,12 +170,22 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+
+        <Route
+          path='fuelDistribution/*'
+          element={
+            <SuspensedView>
+              <FuelDistributionManagementRoutes />
+            </SuspensedView>
+          }
+        />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
     </Routes>
   )
 }
+console.log('FuelDistributionManagementRoutes loaded')
 
 const SuspensedView: FC<WithChildren> = ({ children }) => {
   const baseColor = getCSSVariableValue('--bs-primary')

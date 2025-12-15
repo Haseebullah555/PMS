@@ -1,4 +1,6 @@
 using Application.Dtos;
+using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelGun;
 using AutoMapper;
 using Domain.Models;
 
@@ -27,6 +29,12 @@ namespace Application.Profiles
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Supplier, SupplierWithDetialsDto>().ReverseMap();
             CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
+
+
+            CreateMap<FuelStand, GetFuelStandWithDetialsDto>();
+            CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>();
+            CreateMap<FuelDistribution, FuelDistributionDto>();
+            // CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
         }
     }
 }
