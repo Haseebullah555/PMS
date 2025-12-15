@@ -7,7 +7,7 @@ const FuelDistributionManagementRoutes = () => {
     <Routes>
       <Route element={<Outlet />}>
         {/* Fuel Distribution Routes */}
-        <Route path='/fuelStandWithDetials/list' element={<FuelStandWithDetials />} />
+        <Route path='/fuelStandWithDetials' element={<FuelStandWithDetials />} />
       </Route>
     </Routes>
   )
