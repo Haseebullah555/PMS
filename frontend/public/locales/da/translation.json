@@ -385,6 +385,8 @@
   }, 
   "fuelDistribution": {
     "fuelGun": "تفنگچه تیل", 
-    "fuelStandWithDetial": "توزیع تیل به پایه ها"
+    "fuelStandWithDetial": "توزیع تیل به پایه ها",
+    "fuelDistribution": "توزیع تیل",
+    "quantity": "مقدار توزیع "
   }
 }

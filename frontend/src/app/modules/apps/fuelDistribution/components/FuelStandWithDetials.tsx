@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
+import { table } from 'console'
+import AddFuelDistributionModal from './AddFuelDistributionModal'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -10,6 +12,9 @@ const SORT_DESC = 'desc'
 const FuelStandWithDetials = () => {
 
   const { t } = useTranslation()
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const openCreateModal = () => setCreateModalOpen(true)
+  const closeCreateModal = () => setCreateModalOpen(false)
   const dispatch = useAppDispatch()
 
   const fuelStandWithDetials = useAppSelector((state) => state.fuelDistribution.fuelStandWithDetials)
@@ -24,7 +29,11 @@ const FuelStandWithDetials = () => {
   const [pagination, setPagination] = useState<any>({})
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [loading, setLoading] = useState<boolean>(true)
+  const [reloadTable, setReloadTable] = useState(false)
 
+  const handleReloadTable = () => {
+    setReloadTable((prev) => !prev) // Toggle to trigger table reload
+  }
 
   useEffect(() => {
     const params = {
@@ -89,8 +98,8 @@ const FuelStandWithDetials = () => {
                         <div className='card-title m-0'>
                           <h3 className='fw-bolder m-0'>
                             <i className="text-white fs-4 fa-solid fa-gas-pump"></i>{' '}
-                           <span className='text-white mx-3'>
-                             {item?.name}
+                            <span className='text-white mx-3'>
+                              {item?.name}
                             </span>
                           </h3>
                         </div>
@@ -104,21 +113,20 @@ const FuelStandWithDetials = () => {
                             <th>{t('global.ACTION')}</th>
                           </thead>
                           <tbody>
-                            <tr className='fs-5 text-center'>
-                              <td className='fw-bolder'>
-                                1
-                              {/* {item?.fuelGuns?.map((gunItems) => (
-                                {gunItems?.name}
-                              ))} */}
-                              </td>
-                              <td className='fw-bolder'>
-                                <button className='btn btn-sm btn-flex btn-primary fw-bold'>
-                                  <b>
-                                    <i className='fa-solid fa-plus'></i>
-                                  </b>
-                                </button>
-                              </td>
-                            </tr>
+                            {item?.fuelGuns?.map((i) => (
+                              <tr className='fs-5 text-center'>
+                                <td className='fw-bolder' key={i?.id}>
+                                  {i?.name}
+                                </td>
+                                <td className='fw-bolder'>
+                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={openCreateModal}>
+                                    <b>
+                                      <i className='fa-solid fa-plus'></i>
+                                    </b>
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
                           </tbody>
                         </table>
                       </div>
@@ -131,7 +139,13 @@ const FuelStandWithDetials = () => {
           </div>
         </div>
       </Fragment>
-
+      {isCreateModalOpen && (
+        <AddFuelDistributionModal
+          isOpen={isCreateModalOpen}
+          onClose={() => setCreateModalOpen(false)}
+          handleReloadTable={handleReloadTable}
+        />
+      )}
     </>
   )
 }

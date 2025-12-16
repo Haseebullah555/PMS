@@ -8,7 +8,6 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
 import { updateFuelStand } from '../../../../../redux/slices/fuelStand/FuelStandSlice'
-import { name } from '../../../../custom/persian_fa'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 import { getStaffsList } from '../../../../../redux/slices/staff/StaffSlice'
 

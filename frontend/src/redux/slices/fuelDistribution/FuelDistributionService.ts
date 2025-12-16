@@ -8,7 +8,14 @@ const getFuelStandWithDetials = async (params: any) => {
     return response.data
 }
 
+const store = async (formData: any) => {
+  console.log('formData', formData);
+  const response = await axiosInterceptor.post('/FuelDistribution/create', formData)
+  return response.data
+}
+
 const fuelDistributionService = {
     getFuelStandWithDetials,
+    store,
 }
 export default fuelDistributionService

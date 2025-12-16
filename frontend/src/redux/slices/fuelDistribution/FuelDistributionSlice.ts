@@ -17,7 +17,18 @@ export const getFuelStandWithDetials = createAsyncThunk('api/fuelStandWithDetial
         return thunkAPI.rejectWithValue(message);
     }
 })
-
+// store fuelDistribution
+export const storeFuelDistribution = createAsyncThunk('api/fuelDistribution/store', async (formData: any, thunkAPI) => {
+  try {
+    return await fuelDistributionService.store(formData)
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
 
 export const fuelDistributionSlice = createSlice({
     name: 'fuelDistribution',
