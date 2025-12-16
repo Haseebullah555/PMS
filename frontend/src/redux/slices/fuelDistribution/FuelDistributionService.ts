@@ -4,7 +4,7 @@ const axiosInterceptor = axios.create({
 })
 
 const getFuelStandWithDetials = async (params: any) => {
-    const response = await axiosInterceptor.get(`/StandFuelWithDetials`, {params})
+  const response = await axiosInterceptor.get(`/FuelDistribution/StandFuelWithDetials`, {params})
     return response.data
 }
 

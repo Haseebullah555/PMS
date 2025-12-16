@@ -384,6 +384,7 @@
     "supplierLoans":"قرضه های تامین کننده گان"
   }, 
   "fuelDistribution": {
+    "fuelGun": "تفنگچه تیل", 
     "fuelStandWithDetial": "توزیع تیل به پایه ها"
   }
 }

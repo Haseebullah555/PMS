@@ -185,7 +185,6 @@ const PrivateRoutes = () => {
     </Routes>
   )
 }
-console.log('FuelDistributionManagementRoutes loaded')
 
 const SuspensedView: FC<WithChildren> = ({ children }) => {
   const baseColor = getCSSVariableValue('--bs-primary')
