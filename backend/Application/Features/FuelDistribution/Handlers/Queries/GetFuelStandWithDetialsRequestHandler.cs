@@ -14,7 +14,6 @@ namespace Application.Features.FuelDistribution.Handlers.Queries
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
-
         public GetFuelStandWithDetialsRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;

@@ -34,6 +34,7 @@ namespace Application.Profiles
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>();
             CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>();
             CreateMap<FuelDistribution, FuelDistributionDto>();
+            CreateMap<DailyFuelSell, DailyFuelSellDto>();
             // CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
         }
     }

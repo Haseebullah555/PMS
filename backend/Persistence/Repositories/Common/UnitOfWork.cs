@@ -8,7 +8,10 @@ namespace Persistence.Repositories.Common
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-
+        public UnitOfWork(AppDbContext context)
+        {
+            _context = context;
+        }
         #region Private fields
         private ICustomerRepository _customerRepository;
         private ISupplierRepository _supplierRepository;
@@ -27,12 +30,9 @@ namespace Persistence.Repositories.Common
         private ISupplierLoansRepository _supplierLoansRepository;
         private ISupplierLoanPaymentRepository _supplierLoanPaymentRepository;
         private IFuelDistributionRepository _fuelDistributionRepository;
+        private IDailyFuelSellRepository _dailyFuelSellRepository;
         private IStudentRespository _studentRepository;
         #endregion
-        public UnitOfWork(AppDbContext context)
-        {
-            _context = context;
-        }
 
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
@@ -55,8 +55,8 @@ namespace Persistence.Repositories.Common
         public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
         public ISupplierLoanPaymentRepository SupplierLoanPayments => _supplierLoanPaymentRepository ??= new SupplierLoanPaymentRepository(_context);
         public IFuelDistributionRepository FuelDistributions => _fuelDistributionRepository ??= new FuelDistributionRepository(_context);
-
-        public IStudentRespository Students =>  _studentRepository ??= new StudentRepository(_context);
+        public IDailyFuelSellRepository DailyFuelSells => _dailyFuelSellRepository ??= new DailyFuelRepository(_context);
+        public IStudentRespository Students => _studentRepository ??= new StudentRepository(_context);
 
         public void Dispose()
         {
@@ -68,9 +68,9 @@ namespace Persistence.Repositories.Common
             await _context.SaveChangesAsync(cancellationToken);
         }
         public async Task<IDbContextTransaction> BeginTransactionAsync()
-    {
-        return await _context.Database.BeginTransactionAsync();
-    }
+        {
+            return await _context.Database.BeginTransactionAsync();
+        }
 
 
     }
