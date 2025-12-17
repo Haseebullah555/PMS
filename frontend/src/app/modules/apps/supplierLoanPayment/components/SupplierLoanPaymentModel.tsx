@@ -91,16 +91,16 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
       </Modal.Header>
       <Modal.Body>
         {/* Supplier Header Section */}
-        <div className="row mb-4">
+        <div className="row mb-4 p-3" style={{ backgroundColor: '#153a81'}}>
           <div className="col-md-2">
-            <h5>{t('global.name')}</h5>
+            <h5 className='text-white'>{t('global.name')}</h5>
           </div>
           <div className="col-md-4">
-            <h5>{selectedSupplierLoanPayment?.name}</h5>
+            <h5 className='text-white'>{selectedSupplierLoanPayment?.name}</h5>
           </div>
 
           <div className="col-md-2">
-            <h5>{t('supplier.balance')}</h5>
+            <h5 className='text-white'>{t('supplier.balance')}</h5>
           </div>
           <div className="col-md-4">
             <h5 className="text-danger fw-bold">
@@ -109,27 +109,28 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
           </div>
         </div>
 
-        <hr />
+        {/* <hr /> */}
 
         <h3 className="mb-3">{t('supplierLoanPayment.purchaseDetial')}</h3>
 
-        <div className="accordion" id="purchaseAccordion">
+        <div className="accordion bg-gray-200" id="purchaseAccordion">
           {selectedSupplierLoanPayment?.purchases?.map((purchase: any, index: number) => (
             <div className="accordion-item" key={index}>
 
-              <h2 className="accordion-header" id={`heading-${index}`}>
+              <div className="accordion-header" id={`heading-${index}`}>
                 <button
-                  className="accordion-button collapsed"
+                  className="accordion-button collapsed d-flex justify-content-between"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target={`#collapse-${index}`}
                   aria-expanded="false"
                 >
-                  {t('purchase.purchase')} #{purchase.id} —
-                  {t('purchase.totalAmount')}: {purchase.totalAmount} —
-                  {t('purchase.purchaseDate')}: {purchase.purchaseDate}
+                  <span className='fs-4 fw-bold'>
+                    #{purchase.id} :  {'('} {t('purchase.purchaseDate')} : {purchase.purchaseDate} {')'}
+                  </span>
                 </button>
-              </h2>
+              </div>
+
 
               <div
                 id={`collapse-${index}`}
@@ -137,21 +138,21 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
                 aria-labelledby={`heading-${index}`}
                 data-bs-parent="#purchaseAccordion"
               >
+                <hr />
                 <div className="accordion-body">
 
-                  <div className="row mb-3">
-                    <div className="col-md-3"><strong>{t('purchase.totalAmount')}:</strong></div>
-                    <div className="col-md-3">{purchase.totalAmount}</div>
-
-                    <div className="col-md-3"><strong>{t('supplierLoanPayment.paidAmount')}:</strong></div>
-                    <div className="col-md-3">{purchase.paidAmount}</div>
-
-                    <div className="col-md-3"><strong>{t('supplierLoanPayment.unPaidAmound')}:</strong></div>
-                    <div className="col-md-3">{purchase.unpaidAmount}</div>
+                  <div className="row text-center fs-5 p-2 bg-gray-200">
+                    <div className="col-md-4"><strong>{t('purchase.totalAmount')}</strong></div>
+                    <div className="col-md-4"><strong>{t('supplierLoanPayment.paidAmount')}</strong></div>
+                    <div className="col-md-4"><strong>{t('supplierLoanPayment.unPaidAmound')}</strong></div>
                   </div>
-
+                  <div className="row mb-3 text-center fs-5 bg-gray-200">
+                    <div className="col-md-4">{purchase.totalAmount}</div>
+                    <div className="col-md-4">{purchase.paidAmount}</div>
+                    <div className="col-md-4">{purchase.unpaidAmount}</div>
+                  </div>
                   <table className="table table-bordered table-hover fs-6">
-                    <thead>
+                    <thead className='bg-gray-500 text-light'>
                       <tr>
                         <th>{t('fuelType.name')}</th>
                         <th>{t('fuelType.qtn')}</th>

@@ -17,10 +17,30 @@ namespace Application.Features.SupplierLoanPayment.Handlers.Commands
         }
         public async Task Handle(AddSupplierLoanPaymentCommand request, CancellationToken cancellationToken)
         {
+
+            await using var tx = await _unitOfWork.BeginTransactionAsync();
+
+            // 2️⃣ Update the balace column in supplier and set the uppaidAmount
+            // 3️⃣ Update the supplier balance
+            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierLoanPaymentDto.SupplierId);
+
+            if (supplier is null)
+            {
+                throw new InvalidOperationException("Supplier not found.");
+            }
+            // Update balance (subtract paid amount)
+            supplier.Balance -= request.SupplierLoanPaymentDto.PaidLoanAmount;
+
+            _unitOfWork.Suppliers.Update(supplier);
+            await _unitOfWork.SaveAsync(cancellationToken);
+
+
             var supplierLoanPayment = _mapper.Map<Domain.Models.SupplierLoanPayment>(request.SupplierLoanPaymentDto);
             // Save to DB
             await _unitOfWork.SupplierLoanPayments.AddAsync(supplierLoanPayment);
             await _unitOfWork.SaveAsync(cancellationToken);
+
+            await tx.CommitAsync(cancellationToken);
 
         }
 
