@@ -39,14 +39,6 @@ const StockList = () => {
             <div>
               <div className='d-none d-lg-flex mt-5'>
                 <div className='d-flex align-items-center'>
-                  <button
-                    className='btn btn-primary btn-sm align-self-center fw-bold'
-                    onClick={openModal}
-                  >
-                    <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('purchase.purchase')})}
-                  </button>
-
                   <div className='me-2 ms-2'>
                     <button
                       className='btn btn-sm btn-flex btn-primary fw-bolder'
@@ -111,7 +103,7 @@ const StockList = () => {
               </div>
             </div>
           </div>
-          <div className='card-body p-9 table-responsive'>
+          <div className='card-body p-9 table-responsive text-center'>
             <DataTable
               reload={reloadTable}
               headers={[
@@ -124,23 +116,19 @@ const StockList = () => {
                   sort: 'goodName',
                 },
                 {
-                  headerName: `${t('global.description')}`,
-                  sort: 'description',
+                  headerName: `${t('stock.tonQuantity')}`,
+                  sort: 'tonQuantity',
                 },
                 {
-                  headerName: `${t('stock.quantity')}`,
-                  sort: 'quantity',
+                  headerName: `${t('stock.literQuantity')}`,
+                  sort: 'literQuantity',
                 },
-                {
-                  headerName: `${t('stock.unitPrice')}`,
-                  sort: 'unitPrice',
-                },
-                {
-                  headerName: 'عمل',
-                  sort: '',
-                },
+                // {
+                //   headerName: 'عمل',
+                //   sort: '',
+                // },
               ]}
-              columns={['id', 'goodName', 'description', 'quantity', 'unitPrice']}
+              columns={['id', 'goodName', 'description', 'tonQuantity', 'literQuantity']}
               handleEdit={openEditModal}
             />
           </div>

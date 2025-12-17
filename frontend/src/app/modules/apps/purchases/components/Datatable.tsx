@@ -16,7 +16,7 @@ const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
-  const [data, setData] = useState<PurchaseForm[]>([])
+  const [data, setData] = useState<any>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
@@ -83,6 +83,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
+  console.log(purchases,"pppppppppppppppppppppppppppppp")
   return (
     <div>
         <>
@@ -145,7 +146,8 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                   memoizedData.map((item, index) => (
                     <tr>
                       <td>{index+ 1}</td>
-                      <td>{item.supplierName}</td>
+                      <td>{item.supplier.name}</td>
+                     
                       <td>{item.purchaseDate}</td>
                       <td>{item.totalAmount}</td>
                       <td>{item.paidAmount}</td>

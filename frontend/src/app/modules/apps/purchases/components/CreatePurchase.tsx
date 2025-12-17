@@ -180,6 +180,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                         <tr>
                           <th>{t('fuelType.fuelTypes')}</th>
                           <th>{t('fuelType.qtn')}</th>
+                          <th>{t('fuelType.density')}</th>
                           <th>{t('fuelType.unitPrice')}</th>
                           <th className='text-center'>{t('fuelType.total')}</th>
                           <th>{t('global.ACTION')}</th>
@@ -242,6 +243,38 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                 (formik.errors.items?.[index] as any)?.quantity && (
                                   <div className="invalid-feedback">
                                     {t('validation.required', { name: t('purchase.quantity') })}
+                                  </div>
+                                )}
+                            </td>
+                            <td className="w-25">
+                              <input
+                                type="number"
+                                className={clsx("form-control", {
+                                  "is-invalid":
+                                    (formik.touched.items?.[index] as any)?.density &&
+                                    (formik.errors.items?.[index] as any)?.density,
+                                })}
+                                min="1"
+                                placeholder={Number(item.density).toString()}
+                                value={Number(item.density) || ""}
+                                onChange={(e) => {
+                                  const qty = Number(e.target.value)
+                                  const total = qty * (item.unitPrice || 0)
+
+                                  formik.setFieldValue(`items.${index}.density`, qty)
+                                  formik.setFieldValue(`items.${index}.totalPrice`, total)
+
+                                  recalcTotals([
+                                    ...formik.values.items.map((d, i) =>
+                                      i === index ? { ...d, totalPrice: total, density: qty } : d
+                                    ),
+                                  ])
+                                }}
+                              />
+                              {(formik.touched.items?.[index] as any)?.density &&
+                                (formik.errors.items?.[index] as any)?.density && (
+                                  <div className="invalid-feedback">
+                                    {t('validation.required', { name: t('purchase.density') })}
                                   </div>
                                 )}
                             </td>
