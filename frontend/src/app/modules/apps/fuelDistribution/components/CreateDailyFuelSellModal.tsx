@@ -104,7 +104,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 {t('dailyFuelSell.currentMeterDegree')} <span className='text-danger'>*</span>
                             </label>
                             <input
-                                type='text'
+                                type='number'
                                 {...formik.getFieldProps('currentMeterDegree')}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.currentMeterDegree && formik.errors.currentMeterDegree,
@@ -123,7 +123,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 {t('dailyFuelSell.oldMeterDegree')} <span className='text-danger'>*</span>
                             </label>
                             <input
-                                type='text'
+                                type='number'
                                 {...formik.getFieldProps('oldMeterDegree')}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.oldMeterDegree && formik.errors.oldMeterDegree,
@@ -136,32 +136,14 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 </div>
                             )}
                         </div>
-                        {/* SoldFuelAmount Field */}
-                        <div className='col-md-3 mb-3'>
-                            <label className='form-label'>
-                                {t('dailyFuelSell.soldFuelAmount')} <span className='text-danger'>*</span>
-                            </label>
-                            <input
-                                type='text'
-                                {...formik.getFieldProps('soldFuelAmount')}
-                                className={clsx('form-control', {
-                                    'is-invalid': formik.touched.soldFuelAmount && formik.errors.soldFuelAmount,
-                                    'is-valid': formik.touched.soldFuelAmount && !formik.errors.soldFuelAmount,
-                                })}
-                            />
-                            {formik.touched.soldFuelAmount && formik.errors.soldFuelAmount && (
-                                <div className='invalid-feedback'>
-                                    {t('validation.required', { name: t('dailyFuelSell.soldFuelAmount') })}
-                                </div>
-                            )}
-                        </div>
+
                         {/* FuelUnitPrice Field */}
                         <div className='col-md-3 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.fuelUnitPrice')} <span className='text-danger'>*</span>
                             </label>
                             <input
-                                type='text'
+                                type='number'
                                 {...formik.getFieldProps('fuelUnitPrice')}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.fuelUnitPrice && formik.errors.fuelUnitPrice,
@@ -174,101 +156,111 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 </div>
                             )}
                         </div>
+                        {/* Collected Money Amount Field */}
+                        <div className='col-md-3 mb-3'>
+                            <label className='form-label'>
+                                {t('dailyFuelSell.collectedMoneyAmount')} <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                type='number'
+                                {...formik.getFieldProps('collectedMoneyAmount')}
+                                className={clsx('form-control', {
+                                    'is-invalid': formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount,
+                                    'is-valid': formik.touched.collectedMoneyAmount && !formik.errors.collectedMoneyAmount,
+                                })}
+                            />
+                            {formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount && (
+                                <div className='invalid-feedback'>
+                                    {t('validation.required', { name: t('dailyFuelSell.collectedMoneyAmount') })}
+                                </div>
+                            )}
+                        </div>
                     </div>
                     <div className='row'>
-                    {/* Total Price Field */}
-                    <div className='col-md-3 mb-3'>
-                        <label className='form-label'>
-                            {t('dailyFuelSell.totalPrice')} <span className='text-danger'>*</span>
-                        </label>
-                        <input
-                            type='text'
-                            {...formik.getFieldProps('totalPrice')}
-                            className={clsx('form-control', {
-                                'is-invalid': formik.touched.totalPrice && formik.errors.totalPrice,
-                                'is-valid': formik.touched.totalPrice && !formik.errors.totalPrice,
-                            })}
-                        />
-                        {formik.touched.totalPrice && formik.errors.totalPrice && (
-                            <div className='invalid-feedback'>
-                                {t('validation.required', { name: t('dailyFuelSell.totalPrice') })}
-                            </div>
-                        )}
+                        {/* Date Field */}
+                        <div className='col-md-3 mb-3'>
+                            <label className='form-label'>
+                                {t('global.date')} <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                type='date'
+                                {...formik.getFieldProps('date')}
+                                className={clsx('form-control', {
+                                    'is-invalid': formik.touched.date && formik.errors.date,
+                                    'is-valid': formik.touched.date && !formik.errors.date,
+                                })}
+                            />
+                            {formik.touched.date && formik.errors.date && (
+                                <div className='invalid-feedback'>
+                                    {t('validation.required', { name: t('global.date') })}
+                                </div>
+                            )}
+                        </div>
+                        {/* Note Field */}
+                        <div className='col-md-3 mb-3'>
+                            <label className='form-label'>
+                                {t('dailyFuelSell.note')} <span className='text-danger'>*</span>
+                            </label>
+                            <textarea
+                                rows={1}
+                                {...formik.getFieldProps('note')}
+                                className={clsx('form-control', {
+                                    'is-invalid': formik.touched.note && formik.errors.note,
+                                    'is-valid': formik.touched.note && !formik.errors.note,
+                                })}
+                            ></textarea>
+                            {formik.touched.note && formik.errors.note && (
+                                <div className='invalid-feedback'>
+                                    {t('validation.required', { name: t('dailyFuelSell.note') })}
+                                </div>
+                            )}
+                        </div>
+                        {/* SoldFuelAmount Field */}
+                        <div className='col-md-3 mb-3'>
+                            <label className='form-label'>
+                                {t('dailyFuelSell.soldFuelAmount')} <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                type='number'
+                                readOnly
+                                {...formik.getFieldProps('soldFuelAmount')}
+                                className='form-control'
+                            />
+                        </div>
+                        {/* Total Price Field */}
+                        <div className='col-md-3 mb-3'>
+                            <label className='form-label'>
+                                {t('dailyFuelSell.totalPrice')} <span className='text-danger'>*</span>
+                            </label>
+                            <input
+                                type='number'
+                                readOnly
+                                {...formik.getFieldProps('totalPrice')}
+                                className='form-control'
+                            />
+                            {formik.touched.totalPrice && formik.errors.totalPrice && (
+                                <div className='invalid-feedback'>
+                                    {t('validation.required', { name: t('dailyFuelSell.totalPrice') })}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    {/* Collected Money Amount Field */}
-                    <div className='col-md-3 mb-3'>
-                        <label className='form-label'>
-                            {t('dailyFuelSell.collectedMoneyAmount')} <span className='text-danger'>*</span>
-                        </label>
-                        <input
-                            type='text'
-                            {...formik.getFieldProps('collectedMoneyAmount')}
-                            className={clsx('form-control', {
-                                'is-invalid': formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount,
-                                'is-valid': formik.touched.collectedMoneyAmount && !formik.errors.collectedMoneyAmount,
-                            })}
-                        />
-                        {formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount && (
-                            <div className='invalid-feedback'>
-                                {t('validation.required', { name: t('dailyFuelSell.collectedMoneyAmount') })}
-                            </div>
-                        )}
+                    {/* Submit Buttons */}
+                    <div className='text-end'>
+                        <Button variant='danger' onClick={onClose} className='me-2 '>
+                            {t('global.BACK')}
+                        </Button>
+                        <Button
+                            variant='primary'
+                            type='submit'
+                            disabled={formik.isSubmitting}
+                        // classname='me-2 '
+                        >
+                            {t('global.SAVE')}
+                        </Button>
                     </div>
-                    {/* Date Field */}
-                    <div className='col-md-3 mb-3'>
-                        <label className='form-label'>
-                            {t('global.date')} <span className='text-danger'>*</span>
-                        </label>
-                        <input
-                            type='date'
-                            {...formik.getFieldProps('date')}
-                            className={clsx('form-control', {
-                                'is-invalid': formik.touched.date && formik.errors.date,
-                                'is-valid': formik.touched.date && !formik.errors.date,
-                            })}
-                        />
-                        {formik.touched.date && formik.errors.date && (
-                            <div className='invalid-feedback'>
-                                {t('validation.required', { name: t('global.date') })}
-                            </div>
-                        )}
-                    </div>
-                    {/* Note Field */}
-                    <div className='col-md-3 mb-3'>
-                        <label className='form-label'>
-                            {t('dailyFuelSell.note')} <span className='text-danger'>*</span>
-                        </label>
-                        <textarea
-                            rows={1}
-                            {...formik.getFieldProps('note')}
-                            className={clsx('form-control', {
-                                'is-invalid': formik.touched.note && formik.errors.note,
-                                'is-valid': formik.touched.note && !formik.errors.note,
-                            })}
-                        ></textarea>
-                        {formik.touched.note && formik.errors.note && (
-                            <div className='invalid-feedback'>
-                                {t('validation.required', { name: t('dailyFuelSell.note') })}
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {/* Submit Buttons */}
-                <div className='text-end'>
-                    <Button variant='danger' onClick={onClose} className='me-2 '>
-                        {t('global.BACK')}
-                    </Button>
-                    <Button
-                        variant='primary'
-                        type='submit'
-                        disabled={formik.isSubmitting}
-                    // classname='me-2 '
-                    >
-                        {t('global.SAVE')}
-                    </Button>
-                </div>
-            </form>
-        </Modal.Body>
+                </form>
+            </Modal.Body>
         </Modal >
     )
 }
