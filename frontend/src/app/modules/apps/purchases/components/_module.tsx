@@ -12,7 +12,6 @@ export interface PurchaseDetail {
 export interface PurchaseForm {
   id: number | null
   supplierId: number
-  supplierName: string
   purchaseDate: string
   totalAmount: number
   paidAmount: number | null
@@ -28,7 +27,7 @@ export const initialValues = {
   paidAmount: null,
   unpaidAmount: 0,
   items: [
-    { fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0 },
+    { fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0,density:null },
   ],
 }
 

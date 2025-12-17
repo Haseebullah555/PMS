@@ -127,6 +127,7 @@ const PurchasesList = () => {
                   headerName: `${t('supplier.suppliers')}`,
                   sort: 'name',
                 },
+
                 {
                   headerName: `${t('purchase.purchaseDate')}`,
                   sort: 'purchaseDate',

@@ -82,6 +82,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
+  console.log(stocks,"stock data");
   return (
     <div>
       {isAuthorized ? (
@@ -124,7 +125,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                     <th
                       key={header.headerName}
                       onClick={(e) => handleSort(header.sort)}
-                      className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                      className={`fs-6 fw-bold text-light text-center`}
                     >
                       {header.headerName.toUpperCase().replace('_', ' ')}
                       {header.sort === sortColumn ? (
@@ -145,12 +146,11 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                   memoizedData.map((item, index) => (
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
-                      <td>{item.goodName}</td>
-                      <td>{item.description}</td>
+                      <td>{item.fuelTypeName}</td>
                       <td>{item.quantity}</td>
-                      <td>{item.unitPrice}</td>
+                      <td>{(item.quantity / item.density).toFixed(2)?? item.quantity}</td>
 
-                      <td className='text-center'>
+                      {/* <td className='text-center'>
                         <DropdownButton
                           id='dropdown-item-button'
                           size='sm'
@@ -169,7 +169,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                             </Dropdown.Item>
                           </>
                         </DropdownButton>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
 

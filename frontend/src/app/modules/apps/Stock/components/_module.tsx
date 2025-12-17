@@ -1,15 +1,17 @@
 export interface StockForm {
-  goodId: number
-  goodName: string
+  fuelTypeId: number
+  fuelTypeName: string
   description: string
   quantity: number
   unitPrice: number
+  density: number
 }
 
 export const initialValues: StockForm = {
-  goodId: 0,
-  goodName: '',
+  fuelTypeId: 0,
+  fuelTypeName: '',
   description: '',
   quantity: 0,
   unitPrice: 0,
+  density: 0,
 }

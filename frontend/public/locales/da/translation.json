@@ -341,7 +341,8 @@
   },
   "stock": {
     "aviliableStock": "انبار موجود",
-    "quantity": "مقدار",
+    "tonQuantity": "مقدار به تن",
+    "literQuantity": "مقدار به لیتر",
     "unitPrice": "قیمت فی واحد"
   },
   "fuelType": {
@@ -354,7 +355,8 @@
     "total": "مجموعه",
     "PaidAmount": "مقدار پرداخت شده",
     "unPaidAmount": "باقی مانده",
-    "fuelType": "نوع تیل"
+    "fuelType": "نوع تیل",
+    "density": "ثقلت"
   },
   "fuelStand": {
     "fuelStands": "پایه های تیل",
