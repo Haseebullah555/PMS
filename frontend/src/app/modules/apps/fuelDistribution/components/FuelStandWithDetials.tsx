@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
 import { table } from 'console'
-import AddFuelDistributionModal from './AddFuelDistributionModal'
+import AddFuelDistributionModal from './CreateFuelDistributionModal'
+import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -13,8 +14,11 @@ const FuelStandWithDetials = () => {
 
   const { t } = useTranslation()
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
   const openCreateModal = () => setCreateModalOpen(true)
   const closeCreateModal = () => setCreateModalOpen(false)
+  const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
+  const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
   const dispatch = useAppDispatch()
 
   const fuelStandWithDetials = useAppSelector((state) => state.fuelDistribution.fuelStandWithDetials)
@@ -124,6 +128,11 @@ const FuelStandWithDetials = () => {
                                       <i className='fa-solid fa-plus'></i>
                                     </b>
                                   </button>
+                                  <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={openCreateDailyFuelSellModal}>
+                                    <b>
+                                      <i className='fa-solid fa-arrow-up'></i>
+                                    </b>
+                                  </button>
                                 </td>
                               </tr>
                             ))}
@@ -144,6 +153,12 @@ const FuelStandWithDetials = () => {
           isOpen={isCreateModalOpen}
           onClose={() => setCreateModalOpen(false)}
           handleReloadTable={handleReloadTable}
+        />
+      )}
+      {isCreateDailyFuelSellModalOpen && (
+        <CreateDailyFuelSellModal
+          isOpen={isCreateDailyFuelSellModalOpen}
+          onClose={() => setCreateDailyFuelSellModalOpen(false)}
         />
       )}
     </>

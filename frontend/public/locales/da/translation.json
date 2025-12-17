@@ -390,5 +390,16 @@
     "fuelStandWithDetial": "توزیع تیل به پایه ها",
     "fuelDistribution": "توزیع تیل",
     "quantity": "مقدار توزیع "
+  },
+  "dailyFuelSell": {
+    "dailyFuelSell": "فروش روزمره", 
+    "dailyFuelSells": "فروشات روزمره",
+    "currentMeterDegree": "درجه فعلی میتر",
+    "oldMeterDegree": "درجه قبلی میتر",
+    "soldFuelAmount": "مقدار فروخته شده",
+    "fuelUnitPrice": "قیمت فی واحد",
+    "totalPrice": "قیمت کل",
+    "collectedMoneyAmount": "پول جمع آوری شده",
+    "note": "توضیحات"
   }
 }
