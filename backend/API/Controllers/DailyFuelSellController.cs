@@ -25,7 +25,7 @@ namespace API.Controllers
 
             try
             {
-                await _mediator.Send(new AddDailyFuelSellCommand { DailyFuelSellDto = dailyFuelSellDto });
+                 await _mediator.Send(new AddDailyFuelSellCommand { DailyFuelSellDto = dailyFuelSellDto });
                 return Ok(new { message = "توزیع تیل روزانه موفقیت ثبت شد" });
             }
             catch (InvalidOperationException ex)

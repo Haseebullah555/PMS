@@ -31,10 +31,11 @@ namespace Application.Profiles
             CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
 
 
-            CreateMap<FuelStand, GetFuelStandWithDetialsDto>();
-            CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>();
+            CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
+            CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>().ReverseMap();
             CreateMap<FuelDistribution, FuelDistributionDto>();
-            CreateMap<DailyFuelSell, DailyFuelSellDto>();
+            CreateMap<FuelDistribution, AddFuelDistributionDto>();
+            CreateMap<DailyFuelSell, DailyFuelSellDto>().ReverseMap();
             // CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
         }
     }
