@@ -78,21 +78,21 @@ namespace Application.Features.Purchase.Handlers.Commands
             }
 
             // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
-            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
+            var supplier = await _unitOfWork.Suppliers.GetSupplierByIdAsync(request.SupplierId);
 
-            if (supplier.Balance > unpaidAmount)
-            {
+            // if (supplier.Balance > unpaidAmount)
+            // {
                 supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
                 supplier.Balance += unpaidAmount;          // Apply new unpaid amount
 
                 _unitOfWork.Suppliers.Update(supplier);
                 await _unitOfWork.SaveAsync(cancellationToken);
-            }
-            else
-            {
-                  return 0;
+            // }
+            // else
+            // {
+                //   return 0;
                 // throw new InvalidOperationException("the balance should be greater than the unpaid amount");
-            }
+            // }
 
 
 
