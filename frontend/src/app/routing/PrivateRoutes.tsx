@@ -19,6 +19,7 @@ import ExtraExpenseManagementRoutes from '../modules/apps/extraExpense/ExtraExpe
 import FuelTypeManagementRoutes from '../modules/apps/fuelType/FuelTypemanagementRoutes'
 import FuelStandManagementRoutes from '../modules/apps/fuelStand/FuelStandmanagementRoutes'
 import FuelDistributionManagementRoutes from '../modules/apps/fuelDistribution/FuelDistributionManagementRoutes'
+import StaffPaymentManagementRoutes from '../modules/apps/staffPayment/StaffPaymentManagementRoutes'
 
 const PrivateRoutes = () => {
 
@@ -142,7 +143,7 @@ const PrivateRoutes = () => {
           path='staffPayment/*'
           element={
             <SuspensedView>
-              <StaffManagementRoutes />
+              <StaffPaymentManagementRoutes />
             </SuspensedView>
           }
         />

@@ -84,10 +84,11 @@ const SupplierWithSupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModa
       formik.setFieldValue('supplierId', selectedSupplierWithSupplierLoanPayment.id || '')
     }
   }, [selectedSupplierWithSupplierLoanPayment])
+  console.log(selectedSupplierWithSupplierLoanPayment,"ssssssssssssssssssssssssss")
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl'>
       <Modal.Header closeButton>
-        <Modal.Title>{t('supplierLoanPayment.supplierLoanPayments')}</Modal.Title>
+        <Modal.Title>{t('supplierLoanPayment.payment')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {/* Supplier Header Section */}
@@ -163,81 +164,84 @@ const SupplierWithSupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModa
             </div>
           </div>
         </div>
+        {Number(selectedSupplierWithSupplierLoanPayment.balance) != 0 && (
+          <>
+            <hr />
 
-        <hr />
+            <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makeLoanPayment')}</h3>
 
-        <h3 className="mt-4 mb-3">{t('supplierLoanPayment.makeLoanPayment')}</h3>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="row">
 
-        <form onSubmit={formik.handleSubmit}>
-          <div className="row">
+                {/* Amount */}
+                <div className="col-md-4">
+                  <label className="form-label fs-5">
+                    {t('supplierLoanPayment.paidLoanAmount')} <span className="text-danger">*</span>
+                  </label>
 
-            {/* Amount */}
-            <div className="col-md-4">
-              <label className="form-label fs-5">
-                {t('supplierLoanPayment.paidLoanAmount')} <span className="text-danger">*</span>
-              </label>
+                  <input
+                    type="number"
+                    name="paidLoanAmount"
+                    value={formik.values.paidLoanAmount ?? ""}
+                    placeholder={`${selectedSupplierWithSupplierLoanPayment?.balance}`}
+                    onChange={(e) => {
+                      const value = Number(e.target.value)
+                      const balance = selectedSupplierWithSupplierLoanPayment?.balance || 0
 
-              <input
-                type="number"
-                name="paidLoanAmount"
-                value={formik.values.paidLoanAmount ?? ""}
-                placeholder={`${selectedSupplierWithSupplierLoanPayment?.balance}`}
-                onChange={(e) => {
-                  const value = Number(e.target.value)
-                  const balance = selectedSupplierWithSupplierLoanPayment?.balance || 0
-
-                  if (value <= balance) {
-                    formik.setFieldValue("paidLoanAmount", value)
-                  } else {
-                    // Prevent typing above balance
-                    formik.setFieldValue("paidLoanAmount", balance)
-                  }
-                }}
-                className={clsx('form-control', {
-                  'is-invalid': formik.touched.paidLoanAmount && formik.errors.paidLoanAmount,
-                  'is-valid': formik.touched.paidLoanAmount && !formik.errors.paidLoanAmount,
-                })}
-              />
+                      if (value <= balance) {
+                        formik.setFieldValue("paidLoanAmount", value)
+                      } else {
+                        // Prevent typing above balance
+                        formik.setFieldValue("paidLoanAmount", balance)
+                      }
+                    }}
+                    className={clsx('form-control', {
+                      'is-invalid': formik.touched.paidLoanAmount && formik.errors.paidLoanAmount,
+                      'is-valid': formik.touched.paidLoanAmount && !formik.errors.paidLoanAmount,
+                    })}
+                  />
 
 
-              {formik.touched.paidLoanAmount && formik.errors.paidLoanAmount && (
-                <div className='invalid-feedback'>
-                  {formik.errors.paidLoanAmount}
+                  {formik.touched.paidLoanAmount && formik.errors.paidLoanAmount && (
+                    <div className='invalid-feedback'>
+                      {formik.errors.paidLoanAmount}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Payment Date */}
-            <div className="col-md-4">
-              <label className="form-label fs-5">
-                {t('supplierLoanPayment.paymentDate')} <span className="text-danger">*</span>
-              </label>
+                {/* Payment Date */}
+                <div className="col-md-4">
+                  <label className="form-label fs-5">
+                    {t('supplierLoanPayment.paymentDate')} <span className="text-danger">*</span>
+                  </label>
 
-              <input
-                type="date"
-                name="paymentDate"
-                value={formik.values.paymentDate}
-                onChange={formik.handleChange}
-                className={clsx("form-control", {
-                  "is-invalid": formik.touched.paymentDate && formik.errors.paymentDate,
-                })}
-              />
+                  <input
+                    type="date"
+                    name="paymentDate"
+                    value={formik.values.paymentDate}
+                    onChange={formik.handleChange}
+                    className={clsx("form-control", {
+                      "is-invalid": formik.touched.paymentDate && formik.errors.paymentDate,
+                    })}
+                  />
 
-              {formik.touched.paymentDate && formik.errors.paymentDate && (
-                <div className='invalid-feedback'>
-                  {formik.errors.paymentDate}
+                  {formik.touched.paymentDate && formik.errors.paymentDate && (
+                    <div className='invalid-feedback'>
+                      {formik.errors.paymentDate}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Submit Button */}
-            <div className="col-md-4 d-flex align-items-end mt-3">
-              <Button variant="success" type="submit" className="w-100 fs-5">
-                {t('supplierLoanPayment.save')}
-              </Button>
-            </div>
-          </div>
-        </form>
+                {/* Submit Button */}
+                <div className="col-md-4 d-flex align-items-end mt-3">
+                  <Button variant="success" type="submit" className="w-100 fs-5">
+                    {t('supplierLoanPayment.save')}
+                  </Button>
+                </div>
+              </div>
+            </form>
+          </>
+        )}
 
         {/* Back Button */}
         <div className="mt-4 text-end">

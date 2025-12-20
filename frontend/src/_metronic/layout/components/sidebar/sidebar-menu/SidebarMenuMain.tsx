@@ -78,7 +78,7 @@ const SidebarMenuMain = () => {
       />
       <SidebarMenuItem
         to='/staffPayment/list'
-        title={t("staffPayment.staffpayments")}
+        title={t("staffPayment.staffPayments")}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />

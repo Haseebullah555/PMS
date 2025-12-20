@@ -85,18 +85,20 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
     setData(staffSalaries.data)
     setPagination(staffSalaries.meta)
   }, [staffSalaries])
- useEffect(() => {
-  const fetchStaffs = async () => {
-    setLoading(true);
-    const res = await dispatch(getStaffsList());
-    if (res.meta.requestStatus === 'fulfilled') {
-      setStaffs(res.payload);
-    }
-    setLoading(false); // Set loading to false after handling response
-  };
+  console.log("staffSalaries data:", staffSalaries);
 
-  fetchStaffs();
-}, [dispatch]);
+//  useEffect(() => {
+//   const fetchStaffs = async () => {
+//     setLoading(true);
+//     const res = await dispatch(getStaffsList());
+//     if (res.meta.requestStatus === 'fulfilled') {
+//       setStaffs(res.payload);
+//     }
+//     setLoading(false); // Set loading to false after handling response
+//   };
+
+//   fetchStaffs();
+// }, [dispatch]);
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
   return (
