@@ -1,4 +1,5 @@
 using Application.Contracts.Interfaces.Common;
+using Application.Features.Response;
 using Application.Features.sample.Requests.Commands;
 using AutoMapper;
 using Domain.Models;
@@ -7,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Purchase.Handlers.Commands
 {
-    public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseCommand, int>
+    public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseCommand, BaseCommandResponse>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -17,9 +18,10 @@ namespace Application.Features.Purchase.Handlers.Commands
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<int> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
+        public async Task<BaseCommandResponse> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
+            var response = new BaseCommandResponse();
 
             // Load purchase with details
             var purchase = await _unitOfWork.Purchases
@@ -80,7 +82,7 @@ namespace Application.Features.Purchase.Handlers.Commands
             // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
             var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
 
-            if (supplier.Balance > unpaidAmount)
+            if (supplier.Balance > 0)
             {
                 supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
                 supplier.Balance += unpaidAmount;          // Apply new unpaid amount
@@ -90,8 +92,9 @@ namespace Application.Features.Purchase.Handlers.Commands
             }
             else
             {
-                  return 0;
-                // throw new InvalidOperationException("the balance should be greater than the unpaid amount");
+                response.Success = false;
+                response.Message = "the balance should be greater than the unpaid amount";
+                return response;
             }
 
 
@@ -101,7 +104,10 @@ namespace Application.Features.Purchase.Handlers.Commands
             await _unitOfWork.SaveAsync(cancellationToken);
             // save all transactions
             await tx.CommitAsync(cancellationToken);
-            return purchase.Id;
+            response.Id = purchase.Id;
+            response.Success = true;
+            response.Message = "Purchase updated successfully";
+            return response;
         }
     }
 }

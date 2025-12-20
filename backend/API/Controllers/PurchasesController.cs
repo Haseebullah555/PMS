@@ -39,7 +39,7 @@ namespace API.Controllers
                 }
             });
         }
-   
+
         [HttpPost("create")]
         public async Task<ActionResult> Create([FromBody] AddPurchaseCommand command)
         {
@@ -61,15 +61,15 @@ namespace API.Controllers
             }
         }
         [HttpPost("purchase-payment")]
-         public async Task<ActionResult> CreateSupplierLoanPayment(SupplierLoanPaymentDto supplierLoanPaymentDto)
+        public async Task<ActionResult> CreateSupplierLoanPayment(SupplierLoanPaymentDto supplierLoanPaymentDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { message = "ورودی نادرست است", errors = ModelState });
 
             try
             {
-                await _mediator.Send(new AddPuchasePaymentCommand{SupplierLoanPaymentDto = supplierLoanPaymentDto});
-                return Ok(new { message = "خرید با موفقیت ثبت شد"});
+                await _mediator.Send(new AddPuchasePaymentCommand { SupplierLoanPaymentDto = supplierLoanPaymentDto });
+                return Ok(new { message = "خرید با موفقیت ثبت شد" });
             }
             catch (InvalidOperationException ex)
             {
@@ -86,8 +86,12 @@ namespace API.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(command);
-                return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
+                var result = await _mediator.Send(command);
+                if (result.Success == true)
+                {
+                    return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
+                }
+                return BadRequest(new { message = result.Message });
             }
             return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
