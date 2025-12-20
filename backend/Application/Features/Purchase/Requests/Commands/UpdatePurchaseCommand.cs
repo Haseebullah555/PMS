@@ -1,10 +1,11 @@
 
 using Application.Dtos;
+using Application.Features.Response;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Commands
 {
-    public class UpdatePurchaseCommand : IRequest<int>
+    public class UpdatePurchaseCommand : IRequest<BaseCommandResponse>
     {
         public int Id { get; set; } 
         public int SupplierId { get; set; }
