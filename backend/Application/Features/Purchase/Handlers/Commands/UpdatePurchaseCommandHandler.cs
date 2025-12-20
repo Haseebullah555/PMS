@@ -80,7 +80,7 @@ namespace Application.Features.Purchase.Handlers.Commands
             }
 
             // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
-            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
+            var supplier = await _unitOfWork.Suppliers.GetSupplierByIdAsync(request.SupplierId);
 
             if (supplier.Balance > 0)
             {
