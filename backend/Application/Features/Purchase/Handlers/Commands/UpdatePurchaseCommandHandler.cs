@@ -19,27 +19,28 @@ namespace Application.Features.sample.Handlers.Commands
         }
         public async Task<int> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
         {
+            await using var tx = await _unitOfWork.BeginTransactionAsync();
+            
             // Load purchase with details
             var purchase = await _unitOfWork.Purchases
                 .Query()
                 .Include(p => p.PurchaseDetails)
                 .FirstOrDefaultAsync(p => p.Id == request.Id, cancellationToken);
 
-            // if (purchase == null)
-            //     throw new NotFoundException("Purchase not found");
-
+            if (purchase == null)
+                throw new KeyNotFoundException("Purchase not found");
 
             // 1️⃣ Calculate totals
             decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
             decimal unpaidAmount = totalAmount - request.PaidAmount;
 
-            // --- Update parent ---
+            // --- update purchate table ---
             purchase.SupplierId = request.SupplierId;
             purchase.PurchaseDate = request.PurchaseDate;
             purchase.TotalAmount = request.TotalAmount;
             purchase.PaidAmount = request.PaidAmount;
             purchase.UnPaidAmount = unpaidAmount;
-            
+
             // --- Remove deleted items ---
             foreach (var detail in purchase.PurchaseDetails.ToList())
             {
@@ -49,7 +50,7 @@ namespace Application.Features.sample.Handlers.Commands
                 }
             }
 
-            // --- Update existing or add new items ---
+            // --- update purchate detial table ---
             foreach (var item in request.Items)
             {
                 var existingDetail = purchase.PurchaseDetails
@@ -76,9 +77,20 @@ namespace Application.Features.sample.Handlers.Commands
                 }
             }
 
-            // Save changes
+            // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
+            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
+
+            supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
+            supplier.Balance += unpaidAmount;          // Apply new unpaid amount
+
+            _unitOfWork.Suppliers.Update(supplier);
             await _unitOfWork.SaveAsync(cancellationToken);
 
+
+            // Save changes
+            await _unitOfWork.SaveAsync(cancellationToken);
+            // save all transactions
+            await tx.CommitAsync(cancellationToken);
             return purchase.Id;
         }
     }

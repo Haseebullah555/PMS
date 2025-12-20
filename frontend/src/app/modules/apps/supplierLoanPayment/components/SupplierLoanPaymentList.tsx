@@ -126,6 +126,10 @@ const SupplierLoanPaymentList = () => {
                   sort: 'name',
                 },
                 {
+                  headerName: `${t('supplier.balance')}`,
+                  sort: 'balance',
+                },
+                {
                   headerName: `${t('global.phone')}`,
                   sort: 'phoneNumber',
                 },

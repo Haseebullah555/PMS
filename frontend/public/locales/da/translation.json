@@ -389,7 +389,8 @@
     "fuelGun": "تفنگچه تیل", 
     "fuelStandWithDetial": "توزیع تیل به پایه ها",
     "fuelDistribution": "توزیع تیل",
-    "quantity": "مقدار توزیع "
+    "quantity": "مقدار توزیع ",
+    "fuelDistributionToStand": "توزیع تیل به پایه"
   },
   "dailyFuelSell": {
     "dailyFuelSell": "فروش روزمره", 

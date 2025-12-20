@@ -117,7 +117,7 @@ const FuelStandWithDetials = () => {
                             <th>{t('global.ACTION')}</th>
                           </thead>
                           <tbody>
-                            {item?.fuelGuns?.map((i) => (
+                            {item?.fuelGuns?.map((i: any) => (
                               <tr className='fs-5 text-center'>
                                 <td className='fw-bolder' key={i?.id}>
                                   {i?.name}
@@ -125,12 +125,15 @@ const FuelStandWithDetials = () => {
                                 <td className='fw-bolder'>
                                   <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={openCreateModal}>
                                     <b>
-                                      <i className='fa-solid fa-plus'></i>
+                                      <i className='fa-solid fa-plus'></i>{' '}
+                                      { t('fuelDistribution.fuelDistributionToStand') }
                                     </b>
                                   </button>
                                   <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={openCreateDailyFuelSellModal}>
                                     <b>
-                                      <i className='fa-solid fa-arrow-up'></i>
+                                      <i className='fa-solid fa-arrow-up'></i>{' '}
+                                      { t('dailyFuelSell.dailyFuelSells') }
+
                                     </b>
                                   </button>
                                 </td>

@@ -3,6 +3,7 @@
 export interface SupplierLoanPaymentForm {
   id: number | null
   name: number
+  balance: number
   phoneNumber: string
   address: string
   driverName: number
