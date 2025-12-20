@@ -167,7 +167,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
                           >
                             <i className='fas fa-edit text-primary'></i>
                             <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                              {t('supplierLoanPayment.loanPayment')}
+                              {t('purchase.details')}
                             </span>
                           </Dropdown.Item>
                           <Dropdown.Item

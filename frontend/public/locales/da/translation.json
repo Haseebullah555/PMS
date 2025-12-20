@@ -337,7 +337,8 @@
     "quantity": "مقدار",
     "unitPrice": "قیمت فی واحد",
     "paidAmount must be less than totalAmount": "مقدار پرداخت شده باید کمتر از مجموعه عمومی باشد",
-    "carPlate": "نمبر پلیت موتر"
+    "carPlate": "نمبر پلیت موتر",
+    "details": "جزیات خریداری"
   },
   "stock": {
     "aviliableStock": "انبار موجود",
@@ -381,7 +382,7 @@
     "save": "ثبت پرداخت",
     "list" : "قرضه های تامین کننده گان",
     "payments": "پرداخت های تامین کننده گان",
-    "payment": "پرداخت های تامین کننده",
+    "payment": "پرداخت ها",
     "paymentList": "لیست پرداخت ها",
     "supplierLoans":"قرضه های تامین کننده گان"
   }, 
