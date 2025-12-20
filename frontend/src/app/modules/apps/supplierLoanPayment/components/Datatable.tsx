@@ -146,7 +146,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
                   <tr>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
-                    <td style={{color: 'red'}}>{item.balance}</td>
+                    <td style={{color: '#d10029'}}>{item.balance}</td>
                     <td>{item.phoneNumber}</td>
                     <td>{item.address}</td>
                     <td>{item.driverName}</td>
