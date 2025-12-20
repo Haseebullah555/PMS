@@ -5,7 +5,7 @@ using Domain.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.sample.Handlers.Commands
+namespace Application.Features.Purchase.Handlers.Commands
 {
     public class UpdatePurchaseCommandHandler : IRequestHandler<UpdatePurchaseCommand, int>
     {
@@ -20,7 +20,7 @@ namespace Application.Features.sample.Handlers.Commands
         public async Task<int> Handle(UpdatePurchaseCommand request, CancellationToken cancellationToken)
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
-            
+
             // Load purchase with details
             var purchase = await _unitOfWork.Purchases
                 .Query()
@@ -80,11 +80,21 @@ namespace Application.Features.sample.Handlers.Commands
             // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
             var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
 
-            supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
-            supplier.Balance += unpaidAmount;          // Apply new unpaid amount
+            if (supplier.Balance > unpaidAmount)
+            {
+                supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
+                supplier.Balance += unpaidAmount;          // Apply new unpaid amount
 
-            _unitOfWork.Suppliers.Update(supplier);
-            await _unitOfWork.SaveAsync(cancellationToken);
+                _unitOfWork.Suppliers.Update(supplier);
+                await _unitOfWork.SaveAsync(cancellationToken);
+            }
+            else
+            {
+                  return 0;
+                // throw new InvalidOperationException("the balance should be greater than the unpaid amount");
+            }
+
+
 
 
             // Save changes
