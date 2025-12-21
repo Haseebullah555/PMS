@@ -15,8 +15,15 @@ const FuelStandWithDetials = () => {
   const { t } = useTranslation()
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
-  const openCreateModal = () => setCreateModalOpen(true)
+  const[selectedStand, setSelectedStand] = useState(null);
   const closeCreateModal = () => setCreateModalOpen(false)
+
+
+  const openCreateModal = (item: any) => {
+    console.log(item,"StandStandStand");
+    // setSelectedStand(item)
+    openCreateModal(true)
+  }
   const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
   const dispatch = useAppDispatch()
@@ -123,7 +130,7 @@ const FuelStandWithDetials = () => {
                                   {i?.name}
                                 </td>
                                 <td className='fw-bolder'>
-                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={openCreateModal}>
+                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() =>openCreateModal(i)}>
                                     <b>
                                       <i className='fa-solid fa-plus'></i>{' '}
                                       { t('fuelDistribution.fuelDistributionToStand') }
@@ -154,7 +161,8 @@ const FuelStandWithDetials = () => {
       {isCreateModalOpen && (
         <AddFuelDistributionModal
           isOpen={isCreateModalOpen}
-          onClose={() => setCreateModalOpen(false)}
+          onClose={closeCreateModal}
+          selectedStand={selectedStand}
           handleReloadTable={handleReloadTable}
         />
       )}

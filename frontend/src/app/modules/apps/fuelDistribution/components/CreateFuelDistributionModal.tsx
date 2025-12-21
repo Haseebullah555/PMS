@@ -16,10 +16,11 @@ import { FuelDistributionForm, initialValues } from './_module'
 interface CreateFuelDistributionModalProps {
     isOpen: boolean
     onClose: () => void
+    selectedStand: any
     handleReloadTable: () => void
 }
 
-const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable, selectedStand }) => {
     const intl = useIntl()
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
@@ -32,11 +33,16 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
         fuelTypeId: Yup.number().required(t('validation.required', { name: t('fuelType.fuelType') })),
         distributionDate: Yup.string().required(t('validation.required', { name: t('global.date') })),
     })
-
+useEffect(()=> {
+    if (selectedStand) {
+        formik.setFieldValue('fuelGunId', selectedStand.fuelGunId)
+    }
+})
+console.log(selectedStand,"selectedStandselectedStand");
 
     // Formik Hook
     const formik = useFormik<FuelDistributionForm>({
-        initialValues,
+        initialValues: initialValues,
         validationSchema: FuelDistributionSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {

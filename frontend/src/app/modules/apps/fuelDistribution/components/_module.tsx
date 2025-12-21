@@ -1,7 +1,7 @@
 export interface FuelDistributionForm {
   fuelGunId: number
-  fuelTypeId: number
-  quantity: number
+  fuelTypeId: number | null
+  quantity: number | null
   distributionDate: string
 }
 export interface DailyFuelSellForm {
@@ -19,8 +19,8 @@ export interface DailyFuelSellForm {
 
 export const initialValues: FuelDistributionForm = {
   fuelGunId: 0,
-  fuelTypeId: 0,
-  quantity: 0,
+  fuelTypeId: null,
+  quantity: null,
   distributionDate: ''
 }
 export const dailyFuelSellInitialValues: DailyFuelSellForm = {
