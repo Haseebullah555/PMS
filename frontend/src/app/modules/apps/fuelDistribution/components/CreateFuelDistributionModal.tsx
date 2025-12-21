@@ -28,15 +28,9 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
     // Form Validation Schema
     const FuelDistributionSchema = Yup.object().shape({
-        name: Yup.string().required(t('validation.required', { name: t('fuelDistribution.fuelDistribution') })),
-        fuelTypeId: Yup.number().required(t('validation.required', { name: t('staff.staff') })),
-        fuelGuns: Yup.array()
-            .of(
-                Yup.object().shape({
-                    name: Yup.string().required(t('validation.required', { name: t('fuelGun.fuelGun') })),
-                })
-            )
-            .min(1, "At least one fuel gun is required"),
+        quantity: Yup.number().required(t('validation.required', { name: t('fuelDistribution.quantity') })),
+        fuelTypeId: Yup.number().required(t('validation.required', { name: t('fuelType.fuelType') })),
+        distributionDate: Yup.string().required(t('validation.required', { name: t('global.date') })),
     })
 
 
@@ -121,7 +115,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
                             {formik.touched.fuelTypeId &&
                                 formik.errors?.fuelTypeId && (
                                     <div className="invalid-feedback">
-                                        {t('validation.required', { name: t('staff.staff') })}
+                                        {t('validation.required', { name: t('fuelType.fuelType') })}
                                     </div>
                                 )}
                         </div>
@@ -131,7 +125,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
                                 {t('fuelDistribution.quantity')} <span className='text-danger'>*</span>
                             </label>
                             <input
-                                type='text'
+                                type='number'
                                 {...formik.getFieldProps('quantity')}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.quantity && formik.errors.quantity,
@@ -148,11 +142,17 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
                             <label className="form-label">{t('global.date')}</label>
                             <input
                                 type="date"
-                                name="distributionDate"
-                                value={formik.values.distributionDate}
-                                onChange={formik.handleChange}
-                                className="form-control"
+                                {...formik.getFieldProps('distributionDate')}
+                                className={clsx('form-control', {
+                                    'is-invalid': formik.touched.distributionDate && formik.errors.distributionDate,
+                                    'is-valid': formik.touched.distributionDate && !formik.errors.distributionDate,
+                                })}
                             />
+                            {formik.touched.distributionDate && formik.errors.distributionDate && (
+                                <div className='invalid-feedback'>
+                                    {t('validation.required', { name: t('global.date') })}
+                                </div>
+                            )}
                         </div>
                     </div>
                     {/* Submit Buttons */}
