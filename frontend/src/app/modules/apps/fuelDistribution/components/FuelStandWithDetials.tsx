@@ -21,8 +21,8 @@ const FuelStandWithDetials = () => {
 
   const openCreateModal = (item: any) => {
     console.log(item,"StandStandStand");
-    // setSelectedStand(item)
-    openCreateModal(true)
+    setSelectedStand(item)
+    setCreateModalOpen(true)
   }
   const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
@@ -130,7 +130,7 @@ const FuelStandWithDetials = () => {
                                   {i?.name}
                                 </td>
                                 <td className='fw-bolder'>
-                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() =>openCreateModal(i)}>
+                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() =>openCreateModal(i.id)}>
                                     <b>
                                       <i className='fa-solid fa-plus'></i>{' '}
                                       { t('fuelDistribution.fuelDistributionToStand') }

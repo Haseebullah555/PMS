@@ -26,6 +26,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
     const dispatch = useAppDispatch()
     const [roles, setRoles] = useState([])
 
+    console.log(selectedStand, "aaaaaaaaaaaaa");
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
     // Form Validation Schema
     const FuelDistributionSchema = Yup.object().shape({
@@ -33,12 +34,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
         fuelTypeId: Yup.number().required(t('validation.required', { name: t('fuelType.fuelType') })),
         distributionDate: Yup.string().required(t('validation.required', { name: t('global.date') })),
     })
-useEffect(()=> {
-    if (selectedStand) {
-        formik.setFieldValue('fuelGunId', selectedStand.fuelGunId)
-    }
-})
-console.log(selectedStand,"selectedStandselectedStand");
+
 
     // Formik Hook
     const formik = useFormik<FuelDistributionForm>({
@@ -91,6 +87,11 @@ console.log(selectedStand,"selectedStandselectedStand");
                 })
         }
     }, [])
+
+    useEffect(() => {
+        formik.setFieldValue('fuelGunId', selectedStand);
+    }, [selectedStand]);
+
     return (
         <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} >
             <Modal.Header closeButton>
