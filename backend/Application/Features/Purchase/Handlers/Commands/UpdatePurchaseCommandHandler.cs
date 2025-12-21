@@ -31,17 +31,18 @@ namespace Application.Features.Purchase.Handlers.Commands
 
             if (purchase == null)
                 throw new KeyNotFoundException("Purchase not found");
-
+            // 1️⃣ Store OLD unpaid amount before updating
+            decimal oldUnpaidAmount = purchase.UnPaidAmount;
             // 1️⃣ Calculate totals
             decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
-            decimal unpaidAmount = totalAmount - request.PaidAmount;
+            decimal newUnpaidAmount = totalAmount - request.PaidAmount;
 
             // --- update purchate table ---
             purchase.SupplierId = request.SupplierId;
             purchase.PurchaseDate = request.PurchaseDate;
-            purchase.TotalAmount = request.TotalAmount;
+            purchase.TotalAmount = totalAmount;
             purchase.PaidAmount = request.PaidAmount;
-            purchase.UnPaidAmount = unpaidAmount;
+            purchase.UnPaidAmount = newUnpaidAmount;
 
             // --- Remove deleted items ---
             foreach (var detail in purchase.PurchaseDetails.ToList())
@@ -81,24 +82,20 @@ namespace Application.Features.Purchase.Handlers.Commands
 
             // 2️⃣ update supplier table: balance column in supplier and set the unpaidAmount
             var supplier = await _unitOfWork.Suppliers.GetSupplierByIdAsync(request.SupplierId);
+            // Calculate balance difference
+            decimal balanceDelta = newUnpaidAmount - oldUnpaidAmount;
+            // Apply difference
+            supplier.Balance += balanceDelta;
 
-            if (supplier.Balance > 0)
-            {
-                supplier.Balance -= purchase.UnPaidAmount; // Revert previous unpaid amount
-                supplier.Balance += unpaidAmount;          // Apply new unpaid amount
-
-                _unitOfWork.Suppliers.Update(supplier);
-                await _unitOfWork.SaveAsync(cancellationToken);
-            }
-            else
+            // Optional validation (recommended)
+            if (supplier.Balance < 0)
             {
                 response.Success = false;
-                response.Message = "the balance should be greater than the unpaid amount";
+                response.Message = "Supplier balance cannot be negative.";
                 return response;
             }
 
-
-
+            _unitOfWork.Suppliers.Update(supplier);
 
             // Save changes
             await _unitOfWork.SaveAsync(cancellationToken);

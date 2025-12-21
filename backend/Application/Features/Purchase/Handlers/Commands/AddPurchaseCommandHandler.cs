@@ -114,22 +114,6 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                 }
 
-                // 5️⃣ Create Supplier Loan (if unpaid)
-                // if (unpaidAmount > 0)
-                // {
-                //     var loan = new SupplierLoan
-                //     {
-                //         PurchaseId = purchase.Id,
-                //         Amount = unpaidAmount,
-                //         LoanDate = DateTime.UtcNow,
-                //         IsSettled = false
-                //     };
-
-                //     await _unitOfWork.SupplierLoans.AddAsync(loan);
-                // }
-
-                // await _unitOfWork.SaveAsync(cancellationToken);
-
                 await tx.CommitAsync(cancellationToken);
 
                 return purchase.Id;
