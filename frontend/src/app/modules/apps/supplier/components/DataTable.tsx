@@ -69,7 +69,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
       per_page: perPage,
       page: currentPage,
     }
-
     dispatch(getSupplier(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         setLoading(false)
@@ -91,8 +90,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
-
-
   return (
     <div>
       {isAuthorized ? (
@@ -128,11 +125,10 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
               </div>
             </div>
           </div>
-
           {/* TABLE */}
           <div className='tableFixHead table-responsive' dir='rtl'>
             <table className='table table-hover table-striped gy-4 gs-5'>
-              <thead className='bg-gray-500 text-light'>
+              <thead className='text-white'>
                 <tr>
                   {headers.map((header: any) => (
                     <th
@@ -154,7 +150,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                   ))}
                 </tr>
               </thead>
-
               <tbody>
                 {!memoizedLoading &&
                   memoizedData.map((item, index) => (
@@ -196,7 +191,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                     </td>
                   </tr>
                 )}
-
                 {memoizedLoading && (
                   <tr>
                     <td colSpan={9}>
@@ -207,7 +201,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
               </tbody>
             </table>
           </div>
-
           {!memoizedLoading && memoizedData.length > 0 && (
             <Paginator
               pagination={pagination}
@@ -224,5 +217,4 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     </div>
   )
 }
-
 export default DataTable

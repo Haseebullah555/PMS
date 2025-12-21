@@ -324,7 +324,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                   recalcTotals(formik.values.items.filter((_, i) => i !== index))
                                 }}
                               >
-                                <i className="fa-solid fa-trash"></i>
+                                <span className="fa-solid fa-trash"></span>
                               </Button>
                             </td>
                           </tr>
@@ -335,7 +335,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                             <button type="button" className='btn btn-sm btn-success' onClick={() =>
                               arrayHelpers.push({ fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0 })
                             }>
-                              <span className="fa fa-plus"></span>
+                              <span className="fa fa-plus fw-bold"></span>
                             </button>
                           </td>
                         </tr>
