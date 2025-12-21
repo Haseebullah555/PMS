@@ -15,8 +15,7 @@ namespace Application.Profiles
             CreateMap<FuelTypes, FuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();
-            CreateMap<FuelStand, CreateFuelStandDto>()
-    .ForMember(d => d.Staffs, o => o.MapFrom(s => s.Staff));
+            CreateMap<FuelStand, CreateFuelStandDto>();
             CreateMap<ExtraExpenses, ExtraExpensesDto>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
             CreateMap<PartnerTransaction, PartnerTransactionDto>().ReverseMap();
@@ -34,7 +33,7 @@ namespace Application.Profiles
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
             CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>().ReverseMap();
             CreateMap<FuelDistribution, FuelDistributionDto>();
-            CreateMap<FuelDistribution, AddFuelDistributionDto>();
+            CreateMap<FuelDistribution, AddFuelDistributionDto>().ReverseMap();
             CreateMap<DailyFuelSell, DailyFuelSellDto>().ReverseMap();
             // CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
         }

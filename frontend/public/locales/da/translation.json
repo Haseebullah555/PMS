@@ -344,7 +344,8 @@
     "aviliableStock": "انبار موجود",
     "tonQuantity": "مقدار به تن",
     "literQuantity": "مقدار به لیتر",
-    "unitPrice": "قیمت فی واحد"
+    "unitPrice": "قیمت فی واحد",    
+    "quantity": "مقدار موجود"
   },
   "fuelType": {
     "addPurchase": "ثبت خریداری",

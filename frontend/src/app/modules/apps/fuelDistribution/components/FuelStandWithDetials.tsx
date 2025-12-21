@@ -121,11 +121,15 @@ const FuelStandWithDetials = () => {
                         <table className="table table-hover table-striped gs-5 gy-4">
                           <thead className="text-center fs-5 bg-gray-500 text-light">
                             <th>{t('fuelDistribution.fuelGun')}</th>
+                            <th>{t('stock.quantity')}</th>
                             <th>{t('global.ACTION')}</th>
                           </thead>
                           <tbody>
                             {item?.fuelGuns?.map((i: any) => (
                               <tr className='fs-5 text-center'>
+                                <td className='fw-bolder' key={i?.id}>
+                                  {i?.name}
+                                </td>
                                 <td className='fw-bolder' key={i?.id}>
                                   {i?.name}
                                 </td>
