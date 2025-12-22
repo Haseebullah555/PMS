@@ -5,14 +5,14 @@ export interface FuelDistributionForm {
   distributionDate: string
 }
 export interface DailyFuelSellForm {
-  fuelGunId: number
-  fuelStandId: number
-  currentMeterDegree: number
-  oldMeterDegree: number
-  soldFuelAmount: number
-  fuelUnitPrice: number
-  totalPrice:number
-  collectedMoneyAmount: number
+  fuelGunId: number | null
+  fuelStandId: number | null
+  currentMeterDegree: number | null
+  oldMeterDegree: number | null
+  soldFuelAmount: number | null
+  fuelUnitPrice: number | null
+  totalPrice:number | null
+  collectedMoney: number | null
   date: string
   note: string
 }
@@ -21,17 +21,17 @@ export const initialValues: FuelDistributionForm = {
   fuelGunId: null,
   fuelTypeId: null,
   quantity: null,
-  distributionDate: ''
+  distributionDate: new Date().toISOString().split('T')[0]
 }
 export const dailyFuelSellInitialValues: DailyFuelSellForm = {
-  fuelGunId: 0,
-  fuelStandId: 0,
-  currentMeterDegree: 0,
-  oldMeterDegree: 0,
-  soldFuelAmount: 0,
-  fuelUnitPrice: 0,
-  totalPrice: 0,
-  collectedMoneyAmount: 0,
-  date: '',
+  fuelGunId: null,
+  fuelStandId: null,
+  currentMeterDegree:  null,
+  oldMeterDegree: null,
+  soldFuelAmount: null,
+  fuelUnitPrice: null,
+  totalPrice: null,
+  collectedMoney: null,
+  date: new Date().toISOString().split('T')[0],
   note: ''
 }

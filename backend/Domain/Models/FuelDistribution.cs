@@ -9,6 +9,6 @@ namespace Domain.Models
         public int FuelTypeId { get; set; }
         public FuelTypes? FuelType { get; set; }
         public int Quantity { get; set; }
-        public DateOnly DistributionDate { get; set; }
+        public DateOnly? DistributionDate { get; set; }
     }
 }

@@ -9,6 +9,7 @@ namespace Application.Dtos
         public FuelStandDto? FuelStand { get; set; }
         public int FuelGunId { get; set; }
         public FuelGunDto? FuelGun { get; set; }
+        public int StaffId { get; set; }
         public decimal CurrentMeterDegree { get; set; }
         public decimal OldMeterDegree { get; set; }
         public decimal SoldFuelAmount { get; set; }

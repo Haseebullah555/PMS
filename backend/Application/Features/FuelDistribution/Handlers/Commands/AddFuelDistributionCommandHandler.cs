@@ -18,9 +18,23 @@ namespace Application.Features.FuelDistribution.Handlers.Commands
         }
         public async Task Handle(AddFuelDistributionCommand request, CancellationToken cancellationToken)
         {
+
             var result = _mapper.Map<Domain.Models.FuelDistribution>(request.AddFuelDistributionDto);
             await _unitOfWork.FuelDistributions.AddAsync(result);
             await _unitOfWork.SaveAsync(cancellationToken);
+
+            // manual mapping approach
+
+            // var dto = request.AddFuelDistributionDto;
+            // var entity = new Domain.Models.FuelDistribution
+            // {
+            //     FuelGunId = dto.FuelGunId,
+            //     FuelTypeId = dto.FuelTypeId,
+            //     Quantity = dto.Quantity,
+            //     DistributionDate = dto.DistributionDate
+            // };
+            // await _unitOfWork.FuelDistributions.AddAsync(entity);
+            // await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 

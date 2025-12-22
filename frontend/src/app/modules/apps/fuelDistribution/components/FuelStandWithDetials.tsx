@@ -16,15 +16,20 @@ const FuelStandWithDetials = () => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
   const[selectedStand, setSelectedStand] = useState(null);
+   const[selectedDailySell, setSelectedDailySell] = useState<any>();
   const closeCreateModal = () => setCreateModalOpen(false)
 
+  const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number) => {
+    setSelectedDailySell({fuelStandId, fuelGunId});
+    setCreateDailyFuelSellModalOpen(true)
+  } 
 
   const openCreateModal = (item: any) => {
     console.log(item,"StandStandStand");
     setSelectedStand(item)
     setCreateModalOpen(true)
   }
-  const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
+  // const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
   const dispatch = useAppDispatch()
 
@@ -140,7 +145,7 @@ const FuelStandWithDetials = () => {
                                       { t('fuelDistribution.fuelDistributionToStand') }
                                     </b>
                                   </button>
-                                  <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={openCreateDailyFuelSellModal}>
+                                  <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={() => openCreateDailyFuelSellModal(item.id, i.id)}>
                                     <b>
                                       <i className='fa-solid fa-arrow-up'></i>{' '}
                                       { t('dailyFuelSell.dailyFuelSells') }
@@ -173,6 +178,7 @@ const FuelStandWithDetials = () => {
       {isCreateDailyFuelSellModalOpen && (
         <CreateDailyFuelSellModal
           isOpen={isCreateDailyFuelSellModalOpen}
+            selectedDailySell={selectedDailySell}
           onClose={() => setCreateDailyFuelSellModalOpen(false)}
         />
       )}

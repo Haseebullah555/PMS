@@ -15,29 +15,25 @@ import { storeDailyFuelSell } from '../../../../../redux/slices/DailyFuelSell/Da
 // Define the props for the modal
 interface CreateDailyFuelSellModalProps {
     isOpen: boolean
+    selectedDailySell: any
     onClose: () => void
 }
 
-const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose }) => {
-    const intl = useIntl()
+const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell }) => {
+
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
-    const [roles, setRoles] = useState([])
 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
+
     // Form Validation Schema
     const DailyFuelSellSchema = Yup.object().shape({
-        name: Yup.string().required(t('validation.required', { name: t('fuelDistribution.fuelDistribution') })),
-        fuelTypeId: Yup.number().required(t('validation.required', { name: t('staff.staff') })),
-        fuelGuns: Yup.array()
-            .of(
-                Yup.object().shape({
-                    name: Yup.string().required(t('validation.required', { name: t('fuelGun.fuelGun') })),
-                })
-            )
-            .min(1, "At least one fuel gun is required"),
+        currentMeterDegree: Yup.number().required(),
+        oldMeterDegree: Yup.number().required(),
+        soldFuelAmount: Yup.number().required(),
+        fuelUnitPrice: Yup.number().required(),
+        collectedMoney: Yup.number().required(),
     })
-
 
     // Formik Hook
     const formik = useFormik<DailyFuelSellForm>({
@@ -89,6 +85,25 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                 })
         }
     }, [])
+
+    useEffect(() => {
+        if (selectedDailySell) {
+            formik.setFieldValue('fuelStandId', selectedDailySell.fuelStandId);
+            formik.setFieldValue('fuelGunId', selectedDailySell.fuelGunId);
+        }
+    }, [selectedDailySell]);
+
+    console.log(formik.values, '---------------');
+    // useEffect(() => {
+    //     const current = Number(formik.values.currentMeterDegree);
+    //     const old = Number(formik.values.oldMeterDegree);
+
+    //     if (!isNaN(current) && !isNaN(old)) {
+    //         formik.setFieldValue('soldFuelAmount', current - old);
+    //     }
+    // }, [formik.values.currentMeterDegree, formik.values.oldMeterDegree]);
+
+
     return (
         <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl' >
             <Modal.Header closeButton>
@@ -105,6 +120,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                             </label>
                             <input
                                 type='number'
+                                placeholder="0"
                                 {...formik.getFieldProps('currentMeterDegree')}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.currentMeterDegree && formik.errors.currentMeterDegree,
@@ -123,12 +139,21 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 {t('dailyFuelSell.oldMeterDegree')} <span className='text-danger'>*</span>
                             </label>
                             <input
-                                type='number'
+                                type="number"
+                                placeholder="0"
                                 {...formik.getFieldProps('oldMeterDegree')}
+                                onChange={(e) => {
+                                    const currentMeterValue = Number(formik.values.currentMeterDegree);
+                                    const oldMeterValue = Number(e.target.value);
+
+                                    formik.setFieldValue('oldMeterDegree', oldMeterValue);
+                                    formik.setFieldValue('soldFuelAmount', currentMeterValue - oldMeterValue);
+                                }}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.oldMeterDegree && formik.errors.oldMeterDegree,
                                     'is-valid': formik.touched.oldMeterDegree && !formik.errors.oldMeterDegree,
                                 })}
+
                             />
                             {formik.touched.oldMeterDegree && formik.errors.oldMeterDegree && (
                                 <div className='invalid-feedback'>
@@ -136,7 +161,6 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 </div>
                             )}
                         </div>
-
                         {/* FuelUnitPrice Field */}
                         <div className='col-md-3 mb-3'>
                             <label className='form-label'>
@@ -144,7 +168,12 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                             </label>
                             <input
                                 type='number'
+                                placeholder="0"
                                 {...formik.getFieldProps('fuelUnitPrice')}
+                                onChange={(e) => {
+                                    formik.setFieldValue('fuelUnitPrice',  e.target.value)
+                                    formik.setFieldValue('totalPrice', Number(formik.values.soldFuelAmount) * Number(e.target.value))
+                                }}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.fuelUnitPrice && formik.errors.fuelUnitPrice,
                                     'is-valid': formik.touched.fuelUnitPrice && !formik.errors.fuelUnitPrice,
@@ -159,19 +188,20 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                         {/* Collected Money Amount Field */}
                         <div className='col-md-3 mb-3'>
                             <label className='form-label'>
-                                {t('dailyFuelSell.collectedMoneyAmount')} <span className='text-danger'>*</span>
+                                {t('dailyFuelSell.collectedMoney')} <span className='text-danger'>*</span>
                             </label>
                             <input
                                 type='number'
-                                {...formik.getFieldProps('collectedMoneyAmount')}
+                                placeholder="0"
+                                {...formik.getFieldProps('collectedMoney')}
                                 className={clsx('form-control', {
-                                    'is-invalid': formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount,
-                                    'is-valid': formik.touched.collectedMoneyAmount && !formik.errors.collectedMoneyAmount,
+                                    'is-invalid': formik.touched.collectedMoney && formik.errors.collectedMoney,
+                                    'is-valid': formik.touched.collectedMoney && !formik.errors.collectedMoney,
                                 })}
                             />
-                            {formik.touched.collectedMoneyAmount && formik.errors.collectedMoneyAmount && (
+                            {formik.touched.collectedMoney && formik.errors.collectedMoney && (
                                 <div className='invalid-feedback'>
-                                    {t('validation.required', { name: t('dailyFuelSell.collectedMoneyAmount') })}
+                                    {t('validation.required', { name: t('dailyFuelSell.collectedMoney') })}
                                 </div>
                             )}
                         </div>
@@ -222,6 +252,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                             </label>
                             <input
                                 type='number'
+                                placeholder="0"
                                 readOnly
                                 {...formik.getFieldProps('soldFuelAmount')}
                                 className='form-control'
@@ -234,6 +265,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                             </label>
                             <input
                                 type='number'
+                                placeholder="0"
                                 readOnly
                                 {...formik.getFieldProps('totalPrice')}
                                 className='form-control'
