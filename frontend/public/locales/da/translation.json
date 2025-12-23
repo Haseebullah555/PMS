@@ -402,7 +402,7 @@
     "soldFuelAmount": "مقدار فروخته شده",
     "fuelUnitPrice": "قیمت فی واحد",
     "totalPrice": "قیمت کل",
-    "collectedMoneyAmount": "پول جمع آوری شده",
+    "collectedMoney": "پول جمع آوری شده",
     "note": "توضیحات"
   }
 }
