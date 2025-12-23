@@ -142,25 +142,10 @@ console.log(fuelTypes, 'fuleeeeeeeeeee');
                                             <td className='fw-bolder'>{index + 1}</td>
                                             <td className='fw-bolder'>{item.name}</td>
                                             <td className='fw-bolder'>{item.fuelUnit == 0 ? 'لیتر' : 'تن'}</td>
-                                            <td className='text-center'>
-                                                <DropdownButton
-                                                    id='dropdown-item-button'
-                                                    size='sm'
-                                                    title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
-                                                >
-                                                    <>
-                                                        <Dropdown.Item
-                                                            as='button'
-                                                            className='fw-bold text-primary'
-                                                            onClick={() => handleEdit(item)}
-                                                        >
-                                                            <i className='fas fa-edit text-primary'></i>
-                                                            <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                                                                {/* {t('global.edit', { name: t('global.user') })} */}
-                                                            </span>
-                                                        </Dropdown.Item>
-                                                    </>
-                                                </DropdownButton>
+                                            <td>
+                                                <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
+                                                    <span className='fa fa-pencil fw-bolder fw-bold'></span>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

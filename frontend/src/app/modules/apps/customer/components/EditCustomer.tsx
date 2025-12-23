@@ -30,7 +30,7 @@ const EditCustomerModal: React.FC<EditCustomerModalProps> = ({
   // Populate form with user data when `selectedCustomer` changes
   useEffect(() => {
     if (selectedCustomer) {
-      formik.setFieldValue('id', selectedCustomer.id || '')
+      formik.setFieldValue('id', selectedCustomer.id || '')                                                                                                                                                                                                                                           
       formik.setFieldValue('name', selectedCustomer.name || '')
       formik.setFieldValue('phoneNumber', selectedCustomer.phoneNumber || '')
       formik.setFieldValue('address', selectedCustomer.address || '')

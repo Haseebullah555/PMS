@@ -16,7 +16,7 @@ const SORT_DESC = 'desc'
 
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [data, setData] = useState<SupplierForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
@@ -161,23 +161,10 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                       <td>{item.driverName}</td>
                       <td>{item.carPlate}</td>
 
-                      <td className='text-center'>
-                        <DropdownButton
-                          id='dropdown-item-button'
-                          size='sm'
-                          title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
-                        >
-                          <Dropdown.Item
-                            as='button'
-                            className='fw-bold text-primary'
-                            onClick={() => handleEdit(item)}
-                          >
-                            <i className='fas fa-edit text-primary'></i>
-                            <span className='btn btn-sm fw-bolder text-primary'>
-                                {t('global.edit', {name: t('supplier.supplier')})}
-                            </span>
-                          </Dropdown.Item>
-                        </DropdownButton>
+                      <td>
+                        <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
+                          <span className='fa fa-pencil fw-bolder fw-bold'></span>
+                        </button>
                       </td>
                     </tr>
                   ))}

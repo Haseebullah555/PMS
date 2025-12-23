@@ -1,20 +1,20 @@
-import {debounce} from 'lodash'
-import {useEffect, useRef, useState, useCallback, useMemo} from 'react'
+import { debounce } from 'lodash'
+import { useEffect, useRef, useState, useCallback, useMemo } from 'react'
 import Paginator from '../../../../customes/Paginator'
 import UnAuthorized from '../../../../customes/UnAuthorized'
-import {Dropdown, DropdownButton} from 'react-bootstrap'
+import { Dropdown, DropdownButton } from 'react-bootstrap'
 import Loader from '../../../../pages/loading/Loader'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import {StaffForm} from './_module'
-import {useAppDispatch, useAppSelector} from '../../../../../redux/hooks'
+import { StaffForm } from './_module'
+import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import '../../../../../_metronic/assets/css/dataTable.css'
 import { getStaff } from '../../../../../redux/slices/staff/StaffSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 
-const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
+const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
   const [data, setData] = useState<StaffForm[]>([])
   const [perPage, setPerPage] = useState<number>(10)
   const [sortColumn, setSortColumn] = useState<string>(columns[0])
@@ -24,10 +24,10 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const [pagination, setPagination] = useState<any>({})
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [loading, setLoading] = useState<boolean>(true)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const {staffs} = useAppSelector((state) => state.staffs)
+  const { staffs } = useAppSelector((state) => state.staffs)
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))
@@ -144,7 +144,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                 {!memoizedLoading &&
                   memoizedData.map((item, index) => (
                     <tr key={index} className='fs-5'>
-                      <td className='fw-bolder'>{index+ 1}</td>
+                      <td className='fw-bolder'>{index + 1}</td>
                       <td>{item.fullName}</td>
                       <td>{item.position}</td>
                       <td>{item.salary}</td>
@@ -152,31 +152,15 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                       <td>{item.phone}</td>
                       <td>
                         {
-                        item.status == false ?
-                          <span className='badge badge-danger'>{t('global.deactive')}</span>:
-                          <span className='badge badge-success'>{t('global.active')}</span> 
+                          item.status == false ?
+                            <span className='badge badge-danger'>{t('global.deactive')}</span> :
+                            <span className='badge badge-success'>{t('global.active')}</span>
                         }
                       </td>
-
-                      <td className='text-center'>
-                        <DropdownButton
-                          id='dropdown-item-button'
-                          size='sm'
-                          title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
-                        >
-                          <>
-                            <Dropdown.Item
-                              as='button'
-                              className='fw-bold text-primary'
-                              onClick={() => handleEdit(item)}
-                            >
-                              <i className='fas fa-edit text-primary'></i>
-                              <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                                {t('global.edit', {name: t('global.user')})}
-                              </span>
-                            </Dropdown.Item>
-                          </>
-                        </DropdownButton>
+                      <td>
+                        <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
+                          <span className='fa fa-pencil fw-bolder fw-bold'></span>
+                        </button>
                       </td>
                     </tr>
                   ))}

@@ -9,6 +9,7 @@ namespace Domain.Models
         public int FuelGunId { get; set; }
         public FuelGun? FuelGun { get; set; } 
         public int StaffId { get; set; }
+        public Staff? Staff { get; set; }
         public decimal CurrentMeterDegree { get; set; }
         public decimal OldMeterDegree { get; set; }
         public decimal SoldFuelAmount { get; set; }
