@@ -254,7 +254,6 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                     (formik.touched.items?.[index] as any)?.density &&
                                     (formik.errors.items?.[index] as any)?.density,
                                 })}
-                                min="1"
                                 placeholder={Number(item.density).toString()}
                                 value={Number(item.density) || ""}
                                 onChange={(e) => {
@@ -270,6 +269,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                     ),
                                   ])
                                 }}
+                                
                               />
                               {(formik.touched.items?.[index] as any)?.density &&
                                 (formik.errors.items?.[index] as any)?.density && (
@@ -333,7 +333,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                         <tr>
                           <td colSpan={5}>
                             <button type="button" className='btn btn-sm btn-success' onClick={() =>
-                              arrayHelpers.push({ fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0 })
+                              arrayHelpers.push({ fuelTypeId: "", quantity: null, density: null, unitPrice: null, totalPrice: 0 })
                             }>
                               <span className="fa fa-plus fw-bold"></span>
                             </button>

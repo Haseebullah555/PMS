@@ -74,9 +74,10 @@ namespace Application.Features.Purchase.Handlers.Commands
                         stock = new Domain.Models.Stock
                         {
                             FuelTypeId = item.FuelTypeId,
-                            Quantity = item.Quantity,
+                            QuantityInLiter = (item.Quantity * 1000m) / item.Density,
+
                             UnitPrice = item.UnitPrice, // First time purchase
-                            Density = item.Density,
+                            // Density = item.Density,
                             CreatedAt = DateTime.UtcNow
                         };
 
@@ -85,11 +86,12 @@ namespace Application.Features.Purchase.Handlers.Commands
                     else
                     {
                         // Weighted average calculation
-                        decimal oldValue = stock.Quantity * stock.UnitPrice;
+                        decimal oldValue = (decimal)(stock.QuantityInLiter * stock.UnitPrice);
+
                         decimal newValue = oldValue + detail.TotalPrice;
 
-                        stock.Quantity += item.Quantity;
-                        stock.UnitPrice = newValue / stock.Quantity;
+                        stock.QuantityInLiter += (item.Quantity * 1000m) / item.Density;
+                        stock.UnitPrice = newValue / stock.QuantityInLiter;
 
                         _unitOfWork.Stocks.Update(stock);
                     }

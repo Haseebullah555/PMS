@@ -35,6 +35,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
         ? selectedPurchase.purchaseDetails.map((d) => ({
           fuelTypeId: d.fuelTypeId || '', // or map from goodId if needed
           quantity: d.quantity || 0,
+          density: d.density || 0,
           unitPrice: d.unitPrice || 0,
           totalPrice: d.totalPrice || 0,
         }))
@@ -42,6 +43,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
           {
             fuelTypeId: '',
             quantity: null,
+            density: null,
             unitPrice: null,
             totalPrice: 0,
           },
@@ -68,7 +70,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
     supplierId: Yup.string().required('Supplier is required'),
- paidAmount: Yup.number()
+    paidAmount: Yup.number()
       .nullable()
       .test(
         "paid-less-than-total",
@@ -230,6 +232,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                         <tr>
                           <th>{t('fuelType.fuelTypes')}</th>
                           <th>{t('fuelType.qtn')}</th>
+                          <th>{t('fuelType.density')}</th>
                           <th>{t('fuelType.unitPrice')}</th>
                           <th className='text-center'>{t('fuelType.total')}</th>
                           <th className='text-center'>{t('global.ACTION')}</th>
@@ -302,6 +305,39 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                                 type="number"
                                 className={clsx("form-control", {
                                   "is-invalid":
+                                    (formik.touched.items?.[index] as any)?.density &&
+                                    (formik.errors.items?.[index] as any)?.density,
+                                })}
+                                placeholder={Number(item.density).toString()}
+                                value={Number(item.density) || ""}
+                                onChange={(e) => {
+                                  const qty = Number(e.target.value)
+                                  const total = qty * (item.unitPrice || 0)
+
+                                  formik.setFieldValue(`items.${index}.density`, qty)
+                                  formik.setFieldValue(`items.${index}.totalPrice`, total)
+
+                                  recalcTotals([
+                                    ...formik.values.items.map((d, i) =>
+                                      i === index ? { ...d, totalPrice: total, density: qty } : d
+                                    ),
+                                  ])
+                                }}
+                                              disabled={!editableRows.includes(index)}
+                              />
+                              {(formik.touched.items?.[index] as any)?.density &&
+                                (formik.errors.items?.[index] as any)?.density && (
+                                  <div className="invalid-feedback">
+                                    {t('validation.required', { name: t('purchase.density') })}
+                                  </div>
+                                )}
+                            </td>
+
+                            <td className="w-25">
+                              <input
+                                type="number"
+                                className={clsx("form-control", {
+                                  "is-invalid":
                                     (formik.touched.items?.[index] as any)?.unitPrice &&
                                     (formik.errors.items?.[index] as any)?.unitPrice,
                                 })}
@@ -361,7 +397,7 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                           <td colSpan={5}>
                             <button type="button" className='btn btn-sm btn-success' onClick={() => {
                               // Add the new row to Formik
-                              arrayHelpers.push({ fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0 })
+                              arrayHelpers.push({ fuelTypeId: "", quantity: null, density: null, unitPrice: null, totalPrice: 0 })
                               // Make the new row editable immediately
                               setEditableRows((prev) => [...prev, formik.values.items.length]);
                             }
@@ -398,13 +434,13 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                       Number(formik.values.totalAmount) - Number(e.target.value)
                     )
                   }}
-                     className={clsx("form-control", {
+                  className={clsx("form-control", {
                     "is-invalid": formik.touched.paidAmount && formik.errors.paidAmount,
                   })}
                 />
-                  {formik.touched.paidAmount && formik.errors.paidAmount && (
+                {formik.touched.paidAmount && formik.errors.paidAmount && (
                   <div className='invalid-feedback'>
-                    { t('purchase.paidAmount must be less than totalAmount') }
+                    {t('purchase.paidAmount must be less than totalAmount')}
                   </div>
                 )}
               </div>
@@ -420,8 +456,8 @@ const EditPurchaseModal: React.FC<EditPurchaseModalProps> = ({ isOpen, onClose, 
                 {t('global.BACK')}
               </Button>
               <Button variant="primary" type="submit">
-                   {t('global.edit', { name: t('purchase.purchase')})}
-                </Button>
+                {t('global.edit', { name: t('purchase.purchase') })}
+              </Button>
             </div>
           </form>
         </FormikProvider>

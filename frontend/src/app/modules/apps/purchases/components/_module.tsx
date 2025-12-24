@@ -5,6 +5,7 @@ import { ids } from "webpack"
 export interface PurchaseDetail {
   fuelTypeId: string | null
   quantity: number | null
+  density: number | null
   unitPrice: number | null
   totalPrice: number | null
 }
@@ -27,7 +28,13 @@ export const initialValues = {
   paidAmount: null,
   unpaidAmount: 0,
   items: [
-    { fuelTypeId: "", quantity: null, unitPrice: null, totalPrice: 0,density:null },
+    {
+      fuelTypeId: "",
+      quantity: 0,
+      unitPrice: 0,
+      totalPrice: 0,
+      density: 0
+    },
   ],
 }
 
