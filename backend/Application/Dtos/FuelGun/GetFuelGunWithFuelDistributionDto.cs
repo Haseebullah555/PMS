@@ -7,6 +7,7 @@ namespace Application.Dtos.FuelGun
     {
         public string Name { get; set; }
         public int FuelStandId { get; set; }
+        public decimal Balance {get; set; }
         public List<FuelDistributionDto> FuelDistributions { get; set; }
     }
 }

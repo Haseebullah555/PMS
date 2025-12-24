@@ -18,6 +18,13 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
 
         public async Task Handle(AddDailyFuelSellCommand request, CancellationToken cancellationToken)
         {
+            await using var tx = await _unitOfWork.BeginTransactionAsync();
+
+     // update the Balance column in FuelGun model 
+            var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.DailyFuelSellDto.FuelGunId);
+            fuelGunRecord.Balance -= request.DailyFuelSellDto.SoldFuelAmount;
+            _unitOfWork.FuelGuns.Update(fuelGunRecord);
+
 
             // Get the fuel stand
             var fuelStand = await _unitOfWork.Staffs.GetFuelStandByIdAsync(request.DailyFuelSellDto.FuelStandId);
@@ -32,7 +39,8 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
             await _unitOfWork.DailyFuelSells.AddAsync(dailyFuelSell);
             await _unitOfWork.SaveAsync(cancellationToken);
 
-
+            // save all transactions
+            await tx.CommitAsync(cancellationToken);
 
 
 

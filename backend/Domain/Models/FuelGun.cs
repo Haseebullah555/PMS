@@ -7,6 +7,8 @@ namespace Domain.Models
         public string Name { get; set; }
         public int FuelStandId { get; set; }
         public FuelStand? FuelStand { get; set; }
+
+        public decimal? Balance { get; set; }
         public ICollection<FuelDistribution> FuelDistributions { get; set; } = new List<FuelDistribution>();
     }
 }

@@ -48,5 +48,11 @@ namespace Persistence.Repositories
             }).FirstOrDefaultAsync();
             return fuelGun;
         }
+
+          public async Task<FuelGun?> GetFuelGunByAyncId(int id)
+        {
+            return await _context.FuelGuns
+                .FirstOrDefaultAsync(fg => fg.Id == id);
+        }
     }
 }

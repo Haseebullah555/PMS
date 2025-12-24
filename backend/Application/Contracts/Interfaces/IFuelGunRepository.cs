@@ -8,5 +8,6 @@ namespace Application.Contracts.Interfaces
     {
         Task<List<FuelGunDto>> GetAllFuelGuns();
         Task<FuelGunDto> GetFuelGunById(int id);
+        Task<FuelGun> GetFuelGunByAyncId(int id);
     }
 }

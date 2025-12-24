@@ -392,6 +392,7 @@
     "fuelStandWithDetial": "توزیع تیل به پایه ها",
     "fuelDistribution": "توزیع تیل",
     "quantity": "مقدار توزیع ",
+    "balance": "بیلانس",
     "fuelDistributionToStand": "توزیع تیل به پایه"
   },
   "dailyFuelSell": {

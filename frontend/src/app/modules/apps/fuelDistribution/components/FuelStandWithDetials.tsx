@@ -48,6 +48,8 @@ const FuelStandWithDetials = () => {
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {
+                    console.log('--------------------');
+
     setReloadTable((prev) => !prev) // Toggle to trigger table reload
   }
 
@@ -62,13 +64,14 @@ const FuelStandWithDetials = () => {
 
     dispatch(getFuelStandWithDetials(params)).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
+        // handleReloadTable()
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {
         setIsAuthorized(false)
       }
       setLoading(false)
     })
-  }, [dispatch, currentPage, perPage, search, sortColumn, sortOrder])
+  }, [dispatch, reloadTable, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
     setData(fuelStandWithDetials?.data)
@@ -126,7 +129,7 @@ const FuelStandWithDetials = () => {
                         <table className="table table-hover table-striped gs-5 gy-4">
                           <thead className="text-center fs-5 bg-gray-500 text-light">
                             <th>{t('fuelDistribution.fuelGun')}</th>
-                            <th>{t('stock.quantity')}</th>
+                            <th>{t('fuelDistribution.balance')}</th>
                             <th>{t('global.ACTION')}</th>
                           </thead>
                           <tbody>
@@ -136,7 +139,7 @@ const FuelStandWithDetials = () => {
                                   {i?.name}
                                 </td>
                                 <td className='fw-bolder' key={i?.id}>
-                                  {i?.name}
+                                  {i?.balance}
                                 </td>
                                 <td className='fw-bolder'>
                                   <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() =>openCreateModal(i.id)}>
