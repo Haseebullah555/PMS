@@ -148,28 +148,6 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                       <td className='fw-bolder'>{index+ 1}</td>
                       <td>{item.fuelTypeName}</td>
                       <td>{item.quantity}</td>
-                      <td>{(item.quantity / item.density).toFixed(2)?? item.quantity}</td>
-
-                      {/* <td className='text-center'>
-                        <DropdownButton
-                          id='dropdown-item-button'
-                          size='sm'
-                          title={<i className='fas fa-ellipsis-v fw-bold fs-3'></i>}
-                        >
-                          <>
-                            <Dropdown.Item
-                              as='button'
-                              className='fw-bold text-primary'
-                              onClick={() => handleEdit(item)}
-                            >
-                              <i className='fas fa-edit text-primary'></i>
-                              <span className='btn btn-sm btn-flex fw-bolder fw-bold text-primary'>
-                                {t('global.edit', {name: t('global.user')})}
-                              </span>
-                            </Dropdown.Item>
-                          </>
-                        </DropdownButton>
-                      </td> */}
                     </tr>
                   ))}
 

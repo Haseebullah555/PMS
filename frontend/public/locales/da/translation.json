@@ -299,7 +299,9 @@
   },
   "extraExpense": {
     "extraExpenses": "مصارف متفرقه",
-    "expenseType": "نوع مصرف"
+    "expenseType": "نوع مصرف",
+    "amount": "مقدار مصرف"
+
   },
   "partner": {
     "partners": "شریکان",

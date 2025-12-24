@@ -116,17 +116,9 @@ const StockList = () => {
                   sort: 'goodName',
                 },
                 {
-                  headerName: `${t('stock.tonQuantity')}`,
-                  sort: 'tonQuantity',
-                },
-                {
                   headerName: `${t('stock.literQuantity')}`,
                   sort: 'literQuantity',
                 },
-                // {
-                //   headerName: 'عمل',
-                //   sort: '',
-                // },
               ]}
               columns={['id', 'goodName', 'description', 'tonQuantity', 'literQuantity']}
               handleEdit={openEditModal}
