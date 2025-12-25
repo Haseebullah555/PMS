@@ -15,17 +15,17 @@ const FuelStandWithDetials = () => {
   const { t } = useTranslation()
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
-  const[selectedStand, setSelectedStand] = useState(null);
-   const[selectedDailySell, setSelectedDailySell] = useState<any>();
+  const [selectedStand, setSelectedStand] = useState(null);
+  const [selectedDailySell, setSelectedDailySell] = useState<any>();
   const closeCreateModal = () => setCreateModalOpen(false)
 
   const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number) => {
-    setSelectedDailySell({fuelStandId, fuelGunId});
+    setSelectedDailySell({ fuelStandId, fuelGunId });
     setCreateDailyFuelSellModalOpen(true)
-  } 
+  }
 
   const openCreateModal = (item: any) => {
-    console.log(item,"StandStandStand");
+    console.log(item, "StandStandStand");
     setSelectedStand(item)
     setCreateModalOpen(true)
   }
@@ -48,7 +48,7 @@ const FuelStandWithDetials = () => {
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {
-                    console.log('--------------------');
+    console.log('--------------------');
 
     setReloadTable((prev) => !prev) // Toggle to trigger table reload
   }
@@ -96,7 +96,19 @@ const FuelStandWithDetials = () => {
             <div>
               <div className='d-none d-lg-flex mt-5'>
                 <div className='d-flex align-items-center'>
-                  <Link className='btn btn-sm btn-flex btn-danger fw-bold' to='/dashboard'>
+                  <Link className='btn btn-sm btn-flex btn-primary fw-bold me-3' to='/fuelDistribution/list'>
+                    <b>
+                      <i className='fas fa-list me-1'></i>
+                      {t('global.list', { name: t('fuelDistribution.fuelDistribution') })}
+                    </b>
+                  </Link>
+                  <Link className='btn btn-sm btn-flex btn-success fw-bold me-3' to='/dailyFuelSell/list'>
+                    <b>
+                      <i className='fas fa-list me-1'></i>
+                      {t('global.list', { name: t('dailyFuelSell.dailyFuelSell') })}
+                    </b>
+                  </Link>
+                  <Link className='btn btn-sm btn-flex btn-danger fw-bold me-3' to='/dashboard'>
                     <b>
                       <i className='fa-solid fa-reply-all'></i>
                     </b>
@@ -142,16 +154,16 @@ const FuelStandWithDetials = () => {
                                   {i?.balance}
                                 </td>
                                 <td className='fw-bolder'>
-                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() =>openCreateModal(i.id)}>
+                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() => openCreateModal(i.id)}>
                                     <b>
                                       <i className='fa-solid fa-plus'></i>{' '}
-                                      { t('fuelDistribution.fuelDistributionToStand') }
+                                      {t('fuelDistribution.fuelDistributionToStand')}
                                     </b>
                                   </button>
                                   <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={() => openCreateDailyFuelSellModal(item.id, i.id)}>
                                     <b>
                                       <i className='fa-solid fa-arrow-up'></i>{' '}
-                                      { t('dailyFuelSell.dailyFuelSells') }
+                                      {t('dailyFuelSell.dailyFuelSells')}
 
                                     </b>
                                   </button>
@@ -181,7 +193,7 @@ const FuelStandWithDetials = () => {
       {isCreateDailyFuelSellModalOpen && (
         <CreateDailyFuelSellModal
           isOpen={isCreateDailyFuelSellModalOpen}
-            selectedDailySell={selectedDailySell}
+          selectedDailySell={selectedDailySell}
           onClose={() => setCreateDailyFuelSellModalOpen(false)}
         />
       )}
