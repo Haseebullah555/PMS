@@ -110,8 +110,8 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   }, [])
 
   console.log(formik.values, 'formik values');
-  console.log(formik.errors, 'errrrrrrrrrr');
-  console.log(formik.touched, 'touched touched');
+  // console.log(formik.errors, 'errrrrrrrrrr');
+  // console.log(formik.touched, 'touched touched');
 
 
   return (
