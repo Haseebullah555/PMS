@@ -7,6 +7,11 @@ const getFuelStandWithDetials = async (params: any) => {
   const response = await axiosInterceptor.get(`/FuelDistribution/StandFuelWithDetials`, {params})
     return response.data
 }
+//get list of fuel distributions
+const getFuelDistributions = async () => {
+  const response = await axiosInterceptor.get('/FuelDistribution/list');
+  return response.data;
+}
 
 const store = async (formData: any) => {
   console.log('formData', formData);
@@ -16,6 +21,7 @@ const store = async (formData: any) => {
 
 const fuelDistributionService = {
     getFuelStandWithDetials,
+    getFuelDistributions,
     store,
 }
 export default fuelDistributionService

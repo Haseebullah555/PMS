@@ -406,6 +406,7 @@
     "fuelUnitPrice": "قیمت فی واحد",
     "totalPrice": "قیمت کل",
     "collectedMoney": "پول جمع آوری شده",
-    "note": "توضیحات"
+    "note": "توضیحات",
+    "difference": "تفاوت"
   }
 }
