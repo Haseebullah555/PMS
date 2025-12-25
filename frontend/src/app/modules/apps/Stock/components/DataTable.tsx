@@ -147,7 +147,7 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
                     <tr key={index} className='fs-5'>
                       <td className='fw-bolder'>{index+ 1}</td>
                       <td>{item.fuelTypeName}</td>
-                      <td>{item.quantityInLiter}</td>
+                      <td>{item.quantityInLiter.toFixed(2)}</td>
                     </tr>
                   ))}
 
