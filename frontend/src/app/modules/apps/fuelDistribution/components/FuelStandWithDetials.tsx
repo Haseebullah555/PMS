@@ -195,6 +195,7 @@ const FuelStandWithDetials = () => {
           isOpen={isCreateDailyFuelSellModalOpen}
           selectedDailySell={selectedDailySell}
           onClose={() => setCreateDailyFuelSellModalOpen(false)}
+          handleReloadTable={handleReloadTable}
         />
       )}
     </>

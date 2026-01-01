@@ -24,9 +24,16 @@ namespace Persistence.Repositories
             return _context.FuelStands
                 .Include(s => s.FuelGuns)
                     .ThenInclude(p => p.FuelDistributions);
-                        // .ThenInclude(d => d.FuelType);
+            // .ThenInclude(d => d.FuelType);
         }
-
+        public async Task<FuelDistribution?> GetLastRecordByFuelGunId(int fuelGunId)
+        {
+            var data = await _context.FuelDistributions
+         .Where(s => s.FuelGunId == fuelGunId)
+         .OrderByDescending(s => s.Id)   // or CreatedAt if you have it
+         .FirstOrDefaultAsync();
+            return data;
+        }
     }
 }
 

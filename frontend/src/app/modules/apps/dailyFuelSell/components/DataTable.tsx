@@ -21,7 +21,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation()
 
-    const dailyFuelSell = useAppSelector((state) => state.dailyFuelSell);
+    // const dailyFuelSell = useAppSelector((state) => state.dailyFuelSell);
 
     const handleSearch = useRef(
         debounce((query: string) => {
@@ -147,7 +147,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                             <td>{item.fuelUnitPrice}</td>
                                             <td>{item.totalPrice}</td>
                                             <td>{item.collectedMoney}</td>
-                                            <td>{item.difference}</td>
                                             <td>
                                                 <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
                                                     <span className='fa fa-pencil fw-bolder fw-bold'></span>

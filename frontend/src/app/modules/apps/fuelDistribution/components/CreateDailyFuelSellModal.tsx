@@ -17,9 +17,10 @@ interface CreateDailyFuelSellModalProps {
     isOpen: boolean
     selectedDailySell: any
     onClose: () => void
+      handleReloadTable: () => void
 }
 
-const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell }) => {
+const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell, handleReloadTable }) => {
 
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
@@ -44,6 +45,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                 const response = await dispatch(storeDailyFuelSell(values) as any)
                 if (storeDailyFuelSell.fulfilled.match(response)) {
                     handleFulfilledResponse(response)
+                     handleReloadTable()
                     onClose()
                     resetForm()
                 } else {
