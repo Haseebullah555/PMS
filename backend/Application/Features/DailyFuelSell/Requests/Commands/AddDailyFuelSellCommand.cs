@@ -1,6 +1,4 @@
 using Application.Dtos;
-using Application.Dtos.FuelDistribution;
-using Application.Dtos.UserManagement;
 using MediatR;
 
 namespace Application.Features.DailyFuelSell.Requests.Commands

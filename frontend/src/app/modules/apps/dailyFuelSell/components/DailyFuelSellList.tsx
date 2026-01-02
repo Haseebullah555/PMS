@@ -155,10 +155,10 @@ const DailyFuelSellList = () => {
                   headerName: `${t('dailyFuelSell.collectedMoney')}`,
                   sort: 'collectedMoney',
                 },
-                {
-                  headerName: `${t('dailyFuelSell.difference')}`,
-                  sort: 'difference',
-                },
+                // {
+                //   headerName: `${t('dailyFuelSell.difference')}`,
+                //   sort: 'difference',
+                // },
                 {
                   headerName: 'عمل',
                   sort: '',

@@ -74,7 +74,6 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
         setPagination(fuelTypes.meta)
     }, [fuelTypes])
 
-console.log(fuelTypes, 'fuleeeeeeeeeee');
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
     return (

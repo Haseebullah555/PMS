@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
 import { DailyFuelSellForm } from "./_module";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
-import { getFuelStands } from "../../../../../redux/slices/fuelStand/FuelStandSlice";
 import UnAuthorized from "../../../../customes/UnAuthorized";
 import { useTranslation } from "react-i18next";
+import { getDailyFuelSells } from "../../../../../redux/slices/DailyFuelSell/DailyFuelSellSlice";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -21,7 +20,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation()
 
-    const dailyFuelSell = useAppSelector((state) => state.dailyFuelSell);
+    const dailyFuelSell = useAppSelector((state) => state.dailyFuelSell.dailyFuelSells);
 
     const handleSearch = useRef(
         debounce((query: string) => {
@@ -29,7 +28,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setSearch(query);
             setCurrentPage(1);
             setSortOrder(SORT_ASC);
-            setSortColumn(columns[0]);
+            setSortColumn(columns[0]); 
         }, 500)
     ).current
 
@@ -59,7 +58,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             per_page: perPage,
             page: currentPage,
         }
-        dispatch(getFuelStands(params)).then((res) => {
+        dispatch(getDailyFuelSells(params)).then((res) => {
             if (res.meta.requestStatus === 'fulfilled') {
                 setLoading(true)
             } else if (res.meta.requestStatus === 'rejected') {
@@ -68,11 +67,12 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setLoading(false)
         })
     }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
-    // useEffect(() => {
-    //     setData(fuelStands.data)
-    //     setPagination(fuelStands.meta)
-    // }, [fuelStands])
-
+    console.log(dailyFuelSell,"mmmmmmmmmmmmmmmmmm")
+    useEffect(() => {
+        setData(dailyFuelSell.data)
+        setPagination(dailyFuelSell.meta)
+    }, [dailyFuelSell])
+console.log(dailyFuelSell,"sdfjlsdkjfkljsdklfklsdjfklsdkljfklsdkljf");
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
     return (
@@ -147,7 +147,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                             <td>{item.fuelUnitPrice}</td>
                                             <td>{item.totalPrice}</td>
                                             <td>{item.collectedMoney}</td>
-                                            <td>{item.difference}</td>
+                                            {/* <td>{item.difference}</td> */}
                                             <td>
                                                 <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
                                                     <span className='fa fa-pencil fw-bolder fw-bold'></span>

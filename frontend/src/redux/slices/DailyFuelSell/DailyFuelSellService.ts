@@ -3,10 +3,10 @@ const axiosInterceptor = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // ✅ this adds /api automatically
 })
 
-// const getFuelStandWithDetials = async (params: any) => {
-//   const response = await axiosInterceptor.get(`/FuelDistribution/StandFuelWithDetials`, {params})
-//     return response.data
-// }
+const getDailyFuelSells = async (params: any) => {
+  const response = await axiosInterceptor.get(`/DailyFuelSell/list`, {params})
+    return response.data
+}
 
 const store = async (formData: any) => {
   console.log('formData', formData);
@@ -16,5 +16,6 @@ const store = async (formData: any) => {
 
 const dailyFuelSellService = {
     store,
+    getDailyFuelSells
 }
 export default dailyFuelSellService
