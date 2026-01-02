@@ -19,21 +19,20 @@ namespace Application.Features.Purchase.Handlers.Commands
         public async Task<int> Handle(AddPurchaseCommand request, CancellationToken cancellationToken)
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
-
             try
             {
-                // 1️⃣ Calculate totals
-                decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
-                decimal unpaidAmount = totalAmount - request.PaidAmount;
 
-                // 2️⃣ Create purchase invoice
+                // =====================================================
+                //  create purchase data
+                //======================================================
+
                 var purchase = new Domain.Models.Purchase
                 {
                     SupplierId = request.SupplierId,
                     PurchaseDate = request.PurchaseDate,
-                    TotalAmount = totalAmount,
+                    TotalAmount = request.TotalAmount,
                     PaidAmount = request.PaidAmount,
-                    UnPaidAmount = unpaidAmount,
+                    UnPaidAmount = request.UnPaidAmount,
                     Remarks = request.Remarks,
                     CreatedAt = DateTime.UtcNow
                 };
@@ -41,16 +40,21 @@ namespace Application.Features.Purchase.Handlers.Commands
                 await _unitOfWork.Purchases.AddAsync(purchase);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
-                // 2️⃣ Update the balace column in supplier and set the uppaidAmount
-                // 3️⃣ Update the supplier balance
+                // =====================================================
+                //  Update the balace column in supplier and set the uppaidAmount
+                //======================================================
+
                 var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierId);
 
-                supplier.Balance += unpaidAmount;
+                supplier.Balance += request.UnPaidAmount;
 
                 _unitOfWork.Suppliers.Update(supplier);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
-                // 3️⃣ Create purchase details + update stock
+                // =====================================================
+                //  Create purchase details + update stock
+                //======================================================
+
                 foreach (var item in request.Items)
                 {
                     var detail = new PurchaseDetail
@@ -66,7 +70,10 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                     await _unitOfWork.PurchaseDetails.AddAsync(detail);
 
-                    // Stock update
+                    // =====================================================
+                    //  Stock update
+                    //======================================================
+
                     var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
 
                     if (stock == null) // if fuelTypeId not exist in stock table
@@ -99,7 +106,11 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                 await _unitOfWork.SaveAsync(cancellationToken);
 
-                // 4️⃣ Record payment transaction (if any)
+
+                // =====================================================
+                // Record payment transaction (if any)
+                //======================================================
+
                 if (request.PaidAmount > 0)
                 {
                     var txn = new FinancialTransaction

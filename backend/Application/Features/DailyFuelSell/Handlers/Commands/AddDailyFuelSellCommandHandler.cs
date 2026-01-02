@@ -20,24 +20,37 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
 
-     // update the Balance column in FuelGun model 
+            // =============================================
+            // update the Balance column in FuelGun model 
+            // =============================================
             var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.DailyFuelSellDto.FuelGunId);
             fuelGunRecord.Balance -= request.DailyFuelSellDto.SoldFuelAmount;
             _unitOfWork.FuelGuns.Update(fuelGunRecord);
 
 
-            // Get the fuel stand
+            // =============================================
+            // get the fuelStand record (to get the staffId)
+            // =============================================
             var fuelStand = await _unitOfWork.Staffs.GetFuelStandByIdAsync(request.DailyFuelSellDto.FuelStandId);
-
-            // Map the DTO to the domain entity
             var dailyFuelSell = _mapper.Map<Domain.Models.DailyFuelSell>(request.DailyFuelSellDto);
 
-            // Override StaffId with the one from fuelStand
+            // add the StaffId with dailyFuelSell
             dailyFuelSell.StaffId = fuelStand.StaffId;
 
-            // Add to the database
             await _unitOfWork.DailyFuelSells.AddAsync(dailyFuelSell);
             await _unitOfWork.SaveAsync(cancellationToken);
+
+
+            // =============================================
+            // update the stock table (quantityInLiter) column base in fuelTypeId 
+            // =============================================
+
+             var fuelDistributionLastRecord = _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.DailyFuelSellDto.FuelGunId);
+
+            // var stockUpdate = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(fuelDistributionLastRecord.fuelTypeId);
+
+
+
 
             // save all transactions
             await tx.CommitAsync(cancellationToken);

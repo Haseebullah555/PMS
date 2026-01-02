@@ -26,7 +26,10 @@ namespace Application.Features.Purchase.Handlers.Commands
 
             try
             {
-                // 1️⃣ Load purchase with details
+                // =====================================================
+                //  Load purchase table data with details
+                //======================================================
+
                 var purchase = await _unitOfWork.Purchases
                     .Query()
                     .Include(p => p.PurchaseDetails)
@@ -35,37 +38,23 @@ namespace Application.Features.Purchase.Handlers.Commands
                 if (purchase == null)
                     throw new KeyNotFoundException("Purchase not found");
 
-                // 2️⃣ Store OLD unpaid amount
+                // 2️⃣ Store OLD unpaid amount (to delete the previous UnPaidAmount after that add the new once)
                 decimal oldUnpaidAmount = purchase.UnPaidAmount;
 
-                // 3️⃣ Revert OLD stock quantities
-                foreach (var oldDetail in purchase.PurchaseDetails)
-                {
-                    var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(oldDetail.FuelTypeId);
-                    if (stock != null)
-                    {
-                        decimal oldQtyInLiter = (oldDetail.Quantity * 1000) / oldDetail.Density;
-                        stock.QuantityInLiter -= oldQtyInLiter;
+                // =====================================================
+                //  Update purchase table data 
+                //======================================================
 
-                        if (stock.QuantityInLiter < 0)
-                            stock.QuantityInLiter = 0;
-
-                        _unitOfWork.Stocks.Update(stock);
-                    }
-                }
-
-                // 4️⃣ Calculate NEW totals
-                decimal totalAmount = request.Items.Sum(i => i.Quantity * i.UnitPrice);
-                decimal newUnpaidAmount = totalAmount - request.PaidAmount;
-
-                // 5️⃣ Update purchase header
                 purchase.SupplierId = request.SupplierId;
                 purchase.PurchaseDate = request.PurchaseDate;
-                purchase.TotalAmount = totalAmount;
+                purchase.TotalAmount = request.TotalAmount;
                 purchase.PaidAmount = request.PaidAmount;
-                purchase.UnPaidAmount = newUnpaidAmount;
+                purchase.UnPaidAmount = request.UnpaidAmount;
 
-                // 6️⃣ Remove deleted details
+                // =====================================================
+                //  Remove deleted details from purchaseDetial table
+                //======================================================
+
                 foreach (var detail in purchase.PurchaseDetails.ToList())
                 {
                     if (!request.Items.Any(i => i.FuelTypeId == detail.FuelTypeId))
@@ -74,7 +63,10 @@ namespace Application.Features.Purchase.Handlers.Commands
                     }
                 }
 
-                // 7️⃣ Update / Add purchase details
+                // =====================================================
+                // Update / Add purchase details
+                //======================================================
+
                 foreach (var item in request.Items)
                 {
                     var existingDetail = purchase.PurchaseDetails
@@ -102,7 +94,29 @@ namespace Application.Features.Purchase.Handlers.Commands
                     }
                 }
 
-                // 8️⃣ Apply NEW stock quantities (same logic as AddPurchase)
+                // =====================================================
+                //  Revert OLD stock quantities
+                //======================================================
+
+                foreach (var oldDetail in purchase.PurchaseDetails)
+                {
+                    var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(oldDetail.FuelTypeId);
+                    if (stock != null)
+                    {
+                        decimal oldQtyInLiter = (oldDetail.Quantity * 1000) / oldDetail.Density;
+                        stock.QuantityInLiter -= oldQtyInLiter;
+
+                        if (stock.QuantityInLiter < 0)
+                            stock.QuantityInLiter = 0;
+
+                        _unitOfWork.Stocks.Update(stock);
+                    }
+                }
+
+                // ========================================================
+                //   Apply NEW stock quantities (same logic as AddPurchaseCommandHandler)
+                //=========================================================
+
                 foreach (var item in request.Items)
                 {
                     var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
@@ -133,9 +147,12 @@ namespace Application.Features.Purchase.Handlers.Commands
                     }
                 }
 
-                // 9️⃣ Update supplier balance using difference
+                // ========================================================
+                //   Update supplier balance using difference
+                //=========================================================
+
                 var supplier = await _unitOfWork.Suppliers.GetSupplierByIdAsync(request.SupplierId);
-                decimal balanceDelta = newUnpaidAmount - oldUnpaidAmount;
+                decimal balanceDelta = request.UnpaidAmount - oldUnpaidAmount;
                 supplier.Balance += balanceDelta;
 
                 if (supplier.Balance < 0)
