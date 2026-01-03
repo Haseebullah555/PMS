@@ -25,7 +25,6 @@ const FuelStandWithDetials = () => {
   }
 
   const openCreateModal = (item: any) => {
-    console.log(item, "StandStandStand");
     setSelectedStand(item)
     setCreateModalOpen(true)
   }
@@ -42,27 +41,16 @@ const FuelStandWithDetials = () => {
   const [sortOrder, setSortOrder] = useState<string>(SORT_ASC)
   const [search, setSearch] = useState<string>('')
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true)
-  const [pagination, setPagination] = useState<any>({})
   const [currentPage, setCurrentPage] = useState<number>(1)
   const [loading, setLoading] = useState<boolean>(true)
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {
-    console.log('--------------------');
-
     setReloadTable((prev) => !prev) // Toggle to trigger table reload
   }
 
   useEffect(() => {
-    const params = {
-      search,
-      sort_field: sortColumn,
-      sort_order: sortOrder,
-      per_page: perPage,
-      page: currentPage,
-    }
-
-    dispatch(getFuelStandWithDetials(params)).then((res) => {
+    dispatch(getFuelStandWithDetials()).then((res) => {
       if (res.meta.requestStatus === 'fulfilled') {
         // handleReloadTable()
         setLoading(true)
@@ -74,14 +62,11 @@ const FuelStandWithDetials = () => {
   }, [dispatch, reloadTable, currentPage, perPage, search, sortColumn, sortOrder])
 
   useEffect(() => {
-    setData(fuelStandWithDetials?.data)
-    setPagination(fuelStandWithDetials?.meta)
+    setData(fuelStandWithDetials)
+    // setPagination(fuelStandWithDetials?.meta)
   }, [fuelStandWithDetials])
-
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
-
-  console.log(memoizedData, '===================>>>>>>>>>');
   return (
     <>
       <Fragment>

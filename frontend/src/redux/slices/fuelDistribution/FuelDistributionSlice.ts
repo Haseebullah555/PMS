@@ -3,24 +3,26 @@ import fuelDistributionService from "./FuelDistributionService"
 
 type fuelDistributionState = {
     fuelStandWithDetials: any
+    allFuelDistributions: any
 }
 const initialState: fuelDistributionState = {
     fuelStandWithDetials: null,
+    allFuelDistributions: null
 }
 
 // get fuelStands, fuelGun with fuelDistribution data
-export const getFuelStandWithDetials = createAsyncThunk('api/fuelStandWithDetials', async (params: any, thunkAPI) => {
+export const getFuelStandWithDetials = createAsyncThunk('api/fuelDistributions/fuelStandWithDetials', async ( _, thunkAPI) => {
     try {
-        return await fuelDistributionService.getFuelStandWithDetials(params)
+        return await fuelDistributionService.getFuelStandWithDetials()
     } catch (error: any) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
     }
 })
 // list fuelDistributions
-export const getFuelDistributions = createAsyncThunk('api/fuelDistributions/list', async (_, thunkAPI) => {
+export const getFuelDistributions = createAsyncThunk('api/fuelDistributions/list', async (params: any, thunkAPI) => {
     try {
-        return await fuelDistributionService.getFuelDistributions();
+        return await fuelDistributionService.getFuelDistributions(params);
     }catch (error: any) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -48,6 +50,9 @@ export const fuelDistributionSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getFuelStandWithDetials.fulfilled, (state, action: PayloadAction) => {
             state.fuelStandWithDetials = action.payload
+        })
+        builder.addCase(getFuelDistributions.fulfilled, (state, action: PayloadAction) => {
+            state.allFuelDistributions = action.payload
         })
     },
 })

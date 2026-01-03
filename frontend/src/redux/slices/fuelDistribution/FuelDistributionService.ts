@@ -3,13 +3,14 @@ const axiosInterceptor = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // ✅ this adds /api automatically
 })
 
-const getFuelStandWithDetials = async (params: any) => {
-  const response = await axiosInterceptor.get(`/FuelDistribution/StandFuelWithDetials`, {params})
+const getFuelStandWithDetials = async () => {
+  const response = await axiosInterceptor.get(`/FuelDistribution/StandFuelWithDetials`)
+  console.log(response);
     return response.data
 }
 //get list of fuel distributions
-const getFuelDistributions = async () => {
-  const response = await axiosInterceptor.get('/FuelDistribution/list');
+const getFuelDistributions = async (params: any) => {
+  const response = await axiosInterceptor.get('/FuelDistribution/list', {params});
   return response.data;
 }
 

@@ -39,14 +39,6 @@ const DailyFuelSellList = () => {
             <div>
               <div className='d-none d-lg-flex mt-5'>
                 <div className='d-flex align-items-center'>
-                  <button
-                    className='btn btn-primary btn-sm align-self-center fw-bold'
-                    onClick={openModal}
-                  >
-                    <i className='fas fa-plus'></i>
-                    {t('global.add', {name: t('dailyFuelSell.dailyFuelSell')})}
-                  </button>
-
                   <div className='me-2 ms-2'>
                     <button
                       className='btn btn-sm btn-flex btn-primary fw-bolder'

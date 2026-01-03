@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import UnAuthorized from "../../../../customes/UnAuthorized";
 import { useTranslation } from "react-i18next";
 import { getDailyFuelSells } from "../../../../../redux/slices/DailyFuelSell/DailyFuelSellSlice";
+import Paginator from "../../../../customes/Paginator";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -111,9 +112,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                         </div>
                     </div>
 
-                    <div className="tableFixHead table-responsive" dir="rtl">
-                        <table className="table table-hover table-striped gs-5 gy-4">
-                            <thead className="bg-gray-500 text-light">
+                    <div className="tableFixHead " dir="rtl">
+                        <table className="table table-hover table-responsive table-striped gs-5 gy-4">
+                            <thead className="bg-gray-500 text-white">
                                 <tr>
                                     {headers.map((header: any) => (
                                         <th
@@ -160,6 +161,15 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                             </tbody>
                         </table>
                     </div>
+                    {!memoizedLoading && memoizedData.length > 0 && (
+                        <Paginator
+                            pagination={pagination}
+                            pageChanged={(page: number) => {
+                                setLoading(true)
+                                setCurrentPage(page)
+                            }}
+                        />
+                    )}
                 </>
             ) : (
                 <UnAuthorized />

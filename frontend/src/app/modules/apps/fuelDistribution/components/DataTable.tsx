@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
 import { FuelDistributionForm } from "./_module";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
-import { getFuelStands } from "../../../../../redux/slices/fuelStand/FuelStandSlice";
 import UnAuthorized from "../../../../customes/UnAuthorized";
 import { useTranslation } from "react-i18next";
+import { getFuelDistributions } from "../../../../../redux/slices/fuelDistribution/FuelDistributionSlice";
+import Paginator from "../../../../customes/Paginator";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -21,7 +21,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const dispatch = useAppDispatch();
     const { t } = useTranslation()
 
-    const fuelDistribution = useAppSelector((state) => state.fuelDistribution);
+    const fuelDistributionList = useAppSelector((state) => state.fuelDistribution.allFuelDistributions)
 
     const handleSearch = useRef(
         debounce((query: string) => {
@@ -59,7 +59,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             per_page: perPage,
             page: currentPage,
         }
-        dispatch(getFuelStands(params)).then((res) => {
+        dispatch(getFuelDistributions(params)).then((res) => {
             if (res.meta.requestStatus === 'fulfilled') {
                 setLoading(true)
             } else if (res.meta.requestStatus === 'rejected') {
@@ -68,13 +68,14 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setLoading(false)
         })
     }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
-    // useEffect(() => {
-    //     setData(fuelStands.data)
-    //     setPagination(fuelStands.meta)
-    // }, [fuelStands])
+    useEffect(() => {
+        setData(fuelDistributionList?.data ?? [])
+        setPagination(fuelDistributionList?.meta ?? {})
+    }, [fuelDistributionList])
 
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
+    console.log(fuelDistributionList, "////////////////////////////");
     return (
         <div>
             {isAuthorized ? (
@@ -109,9 +110,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                         </div>
                     </div>
 
-                    <div className="tableFixHead table-responsive" dir="rtl">
-                        <table className="table table-hover table-striped gs-5 gy-4">
-                            <thead className="bg-gray-500 text-light">
+                    <div className="tableFixHead" dir="rtl">
+                        <table className="table table-hover table-striped table-responsive gs-5 gy-4">
+                            <thead className="bg-gray-500 text-white">
                                 <tr>
                                     {headers.map((header: any) => (
                                         <th
@@ -138,7 +139,10 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                     memoizedData.map((item, index) => (
                                         <tr key={index} className='fs-5 text-center'>
                                             <td className='fw-bolder'>{index + 1}</td>
-                                            {/* <td>{item.name}</td> */}
+                                            <td>{item.fuelGun.name}</td>
+                                            <td>{item.fuelType.name}</td>
+                                            <td>{item.quantity}</td>
+                                            <td>{item.distributionDate}</td>
                                             <td>
                                                 <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
                                                     <span className='fa fa-pencil fw-bolder fw-bold'></span>
@@ -149,6 +153,15 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                             </tbody>
                         </table>
                     </div>
+                    {!memoizedLoading && memoizedData.length > 0 && (
+                        <Paginator
+                            pagination={pagination}
+                            pageChanged={(page: number) => {
+                                setLoading(true)
+                                setCurrentPage(page)
+                            }}
+                        />
+                    )}
                 </>
             ) : (
                 <UnAuthorized />

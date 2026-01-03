@@ -39,7 +39,6 @@ export const dailyFuelSellSlice = createSlice({
   extraReducers: (builder) => {
           builder.addCase(getDailyFuelSells.fulfilled, (state, action: PayloadAction) => {
               state.dailyFuelSells = action.payload
-              console.log(state.dailyFuelSells,".............................")
           })
       },
 })

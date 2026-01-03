@@ -34,6 +34,15 @@ namespace Persistence.Repositories
          .FirstOrDefaultAsync();
             return data;
         }
+
+        public IQueryable<FuelDistribution> GetListOfFuelDistributions()
+        {
+            var result = _context.FuelDistributions
+            .Include(fd=> fd.FuelType)
+            .Include(fd => fd.FuelGun)
+            .AsQueryable();
+            return result;
+        }
     }
 }
 

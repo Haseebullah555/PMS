@@ -26,7 +26,6 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
     const dispatch = useAppDispatch()
     const [roles, setRoles] = useState([])
 
-    console.log(selectedStand, "aaaaaaaaaaaaa");
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
     // Form Validation Schema
     const FuelDistributionSchema = Yup.object().shape({
@@ -37,7 +36,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
 
 
     // Formik Hook
-    const formik = useFormik<FuelDistributionForm>({
+    const formik = useFormik<any>({
         initialValues: initialValues,
         validationSchema: FuelDistributionSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {

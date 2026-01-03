@@ -1,7 +1,16 @@
+import { string } from "yup"
+
 export interface FuelDistributionForm {
   fuelGunId: number | null
-  fuelTypeId: number | null
   quantity: number | null
+  fuelType: {
+    id: number | null
+    name: string | null
+  }
+  fuelGun:{
+    id: number | null
+    name: string | null
+  }
   distributionDate: string
 }
 export interface DailyFuelSellForm {
@@ -19,7 +28,14 @@ export interface DailyFuelSellForm {
 
 export const initialValues: FuelDistributionForm = {
   fuelGunId: null,
-  fuelTypeId: null,
+  fuelType: {
+    id: null,
+    name: null
+  },
+  fuelGun:{
+    id: null,
+    name: null
+  },
   quantity: null,
   distributionDate: new Date().toISOString().split('T')[0]
 }
