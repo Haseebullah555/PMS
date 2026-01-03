@@ -8,8 +8,8 @@ export interface DailyFuelSellForm {
   totalPrice:number | null
   // difference: number | null
   collectedMoney: number | null
-  date: string
-  note: string
+  date: string | null
+  note: string | null
 }
 
 export const initialValues: DailyFuelSellForm = {

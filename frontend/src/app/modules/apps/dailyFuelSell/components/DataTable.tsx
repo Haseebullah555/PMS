@@ -28,7 +28,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setSearch(query);
             setCurrentPage(1);
             setSortOrder(SORT_ASC);
-            setSortColumn(columns[0]); 
+            setSortColumn(columns[0]);
         }, 500)
     ).current
 
@@ -67,12 +67,14 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setLoading(false)
         })
     }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
-    console.log(dailyFuelSell,"mmmmmmmmmmmmmmmmmm")
+
+
     useEffect(() => {
-        setData(dailyFuelSell.data)
-        setPagination(dailyFuelSell.meta)
+        setData(dailyFuelSell?.data ?? [])
+        setPagination(dailyFuelSell?.meta ?? {})
     }, [dailyFuelSell])
-console.log(dailyFuelSell,"sdfjlsdkjfkljsdklfklsdjfklsdkljfklsdkljf");
+
+
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
     return (
