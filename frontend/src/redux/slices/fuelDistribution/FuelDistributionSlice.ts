@@ -40,6 +40,18 @@ export const storeFuelDistribution = createAsyncThunk('api/fuelDistribution/stor
     return thunkAPI.rejectWithValue(message)
   }
 })
+// update fuelDistribution
+export const updateFuelDistribution = createAsyncThunk('api/fuelDistribution/update', async (formData: any, thunkAPI) => {
+  try {
+    return await fuelDistributionService.update(formData)
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
 
 export const fuelDistributionSlice = createSlice({
     name: 'fuelDistribution',

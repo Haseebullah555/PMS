@@ -72,10 +72,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
         setData(fuelDistributionList?.data ?? [])
         setPagination(fuelDistributionList?.meta ?? {})
     }, [fuelDistributionList])
-
+console.log(fuelDistributionList,"//////////////////")
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
-    console.log(fuelDistributionList, "////////////////////////////");
     return (
         <div>
             {isAuthorized ? (
@@ -112,7 +111,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
                     <div className="tableFixHead" dir="rtl">
                         <table className="table table-hover table-striped table-responsive gs-5 gy-4">
-                            <thead className="bg-gray-500 text-white">
+                            <thead className="bg-gray-500 text-white fw-bold">
                                 <tr>
                                     {headers.map((header: any) => (
                                         <th

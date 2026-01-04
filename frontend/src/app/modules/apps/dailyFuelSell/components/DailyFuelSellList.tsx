@@ -3,22 +3,20 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
+import CreateDailyFuelSellModal from '../../fuelDistribution/components/CreateDailyFuelSellModal'
 
 const DailyFuelSellList = () => {
   const {t} = useTranslation()
-  const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedDailyFuelSell, setSelectedDailyFuelSell] = useState(null)
-
-  const closeModal = () => setModalOpen(false)
-  const openModal = () => setModalOpen(true)
+  const [formMode, setFormMode] = useState<"update" | "send">("send");
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (DailyFuelSell: any) => {
-    setSelectedDailyFuelSell(DailyFuelSell)
-    setEditModalOpen(true)
-  }
-
+  const handleEditClick = (selectedDailyFuelSell: any) => {
+    setFormMode("update");
+    setSelectedDailyFuelSell(selectedDailyFuelSell)
+    setEditModalOpen(true);
+  };
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {
@@ -157,11 +155,20 @@ const DailyFuelSellList = () => {
                 },
               ]}
               columns={['id', 'fuelType', 'date', 'currentMeterDegree', 'oldMeterDegree', 'soldFuelAmount', 'fuelUnitPrice', 'totalPrice', 'collectedMoney', 'difference']}
-              handleEdit={openEditModal}
+              handleEdit={handleEditClick}
             />
           </div>
         </div>
       </Fragment>
+      {isEditModalOpen && (
+        <CreateDailyFuelSellModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          selectedDailySell={selectedDailyFuelSell}
+          handleReloadTable={handleReloadTable}
+          mode={formMode}
+        />
+      )}
     </>
   )
 }

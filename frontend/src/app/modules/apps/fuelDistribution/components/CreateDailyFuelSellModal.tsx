@@ -17,13 +17,24 @@ interface CreateDailyFuelSellModalProps {
     isOpen: boolean
     selectedDailySell: any
     onClose: () => void
-      handleReloadTable: () => void
+    handleReloadTable: () => void
+    mode: any
 }
 
-const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell, handleReloadTable }) => {
-
+const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell, handleReloadTable, mode }) => {
+const initialValues = {
+        id: mode === "update" ? selectedDailySell?.id : null,
+        currentMeterDegree: mode === "update" ? selectedDailySell?.currentMeterDegree ?? "" : "",
+        oldMeterDegree: mode === "update" ? selectedDailySell?.oldMeterDegree ?? "" : "",
+        soldFuelAmount: mode === "update" ? selectedDailySell?.soldFuelAmount ?? "" : "",
+        fuelUnitPrice: mode === "update" ? selectedDailySell?.fuelUnitPrice ?? "" : "",
+        collectedMoney: mode === "update" ? selectedDailySell?.collectedMoney ?? "" : "",
+        date: mode === "update" ? selectedDailySell?.date ?? "" : "",
+        note: mode === "update" ? selectedDailySell?.note ?? "" : "",
+    };
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
+    const [loading, setLoading] = useState(false);
 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
@@ -37,15 +48,15 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
     })
 
     // Formik Hook
-    const formik = useFormik<DailyFuelSellForm>({
-        initialValues: dailyFuelSellInitialValues,
+    const formik = useFormik<any>({
+        initialValues: initialValues,
         validationSchema: DailyFuelSellSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
                 const response = await dispatch(storeDailyFuelSell(values) as any)
                 if (storeDailyFuelSell.fulfilled.match(response)) {
                     handleFulfilledResponse(response)
-                     handleReloadTable()
+                    handleReloadTable()
                     onClose()
                     resetForm()
                 } else {
@@ -173,7 +184,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                                 placeholder="0"
                                 {...formik.getFieldProps('fuelUnitPrice')}
                                 onChange={(e) => {
-                                    formik.setFieldValue('fuelUnitPrice',  e.target.value)
+                                    formik.setFieldValue('fuelUnitPrice', e.target.value)
                                     formik.setFieldValue('totalPrice', Number(formik.values.soldFuelAmount) * Number(e.target.value))
                                 }}
                                 className={clsx('form-control', {
@@ -284,13 +295,12 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
                         <Button variant='danger' onClick={onClose} className='me-2 '>
                             {t('global.BACK')}
                         </Button>
-                        <Button
-                            variant='primary'
-                            type='submit'
-                            disabled={formik.isSubmitting}
-                        // classname='me-2 '
-                        >
-                            {t('global.SAVE')}
+                        <Button type="submit" disabled={loading}>
+                            {loading ? "..." : mode === "send" ? (
+                                t('global.SAVE')
+                            ) : (
+                                t('global.Update')
+                            )}
                         </Button>
                     </div>
                 </form>

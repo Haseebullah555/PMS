@@ -114,7 +114,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
                     <div className="tableFixHead " dir="rtl">
                         <table className="table table-hover table-responsive table-striped gs-5 gy-4">
-                            <thead className="bg-gray-500 text-white">
+                            <thead className="bg-gray-500 text-white fw-bold">
                                 <tr>
                                     {headers.map((header: any) => (
                                         <th
@@ -142,8 +142,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                         <tr key={index} className='fs-5 text-center'>
                                             <td className='fw-bolder'>{index + 1}</td>
                                             <td>{item.date}</td>
-                                            <td>{item.fuelStandId}</td>
-                                            <td>{item.fuelGunId}</td>
+                                            <td>{item.fuelStand}</td>
+                                            <td>{item.fuelGun}</td>
                                             <td>{item.currentMeterDegree}</td>
                                             <td>{item.oldMeterDegree}</td>
                                             <td>{item.soldFuelAmount}</td>

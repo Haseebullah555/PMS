@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Application.Features.DailyFuelSell.Requests.Queries
 {
-    public class GetListOfDailyFuelSellRequest : IRequest<PaginatedResult<DailyFuelSellDto>>
+    public class GetListOfDailyFuelSellRequest : IRequest<PaginatedResult<DailyFuelSellListDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }

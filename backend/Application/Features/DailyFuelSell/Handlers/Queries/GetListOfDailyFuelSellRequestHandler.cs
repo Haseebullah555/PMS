@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.DailyFuelSell.Handlers.Queries
 {
-    public class GetListOfDailyFuelSellRequestHandler : IRequestHandler<GetListOfDailyFuelSellRequest, PaginatedResult<DailyFuelSellDto>>
+    public class GetListOfDailyFuelSellRequestHandler : IRequestHandler<GetListOfDailyFuelSellRequest, PaginatedResult<DailyFuelSellListDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,7 +15,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<PaginatedResult<DailyFuelSellDto>> Handle(GetListOfDailyFuelSellRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<DailyFuelSellListDto>> Handle(GetListOfDailyFuelSellRequest request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.DailyFuelSells.ListOfDailyFuelSell();
             // Search
@@ -56,12 +56,14 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellDto
+            var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellListDto
             {
                 Id = fs.Id,
                 FuelStandId = fs.FuelStandId,
+                FuelStand = fs.FuelStand.Name,
                 StaffId = fs.StaffId,
                 FuelGunId = fs.FuelGunId,
+                FuelGun = fs.FuelGun.Name,
                 CurrentMeterDegree = fs.CurrentMeterDegree,
                 OldMeterDegree = fs.OldMeterDegree,
                 SoldFuelAmount = fs.SoldFuelAmount,
@@ -72,7 +74,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
                 Note = fs.Note,
             }).ToList();
 
-            return new PaginatedResult<DailyFuelSellDto>
+            return new PaginatedResult<DailyFuelSellListDto>
             {
                 Data = dailyFuelSellDtos,
                 Total = total,

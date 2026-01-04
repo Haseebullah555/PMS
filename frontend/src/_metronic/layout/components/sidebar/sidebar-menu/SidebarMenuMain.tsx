@@ -94,6 +94,18 @@ const SidebarMenuMain = () => {
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
+      <SidebarMenuItem
+        to='/fuelDistribution/list'
+        title={t("fuelDistribution.fuelDistribution")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
+        to='/dailyFuelSell/list'
+        title={t("dailyFuelSell.dailyFuelSells")}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>

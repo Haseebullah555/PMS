@@ -152,7 +152,8 @@
     "SYSTEM.PART": "بخش سیستم",
     "SYSTEM.MANAGEMENT.PART": "بخش مدیریت سیستم",
     "SELECT.OPTION": "یکی از گزینه‌ را انتخاب کنید",
-    "WRITE.HERE": "اینجا بنویسید..."
+    "WRITE.HERE": "اینجا بنویسید...",
+    "Update": "تجدید"
   },
   "validation": {
     "required": "درج {{name}} ضروری میباشد!",

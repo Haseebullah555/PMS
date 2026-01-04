@@ -1,6 +1,8 @@
 export interface DailyFuelSellForm {
   fuelGunId: number | null
+  fuelGun: string | null
   fuelStandId: number | null
+  fuelStand: string | null
   currentMeterDegree: number | null
   oldMeterDegree: number | null
   soldFuelAmount: number | null
@@ -14,7 +16,9 @@ export interface DailyFuelSellForm {
 
 export const initialValues: DailyFuelSellForm = {
   fuelGunId: null,
+  fuelGun: null,
   fuelStandId: null,
+  fuelStand: null,
   currentMeterDegree:  null,
   oldMeterDegree: null,
   soldFuelAmount: null,

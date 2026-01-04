@@ -1,24 +1,24 @@
-import {Fragment, useState} from 'react'
-import {Link} from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { Link } from 'react-router-dom'
 import DataTable from './DataTable'
-import {Dropdown, DropdownButton} from 'react-bootstrap'
-import {useTranslation} from 'react-i18next'
+import { Dropdown, DropdownButton } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import CreateFuelDistributionModal from './CreateFuelDistributionModal'
 
 const FuelDistributionList = () => {
-  const {t} = useTranslation()
-  const [isModalOpen, setModalOpen] = useState(false)
+  const { t } = useTranslation()
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
-
-  const closeModal = () => setModalOpen(false)
-  const openModal = () => setModalOpen(true)
+  const [selectedStand, setSelectedStand] = useState(null);
+  const [formMode, setFormMode] = useState<"update" | "send">("send");
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (FuelDistribution: any) => {
-    setSelectedFuelDistribution(FuelDistribution)
-    setEditModalOpen(true)
-  }
 
+  const handleEditClick = (selectedFuelDistribution: any) => {
+    setFormMode("update");
+    setSelectedFuelDistribution(selectedFuelDistribution)
+    setEditModalOpen(true);
+  };
   const [reloadTable, setReloadTable] = useState(false)
 
   const handleReloadTable = () => {
@@ -33,7 +33,7 @@ const FuelDistributionList = () => {
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>
                 <i className="fa-solid fa-gas-pump"></i>{' '}
-                {t('global.list', {name: t('fuelDistribution.fuelDistribution')})}
+                {t('global.list', { name: t('fuelDistribution.fuelDistribution') })}
               </h3>
             </div>
             <div>
@@ -73,7 +73,7 @@ const FuelDistributionList = () => {
                       <Link className='fw-bolder text-primary' to={'/authentication/create-user'}>
                         <i className='fa-solid fa-plus  text-primary me-2'></i>
 
-                        {t('global.add', {name: t('global.user')})}
+                        {t('global.add', { name: t('global.user') })}
                       </Link>
                     </Dropdown.Item>
                     <Dropdown.Item as='button'>
@@ -133,11 +133,21 @@ const FuelDistributionList = () => {
                 },
               ]}
               columns={['id', 'fuelType', 'quantity', 'date']}
-              handleEdit={openEditModal}
+              handleEdit={handleEditClick}
             />
           </div>
         </div>
       </Fragment>
+      {isEditModalOpen && (
+        <CreateFuelDistributionModal
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          selectedStand={selectedStand}
+          selectedFuelDistribution={selectedFuelDistribution}
+          handleReloadTable={handleReloadTable}
+          mode={formMode}
+        />
+      )}
     </>
   )
 }

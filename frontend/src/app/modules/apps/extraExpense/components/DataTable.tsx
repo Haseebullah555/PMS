@@ -110,9 +110,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                         </div>
                     </div>
 
-                    <div className="tableFixHead table-responsive" dir="rtl">
-                        <table className="table table-hover table-striped gs-5 gy-4">
-                            <thead className="bg-gray-500 text-light">
+                    <div className="tableFixHead" dir="rtl">
+                        <table className="table table-hover table-striped table-responsive gs-5 gy-4">
+                            <thead className="bg-gray-500 text-white">
                                 <tr>
                                     {headers.map((header: any) => (
                                         <th

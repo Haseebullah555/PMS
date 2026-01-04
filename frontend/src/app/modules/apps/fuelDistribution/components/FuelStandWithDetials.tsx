@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
 import { table } from 'console'
-import AddFuelDistributionModal from './CreateFuelDistributionModal'
+import CreateFuelDistributionModal from './CreateFuelDistributionModal'
 import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
 
 const SORT_ASC = 'asc'
@@ -16,7 +16,9 @@ const FuelStandWithDetials = () => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
   const [selectedStand, setSelectedStand] = useState(null);
+  const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
   const [selectedDailySell, setSelectedDailySell] = useState<any>();
+  const [formMode, setFormMode] = useState<"update" | "send">("send");
   const closeCreateModal = () => setCreateModalOpen(false)
 
   const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number) => {
@@ -70,109 +72,116 @@ const FuelStandWithDetials = () => {
   return (
     <>
       <Fragment>
-        <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
-          <div className='card-header cursor-pointer'>
-            <div className='card-title m-0'>
-              <h3 className='fw-bolder m-0'>
-                <i className="fa-solid fa-gas-pump"></i>{' '}
+        <div className="card mb-5 mb-xl-10" id="kt_profile_details_view">
+
+          {/* ================= HEADER ================= */}
+          <div className="card-header d-flex justify-content-between align-items-center flex-wrap">
+            <div className="card-title m-0">
+              <h3 className="fw-bolder m-0 fs-5 fs-md-3">
+                <i className="fa-solid fa-gas-pump me-2"></i>
                 {t('fuelDistribution.fuelStandWithDetial')}
               </h3>
             </div>
-            <div>
-              <div className='d-none d-lg-flex mt-5'>
-                <div className='d-flex align-items-center'>
-                  <Link className='btn btn-sm btn-flex btn-primary fw-bold me-3' to='/fuelDistribution/list'>
-                    <b>
-                      <i className='fas fa-list me-1'></i>
-                      {t('global.list', { name: t('fuelDistribution.fuelDistribution') })}
-                    </b>
-                  </Link>
-                  <Link className='btn btn-sm btn-flex btn-success fw-bold me-3' to='/dailyFuelSell/list'>
-                    <b>
-                      <i className='fas fa-list me-1'></i>
-                      {t('global.list', { name: t('dailyFuelSell.dailyFuelSell') })}
-                    </b>
-                  </Link>
-                  <Link className='btn btn-sm btn-flex btn-danger fw-bold me-3' to='/dashboard'>
-                    <b>
-                      <i className='fa-solid fa-reply-all'></i>
-                    </b>
-                  </Link>
-                </div>
-              </div>
 
+            <div className="d-flex flex-wrap gap-2 mt-3 mt-md-0">
+              <Link className="btn btn-sm btn-primary fw-bold" to="/fuelDistribution/list">
+                <i className="fas fa-list me-1"></i>
+                {t('global.list', { name: t('fuelDistribution.fuelDistribution') })}
+              </Link>
+
+              <Link className="btn btn-sm btn-success fw-bold" to="/dailyFuelSell/list">
+                <i className="fas fa-list me-1"></i>
+                {t('global.list', { name: t('dailyFuelSell.dailyFuelSell') })}
+              </Link>
+
+              <Link className="btn btn-sm btn-danger fw-bold" to="/dashboard">
+                <i className="fa-solid fa-reply-all"></i>
+              </Link>
             </div>
           </div>
-          <div className='card-body p-9 table-responsive'>
-            <div className="row">
-              {
-                memoizedData?.map((item) => (
-                  <div className="col-md-6">
-                    {/* stand dard  */}
-                    <div className='card mb-5 mb-xl-10'>
-                      <div className='card-header standCard'>
-                        <div className='card-title m-0'>
-                          <h3 className='fw-bolder m-0'>
-                            <i className="text-white fs-4 fa-solid fa-gas-pump"></i>{' '}
-                            <span className='text-white mx-3'>
-                              {item?.name}
-                            </span>
-                          </h3>
-                        </div>
-                        <div>
-                        </div>
-                      </div>
-                      <div className='card-body p-9 table-responsive'>
-                        <table className="table table-hover table-striped gs-5 gy-4">
-                          <thead className="text-center fs-5 bg-gray-500 text-light">
-                            <th>{t('fuelDistribution.fuelGun')}</th>
-                            <th>{t('fuelDistribution.balance')}</th>
-                            <th>{t('global.ACTION')}</th>
-                          </thead>
-                          <tbody>
-                            {item?.fuelGuns?.map((i: any) => (
-                              <tr className='fs-5 text-center'>
-                                <td className='fw-bolder' key={i?.id}>
-                                  {i?.name}
-                                </td>
-                                <td className='fw-bolder' key={i?.id}>
-                                  {i?.balance}
-                                </td>
-                                <td className='fw-bolder'>
-                                  <button className='btn btn-sm btn-flex btn-primary fw-bold' onClick={() => openCreateModal(i.id)}>
-                                    <b>
-                                      <i className='fa-solid fa-plus'></i>{' '}
-                                      {t('fuelDistribution.fuelDistributionToStand')}
-                                    </b>
-                                  </button>
-                                  <button className='btn btn-sm btn-flex btn-success fw-bold mx-3' onClick={() => openCreateDailyFuelSellModal(item.id, i.id)}>
-                                    <b>
-                                      <i className='fa-solid fa-arrow-up'></i>{' '}
-                                      {t('dailyFuelSell.dailyFuelSells')}
 
-                                    </b>
-                                  </button>
+          {/* ================= BODY ================= */}
+          <div className="card-body p-3 p-md-4">
+
+            {/* GRID CONTAINER */}
+            <div className="stand-grid">
+
+              {memoizedData?.map((item) => (
+                <div key={item.id} className="stand-card">
+
+                  <div className="card shadow-sm">
+
+                    {/* Card Header */}
+                    <div className="card-header standCard align-items-center justify-content-center">
+                      <h1 className="fw-bolder m-0 text-white fs-6 fs-md-5">
+                        <i className="fa-solid fa-gas-pump me-2"></i>
+                        {item?.name}
+                      </h1>
+                    </div>
+
+                    {/* Card Body */}
+                    <div className="card-body p-3">
+
+                      <div className="table-responsive">
+                        <table className="table table-hover table-striped text-nowrap mb-0">
+                          <thead className="text-center bg-gray-600 text-light">
+                            <tr>
+                              <th>{t('fuelDistribution.fuelGun')}</th>
+                              <th>{t('fuelDistribution.balance')}</th>
+                              <th>{t('global.ACTION')}</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            {item?.fuelGuns?.map((i) => (
+                              <tr key={i.id} className="text-center">
+                                <td className="fw-bold">{i.name}</td>
+                                <td className="fw-bold">{i.balance}</td>
+                                <td>
+                                  <div className="d-flex gap-2 justify-content-center flex-wrap">
+                                    <button
+                                      className="btn btn-sm btn-primary fw-bold"
+                                      onClick={() => openCreateModal(i.id)}
+                                    >
+                                      <i className="fa-solid fa-plus"></i>
+                                    </button>
+
+                                    <button
+                                      className="btn btn-sm btn-success fw-bold"
+                                      onClick={() =>
+                                        openCreateDailyFuelSellModal(item.id, i.id)
+                                      }
+                                    >
+                                      <i className="fa-solid fa-arrow-up"></i>
+                                    </button>
+                                  </div>
                                 </td>
                               </tr>
                             ))}
                           </tbody>
+
                         </table>
                       </div>
+
                     </div>
-                    {/* end stand card  */}
                   </div>
-                ))
-              }
+
+                </div>
+              ))}
+
             </div>
           </div>
         </div>
+
       </Fragment>
       {isCreateModalOpen && (
-        <AddFuelDistributionModal
+        <CreateFuelDistributionModal
           isOpen={isCreateModalOpen}
           onClose={closeCreateModal}
           selectedStand={selectedStand}
           handleReloadTable={handleReloadTable}
+          selectedFuelDistribution={selectedFuelDistribution}
+          mode={formMode}
         />
       )}
       {isCreateDailyFuelSellModalOpen && (
@@ -181,6 +190,7 @@ const FuelStandWithDetials = () => {
           selectedDailySell={selectedDailySell}
           onClose={() => setCreateDailyFuelSellModalOpen(false)}
           handleReloadTable={handleReloadTable}
+          mode={formMode}
         />
       )}
     </>

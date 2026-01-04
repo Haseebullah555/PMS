@@ -19,10 +19,16 @@ const store = async (formData: any) => {
   const response = await axiosInterceptor.post('/FuelDistribution/create', formData)
   return response.data
 }
+const update = async (formData: any) => {
+  console.log('formData', formData);
+  const response = await axiosInterceptor.post('/FuelDistribution/update', formData)
+  return response.data
+}
 
 const fuelDistributionService = {
     getFuelStandWithDetials,
     getFuelDistributions,
     store,
+    update
 }
 export default fuelDistributionService

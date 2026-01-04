@@ -10,21 +10,31 @@ import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
 import { storeFuelDistribution } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
-import { FuelDistributionForm, initialValues } from './_module'
 
 // Define the props for the modal
 interface CreateFuelDistributionModalProps {
     isOpen: boolean
     onClose: () => void
     selectedStand: any
+    selectedFuelDistribution
     handleReloadTable: () => void
+    mode: any
 }
 
-const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable, selectedStand }) => {
+const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable, selectedStand, selectedFuelDistribution, mode }) => {
+
+    const initialValues = {
+        id: mode === "update" ? selectedFuelDistribution?.id : null,
+        fuelTypeId: mode === "update" ? selectedFuelDistribution?.fuelType.id ?? "" : "",
+        quantity: mode === "update" ? selectedFuelDistribution?.quantity ?? "" : "",
+        distributionDate: mode === "update" ? selectedFuelDistribution?.distributionDate ?? "" : "",
+    };
+
     const intl = useIntl()
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
     const [roles, setRoles] = useState([])
+    const [loading, setLoading] = useState(false);
 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
     // Form Validation Schema
@@ -166,13 +176,12 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
                         <Button variant='danger' onClick={onClose} className='me-2 '>
                             {t('global.BACK')}
                         </Button>
-                        <Button
-                            variant='primary'
-                            type='submit'
-                            disabled={formik.isSubmitting}
-                        // classname='me-2 '
-                        >
-                            {t('global.SAVE')}
+                        <Button type="submit" disabled={loading}>
+                            {loading ? "..." : mode === "send" ? (
+                                t('global.SAVE')
+                            ) : (
+                                t('global.Update')
+                            )}
                         </Button>
                     </div>
                 </form>
