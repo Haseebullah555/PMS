@@ -5,12 +5,9 @@ import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
-import { useIntl } from 'react-intl'
-
 import { toast } from 'react-toastify'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
-import { DailyFuelSellForm, dailyFuelSellInitialValues, initialValues } from './_module'
-import { storeDailyFuelSell } from '../../../../../redux/slices/DailyFuelSell/DailyFuelSellSlice'
+import { storeDailyFuelSell, updateDailyFuelSell } from '../../../../../redux/slices/DailyFuelSell/DailyFuelSellSlice'
 
 // Define the props for the modal
 interface CreateDailyFuelSellModalProps {
@@ -53,14 +50,26 @@ const initialValues = {
         validationSchema: DailyFuelSellSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
-                const response = await dispatch(storeDailyFuelSell(values) as any)
-                if (storeDailyFuelSell.fulfilled.match(response)) {
-                    handleFulfilledResponse(response)
-                    handleReloadTable()
-                    onClose()
-                    resetForm()
-                } else {
-                    handleRejectedResponse(response)
+                if(mode == "send"){
+                    const response = await dispatch(storeDailyFuelSell(values) as any)
+                    if (storeDailyFuelSell.fulfilled.match(response)) {
+                        handleFulfilledResponse(response)
+                        handleReloadTable()
+                        onClose()
+                        resetForm()
+                    } else {
+                        handleRejectedResponse(response)
+                    }
+                }else{
+                    const response = await dispatch(updateDailyFuelSell(values) as any)
+                    if (updateDailyFuelSell.fulfilled.match(response)) {
+                        handleFulfilledResponse(response)
+                        handleReloadTable()
+                        onClose()
+                        resetForm()
+                    } else {
+                        handleRejectedResponse(response)
+                    }
                 }
             } catch (error) {
                 handleError(error)

@@ -8,7 +8,7 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeFuelDistribution } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
+import { storeFuelDistribution, updateFuelDistribution } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 
 // Define the props for the modal
@@ -51,15 +51,28 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
         validationSchema: FuelDistributionSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
-                const response = await dispatch(storeFuelDistribution(values) as any)
-                if (storeFuelDistribution.fulfilled.match(response)) {
-                    handleFulfilledResponse(response)
-                    handleReloadTable()
-                    onClose()
-                    resetForm()
+                if (mode == "send") {
+                    const response = await dispatch(storeFuelDistribution(values) as any)
+                    if (storeFuelDistribution.fulfilled.match(response)) {
+                        handleFulfilledResponse(response)
+                        handleReloadTable()
+                        onClose()
+                        resetForm()
+                    } else {
+                        handleRejectedResponse(response)
+                    }
                 } else {
-                    handleRejectedResponse(response)
+                    const response = await dispatch(updateFuelDistribution(values) as any)
+                    if (updateFuelDistribution.fulfilled.match(response)) {
+                        handleFulfilledResponse(response)
+                        handleReloadTable()
+                        onClose()
+                        resetForm()
+                    } else {
+                        handleRejectedResponse(response)
+                    }
                 }
+
             } catch (error) {
                 handleError(error)
             } finally {

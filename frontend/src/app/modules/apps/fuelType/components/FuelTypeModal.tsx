@@ -9,24 +9,31 @@ import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 
 import { toast } from 'react-toastify'
-import { storeFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import { storeFuelType, updateFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 
 // Define the props for the modal
-interface CreateFuelTypeModalProps {
+interface FuelTypeModalProps {
   isOpen: boolean
   onClose: () => void
   handleReloadTable: () => void
+  selectedFuelType: any
+  mode: any
 }
 
 const fuelData = [
   { id: 0, name: 'لیتر' },
   { id: 1, name: 'تن' },
 ]
-const CreateFuelTypeModal: React.FC<CreateFuelTypeModalProps> = ({ isOpen, onClose, handleReloadTable }) => {
+const FuelTypeModal: React.FC<FuelTypeModalProps> = ({ isOpen, onClose, handleReloadTable, selectedFuelType, mode }) => {
+  const initialValues = {
+    id: mode === "update" ? selectedFuelType?.id : null,
+    name: mode === "update" ? selectedFuelType?.name ?? "" : "",
+    fuelUnit: mode === "update" ? selectedFuelType?.fuelUnit ?? "" : "",
+  };
   const intl = useIntl()
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
-  const [roles, setRoles] = useState([])
+  const [loading, setLoading] = useState(false);
 
   // Form Validation Schema
   const FuelTypeSchema = Yup.object().shape({
@@ -45,14 +52,26 @@ const CreateFuelTypeModal: React.FC<CreateFuelTypeModalProps> = ({ isOpen, onClo
           name: formik.values.name,
           fuelUnit: Number(formik.values.fuelUnit) // convert to number
         };
-        const response = await dispatch(storeFuelType(payload) as any)
-        if (storeFuelType.fulfilled.match(response)) {
-          handleFulfilledResponse(response)
-          handleReloadTable()
-          onClose()
-          resetForm()
+        if (mode == "send") {
+          const response = await dispatch(storeFuelType(payload) as any)
+          if (storeFuelType.fulfilled.match(response)) {
+            handleFulfilledResponse(response)
+            handleReloadTable()
+            onClose()
+            resetForm()
+          } else {
+            handleRejectedResponse(response)
+          }
         } else {
-          handleRejectedResponse(response)
+          const response = await dispatch(updateFuelType(payload) as any)
+          if (updateFuelType.fulfilled.match(response)) {
+            handleFulfilledResponse(response)
+            handleReloadTable()
+            onClose()
+            resetForm()
+          } else {
+            handleRejectedResponse(response)
+          }
         }
       } catch (error) {
         handleError(error)
@@ -155,13 +174,12 @@ const CreateFuelTypeModal: React.FC<CreateFuelTypeModalProps> = ({ isOpen, onClo
             <Button variant='danger' onClick={onClose} className='me-2 '>
               {t('global.BACK')}
             </Button>
-            <Button
-              variant='primary'
-              type='submit'
-              disabled={formik.isSubmitting}
-            // classname='me-2 '
-            >
-              {t('global.SAVE')}
+            <Button type="submit" disabled={loading}>
+              {loading ? "..." : mode === "send" ? (
+                t('global.SAVE')
+              ) : (
+                t('global.Update')
+              )}
             </Button>
           </div>
         </form>
@@ -170,4 +188,4 @@ const CreateFuelTypeModal: React.FC<CreateFuelTypeModalProps> = ({ isOpen, onClo
   )
 }
 
-export default CreateFuelTypeModal
+export default FuelTypeModal
