@@ -1,13 +1,11 @@
-using System.ComponentModel.DataAnnotations;
-using Application.Dtos.Common;
 using Application.Dtos.FuelGunDtos;
 using Application.Dtos.StaffDtos;
 
 namespace Application.Dtos.FuelStandDtos
 {
-    public class UpdateFuelStandDto : UpdateBaseDto
+    public class FuelStandDto
     {
-        [Display(Name = "Fuel Stand Name"), Required(ErrorMessage = "Fuel Stand Name is required")]
+        public int Id { get; set; }
         public string Name { get; set; }
         public int StaffId { get; set; }
         public StaffDto? Staffs { get; set; }

@@ -5,7 +5,7 @@ using Application.Dtos.StaffDtos;
 
 namespace Application.Dtos.FuelStandDtos
 {
-    public class UpdateFuelStandDto : UpdateBaseDto
+    public class CreateFuelStandDto : CreateBaseDto
     {
         [Display(Name = "Fuel Stand Name"), Required(ErrorMessage = "Fuel Stand Name is required")]
         public string Name { get; set; }
