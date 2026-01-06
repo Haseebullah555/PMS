@@ -47,53 +47,8 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
 
              var fuelDistributionLastRecord = _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.DailyFuelSellDto.FuelGunId);
 
-            // var stockUpdate = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(fuelDistributionLastRecord.fuelTypeId);
-
-
-
-
             // save all transactions
             await tx.CommitAsync(cancellationToken);
-
-
-
-
-            // var dailyFuelSell = new Domain.Models.DailyFuelSell
-            // {
-            //     FuelStandId = request.DailyFuelSellDto.FuelStandId,
-            //     FuelGunId = request.DailyFuelSellDto.FuelGunId,
-            //     CurrentMeterDegree = request.DailyFuelSellDto.CurrentMeterDegree,
-            //     OldMeterDegree = request.DailyFuelSellDto.OldMeterDegree,
-            //     SoldFuelAmount = request.DailyFuelSellDto.SoldFuelAmount,
-            //     FuelUnitPrice = request.DailyFuelSellDto.FuelUnitPrice,
-            //     TotalPrice = request.DailyFuelSellDto.TotalPrice,
-            //     CollectedMoney = request.DailyFuelSellDto.CollectedMoney,
-            //     Date = request.DailyFuelSellDto.Date,
-            //     Note = request.DailyFuelSellDto.Note,
-            //     StaffId = fuelStand.StaffId
-            // };
-            // await _unitOfWork.DailyFuelSells.AddAsync(dailyFuelSell);
-            // await _unitOfWork.SaveAsync(cancellationToken);
-
-
-
-            // Create FuelStand entity
-            // var dailyFuelSell = new Domain.Models.DailyFuelSell
-            // {
-            //     FuelStandId = request.DailyFuelSellDto.FuelStandId,
-            //     FuelGunId = request.DailyFuelSellDto.FuelGunId,
-            //     CurrentMeterDegree = request.DailyFuelSellDto.CurrentMeterDegree,
-            //     OldMeterDegree = request.DailyFuelSellDto.OldMeterDegree,
-            //     SoldFuelAmount = request.DailyFuelSellDto.SoldFuelAmount,
-            //     FuelUnitPrice = request.DailyFuelSellDto.FuelUnitPrice,
-            //     TotalPrice = request.DailyFuelSellDto.TotalPrice,
-            //     CollectedMoney = request.DailyFuelSellDto.CollectedMoney,
-            //     Date = request.DailyFuelSellDto.Date,
-            //     Note = request.DailyFuelSellDto.Note,
-            // };
-            // // Save to DB
-            // await _unitOfWork.DailyFuelSells.AddAsync(dailyFuelSell);
-            // await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 
