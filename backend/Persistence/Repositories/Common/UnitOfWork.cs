@@ -14,6 +14,8 @@ namespace Persistence.Repositories.Common
         }
         #region Private fields
         private ICustomerRepository _customerRepository;
+        private ICustomerLoanRepository _customerLoanRepository;
+        private ICustomerLoanPaymentRepository _customerLoanPaymentRepository;
         private ISupplierRepository _supplierRepository;
         private IFuelTypeRepository _fuelTypeRepository;
         private IFuelGunRepository _fuelGunRepository;
@@ -35,6 +37,8 @@ namespace Persistence.Repositories.Common
         #endregion
 
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
+        public ICustomerLoanRepository CustomerLoans => _customerLoanRepository ??= new CustomerLoanRepository(_context);
+        public ICustomerLoanPaymentRepository CustomerLoanPayments => _customerLoanPaymentRepository ??= new CustomerLoanPaymentRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
         public IFuelTypeRepository FuelTypes => _fuelTypeRepository ??= new FuelTypeRepository(_context);
         public IFuelGunRepository FuelGuns => _fuelGunRepository ??= new FuelGunRepository(_context);

@@ -5,6 +5,8 @@ namespace Application.Contracts.Interfaces.Common
     public interface IUnitOfWork : IDisposable
     {
         public ICustomerRepository Customers { get; }
+        public ICustomerLoanRepository CustomerLoans { get; }
+        public ICustomerLoanPaymentRepository CustomerLoanPayments { get; }
         public ISupplierRepository Suppliers { get; }
         public IFuelTypeRepository FuelTypes { get; }
         public IFuelGunRepository FuelGuns { get; }
@@ -18,12 +20,12 @@ namespace Application.Contracts.Interfaces.Common
         public IPurchaseRepository Purchases { get; }
         public IPurchaseDetailsRepository PurchaseDetails { get; }
         public IStockRepository Stocks { get; }
-        public ISupplierLoansRepository SupplierLoans{ get; }
+        public ISupplierLoansRepository SupplierLoans { get; }
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
         public IFuelDistributionRepository FuelDistributions { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
 
-        public  IStudentRespository Students { get; }
+        public IStudentRespository Students { get; }
         Task SaveAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }

@@ -10,7 +10,5 @@ namespace Domain.Models
         public DateTime LoanDate { get; set; }
         public bool IsSettled { get; set; }
 
-
-        // public ICollection<SupplierLoanPayment> Payments { get; set; } = new List<SupplierLoanPayment>();
     }
 }
