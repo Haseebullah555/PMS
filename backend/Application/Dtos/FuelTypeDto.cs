@@ -4,7 +4,7 @@ using Domain.Enums;
 
 namespace Application.Dtos
 {
-    public class FuelTypeDto : BaseDto
+    public class FuelTypeDto : CreateBaseDto
     {
         [Required]
         public string Name { get; set; }

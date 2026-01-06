@@ -4,6 +4,7 @@ using Application.Features.FuelStand.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.FuelStand.Commands.Queries;
 using Application.Features.FuelStand.Requests.Commands;
+using Application.Dtos.FuelStandDtos;
 
 namespace API.Controllers
 {
@@ -44,21 +45,21 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] CreateFuelStandDto fuelStandDto)
+        public async Task<ActionResult> Create([FromBody] CreateFuelStandDto createFuelStandDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new CreateFuelStandCommand { FuelStandDto = fuelStandDto });
+                await _mediator.Send(new CreateFuelStandCommand { CreateFuelStandDto = createFuelStandDto });
                 return Ok(new { message = "نوع نفت با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(FuelStandDto fuelStandDto)
+        public async Task<ActionResult> Update(UpdateFuelStandDto updateFuelStandDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateFuelStandCommand { FuelStandDto = fuelStandDto });
+                await _mediator.Send(new UpdateFuelStandCommand { UpdateFuelStandDto = updateFuelStandDto });
                 return Ok(new { message = "نوع نفت با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class SuppliersWithSupplierLoanPaymentsDto : BaseDto
+    public class SuppliersWithSupplierLoanPaymentsDto : CreateBaseDto
     {
         [Display(Name = "Supplier Name"), Required(ErrorMessage = "Supplier Name is required")]
         public string Name { get; set; }
@@ -16,7 +16,7 @@ namespace Application.Dtos
         [Display(Name = "Car Plate")]
         public string CarPlate { get; set; }
         public decimal Balance { get; set; }
-        public List<SupplierLoanPaymentDto> SupplierLoanPayments  { get; set; }
+        public List<SupplierLoanPaymentDto> SupplierLoanPayments { get; set; }
 
     }
 }

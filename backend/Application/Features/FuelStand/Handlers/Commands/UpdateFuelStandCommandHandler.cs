@@ -17,7 +17,7 @@ namespace Application.Features.FuelStand.Handlers.Commands
         }
         public async Task Handle(UpdateFuelStandCommand request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<Domain.Models.FuelStand>(request.FuelStandDto);
+            var result = _mapper.Map<Domain.Models.FuelStand>(request.UpdateFuelStandDto);
             _unitOfWork.FuelStands.Update(result);
             await _unitOfWork.SaveAsync(cancellationToken);
         }

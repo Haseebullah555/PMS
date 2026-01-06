@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class StudentDto : BaseDto
+    public class StudentDto : CreateBaseDto
     {
         [Display(Name = "Student Name"), Required(ErrorMessage = "Student Name is required")]
         public string Name { get; set; }

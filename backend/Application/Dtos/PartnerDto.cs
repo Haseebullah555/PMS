@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class PartnerDto : BaseDto
+    public class PartnerDto : CreateBaseDto
     {
         [Display(Name = "Full Name"), Required(ErrorMessage = "{0} is required")]
         public string FullName { get; set; } = null!;

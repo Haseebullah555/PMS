@@ -2,7 +2,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos.FuelDistribution
 {
-    public class AddFuelDistributionDto : CreateBaseDto
+    public class UpdateFuelDistributionDto : UpdateBaseDto
     {
         public int FuelGunId { get; set; }
         public int FuelTypeId { get; set; }

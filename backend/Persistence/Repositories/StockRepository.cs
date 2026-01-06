@@ -23,11 +23,8 @@ namespace Persistence.Repositories
 
         public async Task<Stock?> GetByFuelTypeIdAsync(int fuelTypeId)
         {
-            // return await _context.Stocks
-            //     .FirstOrDefaultAsync(s => s.FuelTypeId == fuelTypeId);
-
-               return await _context.Stocks
-        .FirstOrDefaultAsync(s => s.FuelTypeId == fuelTypeId);
+            return await _context.Stocks
+     .FirstOrDefaultAsync(s => s.FuelTypeId == fuelTypeId);
         }
 
     }

@@ -1,10 +1,10 @@
-using Application.Dtos;
+using Application.Dtos.CustomerLoanDtos;
 using MediatR;
 
 namespace Application.Features.CustomerLoan.Requests.Commands
 {
     public class UpdateCustomerLoanCommand : IRequest
     {
-        public CustomerLoanDto CustomerLoanDto { get; set; }
+        public UpdateCustomerLoanDto UpdateCustomerLoanDto { get; set; }
     }
 }

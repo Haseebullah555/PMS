@@ -2,7 +2,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class SaleDetailDto : BaseDto
+    public class SaleDetailDto : CreateBaseDto
     {
         public int SaleId { get; set; }
         public string? Sale { get; set; }

@@ -4,8 +4,9 @@ using Application.Dtos.FuelDistribution;
 
 namespace Application.Dtos
 {
-    public class FuelGunDto : BaseDto
+    public class FuelGunDto
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int FuelStandId { get; set; }
 

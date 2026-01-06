@@ -1,5 +1,4 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Features.DailyFuelSell.Requests.Commands;
 using Application.Features.FuelDistribution.Requests.Commands;
 using AutoMapper;
 using MediatR;

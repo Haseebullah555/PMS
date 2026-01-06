@@ -2,7 +2,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class PurchaseDto : BaseDto
+    public class PurchaseDto : CreateBaseDto
     {
         public int SupplierId { get; set; }
         public SupplierDto? Supplier { get; set; }

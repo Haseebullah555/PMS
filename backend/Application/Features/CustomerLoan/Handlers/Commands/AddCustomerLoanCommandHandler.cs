@@ -24,20 +24,20 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 // =======================================
                 // 1- Update the balace column in customer 
                 // =======================================
-                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.CustomerLoanDto.CustomerId);
+                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.AddCustomerLaonDto.CustomerId);
                 if (customer is null)
                 {
                     throw new InvalidOperationException("Customer not found.");
                 }
                 // Update balance (add loan amount)
-                customer.Balance += request.CustomerLoanDto.TotalPrice;
+                customer.Balance += request.AddCustomerLaonDto.TotalPrice;
                 _unitOfWork.Customers.Update(customer);
                 await _unitOfWork.SaveAsync(cancellationToken);
 
                 // ====================================
                 // 2- Save to CustomerLoan Record
                 // ====================================
-                var result = _mapper.Map<Domain.Models.CustomerLoan>(request.CustomerLoanDto);
+                var result = _mapper.Map<Domain.Models.CustomerLoan>(request.AddCustomerLaonDto);
                 await _unitOfWork.CustomerLoans.AddAsync(result);
                 await _unitOfWork.SaveAsync(cancellationToken);
             }

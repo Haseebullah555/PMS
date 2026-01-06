@@ -25,6 +25,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
 
     const initialValues = {
         id: mode === "update" ? selectedFuelDistribution?.id : null,
+        fuelGunId: mode === "update" ? selectedFuelDistribution?.fuelGun.id : null,
         fuelTypeId: mode === "update" ? selectedFuelDistribution?.fuelType.id ?? "" : "",
         quantity: mode === "update" ? selectedFuelDistribution?.quantity ?? "" : "",
         distributionDate: mode === "update" ? selectedFuelDistribution?.distributionDate ?? "" : "",
@@ -33,7 +34,6 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
     const intl = useIntl()
     const { t } = useTranslation()
     const dispatch = useAppDispatch()
-    const [roles, setRoles] = useState([])
     const [loading, setLoading] = useState(false);
 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)

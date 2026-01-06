@@ -2,7 +2,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos.FuelDistribution
 {
-    public class FuelDistributionDto: BaseDto
+    public class FuelDistributionDto : CreateBaseDto
     {
         public int FuelGunId { get; set; }
         public FuelGunDto? FuelGun { get; set; }

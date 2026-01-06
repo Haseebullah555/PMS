@@ -1,6 +1,7 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
 using Application.Dtos.Common;
+using Application.Dtos.FuelDistribution;
 using Application.Features.FuelStand.Requests.Queries;
 using AutoMapper;
 using MediatR;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.FuelStand.Handlers.Queries
 {
-    public class GetListOfFuelStandsRequestHandler : IRequestHandler<GetListOfFuelStandsRequest, PaginatedResult<CreateFuelStandDto>>
+    public class GetListOfFuelStandsRequestHandler : IRequestHandler<GetListOfFuelStandsRequest, PaginatedResult<FuelStandDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,7 +19,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<PaginatedResult<CreateFuelStandDto>> Handle(GetListOfFuelStandsRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<FuelStandDto>> Handle(GetListOfFuelStandsRequest request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.FuelStands.GetAllFuelStands();
 
@@ -60,7 +61,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var fuelStandDtos = FuelStands.Select(fs => new CreateFuelStandDto
+            var fuelStandDtos = FuelStands.Select(fs => new FuelStandDto
             {
                 Id = fs.Id,
                 Name = fs.Name,
@@ -73,7 +74,7 @@ namespace Application.Features.FuelStand.Handlers.Queries
                 }).ToList()
             }).ToList();
 
-            return new PaginatedResult<CreateFuelStandDto>
+            return new PaginatedResult<FuelStandDto>
             {
                 Data = fuelStandDtos,
                 Total = total,

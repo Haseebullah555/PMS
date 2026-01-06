@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Application.Contracts.Interfaces.Common;
 using Application.Features.CustomerLoan.Requests.Commands;
 using AutoMapper;
@@ -29,7 +25,7 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 // ====================================================
                 // 1- get the old TotalPrice from CustomerLoan
                 // ====================================================
-                var customerLoan = await _unitOfWork.CustomerLoans.GetCustomerLoanByIdAsync(request.CustomerLoanDto.Id);
+                var customerLoan = await _unitOfWork.CustomerLoans.GetCustomerLoanByIdAsync(request.UpdateCustomerLoanDto.Id);
                 if (customerLoan is null)
                 {
                     throw new InvalidOperationException("Customer Loan not found.");
@@ -39,7 +35,7 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 // ================================================================
                 // 2- Update Customer Balance ( Remove the old TotalPrice from customer balance and add the new TotalPrice)
                 // ================================================================
-                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.CustomerLoanDto.CustomerId);
+                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.UpdateCustomerLoanDto.CustomerId);
                 if (customer is null)
                 {
                     throw new InvalidOperationException("Customer not found.");

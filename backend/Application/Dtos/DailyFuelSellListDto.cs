@@ -2,9 +2,10 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class DailyFuelSellListDto : BaseDto
+    public class DailyFuelSellListDto
     {
-         public int FuelStandId { get; set; }
+        public int Id { get; set; }
+        public int FuelStandId { get; set; }
         public string? FuelStand { get; set; }
         public int FuelGunId { get; set; }
         public string? FuelGun { get; set; }

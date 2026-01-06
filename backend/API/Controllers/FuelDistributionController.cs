@@ -61,6 +61,16 @@ namespace API.Controllers
                 return StatusCode(500, new { message = "خطا در ثبت معلومات", error = ex.Message });
             }
         }
+        [HttpPost("update")]
+        public async Task<IActionResult> Update(UpdateFuelDistributionDto updateFuelDistributionDto)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateFuelDistributionCommand{UpdateFuelDistributionDto = updateFuelDistributionDto});
+                return Ok(new { message = "توزیع تیل به پایه تجدید شد" });
+            }
+            return BadRequest(new { message = "توزیع تیل به پایه تجدید نشد", errors = ModelState });
+        }
 
 
     }

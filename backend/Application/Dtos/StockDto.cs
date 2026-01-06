@@ -3,7 +3,7 @@ using Domain.Common;
 
 namespace Application.Dtos
 {
-    public class StockDto : BaseDto
+    public class StockDto : CreateBaseDto
     {
         public int FuelTypeId { get; set; }
         public string? FuelTypeName { get; set; }

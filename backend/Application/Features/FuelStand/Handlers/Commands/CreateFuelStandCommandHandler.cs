@@ -19,13 +19,13 @@ namespace Application.Features.FuelStand.Handlers.Commands
         // Create FuelStand entity
         var fuelStand = new Domain.Models.FuelStand
         {
-            Name = request.FuelStandDto.Name,
-            StaffId = request.FuelStandDto.StaffId,
+            Name = request.CreateFuelStandDto.Name,
+            StaffId = request.CreateFuelStandDto.StaffId,
             FuelGuns = new List<Domain.Models.FuelGun>()  // initialize list
         };
 
         // Add FuelGuns
-        foreach (var gun in request.FuelStandDto.FuelGuns)
+        foreach (var gun in request.CreateFuelStandDto.FuelGuns)
         {
             fuelStand.FuelGuns.Add(new Domain.Models.FuelGun
             {

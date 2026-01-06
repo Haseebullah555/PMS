@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Application.Dtos.Common;
+using Application.Dtos.FuelDistribution;
 
 namespace Application.Dtos
 {
-    public class DailyFuelSellDto : BaseDto
+    public class DailyFuelSellDto : CreateBaseDto
     {
         public int FuelStandId { get; set; }
         public FuelStandDto? FuelStand { get; set; }

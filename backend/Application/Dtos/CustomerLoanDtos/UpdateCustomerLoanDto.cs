@@ -1,10 +1,9 @@
 using Application.Dtos.Common;
 
-namespace Application.Dtos
+namespace Application.Dtos.CustomerLoanDtos
 {
-    public class CustomerLoanDto
+    public class UpdateCustomerLoanDto : UpdateBaseDto
     {
-        public int Id { get; set; }
         public int CustomerId { get; set; }
         public int FuelTypeId { get; set; }
         public decimal FuelAmount { get; set; }

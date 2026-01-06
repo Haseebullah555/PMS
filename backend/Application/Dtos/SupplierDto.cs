@@ -3,7 +3,7 @@ using Application.Dtos.Common;
 
 namespace Application.Dtos
 {
-    public class SupplierDto : BaseDto
+    public class SupplierDto : CreateBaseDto
     {
         [Display(Name = "Supplier Name"), Required(ErrorMessage = "Supplier Name is required")]
         public string Name { get; set; }
@@ -15,7 +15,7 @@ namespace Application.Dtos
         public string DriverName { get; set; }
         [Display(Name = "Car Plate")]
         public string CarPlate { get; set; }
-        
+
         [Display(Name = "Balance")]
         public decimal Balance { get; set; }
 
