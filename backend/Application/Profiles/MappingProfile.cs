@@ -12,6 +12,7 @@ namespace Application.Profiles
         {
             CreateMap<Supplier, SupplierDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<CustomerLoan, CustomerLoanDto>().ReverseMap();
             CreateMap<FuelTypes, FuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();
