@@ -1,6 +1,6 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
 using Application.Dtos.Common;
+using Application.Dtos.SupplierDtos;
 using Application.Features.Purchase.Requests.Queries;
 using AutoMapper;
 using MediatR;

@@ -1,10 +1,10 @@
-using Application.Dtos;
+using Application.Dtos.CustomerDtos;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Commands
 {
     public class UpdateCustomerCommand : IRequest
     {
-        public CustomerDto CustomerDto { get; set; }
+        public UpdateCustomerDto UpdateCustomerDto { get; set; }
     }
 }

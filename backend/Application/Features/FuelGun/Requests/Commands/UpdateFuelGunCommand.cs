@@ -1,4 +1,5 @@
 using Application.Dtos;
+using Application.Dtos.FuelGunDtos;
 using MediatR;
 
 namespace Application.Features.FuelGun.Requests.Commands

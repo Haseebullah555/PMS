@@ -1,4 +1,4 @@
-using Application.Dtos;
+using Application.Dtos.CustomerLoanPaymentDtos;
 using MediatR;
 
 namespace Application.Features.CustomerLoanPayment.Requests.Commands

@@ -4,6 +4,7 @@ using Application.Features.FuelGun.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.FuelGun.Commands.Queries;
 using Application.Features.FuelGun.Requests.Commands;
+using Application.Dtos.FuelGunDtos;
 
 namespace API.Controllers
 {

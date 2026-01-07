@@ -1,8 +1,7 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
+using Application.Dtos.StaffDtos;
 using Application.Features.sample.Requests.Queries;
 using AutoMapper;
-using AutoMapper.Configuration.Annotations;
 using MediatR;
 
 namespace Application.Features.sample.Handlers.Queries

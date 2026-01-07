@@ -1,5 +1,5 @@
 using API.Controllers.Common;
-using Application.Dtos;
+using Application.Dtos.CustomerLoanPaymentDtos;
 using Application.Features.CustomerLoanPayment.Requests.Commands;
 using Microsoft.AspNetCore.Mvc;
 

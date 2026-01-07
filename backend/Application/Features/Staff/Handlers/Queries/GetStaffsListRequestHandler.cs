@@ -1,5 +1,5 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
+using Application.Dtos.StaffDtos;
 using Application.Features.Staff.Requests.Queries;
 using AutoMapper;
 using MediatR;

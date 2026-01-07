@@ -18,7 +18,7 @@ namespace Application.Features.sample.Handlers.Commands
         }
         public async Task Handle(AddExtraExpenseCommand request, CancellationToken cancellationToken)
         {
-            var result = _mapper.Map<ExtraExpenses>(request.ExtraExpensesDto);
+            var result = _mapper.Map<ExtraExpenses>(request.AddExtraExpenseDto);
             await _unitOfWork.ExtraExpenses.AddAsync(result);
             await _unitOfWork.SaveAsync(cancellationToken);
         }

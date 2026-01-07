@@ -1,5 +1,6 @@
 using Application.Contracts.Interfaces;
 using Application.Dtos;
+using Application.Dtos.StaffPaymentDtos;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;

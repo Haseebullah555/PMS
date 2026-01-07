@@ -1,5 +1,5 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
+using Application.Dtos.FuelGunDtos;
 using Domain.Models;
 
 namespace Application.Contracts.Interfaces

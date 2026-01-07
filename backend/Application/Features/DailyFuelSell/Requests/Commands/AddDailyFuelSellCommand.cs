@@ -1,10 +1,11 @@
 using Application.Dtos;
+using Application.Dtos.DailyFuelSellDtos;
 using MediatR;
 
 namespace Application.Features.DailyFuelSell.Requests.Commands
 {
     public class AddDailyFuelSellCommand : IRequest
     {
-        public DailyFuelSellDto DailyFuelSellDto { get; set; }
+        public AddDailyFuelSellDto AddDailyFuelSellDto { get; set; }
     }
 }

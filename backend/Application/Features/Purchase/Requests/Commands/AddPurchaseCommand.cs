@@ -1,4 +1,5 @@
 using Application.Dtos;
+using Application.Dtos.PurchaseDtos;
 using MediatR;
 
 namespace Application.Features.Purchase.Requests.Commands

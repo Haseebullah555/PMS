@@ -1,10 +1,10 @@
-using Application.Dtos;
+using Application.Dtos.StaffDtos;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Commands
 {
     public class AddStaffCommand : IRequest
     {
-        public StaffDto StaffDto { get; set; }
+        public AddStaffDto AddStaffDto { get; set; }
     }
 }

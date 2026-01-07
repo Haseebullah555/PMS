@@ -1,4 +1,4 @@
-using Application.Dtos;
+using Application.Dtos.FuelTypeDtos;
 using MediatR;
 
 namespace Application.Features.FuelType.Requests.Queries

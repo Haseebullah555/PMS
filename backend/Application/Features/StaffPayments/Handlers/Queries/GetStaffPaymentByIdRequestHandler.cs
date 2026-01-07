@@ -1,5 +1,5 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
+using Application.Dtos.StaffPaymentDtos;
 using Application.Features.StaffPayments.Requests.Queries;
 using AutoMapper;
 using MediatR;

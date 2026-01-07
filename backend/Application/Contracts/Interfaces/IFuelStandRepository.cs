@@ -1,6 +1,5 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
-using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelStandDtos;
 using Domain.Models;
 
 namespace Application.Contracts.Interfaces

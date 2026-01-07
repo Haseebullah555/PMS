@@ -23,16 +23,16 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
             // =============================================
             // update the Balance column in FuelGun model 
             // =============================================
-            var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.DailyFuelSellDto.FuelGunId);
-            fuelGunRecord.Balance -= request.DailyFuelSellDto.SoldFuelAmount;
+            var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.AddDailyFuelSellDto.FuelGunId);
+            fuelGunRecord.Balance -= request.AddDailyFuelSellDto.SoldFuelAmount;
             _unitOfWork.FuelGuns.Update(fuelGunRecord);
 
 
             // =============================================
             // get the fuelStand record (to get the staffId)
             // =============================================
-            var fuelStand = await _unitOfWork.Staffs.GetFuelStandByIdAsync(request.DailyFuelSellDto.FuelStandId);
-            var dailyFuelSell = _mapper.Map<Domain.Models.DailyFuelSell>(request.DailyFuelSellDto);
+            var fuelStand = await _unitOfWork.Staffs.GetFuelStandByIdAsync(request.AddDailyFuelSellDto.FuelStandId);
+            var dailyFuelSell = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
 
             // add the StaffId with dailyFuelSell
             dailyFuelSell.StaffId = fuelStand.StaffId;
@@ -45,7 +45,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
             // update the stock table (quantityInLiter) column base in fuelTypeId 
             // =============================================
 
-             var fuelDistributionLastRecord = _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.DailyFuelSellDto.FuelGunId);
+             var fuelDistributionLastRecord = _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.AddDailyFuelSellDto.FuelGunId);
 
             // save all transactions
             await tx.CommitAsync(cancellationToken);

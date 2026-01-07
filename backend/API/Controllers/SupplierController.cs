@@ -1,5 +1,6 @@
 using API.Controllers.Common;
 using Application.Dtos;
+using Application.Dtos.SupplierDtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Application.Features.Supplier.Requests.Queries;
@@ -38,21 +39,21 @@ namespace API.Controllers
             });
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] SupplierDto supplierDto)
+        public async Task<ActionResult> Create([FromBody] AddSupplierDto addSupplierDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddSupplierCommand { SupplierDto = supplierDto });
+                await _mediator.Send(new AddSupplierCommand { AddSupplierDto = addSupplierDto });
                 return Ok(new { message = "تامیین کننده با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(SupplierDto supplierDto)
+        public async Task<ActionResult> Update(UpdateSupplierDto updateSupplierDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateSupplierCommand { SupplierDto = supplierDto });
+                await _mediator.Send(new UpdateSupplierCommand { UpdateSupplierDto = updateSupplierDto });
                 return Ok(new { message = "تامیین کننده با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید تامیین کننده ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

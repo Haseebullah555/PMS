@@ -1,10 +1,10 @@
-using Application.Dtos;
+using Application.Dtos.ExtraExpenseDtos;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Commands
 {
     public class AddExtraExpenseCommand : IRequest
     {
-        public ExtraExpensesDto ExtraExpensesDto { get; set; }
+        public AddExtraExpenseDto AddExtraExpenseDto { get; set; }
     }
 }

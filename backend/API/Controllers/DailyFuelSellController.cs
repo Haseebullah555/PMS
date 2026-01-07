@@ -1,5 +1,6 @@
 using API.Controllers.Common;
 using Application.Dtos;
+using Application.Dtos.DailyFuelSellDtos;
 using Application.Features.DailyFuelSell.Requests.Commands;
 using Application.Features.DailyFuelSell.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -37,14 +38,14 @@ namespace API.Controllers
             });
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] DailyFuelSellDto dailyFuelSellDto)
+        public async Task<ActionResult> Create([FromBody] AddDailyFuelSellDto addDailyFuelSellDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { message = "ورودی نادرست است", errors = ModelState });
 
             try
             {
-                 await _mediator.Send(new AddDailyFuelSellCommand { DailyFuelSellDto = dailyFuelSellDto });
+                 await _mediator.Send(new AddDailyFuelSellCommand { AddDailyFuelSellDto = addDailyFuelSellDto });
                 return Ok(new { message = "توزیع تیل روزانه موفقیت ثبت شد" });
             }
             catch (InvalidOperationException ex)

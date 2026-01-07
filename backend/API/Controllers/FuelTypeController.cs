@@ -1,9 +1,9 @@
 using API.Controllers.Common;
-using Application.Dtos;
 using Application.Features.FuelType.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.FuelType.Commands.Queries;
 using Application.Features.FuelType.Requests.Commands;
+using Application.Dtos.FuelTypeDtos;
 
 namespace API.Controllers
 {
@@ -44,21 +44,21 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] FuelTypeDto fuelTypeDto)
+        public async Task<ActionResult> Create([FromBody] AddFuelTypeDto addFuelTypeDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new CreateFuelTypeCommand { FuelTypeDto = fuelTypeDto });
+                await _mediator.Send(new CreateFuelTypeCommand { AddFuelTypeDto = addFuelTypeDto });
                 return Ok(new { message = "نوع نفت با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(FuelTypeDto fuelTypeDto)
+        public async Task<ActionResult> Update(UpdateFuelTypeDto updateFuelTypeDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateFuelTypeCommand { FuelTypeDto = fuelTypeDto });
+                await _mediator.Send(new UpdateFuelTypeCommand { UpdateFuelTypeDto = updateFuelTypeDto });
                 return Ok(new { message = "نوع نفت با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

@@ -1,6 +1,19 @@
 using Application.Dtos;
+using Application.Dtos.CustomerDtos;
+using Application.Dtos.CustomerLoanDtos;
+using Application.Dtos.DailyFuelSellDtos;
+using Application.Dtos.ExtraExpenseDtos;
 using Application.Dtos.FuelDistribution;
-using Application.Dtos.FuelGun;
+using Application.Dtos.FuelDistributionDtos;
+using Application.Dtos.FuelGunDtos;
+using Application.Dtos.FuelStandDtos;
+using Application.Dtos.FuelTypeDtos;
+using Application.Dtos.PurchaseDtos;
+using Application.Dtos.StaffDtos;
+using Application.Dtos.StaffPaymentDtos;
+using Application.Dtos.StockDtos;
+using Application.Dtos.SupplierDtos;
+using Application.Dtos.SupplierLoanPaymentDtos;
 using AutoMapper;
 using Domain.Models;
 

@@ -1,5 +1,6 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
+using Application.Dtos.ExtraExpenseDtos;
 using Application.Features.sample.Requests.Queries;
 using AutoMapper;
 using MediatR;

@@ -1,10 +1,10 @@
-using Application.Dtos;
+using Application.Dtos.SupplierDtos;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Commands
 {
     public class AddSupplierCommand : IRequest
     {
-        public SupplierDto SupplierDto { get; set; }
+        public AddSupplierDto AddSupplierDto { get; set; }
     }
 }

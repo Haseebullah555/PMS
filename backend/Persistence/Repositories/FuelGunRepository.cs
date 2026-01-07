@@ -1,6 +1,6 @@
 
 using Application.Contracts.Interfaces;
-using Application.Dtos;
+using Application.Dtos.FuelGunDtos;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;

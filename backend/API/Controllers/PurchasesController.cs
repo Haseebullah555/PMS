@@ -1,9 +1,8 @@
 using API.Controllers.Common;
-using Application.Dtos;
+using Application.Dtos.SupplierLoanPaymentDtos;
 using Application.Features.Purchase.Requests.Commands;
 using Application.Features.Purchase.Requests.Queries;
 using Application.Features.sample.Requests.Commands;
-using Application.Features.SupplierLoanPayment.Requests.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

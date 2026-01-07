@@ -1,5 +1,6 @@
 using API.Controllers.Common;
 using Application.Dtos;
+using Application.Dtos.StaffPaymentDtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.StaffPayments.Requests.Commands;
 using Application.Features.StaffPayments.Requests.Queries;

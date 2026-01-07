@@ -1,5 +1,5 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
+using Application.Dtos.FuelGunDtos;
 using Application.Features.FuelGun.Requests.Queries;
 using AutoMapper;
 using MediatR;

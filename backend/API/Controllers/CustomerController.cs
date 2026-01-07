@@ -1,5 +1,6 @@
 using API.Controllers.Common;
 using Application.Dtos;
+using Application.Dtos.CustomerDtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -37,21 +38,21 @@ namespace API.Controllers
             });
         }
         [HttpPost("Create")]
-        public async Task<ActionResult> Create(CustomerDto CustomerDto)
+        public async Task<ActionResult> Create(AddCustomerDto addCustomerDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddCustomerCommand { CustomerDto = CustomerDto });
+                await _mediator.Send(new AddCustomerCommand { AddCustomerDto = addCustomerDto });
                 return Ok(new { message = " مشتری با موفقیت اضافه گردید" });
             }
             return BadRequest(new { message = "اضافه نمودن مشتری ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("Update")]
-        public async Task<ActionResult> Update(CustomerDto CustomerDto)
+        public async Task<ActionResult> Update(UpdateCustomerDto updateCustomerDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateCustomerCommand { CustomerDto = CustomerDto });
+                await _mediator.Send(new UpdateCustomerCommand { UpdateCustomerDto = updateCustomerDto });
                 return Ok(new { message = "مشتری با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید مشتری ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

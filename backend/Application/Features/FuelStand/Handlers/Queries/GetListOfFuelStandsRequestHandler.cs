@@ -1,7 +1,7 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
 using Application.Dtos.Common;
-using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelGunDtos;
+using Application.Dtos.FuelStandDtos;
 using Application.Features.FuelStand.Requests.Queries;
 using AutoMapper;
 using MediatR;

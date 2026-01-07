@@ -1,13 +1,13 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
 using Application.Dtos.Common;
+using Application.Dtos.DailyFuelSellDtos;
 using Application.Features.DailyFuelSell.Requests.Queries;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.DailyFuelSell.Handlers.Queries
 {
-    public class GetListOfDailyFuelSellRequestHandler : IRequestHandler<GetListOfDailyFuelSellRequest, PaginatedResult<DailyFuelSellListDto>>
+    public class GetListOfDailyFuelSellRequestHandler : IRequestHandler<GetListOfDailyFuelSellRequest, PaginatedResult<DailyFuelSellDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,7 +15,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<PaginatedResult<DailyFuelSellListDto>> Handle(GetListOfDailyFuelSellRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<DailyFuelSellDto>> Handle(GetListOfDailyFuelSellRequest request, CancellationToken cancellationToken)
         {
             var query = _unitOfWork.DailyFuelSells.ListOfDailyFuelSell();
             // Search
@@ -56,7 +56,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellListDto
+            var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellDto
             {
                 Id = fs.Id,
                 FuelStandId = fs.FuelStandId,
@@ -74,7 +74,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
                 Note = fs.Note,
             }).ToList();
 
-            return new PaginatedResult<DailyFuelSellListDto>
+            return new PaginatedResult<DailyFuelSellDto>
             {
                 Data = dailyFuelSellDtos,
                 Total = total,

@@ -1,4 +1,4 @@
-using Application.Dtos;
+using Application.Dtos.SupplierDtos;
 using MediatR;
 
 namespace Application.Features.sample.Requests.Queries

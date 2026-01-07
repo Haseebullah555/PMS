@@ -1,6 +1,7 @@
 using API.Controllers.Common;
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos;
+using Application.Dtos.StaffDtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Application.Features.Staff.Requests.Queries;
@@ -46,21 +47,21 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] StaffDto staffDto)
+        public async Task<ActionResult> Create([FromBody] AddStaffDto addStaffDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddStaffCommand { StaffDto = staffDto });
+                await _mediator.Send(new AddStaffCommand { AddStaffDto = addStaffDto});
                 return Ok(new { message = "کارمند با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد کارمند ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(StaffDto staffDto)
+        public async Task<ActionResult> Update(UpdateStaffDto updateStaffDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateStaffCommand { StaffDto = staffDto });
+                await _mediator.Send(new UpdateStaffCommand { UpdateStaffDto = updateStaffDto});
                 return Ok(new { message = "کارمند با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید کارمند ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

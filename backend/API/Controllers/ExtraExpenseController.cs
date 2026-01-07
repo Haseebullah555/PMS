@@ -1,5 +1,6 @@
 using API.Controllers.Common;
 using Application.Dtos;
+using Application.Dtos.ExtraExpenseDtos;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -37,21 +38,21 @@ namespace API.Controllers
             });
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] ExtraExpensesDto extraExpenseDto)
+        public async Task<ActionResult> Create([FromBody] AddExtraExpenseDto addExtraExpenseDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddExtraExpenseCommand { ExtraExpensesDto = extraExpenseDto });
+                await _mediator.Send(new AddExtraExpenseCommand { AddExtraExpenseDto = addExtraExpenseDto });
                 return Ok(new { message = "مصارف متفرقه با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد مصارف متفرقه ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(ExtraExpensesDto extraExpenseDto)
+        public async Task<ActionResult> Update(UpdateExtraExpenseDto updateExtraExpenseDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateExtraExpenseCommand { ExtraExpensesDto = extraExpenseDto });
+                await _mediator.Send(new UpdateExtraExpenseCommand { UpdateExtraExpenseDto = updateExtraExpenseDto });
                 return Ok(new { message = "مصارف متفرقه با موفقیت تجدید شد" });
             }
             return BadRequest(new { message = "تجدید مصارف متفرقه ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

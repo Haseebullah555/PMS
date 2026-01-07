@@ -1,5 +1,4 @@
-
-using Application.Dtos;
+using Application.Dtos.PurchaseDtos;
 using Application.Features.Response;
 using MediatR;
 
