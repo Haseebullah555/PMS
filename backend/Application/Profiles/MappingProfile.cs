@@ -24,32 +24,42 @@ namespace Application.Profiles
         public MappingProfile()
         {
             CreateMap<Supplier, SupplierDto>().ReverseMap();
+            CreateMap<Supplier, AddSupplierDto>().ReverseMap();
+            CreateMap<Supplier, UpdateSupplierDto>().ReverseMap();
             CreateMap<Customer, CustomerDto>().ReverseMap();
+            CreateMap<Customer, AddCustomerDto>().ReverseMap();
+            CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
             CreateMap<CustomerLoan, CustomerLoanDto>().ReverseMap();
             CreateMap<FuelTypes, FuelTypeDto>().ReverseMap();
+            CreateMap<FuelTypes, AddFuelTypeDto>().ReverseMap();
+            CreateMap<FuelTypes, UpdateFuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();
             CreateMap<FuelStand, CreateFuelStandDto>();
             CreateMap<ExtraExpenses, ExtraExpensesDto>().ReverseMap();
+            CreateMap<ExtraExpenses, AddExtraExpenseDto>().ReverseMap();
+            CreateMap<ExtraExpenses, UpdateExtraExpenseDto>().ReverseMap();
             CreateMap<Partner, PartnerDto>().ReverseMap();
             CreateMap<PartnerTransaction, PartnerTransactionDto>().ReverseMap();
             CreateMap<Staff, StaffDto>().ReverseMap();
+            CreateMap<Staff, AddStaffDto>().ReverseMap();
+            CreateMap<Staff, UpdateStaffDto>().ReverseMap();
             CreateMap<StaffPayment, StaffPaymentDto>().ReverseMap();
             CreateMap<SupplierLoanPayment, SupplierLoanPaymentDto>().ReverseMap();
             CreateMap<Purchase, PurchaseDto>().ReverseMap();
+            CreateMap<Purchase, AddPurchaseDto>().ReverseMap();
+            CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();
             CreateMap<PurchaseDetail, PurchaseDetailDto>().ReverseMap();
             CreateMap<Stock, StockDto>().ReverseMap();
             CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Supplier, SupplierWithDetialsDto>().ReverseMap();
             CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
-
-
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
             CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>().ReverseMap();
             CreateMap<FuelDistribution, FuelDistributionDto>();
             CreateMap<FuelDistribution, AddFuelDistributionDto>().ReverseMap();
+            CreateMap<FuelDistribution, UpdateFuelDistributionDto>().ReverseMap();
             CreateMap<DailyFuelSell, DailyFuelSellDto>().ReverseMap();
-            // CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
         }
     }
 }
