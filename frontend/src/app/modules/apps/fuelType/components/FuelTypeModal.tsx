@@ -44,11 +44,12 @@ const FuelTypeModal: React.FC<FuelTypeModalProps> = ({ isOpen, onClose, handleRe
 
   // Formik Hook
   const formik = useFormik({
-    initialValues,
+    initialValues : initialValues,
     validationSchema: FuelTypeSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
         const payload = {
+          id: formik.values.id,
           name: formik.values.name,
           fuelUnit: Number(formik.values.fuelUnit) // convert to number
         };
@@ -64,6 +65,7 @@ const FuelTypeModal: React.FC<FuelTypeModalProps> = ({ isOpen, onClose, handleRe
           }
         } else {
           const response = await dispatch(updateFuelType(payload) as any)
+          debugger
           if (updateFuelType.fulfilled.match(response)) {
             handleFulfilledResponse(response)
             handleReloadTable()
@@ -99,8 +101,6 @@ const FuelTypeModal: React.FC<FuelTypeModalProps> = ({ isOpen, onClose, handleRe
   const handleError = (error: any) => {
     console.error('Error creating fuelType:', error.message)
   }
-  // console.log(formik.touched, 'touched touched')
-  console.log(formik.errors, 'llllllllllll')
   return (
     <Modal
       show={isOpen}

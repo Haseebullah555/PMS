@@ -1,11 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
 import { FuelTypeForm } from "./_module";
-import { t } from "i18next";
-import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import { getFuelTypes } from "../../../../../redux/slices/fuelType/FuelTypeSlice";
 import UnAuthorized from "../../../../customes/UnAuthorized";
+import Paginator from "../../../../customes/Paginator";
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
 const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
@@ -68,7 +67,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             setLoading(false)
         })
     }, [dispatch, reload, currentPage, perPage, search, sortColumn, sortOrder])
-   
+
     useEffect(() => {
         setData(fuelTypes.data)
         setPagination(fuelTypes.meta)
@@ -151,6 +150,15 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                             </tbody>
                         </table>
                     </div>
+                    {!memoizedLoading && memoizedData.length > 0 && (
+                        <Paginator
+                            pagination={pagination}
+                            pageChanged={(page: number) => {
+                                setLoading(true)
+                                setCurrentPage(page)
+                            }}
+                        />
+                    )}
                 </>
             ) : (
                 <UnAuthorized />

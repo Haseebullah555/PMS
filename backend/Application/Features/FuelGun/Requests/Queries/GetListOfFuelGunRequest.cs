@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.FuelGun.Requests.Queries
 {
-    public class GetListOfFuelGunsRequest : IRequest<PaginatedResult<FuelGunDto>>
+    public class GetListOfFuelGunsRequest : IRequest<PaginatedResult<FuelGunListDto>>
     {
         public string? Search { get; set; }
         public string? SortField { get; set; }

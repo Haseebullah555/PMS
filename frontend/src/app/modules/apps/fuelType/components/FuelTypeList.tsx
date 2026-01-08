@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DataTable from './DataTable'
-import { Dropdown, DropdownButton } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import FuelTypeModal from './FuelTypeModal'
 
@@ -16,10 +15,6 @@ const FuelTypeList = () => {
   const openModal = () => setModalOpen(true)
 
   const closeEditModal = () => setEditModalOpen(false)
-  const openEditModal = (FuelType: any) => {
-    setSelectedFuelType(FuelType)
-    setEditModalOpen(true)
-  }
 
   const [reloadTable, setReloadTable] = useState(false)
 

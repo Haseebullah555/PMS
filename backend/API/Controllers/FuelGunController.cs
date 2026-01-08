@@ -1,5 +1,4 @@
 using API.Controllers.Common;
-using Application.Dtos;
 using Application.Features.FuelGun.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Application.Features.FuelGun.Commands.Queries;
@@ -45,7 +44,7 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] FuelGunDto fuelGunDto)
+        public async Task<ActionResult> Create([FromBody] FuelGunListDto fuelGunDto)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +54,7 @@ namespace API.Controllers
             return BadRequest(new { message = "ایجاد نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
         [HttpPost("update")]
-        public async Task<ActionResult> Update(FuelGunDto fuelGunDto)
+        public async Task<ActionResult> Update(FuelGunListDto fuelGunDto)
         {
             if (ModelState.IsValid)
             {

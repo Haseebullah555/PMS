@@ -1,10 +1,9 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Features.sample.Requests.Commands;
+using Application.Features.Supplier.Requests.Commands;
 using AutoMapper;
-using Domain.Models;
 using MediatR;
 
-namespace Application.Features.sample.Handlers.Commands
+namespace Application.Features.Supplier.Handlers.Commands
 {
     public class UpdateSupplierCommandHandler : IRequestHandler<UpdateSupplierCommand>
     {

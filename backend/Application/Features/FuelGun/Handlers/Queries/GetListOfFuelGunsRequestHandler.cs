@@ -1,5 +1,4 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos;
 using Application.Dtos.Common;
 using Application.Dtos.FuelGunDtos;
 using Application.Features.FuelGun.Requests.Queries;
@@ -7,7 +6,7 @@ using AutoMapper;
 using MediatR;
 namespace Application.Features.FuelGun.Handlers.Queries
 {
-    public class GetListOfFuelGunsRequestHandler : IRequestHandler<GetListOfFuelGunsRequest, PaginatedResult<FuelGunDto>>
+    public class GetListOfFuelGunsRequestHandler : IRequestHandler<GetListOfFuelGunsRequest, PaginatedResult<FuelGunListDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -18,7 +17,7 @@ namespace Application.Features.FuelGun.Handlers.Queries
             _mapper = mapper;
         }
 
-        public async Task<PaginatedResult<FuelGunDto>> Handle(GetListOfFuelGunsRequest request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<FuelGunListDto>> Handle(GetListOfFuelGunsRequest request, CancellationToken cancellationToken)
         {
             // Await the repository task first, then operate on the resulting in-memory list as IQueryable
             var query = _unitOfWork.FuelGuns.Query();
@@ -61,9 +60,9 @@ namespace Application.Features.FuelGun.Handlers.Queries
                 .ToList();
 
             // Map to DTO
-            var fuelGunDtos = _mapper.Map<List<FuelGunDto>>(fuelGuns);
+            var fuelGunDtos = _mapper.Map<List<FuelGunListDto>>(fuelGuns);
 
-            return new PaginatedResult<FuelGunDto>
+            return new PaginatedResult<FuelGunListDto>
             {
                 Data = fuelGunDtos,
                 Total = total,

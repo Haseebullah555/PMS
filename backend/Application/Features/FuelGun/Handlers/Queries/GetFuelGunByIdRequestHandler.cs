@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Application.Features.FuelGun.Handlers.Queries
 {
-    public class GetFuelGunByIdRequestHandler : IRequestHandler<GetFuelGunByIdRequest, FuelGunDto>
+    public class GetFuelGunByIdRequestHandler : IRequestHandler<GetFuelGunByIdRequest, FuelGunListDto>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ namespace Application.Features.FuelGun.Handlers.Queries
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
-        public async Task<FuelGunDto> Handle(GetFuelGunByIdRequest request, CancellationToken cancellationToken)
+        public async Task<FuelGunListDto> Handle(GetFuelGunByIdRequest request, CancellationToken cancellationToken)
         {
             return await _unitOfWork.FuelGuns.GetFuelGunById(request.FuelGunId);
         }

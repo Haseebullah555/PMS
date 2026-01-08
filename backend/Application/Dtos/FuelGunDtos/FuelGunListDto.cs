@@ -2,7 +2,7 @@ using Application.Dtos.FuelDistribution;
 
 namespace Application.Dtos.FuelGunDtos
 {
-    public class FuelGunDto
+    public class FuelGunListDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

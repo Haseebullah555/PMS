@@ -6,8 +6,8 @@ namespace Application.Contracts.Interfaces
 {
     public interface IFuelGunRepository : IGenericRepository<FuelGun>
     {
-        Task<List<FuelGunDto>> GetAllFuelGuns();
-        Task<FuelGunDto> GetFuelGunById(int id);
+        Task<List<FuelGunListDto>> GetAllFuelGuns();
+        Task<FuelGunListDto> GetFuelGunById(int id);
         Task<FuelGun> GetFuelGunByAyncId(int id);
     }
 }

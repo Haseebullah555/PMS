@@ -55,6 +55,7 @@ namespace Application.Profiles
             CreateMap<Supplier, SupplierWithDetialsDto>().ReverseMap();
             CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
+            CreateMap<FuelStand, UpdateFuelStandDto>().ReverseMap();
             CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>().ReverseMap();
             CreateMap<FuelDistribution, FuelDistributionDto>();
             CreateMap<FuelDistribution, AddFuelDistributionDto>().ReverseMap();

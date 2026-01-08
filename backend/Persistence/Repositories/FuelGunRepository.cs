@@ -16,10 +16,10 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<FuelGunDto>> GetAllFuelGuns()
+        public async Task<List<FuelGunListDto>> GetAllFuelGuns()
         {
             var fuelGuns = _context.FuelGuns
-            .Select(fg => new FuelGunDto
+            .Select(fg => new FuelGunListDto
             {
                 Id = fg.Id,
                 Name = fg.Name,
@@ -32,11 +32,11 @@ namespace Persistence.Repositories
             return fuelGuns;
         }
 
-        public Task<FuelGunDto> GetFuelGunById(int id)
+        public Task<FuelGunListDto> GetFuelGunById(int id)
         {
             var fuelGun = _context.FuelGuns
             .Where(fg => fg.Id == id)
-            .Select(fg => new FuelGunDto
+            .Select(fg => new FuelGunListDto
             {
                 Id = fg.Id,
                 Name = fg.Name,

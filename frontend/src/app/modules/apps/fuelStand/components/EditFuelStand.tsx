@@ -35,6 +35,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
     if (selectedFuelStand) {
       const fuelGuns = selectedFuelStand.fuelGuns?.length
         ? selectedFuelStand.fuelGuns.map((d) => ({
+          id: d.id || null,
           name: d.name || "",
         }))
         : [
@@ -73,6 +74,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
       staffId: null,
       fuelGuns: [
         {
+          id: "",
           name: "",
         },
       ],
@@ -259,7 +261,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
               disabled={formik.isSubmitting}
             // classname='me-2 '
             >
-              {t('global.SAVE')}
+              {t('global.EDIT')}
             </Button>
           </div>
         </form>

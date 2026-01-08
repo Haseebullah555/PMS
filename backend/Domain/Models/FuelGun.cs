@@ -9,6 +9,6 @@ namespace Domain.Models
         public FuelStand? FuelStand { get; set; }
 
         public decimal? Balance { get; set; }
-        public ICollection<FuelDistribution> FuelDistributions { get; set; } = new List<FuelDistribution>();
+        public ICollection<FuelDistribution>? FuelDistributions { get; set; } = new List<FuelDistribution>();
     }
 }

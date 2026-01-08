@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using Application.Dtos.Common;
 using Application.Dtos.SupplierLoanPaymentDtos;
 
 namespace Application.Dtos.SupplierDtos
 {
-    public class SuppliersWithSupplierLoanPaymentsDto : CreateBaseDto
+    public class SuppliersWithSupplierLoanPaymentsDto
     {
+        public int Id { get; set; }
         [Display(Name = "Supplier Name"), Required(ErrorMessage = "Supplier Name is required")]
         public string Name { get; set; }
         [Display(Name = "Phone Number"), Required(ErrorMessage = "Phone number is required")]

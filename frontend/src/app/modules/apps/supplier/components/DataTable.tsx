@@ -87,7 +87,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     setData(suppliersList)
     setPagination(meta)
   }, [suppliers])
-
+console.log(suppliers,"suppliers")
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
   return (

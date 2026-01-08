@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Application.Dtos.Common;
-using Application.Dtos.FuelGunDtos;
 using Application.Dtos.StaffDtos;
 
 namespace Application.Dtos.FuelStandDtos
