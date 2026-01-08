@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Application.Dtos.Common;
-using Application.Dtos.FuelStandDtos;
 
 namespace Application.Dtos.StaffDtos
 {
@@ -17,6 +16,5 @@ namespace Application.Dtos.StaffDtos
         [Display(Name = "Hire Date"), Required(ErrorMessage = "{0} is required")]
         public DateOnly HireDate { get; set; }
         public bool Status { get; set; }
-        public FuelStandDto? FuelStand { get; set; }
     }
 }

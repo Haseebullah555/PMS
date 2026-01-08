@@ -28,7 +28,7 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
   const StaffSchema = Yup.object().shape({
     fullName: Yup.string().required(t('validation.required', { name: t('staff.staff') })),
     position: Yup.string().required(t('validation.required', { name: t('staff.position') })),
-    salary: Yup.string().required(t('validation.required', { name: t('staff.salary') })),
+    salary: Yup.number().required(t('validation.required', { name: t('staff.salary') })),
     hireDate: Yup.string().required(t('validation.required', { name: t('staff.hireDate') })),
     phone: Yup.string()
       .required(t('validation.required', { name: t('global.phone') })) 
@@ -138,7 +138,7 @@ const CreateStaffModal: React.FC<CreateStaffModalProps> = ({ isOpen, onClose, ha
                     {t('staff.salary')} <span className='text-danger'>*</span>
                   </label>
                   <input
-                    type='text'
+                    type='number'
                     {...formik.getFieldProps('salary')}
                     className={clsx('form-control', {
                       'is-invalid': formik.touched.salary && Boolean(formik.errors.salary),
