@@ -1,9 +1,9 @@
+using Application.Dtos.Common;
 
 namespace Application.Dtos.SupplierLoanPaymentDtos
 {
-    public class SupplierLoanPaymentDto
+    public class AddSupplierLoanPayment : CreateBaseDto
     {
-        public int Id { get; set; }
         public int SupplierId { get; set; }
         public decimal PaidLoanAmount { get; set; }
         public DateOnly PaymentDate { get; set; }

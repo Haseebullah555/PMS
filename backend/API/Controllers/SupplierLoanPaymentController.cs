@@ -1,5 +1,4 @@
 using API.Controllers.Common;
-using Application.Dtos;
 using Application.Dtos.SupplierLoanPaymentDtos;
 using Application.Features.Purchase.Requests.Queries;
 using Application.Features.SupplierLoanPayment.Requests.Commands;
@@ -41,11 +40,11 @@ namespace API.Controllers
         }
 
         [HttpPost("createSupplierLoanPayment")]
-        public async Task<IActionResult> CreateSupplierLoanPayment(SupplierLoanPaymentDto supplierLoanPaymentDto)
+        public async Task<IActionResult> CreateSupplierLoanPayment(AddSupplierLoanPayment supplierLoanPaymentDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddSupplierLoanPaymentCommand{SupplierLoanPaymentDto = supplierLoanPaymentDto});
+                await _mediator.Send(new AddSupplierLoanPaymentCommand{AddSupplierLoanPaymentDto = supplierLoanPaymentDto});
                 return Ok(new { message = "پرداخت قرضه با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد پرداخت قرضه ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

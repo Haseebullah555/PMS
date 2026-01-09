@@ -16,7 +16,7 @@ const getSupplierLoanPayments = async (params: any) => {
   const response = await axiosInterceptor.get(`/SupplierLoanPayment/getSuppliersWithSupplierLoanPayments`, {params})
   return response.data
 }
-const store = async (formData: any) => {
+const store = async (formData: any) => {debugger
   console.log('formData', formData);
   const response = await axiosInterceptor.post('/SupplierLoanPayment/createSupplierLoanPayment', formData)
   return response.data

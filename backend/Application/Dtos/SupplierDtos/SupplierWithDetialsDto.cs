@@ -7,6 +7,7 @@ namespace Application.Dtos.SupplierDtos
 {
     public class SupplierWithDetialsDto : CreateBaseDto
     {
+        public int Id { get; set; }
         [Display(Name = "Supplier Name"), Required(ErrorMessage = "Supplier Name is required")]
         public string Name { get; set; }
         [Display(Name = "Phone Number"), Required(ErrorMessage = "Phone number is required")]

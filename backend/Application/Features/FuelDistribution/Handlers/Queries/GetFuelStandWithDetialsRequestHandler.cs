@@ -1,10 +1,9 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Dtos.Common;
 using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelDistributionDtos;
 using Application.Features.FuelDistribution.Requests.Queries;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.FuelDistribution.Handlers.Queries
 {

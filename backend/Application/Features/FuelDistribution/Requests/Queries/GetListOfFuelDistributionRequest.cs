@@ -1,5 +1,5 @@
 using Application.Dtos.Common;
-using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelDistributionDtos;
 using MediatR;
 
 namespace Application.Features.FuelDistribution.Requests.Queries

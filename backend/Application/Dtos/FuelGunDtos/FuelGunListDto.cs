@@ -1,4 +1,4 @@
-using Application.Dtos.FuelDistribution;
+using Application.Dtos.FuelDistributionDtos;
 
 namespace Application.Dtos.FuelGunDtos
 {

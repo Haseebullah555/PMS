@@ -22,20 +22,20 @@ namespace Application.Features.SupplierLoanPayment.Handlers.Commands
 
             // 2️⃣ Update the balace column in supplier and set the uppaidAmount
             // 3️⃣ Update the supplier balance
-            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.SupplierLoanPaymentDto.SupplierId);
+            var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.AddSupplierLoanPaymentDto.SupplierId);
 
             if (supplier is null)
             {
                 throw new InvalidOperationException("Supplier not found.");
             }
             // Update balance (subtract paid amount)
-            supplier.Balance -= request.SupplierLoanPaymentDto.PaidLoanAmount;
+            supplier.Balance -= request.AddSupplierLoanPaymentDto.PaidLoanAmount;
 
             _unitOfWork.Suppliers.Update(supplier);
             await _unitOfWork.SaveAsync(cancellationToken);
 
 
-            var supplierLoanPayment = _mapper.Map<Domain.Models.SupplierLoanPayment>(request.SupplierLoanPaymentDto);
+            var supplierLoanPayment = _mapper.Map<Domain.Models.SupplierLoanPayment>(request.AddSupplierLoanPaymentDto);
             // Save to DB
             await _unitOfWork.SupplierLoanPayments.AddAsync(supplierLoanPayment);
             await _unitOfWork.SaveAsync(cancellationToken);

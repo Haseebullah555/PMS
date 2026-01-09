@@ -34,6 +34,7 @@ namespace Application.Profiles
             CreateMap<FuelTypes, AddFuelTypeDto>().ReverseMap();
             CreateMap<FuelTypes, UpdateFuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
+            CreateMap<FuelGun, FuelGunListDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();
             CreateMap<FuelStand, CreateFuelStandDto>();
             CreateMap<ExtraExpenses, ExtraExpensesDto>().ReverseMap();
@@ -46,6 +47,7 @@ namespace Application.Profiles
             CreateMap<Staff, UpdateStaffDto>().ReverseMap();
             CreateMap<StaffPayment, StaffPaymentDto>().ReverseMap();
             CreateMap<SupplierLoanPayment, SupplierLoanPaymentDto>().ReverseMap();
+            CreateMap<SupplierLoanPayment, AddSupplierLoanPayment>().ReverseMap();
             CreateMap<Purchase, PurchaseDto>().ReverseMap();
             CreateMap<Purchase, AddPurchaseDto>().ReverseMap();
             CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();

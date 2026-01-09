@@ -1,8 +1,7 @@
-using Application.Dtos.Common;
 using Application.Dtos.FuelGunDtos;
 using Application.Dtos.FuelTypeDtos;
 
-namespace Application.Dtos.FuelDistribution
+namespace Application.Dtos.FuelDistributionDtos
 {
     public class FuelDistributionDto
     {
