@@ -18,6 +18,7 @@ import fuelStandSlice from '../slices/fuelStand/FuelStandSlice'
 import supplierLoanPaymentSlice from '../slices/supplierLoanPayment/SupplierLoanPaymentSlice'
 import fuelDistributionSlice from '../slices/fuelDistribution/FuelDistributionSlice'
 import  dailyFuelSellSlice  from '../slices/DailyFuelSell/DailyFuelSellSlice'
+import  customerLoanPaymentSlice  from '../slices/customerLoanPayment/CustomerLoanPaymentSlice'
 
 export const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ export const store = configureStore({
     supplierLoanPayment: supplierLoanPaymentSlice,
     fuelDistribution: fuelDistributionSlice,
     dailyFuelSell: dailyFuelSellSlice,
+    customerLoanPayment: customerLoanPaymentSlice
 
   },
 })

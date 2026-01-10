@@ -59,6 +59,12 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
       <SidebarMenuItem
+        to='/customer-loan-payment/list'
+        title={t('customerLoanPayment.list')}
+        icon='element-11'
+        fontIcon='bi-app-indicator'
+      />
+      <SidebarMenuItem
         to='/partner/list'
         title={t('partner.partners')}
         icon='element-11'

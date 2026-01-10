@@ -21,6 +21,7 @@ import FuelStandManagementRoutes from '../modules/apps/fuelStand/FuelStandmanage
 import FuelDistributionManagementRoutes from '../modules/apps/fuelDistribution/FuelDistributionManagementRoutes'
 import StaffPaymentManagementRoutes from '../modules/apps/staffPayment/StaffPaymentManagementRoutes'
 import DailyFuelSellManagementRoutes from '../modules/apps/dailyFuelSell/DailyFuelSellManagementRoutes'
+import CustomerLoanPaymentManagementRoutes from '../modules/apps/customerLoanPayment/CustomerLoanPaymentManagementRoutes'
 
 const PrivateRoutes = () => {
 
@@ -89,6 +90,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <SupplierLoanPaymentManagementRoutes />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='customer-loan-payment/*'
+          element={
+            <SuspensedView>
+              <CustomerLoanPaymentManagementRoutes />
             </SuspensedView>
           }
         />

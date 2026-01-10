@@ -144,6 +144,7 @@ const FuelStandWithDetials = () => {
                                       onClick={() => openCreateModal(i.id)}
                                     >
                                       <i className="fa-solid fa-plus"></i>
+                                      {t('fuelDistribution.fuelDistribution')}
                                     </button>
 
                                     <button
@@ -153,6 +154,16 @@ const FuelStandWithDetials = () => {
                                       }
                                     >
                                       <i className="fa-solid fa-arrow-up"></i>
+                                      {t('dailyFuelSell.dailyFuelSell')}
+                                    </button>
+                                    <button
+                                      className="btn btn-sm btn-danger fw-bold"
+                                      onClick={() =>
+                                        openCreateDailyFuelSellModal(item.id, i.id)
+                                      }
+                                    >
+                                      <i className="fa-solid fa-arrow-up"></i>
+                                      {t('dailyFuelSell.loanSell')}
                                     </button>
                                   </div>
                                 </td>

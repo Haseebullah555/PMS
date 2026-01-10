@@ -285,11 +285,29 @@
   "supplier": {
     "suppliers": "تأمین کنندگان",
     "supplier": "تأمین کننده",
-    "balance":"بیلانس"
+    "balance": "بیلانس"
   },
   "customer": {
     "customers": "مشتریان",
+    "balance": "بیلانس",
     "customer": "مشتری"
+  },
+  "customerLoanPayment": {
+    "list": "قرضه های مشتریان",
+    "customerLoanPayments": "پرداخت قرضه مشتریان",
+    "loanPayment": "پرداخت قرضه",
+    "paidAmount": "مقدار پرداخت شده",
+    "unPaidAmound": "مقدار باقی مانده",
+    "purchaseDetial": "جزیات خریداری",
+    "paidLoanAmount": "مقدار پرداخت",
+    "paidLoanAmounts": "مقدار پرداخت ها",
+    "paymentDate": "تاریخ پرداخت",
+    "makeLoanPayment": "پرداخت قرضه",
+    "save": "ثبت پرداخت",
+    "payments": "پرداخت های مشتریان",
+    "payment": "پرداخت ها",
+    "paymentList": "لیست پرداخت ها",
+    "customerLoans": "قرضه های مشتریان"
   },
   "good": {
     "goods": "اجناس",
@@ -302,7 +320,6 @@
     "extraExpenses": "مصارف متفرقه",
     "expenseType": "نوع مصرف",
     "amount": "مقدار مصرف"
-
   },
   "partner": {
     "partners": "شریکان",
@@ -347,7 +364,7 @@
     "aviliableStock": "انبار موجود",
     "tonQuantity": "مقدار به تن",
     "literQuantity": "مقدار به لیتر",
-    "unitPrice": "قیمت فی واحد",    
+    "unitPrice": "قیمت فی واحد",
     "quantity": "مقدار موجود"
   },
   "fuelType": {
@@ -384,22 +401,22 @@
     "paymentDate": "تاریخ پرداخت",
     "makeLoanPayment": "پرداخت قرضه",
     "save": "ثبت پرداخت",
-    "list" : "قرضه های تامین کننده گان",
+    "list": "قرضه های تامین کننده گان",
     "payments": "پرداخت های تامین کننده گان",
     "payment": "پرداخت ها",
     "paymentList": "لیست پرداخت ها",
-    "supplierLoans":"قرضه های تامین کننده گان"
-  }, 
+    "supplierLoans": "قرضه های تامین کننده گان"
+  },
   "fuelDistribution": {
-    "fuelGun": "تفنگچه تیل", 
+    "fuelGun": "تفنگچه تیل",
     "fuelStandWithDetial": "توزیع تیل به پایه ها",
-    "fuelDistribution": "توزیع تیل",
+    "fuelDistribution": "توزیع",
     "quantity": "مقدار توزیع ",
     "balance": "بیلانس",
     "fuelDistributionToStand": "توزیع تیل به پایه"
   },
   "dailyFuelSell": {
-    "dailyFuelSell": "فروش روزمره", 
+    "dailyFuelSell": "فروش",
     "dailyFuelSells": "فروشات روزمره",
     "currentMeterDegree": "درجه فعلی میتر",
     "oldMeterDegree": "درجه قبلی میتر",
@@ -408,6 +425,7 @@
     "totalPrice": "قیمت کل",
     "collectedMoney": "پول جمع آوری شده",
     "note": "توضیحات",
+    "loanSell": "قرض",
     "difference": "تفاوت"
   }
 }
