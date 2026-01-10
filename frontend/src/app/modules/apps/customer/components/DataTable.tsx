@@ -120,15 +120,15 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
             </div>
           </div>
 
-          <div className='tableFixHead  table-responsive' dir='rtl'>
-            <table className='table table-hover table table-striped gy-4 gs-5  gy-4 gs-4'>
-              <thead className='bg-gray-500'>
+          <div className='tableFixHead' dir='rtl'>
+            <table className='table table-hover table table-striped  table-responsive gy-4 gs-5  gy-4 gs-4'>
+              <thead className='bg-gray-500 text-white'>
                 <tr>
                   {headers.map((header: any) => (
                     <th
                       key={header.headerName}
                       onClick={(e) => handleSort(header.sort)}
-                      className={`fs-6 fw-bold ${header.headerName === 'عمل' ? 'text-center' : ''}`}
+                      className={`fs-6 fw-bold text-center`}
                     >
                       {header.headerName.toUpperCase().replace('_', ' ')}
                       {header.sort === sortColumn ? (
@@ -147,7 +147,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
               <tbody>
                 {!memoizedLoading &&
                   memoizedData.map((item, index) => (
-                    <tr key={index} className='fs-5'>
+                    <tr key={index} className='fs-5 text-center'>
                       <td className='fw-bolder'>{index + 1}</td>
                       <td>{item.name}</td>
                       <td>{item.phoneNumber}</td>

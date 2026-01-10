@@ -63,6 +63,8 @@ namespace Application.Profiles
             CreateMap<FuelDistribution, AddFuelDistributionDto>().ReverseMap();
             CreateMap<FuelDistribution, UpdateFuelDistributionDto>().ReverseMap();
             CreateMap<DailyFuelSell, DailyFuelSellDto>().ReverseMap();
+            CreateMap<DailyFuelSell, AddDailyFuelSellDto>().ReverseMap();
+            CreateMap<DailyFuelSell, UpdateDailyFuelSellDto>().ReverseMap();
         }
     }
 }

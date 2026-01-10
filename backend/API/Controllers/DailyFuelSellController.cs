@@ -1,5 +1,4 @@
 using API.Controllers.Common;
-using Application.Dtos;
 using Application.Dtos.DailyFuelSellDtos;
 using Application.Features.DailyFuelSell.Requests.Commands;
 using Application.Features.DailyFuelSell.Requests.Queries;

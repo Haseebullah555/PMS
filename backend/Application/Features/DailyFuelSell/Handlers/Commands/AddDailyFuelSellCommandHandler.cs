@@ -45,7 +45,11 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
             // update the stock table (quantityInLiter) column base in fuelTypeId 
             // =============================================
 
-             var fuelDistributionLastRecord = _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.AddDailyFuelSellDto.FuelGunId);
+             var fuelDistributionLastRecord = await _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.AddDailyFuelSellDto.FuelGunId);
+             var recordOnStock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(fuelDistributionLastRecord.FuelTypeId);
+             recordOnStock.QuantityInLiter -= request.AddDailyFuelSellDto.SoldFuelAmount;
+             _unitOfWork.Stocks.Update(recordOnStock);
+             await _unitOfWork.SaveAsync(cancellationToken);
 
             // save all transactions
             await tx.CommitAsync(cancellationToken);
