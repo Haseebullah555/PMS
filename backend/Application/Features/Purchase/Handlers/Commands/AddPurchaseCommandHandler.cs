@@ -81,7 +81,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                         stock = new Domain.Models.Stock
                         {
                             FuelTypeId = item.FuelTypeId,
-                            QuantityInLiter = (item.Quantity * 1000m) / item.Density,
+                            QuantityInLiter = (item.Quantity * 1000) / item.Density,
 
                             UnitPrice = item.UnitPrice, // First time purchase
                             // Density = item.Density,
@@ -97,7 +97,7 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                         decimal newValue = oldValue + detail.TotalPrice;
 
-                        stock.QuantityInLiter += (item.Quantity * 1000m) / item.Density;
+                        stock.QuantityInLiter += (item.Quantity * 1000) / item.Density;
                         stock.UnitPrice = newValue / stock.QuantityInLiter;
 
                         _unitOfWork.Stocks.Update(stock);

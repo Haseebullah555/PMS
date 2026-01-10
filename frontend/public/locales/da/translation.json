@@ -292,6 +292,9 @@
     "balance": "بیلانس",
     "customer": "مشتری"
   },
+  "customerLoan": {
+    "customerLoans": "قرضه های مشتریان"
+  },
   "customerLoanPayment": {
     "list": "قرضه های مشتریان",
     "customerLoanPayments": "پرداخت قرضه مشتریان",

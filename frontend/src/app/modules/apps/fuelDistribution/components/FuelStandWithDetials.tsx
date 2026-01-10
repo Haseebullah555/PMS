@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
-import { table } from 'console'
 import CreateFuelDistributionModal from './CreateFuelDistributionModal'
 import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
 

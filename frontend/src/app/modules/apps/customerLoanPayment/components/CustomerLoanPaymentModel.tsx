@@ -18,7 +18,6 @@ interface EditCustomerLoanPaymentModalProps {
 
 const CustomerLoanPaymentModel: React.FC<EditCustomerLoanPaymentModalProps> = ({ isOpen, onClose, selectedCustomerLoanPayment, handleReloadTable }) => {
 
-  console.log(selectedCustomerLoanPayment, '=============');
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 

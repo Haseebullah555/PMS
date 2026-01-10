@@ -12,6 +12,6 @@ namespace Domain.Models
         public decimal FuelUnitPrice { get; set; } // نرخ واحد تیل
         public decimal TotalPrice { get; set; } // قیمت مجموعی
         public DateTime LoanDate { get; set; }
-        public String? Description { get; set; }
+        public string? Description { get; set; }
     }
 }
