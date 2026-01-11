@@ -19,5 +19,12 @@ namespace Persistence.Repositories
             return await _context.Customers
                 .FirstOrDefaultAsync(c => c.Id == customerId);
         }
+
+        public IQueryable<Customer?> GetCustomersWithDetails()
+        {
+            return _context.Customers
+                .Include(s => s.CustomerLoans)
+                .Include(s => s.CustomerLoanPayments);
+        }
     }
 }

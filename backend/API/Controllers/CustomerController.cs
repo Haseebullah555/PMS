@@ -1,6 +1,7 @@
 using API.Controllers.Common;
 using Application.Dtos;
 using Application.Dtos.CustomerDtos;
+using Application.Features.Customer.Requests.Queries;
 using Application.Features.sample.Requests.Commands;
 using Application.Features.sample.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
@@ -57,5 +58,33 @@ namespace API.Controllers
             }
             return BadRequest(new { message = "تجدید مشتری ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
+
+         [HttpGet("getCustomersWithDetials")]
+        public async Task<ActionResult> GetCustomersWithDetials([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
+        {
+            var result = await _mediator.Send(new GetCustomersWithDetailsRequest
+            {
+                Search = search,
+                SortField = sort_field,
+                SortOrder = sort_order,
+                Page = page,
+                PerPage = per_page
+            });
+
+            return Ok(new
+            {
+                data = result.Data,
+                meta = new
+                {
+                    total = result.Total,
+                    current_page = result.CurrentPage,
+                    per_page = result.PerPage,
+                    last_page = result.LastPage,
+                    from = result.From,
+                    to = result.To
+                }
+            });
+        }
+
     }
 }

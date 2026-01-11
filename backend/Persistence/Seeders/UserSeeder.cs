@@ -21,7 +21,7 @@ public class UserSeeder
                 Id = Guid.Parse("b2f8e888-dfc9-4c4a-9b76-d7f0a83f5101"),
                 UserName = "admin",
                 Email = "admin@gmail.com",
-                PasswordHash = "AQAAAAIAAYagAAAAEESismBFxxCDGsZhVMezK/U2BT+dyV4mI+ivulmwALP//fbwRF+yKRyJs1H6xzMf1w==",
+                PasswordHash = "AQAAAAIAAYagAAAAEESismBFxxCDGsZhVMezK/U2BT+dyV4mI+ivulmwALP//fbwRF+yKRyJs1H6xzMf1w==", // Admin@123
                 Role = "Admin",
                 RefreshToken = "b0ab4d0e-6be8-4fb2-81a0-0e5ec1a9a8f3",
                 RefreshTokenExpiryTime = DateTime.SpecifyKind(new DateTime(2030, 1, 1), DateTimeKind.Utc)
