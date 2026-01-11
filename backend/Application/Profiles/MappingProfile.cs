@@ -70,6 +70,7 @@ namespace Application.Profiles
             CreateMap<Customer, CustomersWithDetailsDto>().ReverseMap();
             CreateMap<Customer, CustomerLoanDto>().ReverseMap();
             CreateMap<Customer, CustomerLoanPaymentDto>().ReverseMap();
+            CreateMap<CustomerLoan, AddCustomerLaonDto>().ReverseMap();
         }
     }
 }
