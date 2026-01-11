@@ -293,7 +293,11 @@
     "customer": "مشتری"
   },
   "customerLoan": {
-    "customerLoans": "قرضه های مشتریان"
+    "customerLoans": "قرضه های مشتریان",
+    "fuelUnitPrice": "قرضه های مشتریان",
+    "totalPrice": "قرضه های مشتریان",
+    "loanDate": "قرضه های مشتریان",
+    "fuelAmount": "مقدار تیل"
   },
   "customerLoanPayment": {
     "list": "قرضه های مشتریان",

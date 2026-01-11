@@ -5,7 +5,7 @@ import DataTable from './Datatable'
 import { Dropdown, DropdownButton } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import CustomerWithCustomerLoanPaymentModel from './CustomerWithCustomerLoanPaymentModel'
-import CustomerLoanPaymentModel from './CustomerLoanPaymentModel'
+import CustomerLoanPaymentModel from './CustomerLoanPaymentModal'
 
 const CustomerLoanPaymentList = () => {
 

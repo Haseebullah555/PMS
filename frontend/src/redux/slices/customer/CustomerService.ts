@@ -2,16 +2,21 @@ import axios from 'axios'
 const axiosInterceptor = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // ✅ this adds /api automatically
 })
-// Get users
+// Get list of All customers
+const getCustomersList = async () => {
+  const response = await axiosInterceptor.get(`/Customer/listAll`)
+  return response.data
+}
+// Get customers
 const getCustomers = async (params: any) => {
   const response = await axiosInterceptor.get(`/Customer/list`, {params})
   return response.data
 }
-// Get roles by system id.
-// const getRolesBySystemId = async (systems_id: any) => {
-//   const response = await axiosInterceptor.post(`api/role/get-roles-by-system-id`, {systems_id: systems_id})
-//   return response.data
-// }
+// Get customers with Details
+const getCustomersWithDetails = async (params: any) => {
+  const response = await axiosInterceptor.get(`/Customer/getCustomersWithDetials`, {params})
+  return response.data
+}
 
 const store = async (formData: any) => {
   console.log('formData', formData);
@@ -26,7 +31,8 @@ const update = async (formData: any) => {
 
 const CustomerService = {
   getCustomers,
-  // getRolesBySystemId,
+  getCustomersList,
+  getCustomersWithDetails,
   store,
   update,
 }

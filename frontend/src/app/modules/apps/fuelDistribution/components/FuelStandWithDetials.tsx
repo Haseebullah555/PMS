@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
 import CreateFuelDistributionModal from './CreateFuelDistributionModal'
 import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
+import CustomerLoanModal from '../../customerLoan/components/CustomerLoanModal'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -14,12 +15,14 @@ const FuelStandWithDetials = () => {
   const { t } = useTranslation()
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
+  const [isCustomerLoanModalOpen, setCustomerLoanModalOpen] = useState(false);
   const [selectedStand, setSelectedStand] = useState(null);
   const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
   const [selectedDailySell, setSelectedDailySell] = useState<any>();
+  const [selectedCustomerLoan, setSelectedCustomerLoan] = useState(null);
   const [formMode, setFormMode] = useState<"update" | "send">("send");
   const closeCreateModal = () => setCreateModalOpen(false)
-
+  const closeCustomerLoanModal = () => setCustomerLoanModalOpen(false);
   const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number) => {
     setSelectedDailySell({ fuelStandId, fuelGunId });
     setCreateDailyFuelSellModalOpen(true)
@@ -29,7 +32,10 @@ const FuelStandWithDetials = () => {
     setSelectedStand(item)
     setCreateModalOpen(true)
   }
-  // const openCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(true)
+  const openCustomerLoanModal = (item: any) => {
+    setSelectedCustomerLoan(item)
+    setCustomerLoanModalOpen(true)
+  }
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
   const dispatch = useAppDispatch()
 
@@ -158,7 +164,7 @@ const FuelStandWithDetials = () => {
                                     <button
                                       className="btn btn-sm btn-danger fw-bold"
                                       onClick={() =>
-                                        openCreateDailyFuelSellModal(item.id, i.id)
+                                        openCustomerLoanModal(item.id)
                                       }
                                     >
                                       <i className="fa-solid fa-arrow-up"></i>
@@ -198,7 +204,16 @@ const FuelStandWithDetials = () => {
         <CreateDailyFuelSellModal
           isOpen={isCreateDailyFuelSellModalOpen}
           selectedDailySell={selectedDailySell}
-          onClose={() => setCreateDailyFuelSellModalOpen(false)}
+          onClose={() => setCustomerLoanModalOpen(false)}
+          handleReloadTable={handleReloadTable}
+          mode={formMode}
+        />
+      )}
+      {isCustomerLoanModalOpen && (
+        <CustomerLoanModal
+          isOpen={isCustomerLoanModalOpen}
+          selectedCustomerLoan={selectedCustomerLoan}
+          onClose={closeCustomerLoanModal}
           handleReloadTable={handleReloadTable}
           mode={formMode}
         />

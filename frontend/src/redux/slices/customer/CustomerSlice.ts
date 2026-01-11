@@ -8,18 +8,47 @@ import CustomerService from './CustomerService'
 
 type customerSate = {
   customers: any
+  customerDetails: any
+  allCustomers: any
 }
 
 const initialState: customerSate = {
   customers: {
     data: [],
   },
+  customerDetails: null,
+  allCustomers: null
 }
 
-//get Customer from server
+//get Customers Param base from server
+export const getCustomersList = createAsyncThunk('/Customer/listAll', async (_, thunkAPI) => {
+  try {
+    return await CustomerService.getCustomersList()
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+
+//get Customer Param base from server
 export const getCustomer = createAsyncThunk('/Customer/fgh', async (params: any, thunkAPI) => {
   try {
     return await CustomerService.getCustomers(params)
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+//get Customers With Details 
+export const getCustomerWithDetails = createAsyncThunk('/Customer/customerDetails', async (params: any, thunkAPI) => {
+  try {
+    return await CustomerService.getCustomersWithDetails(params)
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -66,6 +95,14 @@ export const customerSlice = createSlice({
     builder.addCase(getCustomer.fulfilled, (state, action: PayloadAction) => {
         console.log('action.payload', action.payload)
       state.customers = action.payload
+    })
+    builder.addCase(getCustomerWithDetails.fulfilled, (state, action: PayloadAction) => {
+        console.log('action.payload', action.payload)
+      state.customerDetails = action.payload
+    })
+    builder.addCase(getCustomersList.fulfilled, (state, action: PayloadAction) => {
+        console.log('action.payload', action.payload)
+      state.allCustomers = action.payload
     })
   },
 })

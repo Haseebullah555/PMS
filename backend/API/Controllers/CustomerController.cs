@@ -1,5 +1,4 @@
 using API.Controllers.Common;
-using Application.Dtos;
 using Application.Dtos.CustomerDtos;
 using Application.Features.Customer.Requests.Queries;
 using Application.Features.sample.Requests.Commands;
