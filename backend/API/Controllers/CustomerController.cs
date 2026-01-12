@@ -11,10 +11,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class CustomerController : BaseApiController
     {
-        [HttpGet("list")]
+        [HttpGet("listWithParams")]
         public async Task<ActionResult> GetAllCustomers([FromQuery] string? search, [FromQuery] string? sort_field, [FromQuery] string? sort_order, [FromQuery] int page = 1, [FromQuery] int per_page = 10)
         {
-            var result = await _mediator.Send(new GetListOfCustomersRequest
+            var result = await _mediator.Send(new GetListWithParamsOfCustomersRequest
             {
                 Search = search,
                 SortField = sort_field,
@@ -36,6 +36,13 @@ namespace API.Controllers
                     to = result.To
                 }
             });
+        }
+        [HttpGet("list")]
+        public async Task<ActionResult> GetCustomersList()
+        {
+            var result = await _mediator.Send(new GetListOfCustomersRequest());
+
+            return Ok(result);
         }
         [HttpPost("Create")]
         public async Task<ActionResult> Create(AddCustomerDto addCustomerDto)

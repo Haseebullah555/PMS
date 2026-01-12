@@ -2,19 +2,20 @@ import axios from 'axios'
 const axiosInterceptor = axios.create({
   baseURL: process.env.REACT_APP_API_URL, // ✅ this adds /api automatically
 })
-// Get list of All customers
+
+// Get customers list
 const getCustomersList = async () => {
-  const response = await axiosInterceptor.get(`/Customer/listAll`)
+  const response = await axiosInterceptor.get(`/Customer/list`)
   return response.data
 }
-// Get customers
-const getCustomers = async (params: any) => {
-  const response = await axiosInterceptor.get(`/Customer/list`, {params})
+//  Get list with params of All customers
+const getCustomersListWithParams = async (params: any) => {
+  const response = await axiosInterceptor.get(`/Customer/listWithParams`, { params })
   return response.data
 }
 // Get customers with Details
 const getCustomersWithDetails = async (params: any) => {
-  const response = await axiosInterceptor.get(`/Customer/getCustomersWithDetials`, {params})
+  const response = await axiosInterceptor.get(`/Customer/getCustomersWithDetials`, { params })
   return response.data
 }
 
@@ -30,7 +31,7 @@ const update = async (formData: any) => {
 }
 
 const CustomerService = {
-  getCustomers,
+  getCustomersListWithParams,
   getCustomersList,
   getCustomersWithDetails,
   store,

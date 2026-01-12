@@ -19,7 +19,7 @@ const getRolesBySystemId = async (systems_id: any) => {
   return response.data
 }
 
-const store = async (formData: any) => {debugger
+const store = async (formData: any) => {
   console.log('formData', formData);
   const response = await axiosInterceptor.post('/Staff/create', formData)
   return response.data

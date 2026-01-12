@@ -29,7 +29,7 @@ const store = async (formData: any) => {
   return response.data
 }
 
-const update = async (formData: any) => {debugger
+const update = async (formData: any) => {
   console.log(formData,"1231313135");
   const response = await axiosInterceptor.post('/Supplier/update', formData)
   return response.data

@@ -21,9 +21,9 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
             await using var tx = await _unitOfWork.BeginTransactionAsync();
             try
             {
-                // =======================================
+                // ===========================================
                 // 1- Update the balace column in customer 
-                // =======================================
+                // ===========================================
                 var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.AddCustomerLaonDto.CustomerId);
                 if (customer is null)
                 {
@@ -40,6 +40,8 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 var result = _mapper.Map<Domain.Models.CustomerLoan>(request.AddCustomerLaonDto);
                 await _unitOfWork.CustomerLoans.AddAsync(result);
                 await _unitOfWork.SaveAsync(cancellationToken);
+
+                await tx.CommitAsync(cancellationToken);
             }
             catch (Exception ex)
             {

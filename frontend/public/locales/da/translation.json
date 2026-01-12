@@ -294,8 +294,8 @@
   },
   "customerLoan": {
     "customerLoans": "قرضه های مشتریان",
-    "fuelUnitPrice": "قرضه های مشتریان",
-    "totalPrice": "قرضه های مشتریان",
+    "fuelUnitPrice": "قیمت فی واحد تیل",
+    "totalPrice": "مجموعه قیمت",
     "loanDate": "قرضه های مشتریان",
     "fuelAmount": "مقدار تیل"
   },

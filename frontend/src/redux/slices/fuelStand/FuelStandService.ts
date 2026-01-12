@@ -13,7 +13,7 @@ const store = async (formData : any) => {
     return response.data;
 }
 
-const update = async (formData : any) => {debugger
+const update = async (formData : any) => {
     const response = await axiosInterceptor.post('/FuelStand/update', formData);
     return response.data
 }

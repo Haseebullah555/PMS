@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { initialValues } from './_module'
+import { createInitialValues } from './_module'
 import { useTranslation } from 'react-i18next'
 import clsx from 'clsx'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
 import { Button, Modal } from 'react-bootstrap'
 import { useIntl } from 'react-intl'
 import { toast } from 'react-toastify'
-import { storeCustomer } from '../../../../../redux/slices/customer/CustomerSlice'
+import {  getCustomersList, storeCustomer } from '../../../../../redux/slices/customer/CustomerSlice'
+import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
+import { storeCustomerLoan } from '../../../../../redux/slices/customerLoan/CustomerLoanSlice'
 
 // Define the props for the modal
 interface CustomerLoanModalProps {
@@ -17,11 +19,10 @@ interface CustomerLoanModalProps {
   handleReloadTable: () => void
   selectedCustomerLoan: any
   mode: any
-
 }
 
 const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, handleReloadTable, selectedCustomerLoan, mode }) => {
-  const intl = useIntl()
+
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState(false);
@@ -30,22 +31,20 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
 
   // Form Validation Schema
   const CustomerLoanSchema = Yup.object().shape({
-    name: Yup.string().required(t('validation.required', { name: t('customer.customer') })),
-    address: Yup.string().required(t('validation.required', { name: t('global.address') })),
-    phoneNumber: Yup.string()
-      .required(t('validation.required', { name: t('global.phone') }))
-      .matches(/^[0-9+]+$/, t('validation.matches', { name: t('global.phone') }))
-      .matches(/^(?:\+93|0)?7\d{8}$/, t('validation.invalidPhone', { name: t('global.phone') }))
+    customerId: Yup.number().required(t('validation.required', { name: t('customer.customer') })),
+    fuelTypeId: Yup.number().required(t('validation.required', { name: t('fuelType.fuelType') })),
+    fuelAmount: Yup.number().required(t('validation.required', { name: t('fuelType.fuelAmount') })),
+    fuelUnitPrice: Yup.number().required(t('validation.required', { name: t('fuelType.fuelUnitPrice') }))
   })
 
   // Formik Hook
   const formik = useFormik({
-    initialValues,
+    initialValues: createInitialValues,
     validationSchema: CustomerLoanSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       try {
-        const response = await dispatch(storeCustomer(values) as any)
-        if (storeCustomer.fulfilled.match(response)) {
+        const response = await dispatch(storeCustomerLoan(values) as any)
+        if (storeCustomerLoan.fulfilled.match(response)) {
           handleFulfilledResponse(response)
           handleReloadTable()
           onClose()
@@ -79,6 +78,34 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
   const handleError = (error: any) => {
     console.error('Error creating Customer:', error.message)
   }
+
+  useEffect(() => {
+    if (!customers) {
+      dispatch(getCustomersList())
+        .then((res) => { })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    if (!fuelTypes) {
+      dispatch(getAllFuelType())
+        .then((res) => { })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }, [customers, fuelTypes, dispatch])
+
+  useEffect(() => {
+    const fuelAmount = formik.values.fuelAmount || 0;
+    const fuelUnitPrice = formik.values.fuelUnitPrice || 0;
+    const totalPrice = fuelAmount * fuelUnitPrice;
+
+    formik.setFieldValue('totalPrice', totalPrice);
+  }, [formik.values.fuelAmount, formik.values.fuelUnitPrice])
+
+  console.log(fuelTypes, 'customersssssss');
+  // console.log('formik values', formik.values);
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>
       <Modal.Header closeButton>
@@ -104,8 +131,8 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
                     }
                   >
                     <option value="">{t("global.SELECT.OPTION")}</option>
-                    {customers?.data.map((f: any) => (
-                      <option key={f.id} value={f.id}>{f.name}</option>
+                    {customers?.map((customer: any) => (
+                      <option key={customer.id} value={customer.id}>{customer.name}</option>
                     ))}
                   </select>
                   {formik.touched.customerId &&
@@ -129,7 +156,7 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
                     }
                   >
                     <option value="">{t("global.SELECT.OPTION")}</option>
-                    {fuelTypes?.data.map((f: any) => (
+                    {fuelTypes?.data?.map((f: any) => (
                       <option key={f.id} value={f.id}>{f.name}</option>
                     ))}
                   </select>
@@ -211,6 +238,7 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
                       'is-invalid': formik.touched.totalPrice && formik.errors.totalPrice,
                       'is-valid': formik.touched.totalPrice && !formik.errors.totalPrice,
                     })}
+                    readOnly
                   />
                   {formik.touched.totalPrice && formik.errors.totalPrice && (
                     <div className='invalid-feedback'>

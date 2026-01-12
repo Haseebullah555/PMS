@@ -18,7 +18,7 @@ const storeFuelType = async (formData : any) => {
     return response.data;
 }
 
-const updateFuelType = async (formData : any) => {debugger
+const updateFuelType = async (formData : any) => {
     const response = await axiosInterceptor.post('/FuelType/update', formData);
     return response.data
 }

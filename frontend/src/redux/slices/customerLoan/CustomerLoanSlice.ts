@@ -1,15 +1,20 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import type {PayloadAction} from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import CustomerService from './CustomerLoanService'
 
 type customerLoanSate = {
   customerLoans: any
+  loading: boolean
+  error: string | null
+
 }
 
 const initialState: customerLoanSate = {
   customerLoans: {
     data: [],
   },
+  loading: false,
+  error: null,
 }
 
 //get Customer from server
@@ -60,11 +65,26 @@ export const customerLoanSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getCustomerLoan.fulfilled, (state, action: PayloadAction) => {
-        console.log('action.payload', action.payload)
+      console.log('action.payload', action.payload)
       state.customerLoans = action.payload
     })
+    builder.addCase(storeCustomerLoan.fulfilled, () => {
+    })
+
+      // Store customerLoan
+      .addCase(storeCustomerLoan.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(storeCustomerLoan.fulfilled, (state) => {
+        state.loading = false
+      })
+      .addCase(storeCustomerLoan.rejected, (state, action: PayloadAction<any>) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
   },
 })
 
-export const {reset} = customerLoanSlice.actions
+export const { reset } = customerLoanSlice.actions
 export default customerLoanSlice.reducer

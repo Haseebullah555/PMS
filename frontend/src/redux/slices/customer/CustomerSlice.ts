@@ -20,8 +20,8 @@ const initialState: customerSate = {
   allCustomers: null
 }
 
-//get Customers Param base from server
-export const getCustomersList = createAsyncThunk('/Customer/listAll', async (_, thunkAPI) => {
+//get Customers list
+export const getCustomersList = createAsyncThunk('/Customer/list', async (_, thunkAPI) => {
   try {
     return await CustomerService.getCustomersList()
   } catch (error: any) {
@@ -34,9 +34,9 @@ export const getCustomersList = createAsyncThunk('/Customer/listAll', async (_, 
 })
 
 //get Customer Param base from server
-export const getCustomer = createAsyncThunk('/Customer/fgh', async (params: any, thunkAPI) => {
+export const getCustomer = createAsyncThunk('/Customer/listWithParams', async (params: any, thunkAPI) => {
   try {
-    return await CustomerService.getCustomers(params)
+    return await CustomerService.getCustomersListWithParams(params)
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
