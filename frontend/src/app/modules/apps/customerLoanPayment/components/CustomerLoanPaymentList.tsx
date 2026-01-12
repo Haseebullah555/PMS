@@ -142,7 +142,7 @@ const CustomerLoanPaymentList = () => {
                   sort: '',
                 },
               ]}
-              columns={['id', 'name', 'phoneNumber','address','driverName','carPlate']}
+              columns={['id', 'name', 'phoneNumber','address','balance']}
               openLoanPaymentModal={openLoanPaymentModal}
               openCustomerWithCustomerLoanPaymentModal={openCustomerWithCustomerLoanPaymentModal}
             />

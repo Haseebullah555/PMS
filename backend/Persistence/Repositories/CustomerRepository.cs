@@ -14,11 +14,11 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<Customer?> GetCustomerByIdAsync(int customerId)
-        {
-            return await _context.Customers
-                .FirstOrDefaultAsync(c => c.Id == customerId);
-        }
+        // public async Task<Customer?> GetCustomerByIdAsync(int customerId)
+        // {
+        //     return await _context.Customers
+        //         .FirstOrDefaultAsync(c => c.Id == customerId);
+        // }
 
         public IQueryable<Customer?> GetCustomersWithDetails()
         {

@@ -10,7 +10,7 @@ namespace Application.Dtos.CustomerLoanDtos
         public decimal FuelAmount { get; set; }
         public decimal FuelUnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
-        public DateTime LoanDate { get; set; }
+        public DateOnly LoanDate { get; set; }
         public string? Description { get; set; }
     }
 }

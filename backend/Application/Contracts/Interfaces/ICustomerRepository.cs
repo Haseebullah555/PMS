@@ -5,7 +5,7 @@ namespace Application.Contracts.Interfaces
 {
     public interface ICustomerRepository : IGenericRepository<Customer>
     {
-        Task<Customer?> GetCustomerByIdAsync(int customerId);
+        // Task<Customer?> GetCustomerByIdAsync(int customerId);
         IQueryable<Customer?> GetCustomersWithDetails();
     }
 }

@@ -2,7 +2,7 @@
 
 export interface CustomerLoanPaymentForm {
   id: number | null
-  customerName: string
+  name: string
   customerId: number | null
   paidLoanAmount: number
   paymentDate: string

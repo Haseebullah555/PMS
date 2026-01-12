@@ -10,6 +10,7 @@ const CustomerLoanList = () => {
   const [isModalOpen, setModalOpen] = useState(false)
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedCustomerLoan, setSelectedCustomerLoan] = useState(null)
+  const [selectedGun, setSelectedGun] = useState(null);
   const [formMode, setFormMode] = useState<"send" |"update">("send");
 
   const closeModal = () => setModalOpen(false)
@@ -155,6 +156,7 @@ const CustomerLoanList = () => {
           onClose={closeModal}
           handleReloadTable={handleReloadTable}
           selectedCustomerLoan={selectedCustomerLoan}
+          selectedGun={selectedGun}
           mode={formMode}
         />
       )}

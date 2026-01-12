@@ -21,29 +21,35 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
             await using var tx = await _unitOfWork.BeginTransactionAsync();
             try
             {
-                // ===========================================
-                // 1- Update the balace column in customer 
-                // ===========================================
-                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.AddCustomerLaonDto.CustomerId);
+                var customer = await _unitOfWork.Customers.GetByIdAsync(request.AddCustomerLaonDto.CustomerId);
+                // var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(request.AddCustomerLaonDto.FuelTypeId);
+                // var gun = await _unitOfWork.FuelGuns.GetByIdAsync(request.AddCustomerLaonDto.FuelGunId);
+
                 if (customer is null)
-                {
                     throw new InvalidOperationException("Customer not found.");
-                }
-                // Update balance (add loan amount)
+
+                // update customer
                 customer.Balance += request.AddCustomerLaonDto.TotalPrice;
                 _unitOfWork.Customers.Update(customer);
-                await _unitOfWork.SaveAsync(cancellationToken);
 
-                // ====================================
-                // 2- Save to CustomerLoan Record
-                // ====================================
+                // update stock
+                // stock.QuantityInLiter -= request.AddCustomerLaonDto.FuelAmount;
+                // _unitOfWork.Stocks.Update(stock);
+
+                // update gun
+                // gun.Balance -= request.AddCustomerLaonDto.FuelAmount;
+                // _unitOfWork.FuelGuns.Update(gun);
+
+                // create loan record
                 var result = _mapper.Map<Domain.Models.CustomerLoan>(request.AddCustomerLaonDto);
                 await _unitOfWork.CustomerLoans.AddAsync(result);
+
+                // 👇 Save ONCE
                 await _unitOfWork.SaveAsync(cancellationToken);
 
                 await tx.CommitAsync(cancellationToken);
             }
-            catch (Exception ex)
+            catch
             {
                 await tx.RollbackAsync(cancellationToken);
                 throw;

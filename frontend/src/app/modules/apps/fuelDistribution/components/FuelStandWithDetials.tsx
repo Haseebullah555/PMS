@@ -17,9 +17,10 @@ const FuelStandWithDetials = () => {
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
   const [isCustomerLoanModalOpen, setCustomerLoanModalOpen] = useState(false);
   const [selectedStand, setSelectedStand] = useState(null);
+  const [selectedGun, setSelectedGun] = useState(null);
   const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
   const [selectedDailySell, setSelectedDailySell] = useState<any>();
-  const [selectedCustomerLoan, setSelectedCustomerLoan] = useState(null);
+  const [selectedCustomerLoan, setSelectedCustomerLoan] = useState<any>(null);
   const [formMode, setFormMode] = useState<"update" | "send">("send");
   const closeCreateModal = () => setCreateModalOpen(false)
   const closeCustomerLoanModal = () => setCustomerLoanModalOpen(false);
@@ -33,7 +34,7 @@ const FuelStandWithDetials = () => {
     setCreateModalOpen(true)
   }
   const openCustomerLoanModal = (item: any) => {
-    setSelectedCustomerLoan(item)
+    setSelectedGun(item);
     setCustomerLoanModalOpen(true)
   }
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
@@ -74,6 +75,7 @@ const FuelStandWithDetials = () => {
   }, [fuelStandWithDetials])
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
+  console.log(selectedGun,"selectedGun");
   return (
     <>
       <Fragment>
@@ -164,7 +166,7 @@ const FuelStandWithDetials = () => {
                                     <button
                                       className="btn btn-sm btn-danger fw-bold"
                                       onClick={() =>
-                                        openCustomerLoanModal(item.id)
+                                        openCustomerLoanModal(i.id)
                                       }
                                     >
                                       <i className="fa-solid fa-arrow-up"></i>
@@ -204,7 +206,7 @@ const FuelStandWithDetials = () => {
         <CreateDailyFuelSellModal
           isOpen={isCreateDailyFuelSellModalOpen}
           selectedDailySell={selectedDailySell}
-          onClose={() => setCustomerLoanModalOpen(false)}
+          onClose={closeCreateDailyFuelSellModal}
           handleReloadTable={handleReloadTable}
           mode={formMode}
         />
@@ -212,6 +214,7 @@ const FuelStandWithDetials = () => {
       {isCustomerLoanModalOpen && (
         <CustomerLoanModal
           isOpen={isCustomerLoanModalOpen}
+          selectedGun={selectedGun}
           selectedCustomerLoan={selectedCustomerLoan}
           onClose={closeCustomerLoanModal}
           handleReloadTable={handleReloadTable}

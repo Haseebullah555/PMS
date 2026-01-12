@@ -18,10 +18,11 @@ interface CustomerLoanModalProps {
   onClose: () => void
   handleReloadTable: () => void
   selectedCustomerLoan: any
+  selectedGun: any
   mode: any
 }
 
-const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, handleReloadTable, selectedCustomerLoan, mode }) => {
+const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, handleReloadTable, selectedCustomerLoan, mode, selectedGun }) => {
 
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
@@ -100,11 +101,12 @@ const CustomerLoanModal: React.FC<CustomerLoanModalProps> = ({ isOpen, onClose, 
     const fuelAmount = formik.values.fuelAmount || 0;
     const fuelUnitPrice = formik.values.fuelUnitPrice || 0;
     const totalPrice = fuelAmount * fuelUnitPrice;
+    formik.setFieldValue('fuelGunId', selectedGun);
 
     formik.setFieldValue('totalPrice', totalPrice);
-  }, [formik.values.fuelAmount, formik.values.fuelUnitPrice])
+  }, [formik.values.fuelAmount, formik.values.fuelUnitPrice, selectedGun])
 
-  console.log(fuelTypes, 'customersssssss');
+  // console.log(selected, 'customersssssss');
   // console.log('formik values', formik.values);
   return (
     <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg'>

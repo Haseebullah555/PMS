@@ -25,7 +25,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
   const { t } = useTranslation()
   const dispatch = useAppDispatch()
 
-  const  customersWithDetials  = useAppSelector((state) => state.customerLoanPayment.customersWithDetials)
+  const customersWithDetials = useAppSelector((state) => state.customerLoanPayment.customersWithDetials)
 
   console.log(customersWithDetials, 'kkkkkkkkkkkkkkkkkkk')
   const handleSort = (column: string) => {
@@ -82,8 +82,9 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
 
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
+  console.log(customersWithDetials, "output");
   return (
-   
+
     <div>
       <>
         <div className='form collapse' id='movementSearch'>
@@ -145,8 +146,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, openLoanPaymentMod
                 memoizedData?.map((item, index) => (
                   <tr>
                     <td>{index + 1}</td>
-                    <td>{item.customerName}</td>
-                    <td style={{color: '#d10029'}}>{item.balance}</td>
+                    <td>{item.name}</td>
+                    <td style={{ color: '#d10029' }}>{item.balance}</td>
                     <td>{item.phoneNumber}</td>
                     <td>{item.address}</td>
 

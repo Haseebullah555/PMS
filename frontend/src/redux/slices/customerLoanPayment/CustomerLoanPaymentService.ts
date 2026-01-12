@@ -9,7 +9,7 @@ console.log('Base URL:', process.env.REACT_APP_API_URL);
 
 // Get customers with details (customers, purchases, purchase detials, customer loan payments)
 const getCustomersWithDetials = async (params: any) => {
-  const response = await axiosInterceptor.get(`/CustomerLoanPayment/getCustomersWithDetials`, {params})
+  const response = await axiosInterceptor.get(`/Customer/getCustomersWithDetials`, {params})
   return response.data
 }
 const getCustomerLoanPayments = async (params: any) => {

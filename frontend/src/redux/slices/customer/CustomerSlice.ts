@@ -1,7 +1,3 @@
-// -- name: roleSlice.
-// -- date: 01-21-2024.
-// -- desc: redux toolkit slice for the roles components.
-
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
 import CustomerService from './CustomerService'

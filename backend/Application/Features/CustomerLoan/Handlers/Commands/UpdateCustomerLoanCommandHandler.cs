@@ -35,7 +35,7 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 // ================================================================
                 // 2- Update Customer Balance ( Remove the old TotalPrice from customer balance and add the new TotalPrice)
                 // ================================================================
-                var customer = await _unitOfWork.Customers.GetCustomerByIdAsync(request.UpdateCustomerLoanDto.CustomerId);
+                var customer = await _unitOfWork.Customers.GetByIdAsync(request.UpdateCustomerLoanDto.CustomerId);
                 if (customer is null)
                 {
                     throw new InvalidOperationException("Customer not found.");

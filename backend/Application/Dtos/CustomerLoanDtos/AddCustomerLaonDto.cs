@@ -6,6 +6,7 @@ namespace Application.Dtos.CustomerLoanDtos
     {
         public int CustomerId { get; set; }
         public int FuelTypeId { get; set; }
+        public int FuelGunId { get; set; }
         public decimal FuelAmount { get; set; }
         public decimal FuelUnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
