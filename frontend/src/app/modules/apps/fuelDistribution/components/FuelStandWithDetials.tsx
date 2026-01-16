@@ -16,7 +16,7 @@ const FuelStandWithDetials = () => {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isCreateDailyFuelSellModalOpen, setCreateDailyFuelSellModalOpen] = useState(false);
   const [isCustomerLoanModalOpen, setCustomerLoanModalOpen] = useState(false);
-  const [selectedStand, setSelectedStand] = useState(null);
+  const [selectedGunItem, setSelectedGunItem] = useState(null);
   const [selectedGun, setSelectedGun] = useState(null);
   const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
   const [selectedDailySell, setSelectedDailySell] = useState<any>();
@@ -30,7 +30,7 @@ const FuelStandWithDetials = () => {
   }
 
   const openCreateModal = (item: any) => {
-    setSelectedStand(item)
+    setSelectedGunItem(item)
     setCreateModalOpen(true)
   }
   const openCustomerLoanModal = (item: any) => {
@@ -75,7 +75,7 @@ const FuelStandWithDetials = () => {
   }, [fuelStandWithDetials])
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
-  console.log(selectedGun,"selectedGun");
+  console.log(memoizedData,"////////////////");
   return (
     <>
       <Fragment>
@@ -148,7 +148,7 @@ const FuelStandWithDetials = () => {
                                   <div className="d-flex gap-2 justify-content-center flex-wrap">
                                     <button
                                       className="btn btn-sm btn-primary fw-bold"
-                                      onClick={() => openCreateModal(i.id)}
+                                      onClick={() => openCreateModal(i)}
                                     >
                                       <i className="fa-solid fa-plus"></i>
                                       {t('fuelDistribution.fuelDistribution')}
@@ -196,7 +196,7 @@ const FuelStandWithDetials = () => {
         <CreateFuelDistributionModal
           isOpen={isCreateModalOpen}
           onClose={closeCreateModal}
-          selectedStand={selectedStand}
+          selectedGunItem={selectedGunItem}
           handleReloadTable={handleReloadTable}
           selectedFuelDistribution={selectedFuelDistribution}
           mode={formMode}

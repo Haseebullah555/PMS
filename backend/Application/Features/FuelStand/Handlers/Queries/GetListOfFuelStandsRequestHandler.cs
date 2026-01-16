@@ -61,18 +61,22 @@ namespace Application.Features.FuelStand.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var fuelStandDtos = FuelStands.Select(fs => new FuelStandDto
-            {
-                Id = fs.Id,
-                Name = fs.Name,
-                StaffId = fs.StaffId,
-                FuelGuns = fs.FuelGuns.Select(g => new FuelGunDto
-                {
-                    Id = g.Id,
-                    Name = g.Name,
-                    // FuelTypeId = g.FuelTypeId
-                }).ToList()
-            }).ToList();
+
+               // Map to DTO
+            var fuelStandDtos = _mapper.Map<List<FuelStandDto>>(FuelStands);
+
+            // var fuelStandDtos = FuelStands.Select(fs => new FuelStandDto
+            // {
+            //     Id = fs.Id,
+            //     Name = fs.Name,
+            //     StaffId = fs.StaffId,
+            //     FuelGuns = fs.FuelGuns.Select(g => new FuelGunDto
+            //     {
+            //         Id = g.Id,
+            //         Name = g.Name,
+            //         // FuelTypeId = g.FuelTypeId
+            //     }).ToList()
+            // }).ToList();
 
             return new PaginatedResult<FuelStandDto>
             {

@@ -49,10 +49,10 @@ namespace Persistence.Repositories
             return fuelGun;
         }
 
-          public async Task<FuelGun?> GetFuelGunByAyncId(int id)
+          public async Task<FuelGun?> GetFuelGunByAyncId(int fuelGunId)
         {
             return await _context.FuelGuns
-                .FirstOrDefaultAsync(fg => fg.Id == id);
+                .FirstOrDefaultAsync(fg => fg.Id == fuelGunId);
         }
     }
 }

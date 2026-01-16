@@ -44,11 +44,11 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpPost("create")]
-        public async Task<ActionResult> Create([FromBody] CreateFuelStandDto createFuelStandDto)
+        public async Task<ActionResult> Create([FromBody] FuelStandDto fuelStandDto)
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new CreateFuelStandCommand { CreateFuelStandDto = createFuelStandDto });
+                await _mediator.Send(new CreateFuelStandCommand { FuelStandDto = fuelStandDto });
                 return Ok(new { message = "نوع نفت با موفقیت ایجاد شد" });
             }
             return BadRequest(new { message = "ایجاد نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });

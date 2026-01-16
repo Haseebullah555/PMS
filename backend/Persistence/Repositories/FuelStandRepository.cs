@@ -15,7 +15,7 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public IQueryable<FuelStand> GetAllFuelStands()
+        public IQueryable<FuelStand>    GetAllFuelStands()
         {
             return _context.FuelStands
             .Include(f => f.Staff)

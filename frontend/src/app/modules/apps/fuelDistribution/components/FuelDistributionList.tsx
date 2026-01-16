@@ -9,7 +9,7 @@ const FuelDistributionList = () => {
   const { t } = useTranslation()
   const [isEditModalOpen, setEditModalOpen] = useState(false)
   const [selectedFuelDistribution, setSelectedFuelDistribution] = useState(null)
-  const [selectedStand, setSelectedStand] = useState(null);
+  const [selectedGunItem, setSelectedGunItem] = useState(null);
   const [formMode, setFormMode] = useState<"update" | "send">("send");
 
   const closeEditModal = () => setEditModalOpen(false)
@@ -142,7 +142,7 @@ const FuelDistributionList = () => {
         <CreateFuelDistributionModal
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
-          selectedStand={selectedStand}
+          selectedGunItem={selectedGunItem}
           selectedFuelDistribution={selectedFuelDistribution}
           handleReloadTable={handleReloadTable}
           mode={formMode}

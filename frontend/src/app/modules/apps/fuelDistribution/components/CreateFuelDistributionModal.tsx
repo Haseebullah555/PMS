@@ -15,18 +15,20 @@ import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSli
 interface CreateFuelDistributionModalProps {
     isOpen: boolean
     onClose: () => void
-    selectedStand: any
-    selectedFuelDistribution
+    selectedGunItem: any
+    selectedFuelDistribution: any
     handleReloadTable: () => void
     mode: any
 }
 
-const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable, selectedStand, selectedFuelDistribution, mode }) => {
+const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = ({ isOpen, onClose, handleReloadTable, selectedGunItem, selectedFuelDistribution, mode }) => {
 
+
+    console.log(selectedGunItem,"ssssssssssssssss");
     const initialValues = {
         id: mode === "update" ? selectedFuelDistribution?.id : null,
         fuelGunId: mode === "update" ? selectedFuelDistribution?.fuelGun.id : null,
-        fuelTypeId: mode === "update" ? selectedFuelDistribution?.fuelType.id ?? "" : "",
+        fuelTypeId: mode === "update" ? selectedFuelDistribution?.fuelType.id ?? "" : selectedGunItem?.fuelDistributions[0]?.fuelTypeId ?? "" ,
         quantity: mode === "update" ? selectedFuelDistribution?.quantity ?? "" : "",
         distributionDate: mode === "update" ? selectedFuelDistribution?.distributionDate ?? "" : "",
     };
@@ -111,9 +113,10 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
     }, [])
 
     useEffect(() => {
-        formik.setFieldValue('fuelGunId', selectedStand);
-    }, [selectedStand]);
+        formik.setFieldValue('fuelGunId', selectedGunItem.id);
+    }, [selectedGunItem]);
 
+    console.log(formik.values,"formkkkkkkkkk");
     return (
         <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} >
             <Modal.Header closeButton>
@@ -135,6 +138,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
                                 onChange={(e) =>
                                     formik.setFieldValue("fuelTypeId", Number(e.target.value))
                                 }
+                                disabled={selectedGunItem?.balance != 0 ? true : false}
                             >
                                 <option value="">{t("global.SELECT.OPTION")}</option>
                                 {fuelTypes?.data.map((f: any) => (

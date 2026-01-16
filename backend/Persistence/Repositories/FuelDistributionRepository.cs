@@ -18,9 +18,27 @@ namespace Persistence.Repositories
         public IQueryable<FuelStand> GetFuelStandWithDetails()
         {
             return _context.FuelStands
-                .Include(s => s.FuelGuns)
-                    .ThenInclude(p => p.FuelDistributions);
-            // .ThenInclude(d => d.FuelType);
+          .AsNoTracking()   // 👈 CRITICAL LINE
+          .Select(s => new FuelStand
+          {
+              Id = s.Id,
+              Name = s.Name,
+              FuelGuns = s.FuelGuns.Select(g => new FuelGun
+              {
+                  Id = g.Id,
+                  Name = g.Name,
+                  Balance = g.Balance,
+                  FuelDistributions = g.FuelDistributions
+                      .OrderByDescending(d => d.Id)
+                      .Take(1)
+                      .ToList()
+              }).ToList()
+          });
+
+            // return _context.FuelStands
+            //     .Include(s => s.FuelGuns)
+            //         .ThenInclude(p => p.FuelDistributions);
+            // // .ThenInclude(d => d.FuelType);
         }
         public async Task<FuelDistribution?> GetLastRecordByFuelGunId(int fuelGunId)
         {
@@ -34,7 +52,7 @@ namespace Persistence.Repositories
         public IQueryable<FuelDistribution> GetListOfFuelDistributions()
         {
             var result = _context.FuelDistributions
-            .Include(fd=> fd.FuelType)
+            .Include(fd => fd.FuelType)
             .Include(fd => fd.FuelGun)
             .AsQueryable();
             return result;

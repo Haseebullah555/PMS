@@ -20,12 +20,22 @@ namespace Application.Features.FuelDistribution.Handlers.Commands
 
             await using var tx = await _unitOfWork.BeginTransactionAsync();
 
+            // var avialableStock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(request.AddFuelDistributionDto.FuelTypeId);
+            // if (avialableStock.QuantityInLiter >= 0)
+            // {
+            //     throw new InvalidOperationException("you can not change the fuelTypeId");
+            // }
+
+            // ==========================================
             // update the Balance column in FuelGun model 
+            // ==========================================
             var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.AddFuelDistributionDto.FuelGunId);
             fuelGunRecord.Balance += request.AddFuelDistributionDto.Quantity;
             _unitOfWork.FuelGuns.Update(fuelGunRecord);
 
+            // ==========================================
             // create fuelDistribution record
+            // ==========================================
             var result = _mapper.Map<Domain.Models.FuelDistribution>(request.AddFuelDistributionDto);
 
             await _unitOfWork.FuelDistributions.AddAsync(result);
