@@ -8,7 +8,6 @@ namespace Domain.Models
 {
     public int SupplierId { get; set; }
     public Supplier? Supplier { get; set; }
-
     public DateOnly PurchaseDate { get; set; }
     public decimal TotalAmount { get; set; }
     public decimal PaidAmount { get; set; }

@@ -30,7 +30,7 @@ const CreateFuelDistributionModal: React.FC<CreateFuelDistributionModalProps> = 
         fuelGunId: mode === "update" ? selectedFuelDistribution?.fuelGun.id : null,
         fuelTypeId: mode === "update" ? selectedFuelDistribution?.fuelType.id ?? "" : selectedGunItem?.fuelDistributions[0]?.fuelTypeId ?? "" ,
         quantity: mode === "update" ? selectedFuelDistribution?.quantity ?? "" : "",
-        distributionDate: mode === "update" ? selectedFuelDistribution?.distributionDate ?? "" : "",
+        distributionDate: mode === "update" ? selectedFuelDistribution?.distributionDate ?? "" : new Date().toISOString().split('T')[0],
     };
 
     const intl = useIntl()

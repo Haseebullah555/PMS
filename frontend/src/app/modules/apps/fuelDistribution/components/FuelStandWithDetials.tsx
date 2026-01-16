@@ -24,8 +24,8 @@ const FuelStandWithDetials = () => {
   const [formMode, setFormMode] = useState<"update" | "send">("send");
   const closeCreateModal = () => setCreateModalOpen(false)
   const closeCustomerLoanModal = () => setCustomerLoanModalOpen(false);
-  const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number) => {
-    setSelectedDailySell({ fuelStandId, fuelGunId });
+  const openCreateDailyFuelSellModal = (fuelStandId: number, fuelGunId: number, balance: number) => {
+    setSelectedDailySell({ fuelStandId, fuelGunId, balance });
     setCreateDailyFuelSellModalOpen(true)
   }
 
@@ -128,7 +128,6 @@ const FuelStandWithDetials = () => {
 
                     {/* Card Body */}
                     <div className="card-body p-3">
-
                       <div className="table-responsive">
                         <table className="table table-hover table-striped text-nowrap mb-0">
                           <thead className="text-center bg-gray-600 text-light">
@@ -153,16 +152,20 @@ const FuelStandWithDetials = () => {
                                       <i className="fa-solid fa-plus"></i>
                                       {t('fuelDistribution.fuelDistribution')}
                                     </button>
+                                    {i.balance > 0 && (
 
                                     <button
                                       className="btn btn-sm btn-success fw-bold"
                                       onClick={() =>
-                                        openCreateDailyFuelSellModal(item.id, i.id)
+                                        openCreateDailyFuelSellModal(item.id, i.id, i.balance)
                                       }
                                     >
                                       <i className="fa-solid fa-arrow-up"></i>
                                       {t('dailyFuelSell.dailyFuelSell')}
                                     </button>
+                                    )}
+
+
                                     <button
                                       className="btn btn-sm btn-danger fw-bold"
                                       onClick={() =>

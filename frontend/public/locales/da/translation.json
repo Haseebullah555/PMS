@@ -56,6 +56,7 @@
     "DELETWARININGTEXT": "ریکارد حذف نگردید لطفا دوباره کوشش نماید!",
     "NO": "نخیر",
     "YES": "بلی",
+    "LITER": "لیتر",
     "PAGINATIONTOTALRECORD": "مجموعه ریکارد:",
     "PAGINATIONFROM": "از:",
     "PAGINATIONPAGE": "صفحه:",
@@ -420,7 +421,9 @@
     "fuelDistribution": "توزیع",
     "quantity": "مقدار توزیع ",
     "balance": "بیلانس",
-    "fuelDistributionToStand": "توزیع تیل به پایه"
+    "fuelDistributionToStand": "توزیع تیل به پایه",
+    "soldFuelAmountCannotGreaterThanBalance": "مقدار فروخته شده نمی تواند بیشتر از موجودی باشد",
+    "availableFuel": "تیل موجود در تفنګچه"
   },
   "dailyFuelSell": {
     "dailyFuelSell": "فروش",

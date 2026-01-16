@@ -19,14 +19,16 @@ interface CreateDailyFuelSellModalProps {
 }
 
 const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell, handleReloadTable, mode }) => {
-const initialValues = {
+    console.log(selectedDailySell, "===========");
+
+    const initialValues = {
         id: mode === "update" ? selectedDailySell?.id : null,
         currentMeterDegree: mode === "update" ? selectedDailySell?.currentMeterDegree ?? "" : "",
         oldMeterDegree: mode === "update" ? selectedDailySell?.oldMeterDegree ?? "" : "",
         soldFuelAmount: mode === "update" ? selectedDailySell?.soldFuelAmount ?? "" : "",
         fuelUnitPrice: mode === "update" ? selectedDailySell?.fuelUnitPrice ?? "" : "",
         collectedMoney: mode === "update" ? selectedDailySell?.collectedMoney ?? "" : "",
-        date: mode === "update" ? selectedDailySell?.date ?? "" : "",
+        date: mode === "update" ? selectedDailySell?.date ?? "" : new Date().toISOString().split('T')[0],
         note: mode === "update" ? selectedDailySell?.note ?? "" : "",
     };
     const { t } = useTranslation()
@@ -39,10 +41,12 @@ const initialValues = {
     const DailyFuelSellSchema = Yup.object().shape({
         currentMeterDegree: Yup.number().required(),
         oldMeterDegree: Yup.number().required(),
-        soldFuelAmount: Yup.number().required(),
-        fuelUnitPrice: Yup.number().required(),
-        collectedMoney: Yup.number().required(),
-    })
+        soldFuelAmount: Yup.number()
+            .max(selectedDailySell.balance, t("soldFuelAmountCannotGreaterThanBalance")),
+        fuelUnitPrice: Yup.number().required("Required"),
+        collectedMoney: Yup.number().required("Required"),
+    });
+
 
     // Formik Hook
     const formik = useFormik<any>({
@@ -50,7 +54,7 @@ const initialValues = {
         validationSchema: DailyFuelSellSchema,
         onSubmit: async (values, { setSubmitting, resetForm }) => {
             try {
-                if(mode == "send"){
+                if (mode == "send") {
                     const response = await dispatch(storeDailyFuelSell(values) as any)
                     if (storeDailyFuelSell.fulfilled.match(response)) {
                         handleFulfilledResponse(response)
@@ -60,7 +64,7 @@ const initialValues = {
                     } else {
                         handleRejectedResponse(response)
                     }
-                }else{
+                } else {
                     const response = await dispatch(updateDailyFuelSell(values) as any)
                     if (updateDailyFuelSell.fulfilled.match(response)) {
                         handleFulfilledResponse(response)
@@ -116,27 +120,32 @@ const initialValues = {
     }, [selectedDailySell]);
 
     console.log(formik.values, '---------------');
-    // useEffect(() => {
-    //     const current = Number(formik.values.currentMeterDegree);
-    //     const old = Number(formik.values.oldMeterDegree);
+    console.log(formik.errors, 'errrrrrrr');
 
-    //     if (!isNaN(current) && !isNaN(old)) {
-    //         formik.setFieldValue('soldFuelAmount', current - old);
-    //     }
-    // }, [formik.values.currentMeterDegree, formik.values.oldMeterDegree]);
+
+    useEffect(() => {
+        const current = Number(formik.values.currentMeterDegree);
+        const old = Number(formik.values.oldMeterDegree);
+
+        if (!isNaN(current) && !isNaN(old)) {
+            formik.setFieldValue('soldFuelAmount', current - old);
+        }
+    }, [formik.values.currentMeterDegree, formik.values.oldMeterDegree]);
 
 
     return (
-        <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl' >
+        <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg' >
             <Modal.Header closeButton>
-                <Modal.Title>{t('global.add', { name: t('dailyFuelSell.dailyFuelSell') })}</Modal.Title>
+                <Modal.Title>{t('global.add', { name: t('dailyFuelSell.dailyFuelSell') })} :
+                    {''} ( {t('fuelDistribution.availableFuel')} : <b className='me-2' style={{color: 'red'}}>{selectedDailySell?.balance} {t('global.LITER')}</b>)
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <form onSubmit={formik.handleSubmit}>
                     {/* Name and DailyFuelSell Name Fields */}
                     <div className='row'>
                         {/* CurrentMeterDegree Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.currentMeterDegree')} <span className='text-danger'>*</span>
                             </label>
@@ -156,7 +165,7 @@ const initialValues = {
                             )}
                         </div>
                         {/* OldMeterDegree Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.oldMeterDegree')} <span className='text-danger'>*</span>
                             </label>
@@ -164,13 +173,13 @@ const initialValues = {
                                 type="number"
                                 placeholder="0"
                                 {...formik.getFieldProps('oldMeterDegree')}
-                                onChange={(e) => {
-                                    const currentMeterValue = Number(formik.values.currentMeterDegree);
-                                    const oldMeterValue = Number(e.target.value);
+                                // onChange={(e) => {
+                                //     const currentMeterValue = Number(formik.values.currentMeterDegree);
+                                //     const oldMeterValue = Number(e.target.value);
 
-                                    formik.setFieldValue('oldMeterDegree', oldMeterValue);
-                                    formik.setFieldValue('soldFuelAmount', currentMeterValue - oldMeterValue);
-                                }}
+                                //     formik.setFieldValue('oldMeterDegree', oldMeterValue);
+                                //     formik.setFieldValue('soldFuelAmount', currentMeterValue - oldMeterValue);
+                                // }}
                                 className={clsx('form-control', {
                                     'is-invalid': formik.touched.oldMeterDegree && formik.errors.oldMeterDegree,
                                     'is-valid': formik.touched.oldMeterDegree && !formik.errors.oldMeterDegree,
@@ -184,7 +193,7 @@ const initialValues = {
                             )}
                         </div>
                         {/* FuelUnitPrice Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.fuelUnitPrice')} <span className='text-danger'>*</span>
                             </label>
@@ -208,7 +217,9 @@ const initialValues = {
                             )}
                         </div>
                         {/* Collected Money Amount Field */}
-                        <div className='col-md-3 mb-3'>
+                        </div>
+                        <div className="row">
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.collectedMoney')} <span className='text-danger'>*</span>
                             </label>
@@ -227,10 +238,8 @@ const initialValues = {
                                 </div>
                             )}
                         </div>
-                    </div>
-                    <div className='row'>
                         {/* Date Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('global.date')} <span className='text-danger'>*</span>
                             </label>
@@ -249,7 +258,7 @@ const initialValues = {
                             )}
                         </div>
                         {/* Note Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-4 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.note')} <span className='text-danger'>*</span>
                             </label>
@@ -267,8 +276,11 @@ const initialValues = {
                                 </div>
                             )}
                         </div>
+                        </div>
+                        <hr />
+                        <div className="row">
                         {/* SoldFuelAmount Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-6 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.soldFuelAmount')} <span className='text-danger'>*</span>
                             </label>
@@ -279,9 +291,15 @@ const initialValues = {
                                 {...formik.getFieldProps('soldFuelAmount')}
                                 className='form-control'
                             />
+                            {formik.errors.soldFuelAmount && (
+                                <div className="invalid-feedback d-block">
+                                    {t('formik.errors.soldFuelAmount') as String}
+                                </div>
+                            )}
+
                         </div>
                         {/* Total Price Field */}
-                        <div className='col-md-3 mb-3'>
+                        <div className='col-md-6 mb-3'>
                             <label className='form-label'>
                                 {t('dailyFuelSell.totalPrice')} <span className='text-danger'>*</span>
                             </label>
@@ -298,7 +316,7 @@ const initialValues = {
                                 </div>
                             )}
                         </div>
-                    </div>
+                        </div>
                     {/* Submit Buttons */}
                     <div className='text-end'>
                         <Button variant='danger' onClick={onClose} className='me-2 '>
