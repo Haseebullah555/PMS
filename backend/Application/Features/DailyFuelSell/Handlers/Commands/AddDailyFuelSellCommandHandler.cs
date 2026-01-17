@@ -1,3 +1,4 @@
+using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Application.Features.DailyFuelSell.Requests.Commands;
 using AutoMapper;
@@ -9,11 +10,13 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ICacheRepository _cache;
 
-        public AddDailyFuelSellCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public AddDailyFuelSellCommandHandler(IUnitOfWork unitOfWork, IMapper mapper, ICacheRepository cache)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _cache = cache;
         }
 
         public async Task Handle(AddDailyFuelSellCommand request, CancellationToken cancellationToken)
@@ -50,6 +53,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
              recordOnStock.QuantityInLiter -= request.AddDailyFuelSellDto.SoldFuelAmount;
              _unitOfWork.Stocks.Update(recordOnStock);
              await _unitOfWork.SaveAsync(cancellationToken);
+             await _cache.RemoveGroupAsync("dashboard:daily-fuel-sales:null:null"); // Invalidate cache
 
             // save all transactions
             await tx.CommitAsync(cancellationToken);

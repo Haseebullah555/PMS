@@ -151,6 +151,7 @@
     "withdrawal": "برداشت",
     "description": "توضیحات",
     "SYSTEM.PART": "بخش سیستم",
+    "SYSTEM.REPROT": "بخش راپور ها",
     "SYSTEM.MANAGEMENT.PART": "بخش مدیریت سیستم",
     "SELECT.OPTION": "یکی از گزینه‌ را انتخاب کنید",
     "WRITE.HERE": "اینجا بنویسید...",
@@ -427,6 +428,8 @@
   },
   "dailyFuelSell": {
     "dailyFuelSell": "فروش",
+    "dailyFuelSellReport": "راپور روزمره فروشات",
+    "monthlyFuelSellReport": "راپور ماهوار فروشات",
     "dailyFuelSells": "فروشات روزمره",
     "currentMeterDegree": "درجه فعلی میتر",
     "oldMeterDegree": "درجه قبلی میتر",

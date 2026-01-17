@@ -4,6 +4,8 @@ using Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Application.Contracts.Interfaces.Common;
 using Persistence.Repositories.Common;
+using Application.Contracts.Interfaces;
+using Persistence.Repositories;
 
 namespace Persistence
 {
@@ -14,6 +16,7 @@ namespace Persistence
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQLConString")));
                         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ICacheRepository, CacheRepository>();
             return services;
         }
     }
