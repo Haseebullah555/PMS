@@ -53,7 +53,6 @@ builder.Services.ConfigureIdentityServices();
 
 // ===================== REDIS CONFIGURATION =====================
 var redisConnection = builder.Configuration.GetValue<string>("Redis:ConnectionString");
-var redisInstanceName = builder.Configuration.GetValue<string>("Redis:InstanceName");
 
 // Redis connection (Singleton)
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
@@ -65,7 +64,6 @@ builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = redisConnection;
-    options.InstanceName = redisInstanceName;
 });
 
 // ===================== CONTROLLERS & CORS =====================

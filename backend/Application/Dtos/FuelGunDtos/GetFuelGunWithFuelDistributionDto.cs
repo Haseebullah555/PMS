@@ -1,4 +1,3 @@
-using Application.Dtos.FuelDistribution;
 using Application.Dtos.FuelDistributionDtos;
 
 namespace Application.Dtos.FuelGunDtos
@@ -8,6 +7,5 @@ namespace Application.Dtos.FuelGunDtos
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Balance { get; set; }
-        public List<FuelDistributionDto> FuelDistributions { get; set; }
     }
 }

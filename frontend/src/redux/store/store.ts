@@ -16,7 +16,6 @@ import partnerTransactionSlice from '../slices/partnerTransaction/PartnerTransac
 import fuelTypeSlice from '../slices/fuelType/FuelTypeSlice'
 import fuelStandSlice from '../slices/fuelStand/FuelStandSlice'
 import supplierLoanPaymentSlice from '../slices/supplierLoanPayment/SupplierLoanPaymentSlice'
-import fuelDistributionSlice from '../slices/fuelDistribution/FuelDistributionSlice'
 import  dailyFuelSellSlice  from '../slices/DailyFuelSell/DailyFuelSellSlice'
 import  customerLoanPaymentSlice  from '../slices/customerLoanPayment/CustomerLoanPaymentSlice'
 
@@ -40,7 +39,6 @@ export const store = configureStore({
     fuelType: fuelTypeSlice,
     fuelStand: fuelStandSlice,
     supplierLoanPayment: supplierLoanPaymentSlice,
-    fuelDistribution: fuelDistributionSlice,
     dailyFuelSell: dailyFuelSellSlice,
     customerLoanPayment: customerLoanPaymentSlice
 

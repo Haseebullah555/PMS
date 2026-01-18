@@ -22,7 +22,6 @@ namespace Application.Contracts.Interfaces.Common
         public IStockRepository Stocks { get; }
         public ISupplierLoansRepository SupplierLoans { get; }
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
-        public IFuelDistributionRepository FuelDistributions { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
 
         public IStudentRespository Students { get; }

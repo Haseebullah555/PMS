@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import DataTable from './DataTable'
 import {Dropdown, DropdownButton} from 'react-bootstrap'
 import {useTranslation} from 'react-i18next'
-import CreateDailyFuelSellModal from '../../fuelDistribution/components/CreateDailyFuelSellModal'
+import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
 
 const DailyFuelSellList = () => {
   const {t} = useTranslation()

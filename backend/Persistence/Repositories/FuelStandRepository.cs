@@ -15,7 +15,7 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public IQueryable<FuelStand>    GetAllFuelStands()
+        public IQueryable<FuelStand> GetAllFuelStands()
         {
             return _context.FuelStands
             .Include(f => f.Staff)
@@ -34,6 +34,22 @@ namespace Persistence.Repositories
                     Name = fs.Name,
                 })
                 .FirstOrDefaultAsync();
+        }
+        public IQueryable<FuelStand> GetFuelStandWithDetails()
+        {
+            return _context.FuelStands
+          .AsNoTracking()  
+          .Select(s => new FuelStand
+          {
+              Id = s.Id,
+              Name = s.Name,
+              FuelGuns = s.FuelGuns.Select(g => new FuelGun
+              {
+                  Id = g.Id,
+                  Name = g.Name,
+                  Balance = g.Balance,
+              }).ToList()
+          });
         }
     }
 }

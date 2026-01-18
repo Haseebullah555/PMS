@@ -8,6 +8,7 @@ namespace Application.Contracts.Interfaces
     {
         IQueryable<FuelStand> GetAllFuelStands();
 
-        Task<FuelStandDto> GetFuelStandById(int id);   
+        Task<FuelStandDto> GetFuelStandById(int id);
+        IQueryable<FuelStand> GetFuelStandWithDetails();
     }
 }

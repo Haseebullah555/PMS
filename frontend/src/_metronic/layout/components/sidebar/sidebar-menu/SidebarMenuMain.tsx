@@ -47,7 +47,7 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
       <SidebarMenuItem
-        to='/fuelDistribution/fuelStandWithDetials'
+        to='/fuelStand/details'
         title={t('fuelDistribution.fuelStandWithDetial')}
         icon='element-11'
         fontIcon='bi-app-indicator'
@@ -97,12 +97,6 @@ const SidebarMenuMain = () => {
       <SidebarMenuItem
         to='/extraExpense/list'
         title={t("extraExpense.extraExpenses")}
-        icon='element-11'
-        fontIcon='bi-app-indicator'
-      />
-      <SidebarMenuItem
-        to='/fuelDistribution/list'
-        title={t("fuelDistribution.fuelDistribution")}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />

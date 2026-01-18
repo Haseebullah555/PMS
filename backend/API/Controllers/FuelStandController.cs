@@ -63,5 +63,12 @@ namespace API.Controllers
             }
             return BadRequest(new { message = "تجدید نوع نفت ناموفق بود. لطفا ورودی خود را بررسی کنید.", errors = ModelState });
         }
+    
+        [HttpGet("StandFuelWithDetials")]
+        public async Task<ActionResult> StandFuelWithDetails()
+        {
+            var result = await _mediator.Send(new GetFuelStandWithDetialsRequest());
+            return Ok(result);
+        }
     }
 }

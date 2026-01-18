@@ -4,7 +4,6 @@ using Application.Dtos.CustomerLoanDtos;
 using Application.Dtos.CustomerLoanPaymentDtos;
 using Application.Dtos.DailyFuelSellDtos;
 using Application.Dtos.ExtraExpenseDtos;
-using Application.Dtos.FuelDistribution;
 using Application.Dtos.FuelDistributionDtos;
 using Application.Dtos.FuelGunDtos;
 using Application.Dtos.FuelStandDtos;
@@ -60,9 +59,6 @@ namespace Application.Profiles
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();
             CreateMap<FuelStand, UpdateFuelStandDto>().ReverseMap();
             CreateMap<FuelGun, GetFuelGunWithFuelDistributionDto>().ReverseMap();
-            CreateMap<FuelDistribution, FuelDistributionDto>();
-            CreateMap<FuelDistribution, AddFuelDistributionDto>().ReverseMap();
-            CreateMap<FuelDistribution, UpdateFuelDistributionDto>().ReverseMap();
             CreateMap<DailyFuelSell, DailyFuelSellDto>().ReverseMap();
             CreateMap<DailyFuelSell, AddDailyFuelSellDto>().ReverseMap();
             CreateMap<DailyFuelSell, UpdateDailyFuelSellDto>().ReverseMap();

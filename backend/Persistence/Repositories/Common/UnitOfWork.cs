@@ -31,7 +31,6 @@ namespace Persistence.Repositories.Common
         private IStockRepository _stockRepository;
         private ISupplierLoansRepository _supplierLoansRepository;
         private ISupplierLoanPaymentRepository _supplierLoanPaymentRepository;
-        private IFuelDistributionRepository _fuelDistributionRepository;
         private IDailyFuelSellRepository _dailyFuelSellRepository;
         private IStudentRespository _studentRepository;
         #endregion
@@ -58,7 +57,6 @@ namespace Persistence.Repositories.Common
 
         public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
         public ISupplierLoanPaymentRepository SupplierLoanPayments => _supplierLoanPaymentRepository ??= new SupplierLoanPaymentRepository(_context);
-        public IFuelDistributionRepository FuelDistributions => _fuelDistributionRepository ??= new FuelDistributionRepository(_context);
         public IDailyFuelSellRepository DailyFuelSells => _dailyFuelSellRepository ??= new DailyFuelRepository(_context);
         public IStudentRespository Students => _studentRepository ??= new StudentRepository(_context);
 

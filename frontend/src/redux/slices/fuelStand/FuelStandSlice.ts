@@ -3,8 +3,10 @@ import fuelStandService from "./FuelStandService"
 
 type fuelStandState = {
     fuelStands: any
+    fuelStandWithDetials: any
 }
 const initialState: fuelStandState = {
+    fuelStandWithDetials: null,
     fuelStands: {
         data: [],
     },
@@ -12,6 +14,15 @@ const initialState: fuelStandState = {
 export const getFuelStands = createAsyncThunk('api/fuelStand/list', async (params: any, thunkAPI) => {
     try {
         return await fuelStandService.getFuelStands(params)
+    } catch (error: any) {
+        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+        return thunkAPI.rejectWithValue(message);
+    }
+})
+// get fuelStands, fuelGun with fuelDistribution data
+export const getFuelStandWithDetials = createAsyncThunk('api/fuelStand/fuelStandWithDetials', async ( _, thunkAPI) => {
+    try {
+        return await fuelStandService.getFuelStandWithDetials()
     } catch (error: any) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
         return thunkAPI.rejectWithValue(message);
@@ -49,6 +60,9 @@ export const fuelStandSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getFuelStands.fulfilled, (state, action: PayloadAction) => {
+            state.fuelStands = action.payload
+        })
+        builder.addCase(getFuelStandWithDetials.fulfilled, (state, action: PayloadAction) => {
             state.fuelStands = action.payload
         })
     },

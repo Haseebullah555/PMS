@@ -7,7 +7,11 @@ const getFuelStands = async (params: any) => {
     const response = await axiosInterceptor.get(`/FuelStand/list`, {params})
     return response.data
 }
-
+const getFuelStandWithDetials = async () => {
+  const response = await axiosInterceptor.get(`/FuelStand/StandFuelWithDetials`)
+  console.log(response);
+    return response.data
+}
 const store = async (formData : any) => {
     const response = await axiosInterceptor.post('/FuelStand/create', formData)
     return response.data;
@@ -19,6 +23,7 @@ const update = async (formData : any) => {
 }
 const fuelStandService = {
     getFuelStands,
+    getFuelStandWithDetials,
     store,
     update,
 }

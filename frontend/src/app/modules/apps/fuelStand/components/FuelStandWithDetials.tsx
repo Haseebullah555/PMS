@@ -2,10 +2,9 @@ import { Fragment, useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks'
-import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelDistribution/FuelDistributionSlice'
-import CreateFuelDistributionModal from './CreateFuelDistributionModal'
-import CreateDailyFuelSellModal from './CreateDailyFuelSellModal'
 import CustomerLoanModal from '../../customerLoan/components/CustomerLoanModal'
+import CreateDailyFuelSellModal from '../../dailyFuelSell/components/CreateDailyFuelSellModal'
+import { getFuelStandWithDetials } from '../../../../../redux/slices/fuelStand/FuelStandSlice'
 
 const SORT_ASC = 'asc'
 const SORT_DESC = 'desc'
@@ -40,7 +39,7 @@ const FuelStandWithDetials = () => {
   const closeCreateDailyFuelSellModal = () => setCreateDailyFuelSellModalOpen(false)
   const dispatch = useAppDispatch()
 
-  const fuelStandWithDetials = useAppSelector((state) => state.fuelDistribution.fuelStandWithDetials)
+  const fuelStandWithDetials = useAppSelector((state) => state.fuelStand.fuelStandWithDetials)
 
 
   const [data, setData] = useState<any>([])
@@ -59,8 +58,8 @@ const FuelStandWithDetials = () => {
 
   useEffect(() => {
     dispatch(getFuelStandWithDetials()).then((res) => {
+      setData(res.payload);
       if (res.meta.requestStatus === 'fulfilled') {
-        // handleReloadTable()
         setLoading(true)
       } else if (res.meta.requestStatus === 'rejected') {
         setIsAuthorized(false)
@@ -75,7 +74,6 @@ const FuelStandWithDetials = () => {
   }, [fuelStandWithDetials])
   const memoizedData = useMemo(() => data, [data])
   const memoizedLoading = useMemo(() => loading, [loading])
-  console.log(memoizedData,"////////////////");
   return (
     <>
       <Fragment>
@@ -91,11 +89,6 @@ const FuelStandWithDetials = () => {
             </div>
 
             <div className="d-flex flex-wrap gap-2 mt-3 mt-md-0">
-              <Link className="btn btn-sm btn-primary fw-bold" to="/fuelDistribution/list">
-                <i className="fas fa-list me-1"></i>
-                {t('global.list', { name: t('fuelDistribution.fuelDistribution') })}
-              </Link>
-
               <Link className="btn btn-sm btn-success fw-bold" to="/dailyFuelSell/list">
                 <i className="fas fa-list me-1"></i>
                 {t('global.list', { name: t('dailyFuelSell.dailyFuelSell') })}
@@ -133,7 +126,6 @@ const FuelStandWithDetials = () => {
                           <thead className="text-center bg-gray-600 text-light">
                             <tr>
                               <th>{t('fuelDistribution.fuelGun')}</th>
-                              <th>{t('fuelDistribution.balance')}</th>
                               <th>{t('global.ACTION')}</th>
                             </tr>
                           </thead>
@@ -142,18 +134,8 @@ const FuelStandWithDetials = () => {
                             {item?.fuelGuns?.map((i) => (
                               <tr key={i.id} className="text-center">
                                 <td className="fw-bold">{i.name}</td>
-                                <td className="fw-bold">{i.balance}</td>
                                 <td>
                                   <div className="d-flex gap-2 justify-content-center flex-wrap">
-                                    <button
-                                      className="btn btn-sm btn-primary fw-bold"
-                                      onClick={() => openCreateModal(i)}
-                                    >
-                                      <i className="fa-solid fa-plus"></i>
-                                      {t('fuelDistribution.fuelDistribution')}
-                                    </button>
-                                    {i.balance > 0 && (
-
                                     <button
                                       className="btn btn-sm btn-success fw-bold"
                                       onClick={() =>
@@ -163,9 +145,6 @@ const FuelStandWithDetials = () => {
                                       <i className="fa-solid fa-arrow-up"></i>
                                       {t('dailyFuelSell.dailyFuelSell')}
                                     </button>
-                                    )}
-
-
                                     <button
                                       className="btn btn-sm btn-danger fw-bold"
                                       onClick={() =>
@@ -195,16 +174,6 @@ const FuelStandWithDetials = () => {
         </div>
 
       </Fragment>
-      {isCreateModalOpen && (
-        <CreateFuelDistributionModal
-          isOpen={isCreateModalOpen}
-          onClose={closeCreateModal}
-          selectedGunItem={selectedGunItem}
-          handleReloadTable={handleReloadTable}
-          selectedFuelDistribution={selectedFuelDistribution}
-          mode={formMode}
-        />
-      )}
       {isCreateDailyFuelSellModalOpen && (
         <CreateDailyFuelSellModal
           isOpen={isCreateDailyFuelSellModalOpen}

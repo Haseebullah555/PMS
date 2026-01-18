@@ -37,46 +37,6 @@ const DashboardPage: FC = () => (
           
         </div>
       </div>
-      <div className="col-md-3">
-        <div className='card mb-5 mb-xl-2'>
-          <div className='card-body p-9 table-responsive'>
-            <div className="text-center">
-              <h5>DailyFuelSale</h5>
-              <span>12</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-3">
-        <div className='card mb-5 mb-xl-2'>
-          <div className='card-body p-9 table-responsive'>
-            <div className="text-center">
-              <h5>DailyFuelSale</h5>
-              <span>12</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-3">
-        <div className='card mb-5 mb-xl-2'>
-          <div className='card-body p-9 table-responsive'>
-            <div className="text-center">
-              <h5>DailyFuelSale</h5>
-              <span>12</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-3">
-        <div className='card mb-5 mb-xl-2'>
-          <div className='card-body p-9 table-responsive'>
-            <div className="text-center">
-              <h5>DailyFuelSale</h5>
-              <span>12</span>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className='col-xl-12'>
         <ChartsWidget1 className='card-xl-stretch mb-xl-8' />
       </div>

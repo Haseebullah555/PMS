@@ -19,7 +19,6 @@ interface CreateDailyFuelSellModalProps {
 }
 
 const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isOpen, onClose, selectedDailySell, handleReloadTable, mode }) => {
-    console.log(selectedDailySell, "===========");
 
     const initialValues = {
         id: mode === "update" ? selectedDailySell?.id : null,
@@ -41,8 +40,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
     const DailyFuelSellSchema = Yup.object().shape({
         currentMeterDegree: Yup.number().required(),
         oldMeterDegree: Yup.number().required(),
-        soldFuelAmount: Yup.number()
-            .max(selectedDailySell.balance, t("soldFuelAmountCannotGreaterThanBalance")),
+        soldFuelAmount: Yup.number(),
         fuelUnitPrice: Yup.number().required("Required"),
         collectedMoney: Yup.number().required("Required"),
     });
@@ -119,10 +117,6 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
         }
     }, [selectedDailySell]);
 
-    console.log(formik.values, '---------------');
-    console.log(formik.errors, 'errrrrrrr');
-
-
     useEffect(() => {
         const current = Number(formik.values.currentMeterDegree);
         const old = Number(formik.values.oldMeterDegree);
@@ -136,8 +130,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
     return (
         <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg' >
             <Modal.Header closeButton>
-                <Modal.Title>{t('global.add', { name: t('dailyFuelSell.dailyFuelSell') })} :
-                    {''} ( {t('fuelDistribution.availableFuel')} : <b className='me-2' style={{color: 'red'}}>{selectedDailySell?.balance} {t('global.LITER')}</b>)
+                <Modal.Title>{t('global.add', { name: t('dailyFuelSell.dailyFuelSell') })}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
