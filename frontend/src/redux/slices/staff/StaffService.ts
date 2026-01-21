@@ -10,7 +10,9 @@ const getStaffs = async (params: any) => {
 }
 // Get Staff List
 const getStaffsList = async () => {
+  console.log("XXXXXXXXXXXXXXXXXXX");
   const response = await axiosInterceptor.get(`/Staff/listAll`)
+  console.log(response.data,"0000");
   return response.data
 }
 // Get roles by system id.

@@ -34,7 +34,7 @@ export const getStaff = createAsyncThunk('api/staff/fgh', async (params: any, th
 })
 
 // get staffs list
-export const getStaffsList = createAsyncThunk('api/staff/list', async (_, thunkAPI) => {
+export const getStaffsList = createAsyncThunk('api/staff/list', async (_, thunkAPI) => {debugger
   try {
     return await staffService.getStaffsList()
   } catch (error: any) {
