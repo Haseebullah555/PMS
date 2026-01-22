@@ -4,6 +4,8 @@ namespace Domain.Models
 {
     public class DailyFuelSell: BaseDomainEntity
     {
+        public int FuelTypeId { get; set; }
+        public FuelTypes? FuelTypes { get; set; }
         public int FuelStandId { get; set; }
         public FuelStand? FuelStand { get; set; }
         public int FuelGunId { get; set; }

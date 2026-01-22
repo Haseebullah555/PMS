@@ -3,25 +3,9 @@ import { FC } from 'react'
 import { useIntl } from 'react-intl'
 import { KTCard, KTCardBody, KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers'
 import { PageTitle } from '../../../_metronic/layout/core'
-import {
-  ListsWidget2,
-  ListsWidget3,
-  ListsWidget4,
-  ListsWidget6,
-  TablesWidget5,
-  TablesWidget10,
-  MixedWidget8,
-  CardsWidget7,
-  CardsWidget17,
-  CardsWidget20,
-  ListsWidget26,
-  EngageWidget10,
-  ChartsWidget1,
-  ChartsWidget2,
-} from '../../../_metronic/partials/widgets'
-import { Charts } from '../../modules/widgets/components/Charts'
 import { t } from 'i18next'
 import { DashboardCard } from './DashboardCards'
+import { DashboardChart } from './DashboardChart'
 
 const DashboardPage: FC = () => (
   <>
@@ -38,7 +22,7 @@ const DashboardPage: FC = () => (
         </div>
       </div>
       <div className='col-xl-12'>
-        <ChartsWidget1 className='card-xl-stretch mb-xl-8' />
+        <DashboardChart className='card-xl-stretch mb-xl-8' />
       </div>
       
     </div>
