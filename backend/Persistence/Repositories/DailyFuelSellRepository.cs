@@ -41,6 +41,8 @@ namespace Persistence.Repositories
             var result = _context.DailyFuelSells
                         .Include(dfs => dfs.FuelStand)
                         .Include(dfs => dfs.FuelGun)
+                        .Include(dfs => dfs.FuelType)
+                        .Include(dfs => dfs.Staff)
                         .AsQueryable();
             return result;
         }

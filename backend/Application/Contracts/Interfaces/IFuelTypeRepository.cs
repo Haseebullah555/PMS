@@ -3,7 +3,7 @@ using Domain.Models;
 
 namespace Application.Contracts.Interfaces
 {
-    public interface IFuelTypeRepository : IGenericRepository<FuelTypes>
+    public interface IFuelTypeRepository : IGenericRepository<FuelType>
     {
         
     }

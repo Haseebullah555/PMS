@@ -12,25 +12,21 @@ namespace Persistence.Seeders
                 {
                     Id = 1,
                     Name = "پایه اول",
-                    StaffId = 1,
                 },
                 new FuelStand
                 {
                     Id = 2,
                     Name = "پایه دوم",
-                    StaffId = 1,
                 },
                 new FuelStand
                 {
                     Id = 3,
                     Name = "پایه سوم",
-                    StaffId = 2,
                 },
                 new FuelStand
                 {
                     Id = 4,
                     Name = "پایه چهارم",
-                    StaffId = 2,
                 }
 
             );

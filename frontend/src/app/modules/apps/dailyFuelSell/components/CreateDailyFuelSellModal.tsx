@@ -148,7 +148,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
 
 
     return (
-        <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='lg' >
+        <Modal show={isOpen} onHide={onClose} backdrop='static' keyboard={false} size='xl' >
             <Modal.Header closeButton>
                 <Modal.Title>{t('global.add', { name: t('dailyFuelSell.dailyFuelSell') })}
                 </Modal.Title>

@@ -19,7 +19,7 @@ namespace Persistence.Database
         #region DbSets
         public DbSet<User> Users { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
-        public DbSet<FuelTypes> FuelTypes { get; set; }
+        public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<FuelGun> FuelGuns { get; set; }
         public DbSet<FuelStand> FuelStands { get; set; }
         public DbSet<Purchase> Purchases { get; set; }

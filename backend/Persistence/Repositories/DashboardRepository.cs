@@ -20,11 +20,11 @@ namespace Persistence.Repositories
 
             var result = await _context.DailyFuelSells
                 .Where(dfs => dfs.Date.HasValue && dfs.Date.Value.Year == currentYear)
-                .Include(dfs => dfs.FuelTypes)
+                .Include(dfs => dfs.FuelType)
                 .GroupBy(dfs => new
                 {
                     dfs.FuelTypeId,
-                    dfs.FuelTypes.Name,
+                    dfs.FuelType.Name,
                     Month = dfs.Date!.Value.Month
                 })
                 .Select(g => new DashboardChartDto

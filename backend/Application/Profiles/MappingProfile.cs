@@ -30,9 +30,9 @@ namespace Application.Profiles
             CreateMap<Customer, AddCustomerDto>().ReverseMap();
             CreateMap<Customer, UpdateCustomerDto>().ReverseMap();
             CreateMap<CustomerLoan, CustomerLoanDto>().ReverseMap();
-            CreateMap<FuelTypes, FuelTypeDto>().ReverseMap();
-            CreateMap<FuelTypes, AddFuelTypeDto>().ReverseMap();
-            CreateMap<FuelTypes, UpdateFuelTypeDto>().ReverseMap();
+            CreateMap<FuelType, FuelTypeDto>().ReverseMap();
+            CreateMap<FuelType, AddFuelTypeDto>().ReverseMap();
+            CreateMap<FuelType, UpdateFuelTypeDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunDto>().ReverseMap();
             CreateMap<FuelGun, FuelGunListDto>().ReverseMap();
             CreateMap<FuelStand, FuelStandDto>().ReverseMap();

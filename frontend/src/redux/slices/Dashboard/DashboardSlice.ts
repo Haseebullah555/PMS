@@ -4,18 +4,20 @@ import CustomerService from './DashboardService'
 
 type customerSate = {
   allSales: any
+  allCustomers: any
 }
 
 const initialState: customerSate = {
   allSales: {
     data: [],
   },
+  allCustomers: null,
 }
 
 //get Customers list
 export const getCustomersList = createAsyncThunk('/Dashboard/list', async (_, thunkAPI) => {
   try {
-    return await CustomerService.getCustomersList()
+    return await CustomerService.getAllMonthlySalesList()
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||

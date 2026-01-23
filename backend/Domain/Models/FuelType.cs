@@ -4,7 +4,7 @@ using Domain.Enums;
 
 namespace Domain.Models
 {
-    public class FuelTypes : BaseDomainEntity
+    public class FuelType : BaseDomainEntity
     {
         [Required]
         public string Name { get; set; }

@@ -7,7 +7,10 @@ namespace Application.Dtos.DailyFuelSellDtos
         public string? FuelStand { get; set; }
         public int FuelGunId { get; set; }
         public string? FuelGun { get; set; }
+        public int FuelTypeId { get; set; }
+        public string? FuelType { get; set; }
         public int StaffId { get; set; }
+        public string? Staff { get; set; }
         public decimal CurrentMeterDegree { get; set; }
         public decimal OldMeterDegree { get; set; }
         public decimal SoldFuelAmount { get; set; }

@@ -5,7 +5,7 @@ using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories
 {
-    public class FuelTypeRepository : GenericRepository<FuelTypes>, IFuelTypeRepository
+    public class FuelTypeRepository : GenericRepository<FuelType>, IFuelTypeRepository
     {
         public FuelTypeRepository(AppDbContext context) : base(context)
         {

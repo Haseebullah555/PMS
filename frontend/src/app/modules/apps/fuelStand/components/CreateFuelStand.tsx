@@ -31,7 +31,6 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
   // Form Validation Schema
   const FuelStandSchema = Yup.object().shape({
     name: Yup.string().required(t('validation.required', { name: t('fuelStand.fuelStand') })),
-    staffId: Yup.number().required(t('validation.required', { name: t('staff.staff') })),
     fuelGuns: Yup.array()
       .of(
         Yup.object().shape({
@@ -134,31 +133,7 @@ const CreateFuelStandModal: React.FC<CreateFuelStandModalProps> = ({ isOpen, onC
                 )}
               </div>
 
-              {/* Staffs */}
-              <div className="col-md-12 mb-3">
-                <label className='form-label'>{t("staff.staff")} *</label>
-                <select
-                  className={clsx('form-select', {
-                    'is-invalid': formik.touched.staffId && formik.errors.staffId,
-                    'is-valid': formik.touched.staffId && !formik.errors.staffId,
-                  })}
-                  value={formik.values.staffId ?? ""}
-                  onChange={(e) =>
-                    formik.setFieldValue("staffId", Number(e.target.value))
-                  }
-                >
-                  <option value="">{t("global.SELECT.OPTION")}</option>
-                  {staffs?.map((f: any) => (
-                    <option key={f.id} value={f.id}>{f.fullName}</option>
-                  ))}
-                </select>
-                {formik.touched.staffId &&
-                  formik.errors?.staffId && (
-                    <div className="invalid-feedback">
-                      {t('validation.required', { name: t('staff.staff') })}
-                    </div>
-                  )}
-              </div>
+             
             </div>
           </div>
           {/* Fuel Guns Section */}

@@ -18,7 +18,6 @@ namespace Persistence.Repositories
         public IQueryable<FuelStand> GetAllFuelStands()
         {
             return _context.FuelStands
-            .Include(f => f.Staff)
             .Include(f => f.FuelGuns)
             .AsQueryable();
         }

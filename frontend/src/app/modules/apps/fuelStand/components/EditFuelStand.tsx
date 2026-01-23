@@ -17,7 +17,6 @@ interface EditFuelStandModalProps {
   selectedFuelStand: any // Type it as appropriate based on your data structure
   handleReloadTable: () => void
 }
-
 const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
   isOpen,
   onClose,
@@ -47,12 +46,10 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
       formik.setValues({
         id: selectedFuelStand.id || null,
         name: selectedFuelStand.name || "",
-        staffId: selectedFuelStand.staffId || null,
-        fuelGuns: fuelGuns
+        fuelGuns: fuelGuns,
       });
     }
   }, [selectedFuelStand]);
-
 
   // Validation schema
   const FuelStandSchema = Yup.object().shape({
@@ -71,7 +68,6 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
     initialValues: {
       id: null,
       name: '',
-      staffId: null,
       fuelGuns: [
         {
           id: "",
@@ -165,31 +161,7 @@ const EditFuelStandModal: React.FC<EditFuelStandModalProps> = ({
                     </div>
                   )}
                 </div>
-                                  {/* Staffs */}
-                  <div className="col-md-12 mb-3">
-                    <label className='form-label'>{t("staff.staff")} *</label>
-                    <select
-                      className={clsx('form-select', {
-                        'is-invalid': formik.touched.staffId && formik.errors.staffId,
-                        'is-valid': formik.touched.staffId && !formik.errors.staffId,
-                      })}
-                      value={formik.values.staffId ?? ""}
-                      onChange={(e) =>
-                        formik.setFieldValue("staffId", Number(e.target.value))
-                      }
-                    >
-                      <option value="">{t("global.SELECT.OPTION")}</option>
-                      {staffs?.map((f: any) => (
-                        <option key={f.id} value={f.id}>{f.fullName}</option>
-                      ))}
-                    </select>
-                    {formik.touched.staffId &&
-                      formik.errors?.staffId && (
-                        <div className="invalid-feedback">
-                          {t('validation.required', { name: t('staff.staff') })}
-                        </div>
-                      )}
-                  </div>
+               
               </div>
             </div>
           </div>
