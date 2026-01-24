@@ -2,6 +2,7 @@ using Application.Contracts.Interfaces.Common;
 using Application.Dtos.Common;
 using Application.Dtos.DailyFuelSellDtos;
 using Application.Features.DailyFuelSell.Requests.Queries;
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,10 +11,12 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
     public class GetListOfDailyFuelSellRequestHandler : IRequestHandler<GetListOfDailyFuelSellRequest, PaginatedResult<DailyFuelSellDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public GetListOfDailyFuelSellRequestHandler(IUnitOfWork unitOfWork)
+        public GetListOfDailyFuelSellRequestHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
         public async Task<PaginatedResult<DailyFuelSellDto>> Handle(GetListOfDailyFuelSellRequest request, CancellationToken cancellationToken)
         {
@@ -56,23 +59,24 @@ namespace Application.Features.DailyFuelSell.Handlers.Queries
                 .ToListAsync(cancellationToken);
 
             // Map to DTO
-            var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellDto
-            {
-                Id = fs.Id,
-                FuelStandId = fs.FuelStandId,
-                FuelStand = fs.FuelStand.Name,
-                StaffId = fs.StaffId,
-                FuelGunId = fs.FuelGunId,
-                FuelGun = fs.FuelGun.Name,
-                CurrentMeterDegree = fs.CurrentMeterDegree,
-                OldMeterDegree = fs.OldMeterDegree,
-                SoldFuelAmount = fs.SoldFuelAmount,
-                FuelUnitPrice = fs.FuelUnitPrice,
-                TotalPrice = fs.TotalPrice,
-                CollectedMoney = fs.CollectedMoney,
-                Date = fs.Date,
-                Note = fs.Note,
-            }).ToList();
+            // var dailyFuelSellDtos = DailyFuelSells.Select(fs => new DailyFuelSellDto
+            // {
+            //     Id = fs.Id,
+            //     FuelStandId = fs.FuelStandId,
+            //     FuelStand = fs.FuelStand.Name,
+            //     StaffId = fs.StaffId,
+            //     FuelGunId = fs.FuelGunId,
+            //     FuelGun = fs.FuelGun.Name,
+            //     CurrentMeterDegree = fs.CurrentMeterDegree,
+            //     OldMeterDegree = fs.OldMeterDegree,
+            //     SoldFuelAmount = fs.SoldFuelAmount,
+            //     FuelUnitPrice = fs.FuelUnitPrice,
+            //     TotalPrice = fs.TotalPrice,
+            //     CollectedMoney = fs.CollectedMoney,
+            //     Date = fs.Date,
+            //     Note = fs.Note,
+            // }).ToList();
+            var dailyFuelSellDtos = _mapper.Map<List<DailyFuelSellDto>>(DailyFuelSells);
 
             return new PaginatedResult<DailyFuelSellDto>
             {
