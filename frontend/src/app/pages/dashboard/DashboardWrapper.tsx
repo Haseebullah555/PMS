@@ -20,6 +20,15 @@ const DashboardPage: FC = () => (
           />
           
         </div>
+        <div className='col-md-3 col-lg-3 col-xl-3 col-xxl-3 mb-md-5 mb-xl-2'>
+          <DashboardCard
+            className='h-md-100 mb-5 mb-xl-10'
+            description='Active Projects'
+            color='#153a81'
+            img={toAbsoluteUrl('/media/patterns/vector-1.png')}
+          />
+          
+        </div>
       </div>
       <div className='col-xl-12'>
         <DashboardChart className='card-xl-stretch mb-xl-8' />

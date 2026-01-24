@@ -78,6 +78,8 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
 
     const memoizedData = useMemo(() => data, [data])
     const memoizedLoading = useMemo(() => loading, [loading])
+
+    console.log(memoizedData, '-------------')
     return (
         <div>
             {isAuthorized ? (
@@ -142,14 +144,14 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                         <tr key={index} className='fs-5 text-center'>
                                             <td className='fw-bolder'>{index + 1}</td>
                                             <td>{item.date}</td>
-                                            <td>{item.fuelStand}</td>
-                                            <td>{item.fuelGun}</td>
+                                            <td>{item?.fuelStand?.name}</td>
+                                            {/* <td>{item.fuelGun}</td>
                                             <td>{item.currentMeterDegree}</td>
                                             <td>{item.oldMeterDegree}</td>
                                             <td>{item.soldFuelAmount}</td>
                                             <td>{item.fuelUnitPrice}</td>
                                             <td>{item.totalPrice}</td>
-                                            <td>{item.collectedMoney}</td>
+                                            <td>{item.collectedMoney}</td> */}
                                             {/* <td>{item.difference}</td> */}
                                             <td>
                                                 <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>

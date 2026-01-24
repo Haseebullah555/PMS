@@ -2,7 +2,7 @@ export interface DailyFuelSellForm {
   fuelGunId: number | null
   fuelGun: string | null
   fuelStandId: number | null
-  fuelStand: string | null
+  fuelStand: any | null
   currentMeterDegree: number | null
   oldMeterDegree: number | null
   soldFuelAmount: number | null
