@@ -4,6 +4,7 @@ namespace Application.Contracts.Interfaces.Common
 {
     public interface IUnitOfWork : IDisposable
     {
+        public IDashboardRepository Dashboards { get; }
         public ICustomerRepository Customers { get; }
         public ICustomerLoanRepository CustomerLoans { get; }
         public ICustomerLoanPaymentRepository CustomerLoanPayments { get; }

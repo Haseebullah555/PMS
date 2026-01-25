@@ -5,13 +5,13 @@ const axiosInterceptor = axios.create({
 
 // Get customers list
 const getAllMonthlySalesList = async () => {
-  const response = await axiosInterceptor.get(`/DashBoard/daily-fuel-sales`)
+  const response = await axiosInterceptor.get(`/DashBoard/annual-fuel-sales`)
   return response.data
 }
 
 
-const CustomerService = {
+const DashboardService = {
   getAllMonthlySalesList,
 }
 
-export default CustomerService
+export default DashboardService

@@ -1,23 +1,21 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import CustomerService from './DashboardService'
+import DashboardService from './DashboardService'
 
 type customerSate = {
-  allSales: any
-  allCustomers: any
+  annualSales: any
 }
 
 const initialState: customerSate = {
-  allSales: {
+  annualSales: {
     data: [],
   },
-  allCustomers: null,
 }
 
-//get Customers list
-export const getCustomersList = createAsyncThunk('/Dashboard/list', async (_, thunkAPI) => {
+//get Dashboards list
+export const getAnnualSales = createAsyncThunk('/Dashboard/list', async (_, thunkAPI) => {
   try {
-    return await CustomerService.getAllMonthlySalesList()
+    return await DashboardService.getAllMonthlySalesList()
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -29,15 +27,15 @@ export const getCustomersList = createAsyncThunk('/Dashboard/list', async (_, th
 
 
 export const customerSlice = createSlice({
-  name: 'Customer',
+  name: 'Dashboard',
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getCustomersList.fulfilled, (state, action: PayloadAction) => {
+    builder.addCase(getAnnualSales.fulfilled, (state, action: PayloadAction) => {
         console.log('action.payload', action.payload)
-      state.allCustomers = action.payload
+      state.annualSales = action.payload
     })
   },
 })

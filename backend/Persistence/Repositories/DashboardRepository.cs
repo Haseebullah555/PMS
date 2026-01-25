@@ -1,8 +1,8 @@
 using Application.Contracts.Interfaces;
 using Application.Dtos.Dashboard;
-using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
+using Persistence.Helpers;
 
 namespace Persistence.Repositories
 {
@@ -16,27 +16,37 @@ namespace Persistence.Repositories
         }
         public async Task<List<DashboardChartDto>> GetAnnualFuelTypeSales()
         {
-            int currentYear = DateTime.UtcNow.Year;
+            int currentShamsiYear = ShamsiDateHelper.GetShamsiYear(DateTime.Now);
 
-            var result = await _context.DailyFuelSells
-                .Where(dfs => dfs.Date.HasValue && dfs.Date.Value.Year == currentYear)
-                .Include(dfs => dfs.FuelType)
-                .GroupBy(dfs => new
+            var rawData = await _context.DailyFuelSells
+                .Include(x => x.FuelType)
+                .Where(x => x.Date.HasValue)
+                .ToListAsync(); // 👈 switch to memory
+
+            var result = rawData
+                .Where(x =>
+                    ShamsiDateHelper.GetShamsiYear(
+                        x.Date!.Value.ToDateTime(TimeOnly.MinValue)
+                    ) == currentShamsiYear
+                )
+                .GroupBy(x => new
                 {
-                    dfs.FuelTypeId,
-                    dfs.FuelType.Name,
-                    Month = dfs.Date!.Value.Month
+                    x.FuelTypeId,
+                    x.FuelType!.Name,
+                    Month = ShamsiDateHelper.GetShamsiMonth(
+                        x.Date!.Value.ToDateTime(TimeOnly.MinValue)
+                    )
                 })
                 .Select(g => new DashboardChartDto
                 {
                     FuelTypeId = g.Key.FuelTypeId,
                     FuelTypeName = g.Key.Name,
-                    Month = g.Key.Month,
+                    ShamsiYear = currentShamsiYear,
+                    ShamsiMonth = g.Key.Month,
                     TotalSoldAmount = g.Sum(x => x.SoldFuelAmount)
                 })
-                .OrderBy(x => x.FuelTypeId)
-                .ThenBy(x => x.Month)
-                .ToListAsync();
+                .OrderBy(x => x.ShamsiMonth)
+                .ToList();
 
             return result;
         }

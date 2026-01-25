@@ -16,9 +16,10 @@ namespace Application.Features.Dashboard.Handlers.Queries
             _unitOfWork = unitOfWork;
             _cache = cache;
         }
-        public Task<List<DashboardChartDto>> Handle(GetMonthlyAllFuelTypeSalesRequest request, CancellationToken cancellationToken)
+        public async Task<List<DashboardChartDto>> Handle(GetMonthlyAllFuelTypeSalesRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.Dashboards.GetAnnualFuelTypeSales();
+            return result;
         }
     }
 }

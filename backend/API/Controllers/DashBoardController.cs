@@ -1,4 +1,5 @@
 using API.Controllers.Common;
+using Application.Features.Dashboard.Requests.Queries;
 using Application.Features.Reports.FuelSellReports.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,11 @@ namespace API.Controllers
 
             return Ok(result);
         }
-        
+        [HttpGet("annual-fuel-sales")]
+        public async Task<IActionResult> GetAnnualFuelSales()
+        {
+            var result = await _mediator.Send(new GetMonthlyAllFuelTypeSalesRequest());
+            return Ok(result);
+        }
     }
 }
