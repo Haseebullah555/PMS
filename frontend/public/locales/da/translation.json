@@ -440,5 +440,9 @@
     "note": "توضیحات",
     "loanSell": "قرض",
     "difference": "تفاوت"
+  },
+  "dashboard": {
+    "annualSales": "فروشات سالانه",
+    "difference": "تفاوت"
   }
 }

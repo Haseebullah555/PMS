@@ -6,19 +6,19 @@ using MediatR;
 
 namespace Application.Features.Dashboard.Handlers.Queries
 {
-    public class GetMonthlyAllFuelTypeSalesRequestHandler : IRequestHandler<GetMonthlyAllFuelTypeSalesRequest, List<DashboardChartDto>>
+    public class GetDailyAllFuelTypeSalesRequestHandler : IRequestHandler<GetDailyAllFuelTypeSalesRequest, List<DashboardDailySalesDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICacheRepository _cache;
 
-        public GetMonthlyAllFuelTypeSalesRequestHandler(IUnitOfWork unitOfWork, ICacheRepository cache)
+        public GetDailyAllFuelTypeSalesRequestHandler(IUnitOfWork unitOfWork, ICacheRepository cache)
         {
             _unitOfWork = unitOfWork;
             _cache = cache;
         }
-        public async Task<List<DashboardChartDto>> Handle(GetMonthlyAllFuelTypeSalesRequest request, CancellationToken cancellationToken)
+        public async Task<List<DashboardDailySalesDto>> Handle(GetDailyAllFuelTypeSalesRequest request, CancellationToken cancellationToken)
         {
-            var result = await _unitOfWork.Dashboards.GetAnnualFuelTypeSales();
+            var result = await _unitOfWork.Dashboards.GetDailyFuelTypeSales();
             return result;
         }
     }

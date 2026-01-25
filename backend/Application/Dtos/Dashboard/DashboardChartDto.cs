@@ -4,7 +4,8 @@ namespace Application.Dtos.Dashboard
     {
         public int FuelTypeId { get; set; }
         public string FuelTypeName { get; set; }
-        public int Month { get; set; } // 1 = Jan, 12 = Dec
+        public int ShamsiYear { get; set; }
+        public int ShamsiMonth { get; set; } // 1–12 (حمل → حوت)
         public decimal TotalSoldAmount { get; set; }
     }
 }

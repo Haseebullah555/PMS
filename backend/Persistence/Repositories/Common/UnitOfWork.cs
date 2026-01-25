@@ -13,6 +13,7 @@ namespace Persistence.Repositories.Common
             _context = context;
         }
         #region Private fields
+        private IDashboardRepository _dashboardRepository;
         private ICustomerRepository _customerRepository;
         private ICustomerLoanRepository _customerLoanRepository;
         private ICustomerLoanPaymentRepository _customerLoanPaymentRepository;
@@ -35,6 +36,7 @@ namespace Persistence.Repositories.Common
         private IStudentRespository _studentRepository;
         #endregion
 
+        public IDashboardRepository Dashboards => _dashboardRepository ??= new DashboardRepository(_context);
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
         public ICustomerLoanRepository CustomerLoans => _customerLoanRepository ??= new CustomerLoanRepository(_context);
         public ICustomerLoanPaymentRepository CustomerLoanPayments => _customerLoanPaymentRepository ??= new CustomerLoanPaymentRepository(_context);

@@ -13,7 +13,11 @@
   gap: 12px;
   height: 100px;
 }
-
+/* .apexcharts-data-label {
+  transform: rotate(-90deg);
+  transform-origin: center;
+  white-space: nowrap;
+} */
 .loading span {
   width: 5px;
   height: 50px;

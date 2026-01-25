@@ -1,23 +1,37 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import CustomerService from './DashboardService'
+import DashboardService from './DashboardService'
 
 type customerSate = {
-  allSales: any
-  allCustomers: any
+  annualSales: any
+  dailySales: any
 }
 
 const initialState: customerSate = {
-  allSales: {
+  dailySales:{
     data: [],
   },
-  allCustomers: null,
+  annualSales: {
+    data: [],
+  },
 }
 
-//get Customers list
-export const getCustomersList = createAsyncThunk('/Dashboard/list', async (_, thunkAPI) => {
+//get Dashboards Annual Char Data
+export const getAnnualSales = createAsyncThunk('/Dashboard/monthly', async (_, thunkAPI) => {
   try {
-    return await CustomerService.getAllMonthlySalesList()
+    return await DashboardService.getAllMonthlySalesList()
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+//get Dashboards Daily Cards Data
+export const getDailySales = createAsyncThunk('/Dashboard/daily', async (_, thunkAPI) => {
+  try {
+    return await DashboardService.getAllDailySalesList()
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -29,15 +43,19 @@ export const getCustomersList = createAsyncThunk('/Dashboard/list', async (_, th
 
 
 export const customerSlice = createSlice({
-  name: 'Customer',
+  name: 'Dashboard',
   initialState,
   reducers: {
     reset: (state) => initialState,
   },
   extraReducers: (builder) => {
-    builder.addCase(getCustomersList.fulfilled, (state, action: PayloadAction) => {
+    builder.addCase(getAnnualSales.fulfilled, (state, action: PayloadAction) => {
         console.log('action.payload', action.payload)
-      state.allCustomers = action.payload
+      state.annualSales = action.payload
+    })
+    builder.addCase(getDailySales.fulfilled, (state, action: PayloadAction) => {
+        console.log('action.payload', action.payload)
+      state.dailySales = action.payload
     })
   },
 })
