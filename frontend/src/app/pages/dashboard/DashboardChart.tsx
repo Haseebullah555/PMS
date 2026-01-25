@@ -174,8 +174,8 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
     },
 
     colors: [
-      getCSSVariableValue('--bs-primary'),
-      '#7C5CFC',
+      '#153a81',
+      '#d10029',
       '#64748B',
       getCSSVariableValue('--bs-success'),
     ],

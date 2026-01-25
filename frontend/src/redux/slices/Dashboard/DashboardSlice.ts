@@ -4,18 +4,34 @@ import DashboardService from './DashboardService'
 
 type customerSate = {
   annualSales: any
+  dailySales: any
 }
 
 const initialState: customerSate = {
+  dailySales:{
+    data: [],
+  },
   annualSales: {
     data: [],
   },
 }
 
-//get Dashboards list
-export const getAnnualSales = createAsyncThunk('/Dashboard/list', async (_, thunkAPI) => {
+//get Dashboards Annual Char Data
+export const getAnnualSales = createAsyncThunk('/Dashboard/monthly', async (_, thunkAPI) => {
   try {
     return await DashboardService.getAllMonthlySalesList()
+  } catch (error: any) {
+    const message =
+      (error.response && error.response.data && error.response.data.message) ||
+      error.message ||
+      error.toString()
+    return thunkAPI.rejectWithValue(message)
+  }
+})
+//get Dashboards Daily Cards Data
+export const getDailySales = createAsyncThunk('/Dashboard/daily', async (_, thunkAPI) => {
+  try {
+    return await DashboardService.getAllDailySalesList()
   } catch (error: any) {
     const message =
       (error.response && error.response.data && error.response.data.message) ||
@@ -36,6 +52,10 @@ export const customerSlice = createSlice({
     builder.addCase(getAnnualSales.fulfilled, (state, action: PayloadAction) => {
         console.log('action.payload', action.payload)
       state.annualSales = action.payload
+    })
+    builder.addCase(getDailySales.fulfilled, (state, action: PayloadAction) => {
+        console.log('action.payload', action.payload)
+      state.dailySales = action.payload
     })
   },
 })

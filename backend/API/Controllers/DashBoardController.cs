@@ -10,18 +10,12 @@ namespace API.Controllers
     public class DashBoardController : BaseApiController
     {
         [HttpGet("daily-fuel-sales")]
-        public async Task<IActionResult> GetDailyFuelSales(
-        DateOnly? fromDate,
-        DateOnly? toDate)
+        public async Task<IActionResult> GetDailyFuelSales()
         {
-            var result = await _mediator.Send(new GetDailyFuelSellsReportRequest
-            {
-                FromDate = fromDate,
-                ToDate = toDate
-            });
-
+            var result = await _mediator.Send(new GetDailyAllFuelTypeSalesRequest());
             return Ok(result);
         }
+        
         [HttpGet("annual-fuel-sales")]
         public async Task<IActionResult> GetAnnualFuelSales()
         {

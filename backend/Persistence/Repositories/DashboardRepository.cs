@@ -50,6 +50,38 @@ namespace Persistence.Repositories
 
             return result;
         }
+        public async Task<List<DashboardDailySalesDto>> GetDailyFuelTypeSales()
+        {
+            int today = DateOnly.FromDateTime(DateTime.Now).Day;
+
+            var rawData = await _context.DailyFuelSells
+                .Include(x => x.FuelType)
+                .Where(x => x.Date.HasValue)
+                .ToListAsync(); // 👈 switch to memory
+
+            var result = rawData
+                .Where(x =>
+                    x.Date!.Value.Day == today
+                )
+                .GroupBy(x => new
+                {
+                    x.FuelTypeId,
+                    x.FuelType!.Name,
+                    Today = today,
+                })
+                .Select(g => new DashboardDailySalesDto
+                {
+                    FuelTypeId = g.Key.FuelTypeId,
+                    FuelTypeName = g.Key.Name,
+                    Today = today,
+                    FuelUnitPrice = g.First().FuelUnitPrice,
+                    TotalSoldAmount = g.Sum(x => x.SoldFuelAmount)
+                })
+                .OrderBy(x => x.Today)
+                .ToList();
+
+            return result;
+        }
 
     }
 }
