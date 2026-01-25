@@ -1,5 +1,15 @@
+@font-face {
+  font-family: 'Bahij';
+  src: url('/fonts/Bahij.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-    font-family: Arial, sans-serif;
+  font-family: 'Bahij', sans-serif;
+}
+
+body {
     margin: 0;
     padding: 0;
 }
@@ -31,3 +41,4 @@ form button { padding: 5px 10px; }
 table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 table, th, td { border: 1px solid #ccc; }
 th, td { padding: 8px; text-align: left; }
+

@@ -119,9 +119,8 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
     'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت',
   ]
 
-  const categories = isRTL
-    ? [...persianMonths].reverse()
-    : persianMonths
+  const isRTL = document.dir === 'rtl'
+  const categories = isRTL ? [...persianMonths].reverse() : persianMonths
 
   return {
     series: seriesData,
@@ -129,8 +128,31 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
     chart: {
       type: 'bar',
       height,
-      fontFamily: 'inherit',
-      toolbar: { show: false },
+      fontFamily: 'Bahij',
+      toolbar: { show: true },
+    },
+
+    plotOptions: {
+      bar: {
+        columnWidth: '55%',
+        borderRadius: 6,
+        dataLabels: {
+          position: 'center', // ✅ INSIDE bars
+        },
+      },
+    },
+
+    dataLabels: {
+      enabled: false,
+      // formatter: (val) => val.toLocaleString('fa-IR'),
+      // textAnchor: 'middle',
+      // offsetY: 0,
+      // style: {
+      //   fontSize: '12px',
+      //   fontWeight: 700,
+      //   fontFamily: 'Bahij',
+      //   colors: ['#ffffff'],
+      // },
     },
 
     xaxis: {
@@ -138,7 +160,20 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
       labels: {
         style: {
           colors: labelColor,
-          fontSize: '12px',
+          fontSize: '15px',
+          fontFamily: 'Bahij',
+          fontWeight: 900,
+        },
+      },
+    },
+
+    yaxis: {
+      labels: {
+        formatter: (val) => val.toLocaleString('fa-IR'),
+        style: {
+          colors: labelColor,
+          fontFamily: 'Bahij',
+          fontSize: '13px',
         },
       },
     },
@@ -146,6 +181,10 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
     tooltip: {
       shared: true,
       intersect: false,
+      style: {
+        fontFamily: 'Bahij',
+        fontSize: '14px',
+      },
       y: {
         formatter: (val) => `${val.toLocaleString('fa-IR')} لیتر`,
       },
@@ -155,18 +194,25 @@ function getChartOptions(height: number, seriesData: any[]): ApexOptions {
       show: true,
       position: 'bottom',
       horizontalAlign: 'center',
+
       itemMargin: {
-        horizontal: 16, // space between legend items
-        vertical: 8,    // space between rows (if wrapped)
+        horizontal: 16,
+        vertical: 8,
       },
+
       markers: {
         width: 12,
         height: 12,
         radius: 12,
-        offsetX: 3, // ⬅️ pushes marker away from text (RTL-friendly)
+        offsetX: 6,
       },
-      labels: { colors: labelColor },
+
+      labels: {
+        colors: labelColor,
+      },
     },
+
+
 
     grid: {
       borderColor,
