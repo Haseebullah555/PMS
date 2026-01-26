@@ -14,7 +14,7 @@ namespace Application.Dtos.DailyFuelSellDtos
         public decimal FuelUnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal CollectedMoney { get; set; }
-        public DateOnly? Date { get; set; }
+        public DateOnly Date { get; set; }
         public string? Note { get; set; }
 
     }

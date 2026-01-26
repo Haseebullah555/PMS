@@ -4,13 +4,23 @@ namespace Domain.Models
 {
     public class FinancialTransaction : BaseDomainEntity
     {
-        public DateTime Date { get; set; }
-        public string? Type { get; set; } // Sale, Purchase, Expense, Salary, Loan, Capital
-        public int? ReferenceId { get; set; } // PurchaseId, SaleId, SalaryId, etc.
-        public string? PartyType { get; set; } // Customer, Supplier, Staff, Partner
-        public int? PartyId { get; set; } // FK to Party
+        public DateOnly Date { get; set; }
+
+        // Purchase, Sale, Expense, SupplierLoanPayment, CustomerPayment
+        public string Type { get; set; } = default!;
+
+        public int ReferenceId { get; set; }   // PurchaseId, SaleId, etc.
+
+        // Supplier / Customer / Internal
+        public string PartyType { get; set; } = default!;
+        public int PartyId { get; set; }
 
         public decimal Amount { get; set; }
-        public string? Direction { get; set; } // "IN" or "OUT"
+
+        // IN / OUT
+        public string Direction { get; set; } = default!;
+
+        public string? Remarks { get; set; }
     }
+
 }

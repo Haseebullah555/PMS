@@ -75,16 +75,15 @@ namespace Application.Features.Purchase.Handlers.Commands
                     //======================================================
 
                     var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(item.FuelTypeId);
-
+                    decimal addedLiters = (item.Quantity * 1000) / item.Density;
+                    decimal addedValue = addedLiters * item.UnitPrice;
                     if (stock == null) // if fuelTypeId not exist in stock table
                     {
                         stock = new Domain.Models.Stock
                         {
                             FuelTypeId = item.FuelTypeId,
-                            QuantityInLiter = (item.Quantity * 1000) / item.Density,
-
+                            QuantityInLiter = addedLiters,
                             UnitPrice = item.UnitPrice, // First time purchase
-                            // Density = item.Density,
                             CreatedAt = DateTime.UtcNow
                         };
 
@@ -92,20 +91,16 @@ namespace Application.Features.Purchase.Handlers.Commands
                     }
                     else
                     {
-                        // Weighted average calculation
                         decimal oldValue = (decimal)(stock.QuantityInLiter * stock.UnitPrice);
-
-                        decimal newValue = oldValue + detail.TotalPrice;
-
-                        stock.QuantityInLiter += (item.Quantity * 1000) / item.Density;
-                        stock.UnitPrice = newValue / stock.QuantityInLiter;
-
+                        decimal newTotalValue = oldValue + addedValue;
+                        decimal newTotalQty = stock.QuantityInLiter + addedLiters;
+                        stock.QuantityInLiter = newTotalQty;
+                        stock.UnitPrice = newTotalValue / newTotalQty;
                         _unitOfWork.Stocks.Update(stock);
                     }
                 }
 
                 await _unitOfWork.SaveAsync(cancellationToken);
-
 
                 // =====================================================
                 // Record payment transaction (if any)
@@ -115,7 +110,7 @@ namespace Application.Features.Purchase.Handlers.Commands
                 {
                     var txn = new FinancialTransaction
                     {
-                        Date = DateTime.UtcNow,
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow),
                         Type = "Purchase",
                         ReferenceId = purchase.Id,
                         PartyType = "Supplier",
@@ -124,11 +119,10 @@ namespace Application.Features.Purchase.Handlers.Commands
                         Direction = "OUT",
                         CreatedAt = DateTime.UtcNow
                     };
-
+                    await _unitOfWork.FinancialTransactions.AddAsync(txn);
+                    await _unitOfWork.SaveAsync(cancellationToken);
                 }
-
                 await tx.CommitAsync(cancellationToken);
-
                 return purchase.Id;
             }
             catch (Exception ex)

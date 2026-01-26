@@ -19,16 +19,49 @@ namespace Application.Features.StaffPayments.Handlers.Commands
         public async Task Handle(AddStaffPaymentCommand request, CancellationToken cancellationToken)
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
-            var result = _mapper.Map<StaffPayment>(request.StaffPaymentDto);
-            var staff = await _unitOfWork.Staffs.GetByIdAsync(request.StaffPaymentDto.StaffId);
-            staff.Balance = staff.Balance - request.StaffPaymentDto.PaidAmount;
-            staff.UpdatedAt = DateTime.UtcNow;
+            try
+            {
+                var staff = await _unitOfWork.Staffs.GetByIdAsync(request.StaffPaymentDto.StaffId);
 
-            result.CreatedAt = DateTime.UtcNow;
-            await _unitOfWork.StaffPayments.AddAsync(result);
-            _unitOfWork.Staffs.Update(staff);
-            await _unitOfWork.SaveAsync(cancellationToken);
-            await tx.CommitAsync(cancellationToken);
+                staff.Balance -= request.StaffPaymentDto.PaidAmount;
+                staff.UpdatedAt = DateTime.UtcNow;
+
+                if (staff.Balance < 0)
+                    throw new InvalidOperationException("Staff balance cannot be negative.");
+
+                var payment = _mapper.Map<StaffPayment>(request.StaffPaymentDto);
+                payment.CreatedAt = DateTime.UtcNow;
+
+                await _unitOfWork.StaffPayments.AddAsync(payment);
+                _unitOfWork.Staffs.Update(staff);
+
+                // 🔹 Save first to generate payment.Id
+                await _unitOfWork.SaveAsync(cancellationToken);
+
+                // Financial transaction
+                var txn = new FinancialTransaction
+                {
+                    Date = request.StaffPaymentDto.PaymentDate,
+                    Type = "StaffPayment",
+                    ReferenceId = payment.Id,
+                    PartyType = "Staff",
+                    PartyId = staff.Id,
+                    Amount = request.StaffPaymentDto.PaidAmount,
+                    Direction = "OUT",
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _unitOfWork.FinancialTransactions.AddAsync(txn);
+
+                await _unitOfWork.SaveAsync(cancellationToken);
+                await tx.CommitAsync(cancellationToken);
+            }
+            catch
+            {
+                await tx.RollbackAsync(cancellationToken);
+                throw;
+            }
         }
+
     }
 }

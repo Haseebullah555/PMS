@@ -160,6 +160,54 @@ namespace Application.Features.Purchase.Handlers.Commands
 
                 _unitOfWork.Suppliers.Update(supplier);
 
+                // ========================================================
+                //  Update Financial Transaction for Purchase
+                //=========================================================
+
+                var existingTxn = await _unitOfWork.FinancialTransactions
+                    .Query()
+                    .FirstOrDefaultAsync(t =>
+                        t.Type == "Purchase" &&
+                        t.ReferenceId == purchase.Id,
+                        cancellationToken);
+
+                // CASE 1: Old unpaid > 0 AND new unpaid > 0 → update amount
+                if (oldUnpaidAmount > 0 && request.UnpaidAmount > 0)
+                {
+                    if (existingTxn == null)
+                        throw new InvalidOperationException("Financial transaction missing for purchase.");
+
+                    existingTxn.Amount = request.UnpaidAmount;
+                    existingTxn.Date = DateOnly.FromDateTime(DateTime.UtcNow);
+
+                    _unitOfWork.FinancialTransactions.Update(existingTxn);
+                }
+
+                // CASE 2: Old unpaid > 0 AND new unpaid == 0 → delete transaction
+                else if (oldUnpaidAmount > 0 && request.UnpaidAmount == 0)
+                {
+                    if (existingTxn != null)
+                        _unitOfWork.FinancialTransactions.Delete(existingTxn);
+                }
+
+                // CASE 3: Old unpaid == 0 AND new unpaid > 0 → create transaction
+                else if (oldUnpaidAmount == 0 && request.UnpaidAmount > 0)
+                {
+                    var txn = new FinancialTransaction
+                    {
+                        Date = DateOnly.FromDateTime(DateTime.UtcNow),
+                        Type = "Purchase",
+                        ReferenceId = purchase.Id,
+                        PartyType = "Supplier",
+                        PartyId = purchase.SupplierId,
+                        Amount = request.UnpaidAmount,
+                        Direction = "OUT"
+                    };
+
+                    await _unitOfWork.FinancialTransactions.AddAsync(txn);
+                }
+
+
                 // 🔟 Save + Commit
                 await _unitOfWork.SaveAsync(cancellationToken);
                 await tx.CommitAsync(cancellationToken);
@@ -175,6 +223,5 @@ namespace Application.Features.Purchase.Handlers.Commands
                 throw;
             }
         }
-
     }
 }

@@ -20,8 +20,6 @@ namespace Application.Features.SupplierLoanPayment.Handlers.Commands
 
             await using var tx = await _unitOfWork.BeginTransactionAsync();
 
-            // 2️⃣ Update the balace column in supplier and set the uppaidAmount
-            // 3️⃣ Update the supplier balance
             var supplier = await _unitOfWork.SupplierLoanPayments.GetSupplierByIdAsync(request.AddSupplierLoanPaymentDto.SupplierId);
 
             if (supplier is null)
@@ -32,12 +30,25 @@ namespace Application.Features.SupplierLoanPayment.Handlers.Commands
             supplier.Balance -= request.AddSupplierLoanPaymentDto.PaidLoanAmount;
 
             _unitOfWork.Suppliers.Update(supplier);
-            await _unitOfWork.SaveAsync(cancellationToken);
-
 
             var supplierLoanPayment = _mapper.Map<Domain.Models.SupplierLoanPayment>(request.AddSupplierLoanPaymentDto);
             // Save to DB
             await _unitOfWork.SupplierLoanPayments.AddAsync(supplierLoanPayment);
+
+
+            // Create financial transaction
+            var txn = new Domain.Models.FinancialTransaction
+            {
+                Date = request.AddSupplierLoanPaymentDto.PaymentDate,
+                Type = "SupplierLoanPayment",
+                ReferenceId = supplierLoanPayment.Id,
+                PartyType = "Supplier",
+                PartyId = request.AddSupplierLoanPaymentDto.SupplierId,
+                Amount = request.AddSupplierLoanPaymentDto.PaidLoanAmount,
+                Direction = "OUT",
+                CreatedAt = DateTime.UtcNow
+            };
+            await _unitOfWork.FinancialTransactions.AddAsync(txn);
             await _unitOfWork.SaveAsync(cancellationToken);
 
             await tx.CommitAsync(cancellationToken);

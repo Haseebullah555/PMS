@@ -1,7 +1,7 @@
-using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
 using Application.Features.DailyFuelSell.Requests.Commands;
 using AutoMapper;
+using Domain.Models;
 using MediatR;
 
 namespace Application.Features.DailyFuelSell.Handlers.Commands
@@ -21,54 +21,83 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
         {
             await using var tx = await _unitOfWork.BeginTransactionAsync();
 
-            // =============================================
-            // update the Balance column in FuelGun model 
-            // =============================================
-            // var fuelGunRecord = await _unitOfWork.FuelGuns.GetFuelGunByAyncId(request.AddDailyFuelSellDto.FuelGunId);
-            // fuelGunRecord.Balance -= request.AddDailyFuelSellDto.SoldFuelAmount;
-            // _unitOfWork.FuelGuns.Update(fuelGunRecord);
+            try
+            {
+                // =====================================================
+                // Create daily fuel sell
+                //======================================================
 
+                var entity = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
+                await _unitOfWork.DailyFuelSells.AddAsync(entity);
+                await _unitOfWork.SaveAsync(cancellationToken); // REQUIRED to get ID
 
-            // =============================================
-            // get the fuelStand record (to get the staffId)
-            // =============================================
+                // =====================================================
+                // Update stock
+                //======================================================
 
-            // var fuelStand = await _unitOfWork.Staffs.GetFuelStandByIdAsync(request.AddDailyFuelSellDto.FuelStandId);
-            // var dailyFuelSell = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
+                var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(request.AddDailyFuelSellDto.FuelTypeId);
 
-            // add the StaffId with dailyFuelSell
-            // dailyFuelSell.StaffId = fuelStand.StaffId;
+                if (stock == null)
+                    throw new InvalidOperationException("Stock record not found.");
 
-        //    var entity = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
-           var entity = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
+                if (stock.QuantityInLiter < request.AddDailyFuelSellDto.SoldFuelAmount)
+                    throw new InvalidOperationException("Insufficient stock.");
 
+                stock.QuantityInLiter -= request.AddDailyFuelSellDto.SoldFuelAmount;
+                _unitOfWork.Stocks.Update(stock);
 
+                // =====================================================
+                // Record revenue transaction
+                //======================================================
 
-            // if (entity == null)
-            //     throw new Exception("Mapping failed");
+                var revenueTxn = new FinancialTransaction
+                {
+                    Date = request.AddDailyFuelSellDto.Date,
+                    Type = "DailyFuelSale",
+                    ReferenceId = entity.Id,
+                    PartyType = "Internal",
+                    PartyId = 0,
+                    Amount = request.AddDailyFuelSellDto.TotalPrice,
+                    Direction = "IN",
+                    CreatedAt = DateTime.UtcNow
+                };
 
+                await _unitOfWork.FinancialTransactions.AddAsync(revenueTxn);
 
-            await _unitOfWork.DailyFuelSells.AddAsync(entity);
-            await _unitOfWork.SaveAsync(cancellationToken);
+                // =====================================================
+                // Record COGS transaction (IMPORTANT)
+                //======================================================
 
-            // await _unitOfWork.DailyFuelSells.AddAsync(request);
-            // await _unitOfWork.SaveAsync(cancellationToken);
+                decimal cost = (decimal)(request.AddDailyFuelSellDto.SoldFuelAmount * stock.UnitPrice);
 
+                var cogsTxn = new FinancialTransaction
+                {
+                    Date = request.AddDailyFuelSellDto.Date,
+                    Type = "COGS",
+                    ReferenceId = entity.Id,
+                    PartyType = "Internal",
+                    PartyId = 0,
+                    Amount = cost,
+                    Direction = "OUT",
+                    CreatedAt = DateTime.UtcNow
+                };
 
-            // =============================================
-            // update the stock table (quantityInLiter) column base in fuelTypeId 
-            // =============================================
+                await _unitOfWork.FinancialTransactions.AddAsync(cogsTxn);
 
-            //var fuelDistributionLastRecord = await _unitOfWork.FuelDistributions.GetLastRecordByFuelGunId(request.AddDailyFuelSellDto.FuelGunId);
-            //var recordOnStock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(fuelDistributionLastRecord.FuelTypeId);
-            //recordOnStock.QuantityInLiter -= request.AddDailyFuelSellDto.SoldFuelAmount;
-            //_unitOfWork.Stocks.Update(recordOnStock);
-            //await _unitOfWork.SaveAsync(cancellationToken);
-            //await _cache.RemoveGroupAsync("dashboard:daily-fuel-sales:null:null"); // Invalidate cache
+                // =====================================================
+                // Save & commit
+                //======================================================
 
-            // save all transactions
-            await tx.CommitAsync(cancellationToken);
+                await _unitOfWork.SaveAsync(cancellationToken);
+                await tx.CommitAsync(cancellationToken);
+            }
+            catch
+            {
+                await tx.RollbackAsync(cancellationToken);
+                throw;
+            }
         }
+
     }
 
 }
