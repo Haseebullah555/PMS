@@ -22,5 +22,11 @@ namespace API.Controllers
             var result = await _mediator.Send(new GetMonthlyAllFuelTypeSalesRequest());
             return Ok(result);
         }
+        [HttpGet("available-stocks")]
+        public async Task<IActionResult> GetAvailableStocks()
+        {
+            var result = await _mediator.Send(new GetAviliableStockRequest());
+            return Ok(result);
+        }
     }
 }

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { debounce } from 'lodash'
-import { DailyFuelSellForm } from "./_module";
+import { DailyFuelSellForm, DailyFuelSellRow } from "./_module";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import UnAuthorized from "../../../../customes/UnAuthorized";
 import { useTranslation } from "react-i18next";
@@ -17,7 +17,7 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
     const [pagination, setPagination] = useState<any>({});
     const [sortOrder, setSortOrder] = useState<string>(SORT_ASC);
     const [sortColumn, setSortColumn] = useState<string>(columns[0]);
-    const [data, setData] = useState<DailyFuelSellForm[]>([]);
+    const [data, setData] = useState<DailyFuelSellRow[]>([]);
     const dispatch = useAppDispatch();
     const { t } = useTranslation()
 
@@ -145,14 +145,14 @@ const DataTable: React.FC<any> = ({ headers, columns, reload, handleEdit }) => {
                                             <td className='fw-bolder'>{index + 1}</td>
                                             <td>{item.date}</td>
                                             <td>{item?.fuelStand?.name}</td>
-                                            {/* <td>{item.fuelGun}</td>
+                                            <td>{item.fuelGun.name}</td>
                                             <td>{item.currentMeterDegree}</td>
                                             <td>{item.oldMeterDegree}</td>
                                             <td>{item.soldFuelAmount}</td>
                                             <td>{item.fuelUnitPrice}</td>
                                             <td>{item.totalPrice}</td>
-                                            <td>{item.collectedMoney}</td> */}
-                                            {/* <td>{item.difference}</td> */}
+                                            <td>{item.collectedMoney}</td>
+                                            <td className="text-danger fw-bolder">{item.totalPrice - item.collectedMoney}</td>
                                             <td>
                                                 <button className='btn btn-sm btn-primary' onClick={() => handleEdit(item)}>
                                                     <span className='fa fa-pencil fw-bolder fw-bold'></span>

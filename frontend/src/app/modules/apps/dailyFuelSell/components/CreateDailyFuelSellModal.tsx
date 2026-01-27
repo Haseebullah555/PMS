@@ -29,6 +29,7 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
         oldMeterDegree: mode === "update" ? selectedDailySell?.oldMeterDegree ?? "" : "",
         soldFuelAmount: mode === "update" ? selectedDailySell?.soldFuelAmount ?? "" : "",
         fuelUnitPrice: mode === "update" ? selectedDailySell?.fuelUnitPrice ?? "" : "",
+        totalPrice: mode === "update" ? selectedDailySell?.totalPrice ?? "" : "",
         collectedMoney: mode === "update" ? selectedDailySell?.collectedMoney ?? "" : "",
         date: mode === "update" ? selectedDailySell?.date ?? "" : new Date().toISOString().split('T')[0],
         note: mode === "update" ? selectedDailySell?.note ?? "" : "",
@@ -39,8 +40,6 @@ const CreateDailyFuelSellModal: React.FC<CreateDailyFuelSellModalProps> = ({ isO
 
     const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
     const staffs = useAppSelector((state: any) => state.staffs.allStaffs)
-
-    console.log(staffs,"ssssssssssssssssssss");
 
     // Form Validation Schema
     const DailyFuelSellSchema = Yup.object().shape({

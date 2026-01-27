@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
 import { useThemeMode } from "../../../_metronic/partials"
-import { getDailySales } from "../../../redux/slices/Dashboard/DashboardSlice"
+import { getAvailableStock, getDailySales } from "../../../redux/slices/Dashboard/DashboardSlice"
 
 type Props = {
   className: string
@@ -11,7 +11,7 @@ type Props = {
   img: string
   fuelTypeId: number
 }
-const DashboardCard = ({ className, description, color, img, fuelTypeId }: Props) => {
+const AviliableStockCard = ({ className, description, color, img, fuelTypeId }: Props) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const { mode } = useThemeMode()
   const [isAuthorized, setIsAuthorized] = useState<boolean>(true);
@@ -22,7 +22,7 @@ const DashboardCard = ({ className, description, color, img, fuelTypeId }: Props
   useEffect(() => {
     setLoading(true)
 
-    dispatch(getDailySales())
+    dispatch(getAvailableStock())
       .unwrap()
       .then((data) => {
         setCardData(data)
@@ -36,7 +36,7 @@ const DashboardCard = ({ className, description, color, img, fuelTypeId }: Props
   const fuelData = cardData.find(
     (item) => item.fuelTypeId === fuelTypeId
   )
-  console.log('fuelData', fuelData)
+  console.log('شبشبسبسشیبسشیبس', fuelData)
   return (
     <div
       className={`card card-flush bgi-no-repeat bgi-size-contain bgi-position-x-end ${className}`}
@@ -56,22 +56,22 @@ const DashboardCard = ({ className, description, color, img, fuelTypeId }: Props
       <div className='card-body d-flex align-items-center justify-content-between pt-0'>
         <div className='card-title d-flex flex-column'>
           <span className='fs-2hx fw-bold text-white'>
-            {fuelData?.totalSoldAmount?.toLocaleString() ?? 0}
+            {fuelData?.amount?.toLocaleString() ?? 0}
           </span>
           <span className='text-white opacity-75 fs-6'>{t("dashboard.liter")}</span>
         </div>
 
-        <div className='card-title d-flex flex-column'>
+        {/* <div className='card-title d-flex flex-column'>
           <span className='fs-2hx fw-bold text-white'>
             {fuelData
               ? (fuelData.totalSoldAmount * fuelData.fuelUnitPrice).toLocaleString()
               : '—'}
           </span>
 
-          <span className='text-white opacity-75 fs-6'>{t("dashboard.afn")}</span>
-        </div>
+          <span className='text-white opacity-75 fs-6'>AFN</span>
+        </div> */}
       </div>
     </div>
   )
 }
-export { DashboardCard }
+export { AviliableStockCard }

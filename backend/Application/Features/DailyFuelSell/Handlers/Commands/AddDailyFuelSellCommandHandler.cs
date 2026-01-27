@@ -24,18 +24,19 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
             try
             {
                 // =====================================================
-                // Create daily fuel sell
+                // 1️⃣ Create daily fuel sell record
                 //======================================================
 
                 var entity = _mapper.Map<Domain.Models.DailyFuelSell>(request.AddDailyFuelSellDto);
                 await _unitOfWork.DailyFuelSells.AddAsync(entity);
-                await _unitOfWork.SaveAsync(cancellationToken); // REQUIRED to get ID
+                await _unitOfWork.SaveAsync(cancellationToken); // required for entity.Id
 
                 // =====================================================
-                // Update stock
+                // 2️⃣ Update stock (inventory movement)
                 //======================================================
 
-                var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(request.AddDailyFuelSellDto.FuelTypeId);
+                var stock = await _unitOfWork.Stocks
+                    .GetByFuelTypeIdAsync(request.AddDailyFuelSellDto.FuelTypeId);
 
                 if (stock == null)
                     throw new InvalidOperationException("Stock record not found.");
@@ -47,45 +48,28 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
                 _unitOfWork.Stocks.Update(stock);
 
                 // =====================================================
-                // Record revenue transaction
+                // 3️⃣ Record CASH inflow (POS sale)
                 //======================================================
 
-                var revenueTxn = new FinancialTransaction
+                if (request.AddDailyFuelSellDto.CollectedMoney > 0)
                 {
-                    Date = request.AddDailyFuelSellDto.Date,
-                    Type = "DailyFuelSale",
-                    ReferenceId = entity.Id,
-                    PartyType = "Internal",
-                    PartyId = 0,
-                    Amount = request.AddDailyFuelSellDto.TotalPrice,
-                    Direction = "IN",
-                    CreatedAt = DateTime.UtcNow
-                };
+                    var cashTxn = new FinancialTransaction
+                    {
+                        Date = request.AddDailyFuelSellDto.Date,
+                        Type = "DailyFuelSale",
+                        ReferenceId = entity.Id,
+                        PartyType = "POS",      // ✅ virtual sales source
+                        PartyId = 0,
+                        Amount = request.AddDailyFuelSellDto.CollectedMoney,
+                        Direction = "IN",
+                        CreatedAt = DateTime.UtcNow
+                    };
 
-                await _unitOfWork.FinancialTransactions.AddAsync(revenueTxn);
+                    await _unitOfWork.FinancialTransactions.AddAsync(cashTxn);
+                }
 
                 // =====================================================
-                // Record COGS transaction (IMPORTANT)
-                //======================================================
-
-                decimal cost = (decimal)(request.AddDailyFuelSellDto.SoldFuelAmount * stock.UnitPrice);
-
-                var cogsTxn = new FinancialTransaction
-                {
-                    Date = request.AddDailyFuelSellDto.Date,
-                    Type = "COGS",
-                    ReferenceId = entity.Id,
-                    PartyType = "Internal",
-                    PartyId = 0,
-                    Amount = cost,
-                    Direction = "OUT",
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                await _unitOfWork.FinancialTransactions.AddAsync(cogsTxn);
-
-                // =====================================================
-                // Save & commit
+                // 4️⃣ Save & commit
                 //======================================================
 
                 await _unitOfWork.SaveAsync(cancellationToken);
@@ -97,6 +81,7 @@ namespace Application.Features.DailyFuelSell.Handlers.Commands
                 throw;
             }
         }
+
 
     }
 

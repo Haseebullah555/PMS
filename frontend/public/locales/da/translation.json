@@ -443,6 +443,9 @@
   },
   "dashboard": {
     "annualSales": "فروشات سالانه",
-    "difference": "تفاوت"
+    "aviliableStock": "انبار موجود",
+    "liter": "لیتر",
+    "afn": "افغانی",
+    "dailyFuelSell": "فروشات روزمره"
   }
 }

@@ -13,11 +13,18 @@ const getAllDailySalesList = async () => {
   const response = await axiosInterceptor.get(`/DashBoard/daily-fuel-sales`)
   return response.data
 }
+// Get Available Stock Data
+const getAllAvailableStockList = async () => {
+  const response = await axiosInterceptor.get(`/DashBoard/available-stocks`)
+  console.log('response.data', response.data);
+  return response.data
+}
 
 
 const DashboardService = {
   getAllMonthlySalesList,
   getAllDailySalesList,
+  getAllAvailableStockList,
 }
 
 export default DashboardService

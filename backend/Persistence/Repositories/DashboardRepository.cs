@@ -50,6 +50,21 @@ namespace Persistence.Repositories
 
             return result;
         }
+
+        public Task<List<DashboardAviliableStockDto>> GetAviliableStocks()
+        {
+            var result = _context.Stocks
+                .Include(x => x.FuelType)
+                .Select(x => new DashboardAviliableStockDto
+                {
+                    FuelTypeId = x.FuelTypeId,
+                    FuelTypeName = x.FuelType!.Name,
+                    Amount = x.QuantityInLiter
+                })
+                .ToListAsync();
+                return result;
+        }
+
         public async Task<List<DashboardDailySalesDto>> GetDailyFuelTypeSales()
         {
             int today = DateOnly.FromDateTime(DateTime.Now).Day;
