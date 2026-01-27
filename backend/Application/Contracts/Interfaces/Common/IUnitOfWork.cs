@@ -6,6 +6,7 @@ namespace Application.Contracts.Interfaces.Common
     {
         public IDashboardRepository Dashboards { get; }
         public ICustomerRepository Customers { get; }
+        public ICustomerLoanRepository CustomerLoans { get; }
         public ICustomerLoanPaymentRepository CustomerLoanPayments { get; }
         public ISupplierRepository Suppliers { get; }
         public IFuelTypeRepository FuelTypes { get; }
@@ -20,7 +21,6 @@ namespace Application.Contracts.Interfaces.Common
         public IPurchaseRepository Purchases { get; }
         public IPurchaseDetailsRepository PurchaseDetails { get; }
         public IStockRepository Stocks { get; }
-        public ISupplierLoansRepository SupplierLoans { get; }
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
 

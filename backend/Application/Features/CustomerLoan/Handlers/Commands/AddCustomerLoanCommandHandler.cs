@@ -22,8 +22,7 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
             try
             {
                 var customer = await _unitOfWork.Customers.GetByIdAsync(request.AddCustomerLaonDto.CustomerId);
-                // var stock = await _unitOfWork.Stocks.GetByFuelTypeIdAsync(request.AddCustomerLaonDto.FuelTypeId);
-                // var gun = await _unitOfWork.FuelGuns.GetByIdAsync(request.AddCustomerLaonDto.FuelGunId);
+
 
                 if (customer is null)
                     throw new InvalidOperationException("Customer not found.");
@@ -31,14 +30,6 @@ namespace Application.Features.CustomerLoan.Handlers.Commands
                 // update customer
                 customer.Balance += request.AddCustomerLaonDto.TotalPrice;
                 _unitOfWork.Customers.Update(customer);
-
-                // update stock
-                // stock.QuantityInLiter -= request.AddCustomerLaonDto.FuelAmount;
-                // _unitOfWork.Stocks.Update(stock);
-
-                // update gun
-                // gun.Balance -= request.AddCustomerLaonDto.FuelAmount;
-                // _unitOfWork.FuelGuns.Update(gun);
 
                 // create loan record
                 var result = _mapper.Map<Domain.Models.CustomerLoan>(request.AddCustomerLaonDto);

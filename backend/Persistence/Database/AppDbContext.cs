@@ -28,7 +28,6 @@ namespace Persistence.Database
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleDetail> SaleDetails { get; set; }
-        public DbSet<SupplierLoan> SupplierLoans { get; set; }
         public DbSet<SupplierLoanPayment> SupplierLoanPayments { get; set; }
         public DbSet<CustomerLoan> CustomerLoans { get; set; }
         public DbSet<CustomerLoanPayment> CustomerLoanPayments { get; set; }

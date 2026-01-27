@@ -15,6 +15,7 @@ namespace Persistence.Repositories.Common
         #region Private fields
         private IDashboardRepository _dashboardRepository;
         private ICustomerRepository _customerRepository;
+        private ICustomerLoanRepository _customerLoanRepository;
         private ICustomerLoanPaymentRepository _customerLoanPaymentRepository;
         private ISupplierRepository _supplierRepository;
         private IFuelTypeRepository _fuelTypeRepository;
@@ -29,7 +30,6 @@ namespace Persistence.Repositories.Common
         private IPurchaseRepository _purchaseRepository;
         private IPurchaseDetailsRepository _purchaseDetailsRepository;
         private IStockRepository _stockRepository;
-        private ISupplierLoansRepository _supplierLoansRepository;
         private ISupplierLoanPaymentRepository _supplierLoanPaymentRepository;
         private IDailyFuelSellRepository _dailyFuelSellRepository;
         private IStudentRespository _studentRepository;
@@ -37,6 +37,7 @@ namespace Persistence.Repositories.Common
 
         public IDashboardRepository Dashboards => _dashboardRepository ??= new DashboardRepository(_context);
         public ICustomerRepository Customers => _customerRepository ??= new CustomerRepository(_context);
+        public ICustomerLoanRepository CustomerLoans => _customerLoanRepository ??= new CustomerLoanRepository(_context);
         public ICustomerLoanPaymentRepository CustomerLoanPayments => _customerLoanPaymentRepository ??= new CustomerLoanPaymentRepository(_context);
         public ISupplierRepository Suppliers => _supplierRepository ??= new SupplierRepository(_context);
         public IFuelTypeRepository FuelTypes => _fuelTypeRepository ??= new FuelTypeRepository(_context);
@@ -55,7 +56,6 @@ namespace Persistence.Repositories.Common
 
         public IStockRepository Stocks => _stockRepository ??= new StockRepository(_context);
 
-        public ISupplierLoansRepository SupplierLoans => _supplierLoansRepository ??= new SupplierLoansRepository(_context);
         public ISupplierLoanPaymentRepository SupplierLoanPayments => _supplierLoanPaymentRepository ??= new SupplierLoanPaymentRepository(_context);
         public IDailyFuelSellRepository DailyFuelSells => _dailyFuelSellRepository ??= new DailyFuelRepository(_context);
         public IStudentRespository Students => _studentRepository ??= new StudentRepository(_context);

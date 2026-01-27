@@ -20,13 +20,13 @@ namespace Persistence.Repositories
 
             var rawData = await _context.DailyFuelSells
                 .Include(x => x.FuelType)
-                .Where(x => x.Date.HasValue)
+                .Where(x => x.Date != null)
                 .ToListAsync(); // 👈 switch to memory
 
             var result = rawData
                 .Where(x =>
                     ShamsiDateHelper.GetShamsiYear(
-                        x.Date!.Value.ToDateTime(TimeOnly.MinValue)
+                        x.Date!.ToDateTime(TimeOnly.MinValue)
                     ) == currentShamsiYear
                 )
                 .GroupBy(x => new
@@ -34,7 +34,7 @@ namespace Persistence.Repositories
                     x.FuelTypeId,
                     x.FuelType!.Name,
                     Month = ShamsiDateHelper.GetShamsiMonth(
-                        x.Date!.Value.ToDateTime(TimeOnly.MinValue)
+                        x.Date!.ToDateTime(TimeOnly.MinValue)
                     )
                 })
                 .Select(g => new DashboardChartDto
@@ -56,12 +56,12 @@ namespace Persistence.Repositories
 
             var rawData = await _context.DailyFuelSells
                 .Include(x => x.FuelType)
-                .Where(x => x.Date.HasValue)
+                .Where(x => x.Date != null)
                 .ToListAsync(); // 👈 switch to memory
 
             var result = rawData
                 .Where(x =>
-                    x.Date!.Value.Day == today
+                    x.Date!.ToDateTime(TimeOnly.MinValue).Day == today
                 )
                 .GroupBy(x => new
                 {
