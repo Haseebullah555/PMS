@@ -88,11 +88,11 @@ const DashboardChart: React.FC<Props> = ({ className }) => {
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         {/* begin::Title */}
-        <h3 className='card-title align-items-start flex-column'>
+        {/* <h3 className='card-title align-items-start flex-column'>
           <span className='card-label fw-bold fs-3 mb-1'>{t('dashboard.annualSales')}</span>
 
-          {/* <span className='text-muted fw-semibold fs-7'>More than 400 new members</span> */}
-        </h3>
+          
+        </h3> */}
         {/* end::Title */}
       </div>
       {/* end::Header */}

@@ -62,7 +62,7 @@ namespace Persistence.Repositories
                     Amount = x.QuantityInLiter
                 })
                 .ToListAsync();
-                return result;
+            return result;
         }
 
         public async Task<List<DashboardDailySalesDto>> GetDailyFuelTypeSales()
@@ -96,6 +96,22 @@ namespace Persistence.Repositories
                 .ToList();
 
             return result;
+        }
+
+        public async Task<decimal> GetDailyProfit()
+        {
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+
+            var totalIn = await _context.FinancialTransactions
+                .Where(t => t.Date == today && t.Direction == "IN")
+                .SumAsync(t => t.Amount);
+
+            var totalOut = await _context.FinancialTransactions
+                .Where(t => t.Date == today && t.Direction == "OUT")
+                .SumAsync(t => t.Amount);
+            
+
+            return totalIn - totalOut;
         }
 
     }

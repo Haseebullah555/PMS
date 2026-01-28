@@ -28,5 +28,11 @@ namespace API.Controllers
             var result = await _mediator.Send(new GetAviliableStockRequest());
             return Ok(result);
         }
+        [HttpGet("daily-profit")]
+        public async Task<IActionResult> GetDailyProfit()
+        {
+            var result = await _mediator.Send(new GetDailyProfitRequest());
+            return Ok(result);
+        }
     }
 }

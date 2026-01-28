@@ -122,6 +122,17 @@ const DashboardPage: FC = () => {
         </div>
 
         <div className='col-xl-12'>
+           <div className="section-header">
+            {/* <div className="section-icon">
+              <i className="fa fa-gas-pump"></i>
+            </div> */}
+
+            <h2 className="section-title">
+              {t("dashboard.annualSalesGraph")}
+            </h2>
+
+            <div className="section-underline"></div>
+          </div>
           <DashboardChart className='card-xl-stretch mb-xl-8' />
         </div>
       </div>

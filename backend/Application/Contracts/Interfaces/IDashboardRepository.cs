@@ -8,5 +8,6 @@ namespace Application.Contracts.Interfaces
         Task<List<DashboardChartDto>> GetAnnualFuelTypeSales();
         Task<List<DashboardDailySalesDto>> GetDailyFuelTypeSales();
         Task<List<DashboardAviliableStockDto>> GetAviliableStocks();
+        Task<decimal> GetDailyProfit();
     }
 }
