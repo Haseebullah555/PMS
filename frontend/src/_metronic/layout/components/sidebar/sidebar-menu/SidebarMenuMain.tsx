@@ -106,6 +106,8 @@ const SidebarMenuMain = () => {
         icon='element-11'
         fontIcon='bi-app-indicator'
       />
+
+       {/* report part  */}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>
@@ -114,8 +116,8 @@ const SidebarMenuMain = () => {
         </div>
       </div>
       <SidebarMenuItem
-        to='/dailyFuelSell/list'
-        title={t("dailyFuelSell.dailyFuelSellReport")}
+        to='/report/fuel-summary'
+        title={t("report.fuelSummaryReport")}
         icon='element-11'
         fontIcon='bi-app-indicator'
       />

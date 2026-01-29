@@ -448,5 +448,9 @@
     "afn": "افغانی",
     "annualSalesGraph": "گراف فروشات سالانه",
     "dailyFuelSell": "فروشات روزمره"
+  },
+  "report": {
+    "fuelSummaryReport": "راپور فروشات روزمره"
+   
   }
 }
