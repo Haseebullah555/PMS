@@ -1,5 +1,5 @@
 import {Routes, Route, Outlet} from 'react-router-dom'
-import FuelSummaryReport from './components/FuelSummaryReport'
+import FuelSummaryReport from './components/FuelSummaryReport/FuelSummaryReport'
 
 const ReportManagmentRoutes = () => {
   return (

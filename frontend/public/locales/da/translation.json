@@ -450,7 +450,9 @@
     "dailyFuelSell": "فروشات روزمره"
   },
   "report": {
-    "fuelSummaryReport": "راپور فروشات روزمره"
+    "fuelSummaryReport": "راپور فروشات روزمره",
+    "fromDate": "از تاریخ",
+    "toDate": "تا تاریخ"
    
   }
 }

@@ -5,7 +5,7 @@ const axiosInterceptor = axios.create({
 
 // get the fuel summary report data through fromDate - toDate range
 const getFuelSummary = async (params: any) => {
-  const response = await axiosInterceptor.get(`api/Report/fuel-summary`, { params })
+  const response = await axiosInterceptor.get(`/Report/fuel-summary`, { params })
   return response.data
 }
 

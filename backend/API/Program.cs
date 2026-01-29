@@ -55,16 +55,16 @@ builder.Services.ConfigureIdentityServices();
 var redisConnection = builder.Configuration.GetValue<string>("Redis:ConnectionString");
 
 // Redis connection (Singleton)
-builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-{
-    return ConnectionMultiplexer.Connect(redisConnection);
-});
+//builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+//{
+//    return ConnectionMultiplexer.Connect(redisConnection);
+//});
 
 // Distributed cache using Redis
-builder.Services.AddStackExchangeRedisCache(options =>
-{
-    options.Configuration = redisConnection;
-});
+//builder.Services.AddStackExchangeRedisCache(options =>
+//{
+//    options.Configuration = redisConnection;
+//});
 
 // ===================== CONTROLLERS & CORS =====================
 builder.Services.AddControllers();
