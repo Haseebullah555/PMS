@@ -1,5 +1,6 @@
 using Application.Contracts.Interfaces;
 using Application.Dtos.ReportDtos.FuelSummary;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Persistence.Database;
 
@@ -14,19 +15,45 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<FuelSummaryDto>> GetFuelSummary(DateOnly fromDate, DateOnly toDate)
+        public async Task<List<DailyFuelDynamicDto>> GetFuelSummary(DateOnly fromDate, DateOnly toDate)
         {
-            return _context.DailyFuelSells
+            // return _context.DailyFuelSells
+            //     .Where(x => x.Date >= fromDate && x.Date <= toDate)
+            //     .Select(x => new FuelSummaryDto
+            //     {
+            //         FuelTypeId = x.FuelTypeId,
+            //         FuelTypeName = x.FuelType!.Name,
+            //         Date = x.Date,
+            //         SoldFuelAmount = x.SoldFuelAmount
+            //     })
+            //     .ToList();
+            var rawData = await _context.DailyFuelSells
                 .Where(x => x.Date >= fromDate && x.Date <= toDate)
-                .Select(x => new FuelSummaryDto
+                .Select(x => new
                 {
-                    FuelTypeId = x.FuelTypeId,
+                    x.Date,
                     FuelTypeName = x.FuelType!.Name,
-                    Date = x.Date,
-                    SoldFuelAmount = x.SoldFuelAmount
+                    x.SoldFuelAmount
                 })
-                .ToList();
-        }
+                .ToListAsync();
 
+            // Step 2: Pivot dynamically
+            var result = rawData
+                .GroupBy(x => x.Date)
+                .Select(g => new DailyFuelDynamicDto
+                {
+                    Date = g.Key,
+                    FuelTypes = g
+                        .GroupBy(x => x.FuelTypeName)
+                        .ToDictionary(
+                            fg => fg.Key,
+                            fg => fg.Sum(x => x.SoldFuelAmount)
+                        )
+                })
+                .OrderBy(x => x.Date)
+                .ToList();
+
+            return result;
+        }
     }
 }

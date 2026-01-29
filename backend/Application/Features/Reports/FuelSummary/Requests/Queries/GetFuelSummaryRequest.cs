@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Application.Features.Reports.FuelSummary.Requests.Queries
 {
-    public class GetFuelSummaryRequest : IRequest<List<FuelSummaryDto>>
+    public class GetFuelSummaryRequest : IRequest<List<DailyFuelDynamicDto>>
     {
         public DateOnly FromDate { get; set; }
         public DateOnly ToDate { get; set; }
