@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Features.Reports.FuelSummary.Handlers.Queries
 {
-    public class GetFuelSummaryRequestHandler : IRequestHandler<GetFuelSummaryRequest, List<DailyFuelDynamicDto>>
+    public class GetFuelSummaryRequestHandler : IRequestHandler<GetFuelSummaryRequest, DailyFuelDynamicDto>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,7 +13,7 @@ namespace Application.Features.Reports.FuelSummary.Handlers.Queries
         {
             _unitOfWork = unitOfWork;
         }
-        public async Task<List<DailyFuelDynamicDto>> Handle(GetFuelSummaryRequest request, CancellationToken cancellationToken)
+        public async Task<DailyFuelDynamicDto> Handle(GetFuelSummaryRequest request, CancellationToken cancellationToken)
         {
             var result = await _unitOfWork.Reports.GetFuelSummary(request.FromDate, request.ToDate);
             return result;

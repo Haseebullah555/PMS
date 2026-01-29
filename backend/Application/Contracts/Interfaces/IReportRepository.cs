@@ -4,6 +4,6 @@ namespace Application.Contracts.Interfaces
 {
     public interface IReportRepository
     {
-        Task<List<DailyFuelDynamicDto>> GetFuelSummary(DateOnly fromDate, DateOnly toDate);
+        Task<DailyFuelDynamicDto> GetFuelSummary(DateOnly fromDate, DateOnly toDate);
     }
 }

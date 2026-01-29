@@ -1,7 +1,6 @@
 using Application.Contracts.Interfaces;
 using Application.Dtos.ReportDtos.FuelSummary;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Persistence.Database;
 
 namespace Persistence.Repositories
@@ -15,45 +14,64 @@ namespace Persistence.Repositories
             _context = context;
         }
 
-        public async Task<List<DailyFuelDynamicDto>> GetFuelSummary(DateOnly fromDate, DateOnly toDate)
+        public async Task<DailyFuelDynamicDto> GetFuelSummary(DateOnly fromDate, DateOnly toDate)
         {
-            // return _context.DailyFuelSells
-            //     .Where(x => x.Date >= fromDate && x.Date <= toDate)
-            //     .Select(x => new FuelSummaryDto
-            //     {
-            //         FuelTypeId = x.FuelTypeId,
-            //         FuelTypeName = x.FuelType!.Name,
-            //         Date = x.Date,
-            //         SoldFuelAmount = x.SoldFuelAmount
-            //     })
-            //     .ToList();
-            var rawData = await _context.DailyFuelSells
+            // =========================
+            // 1️⃣ SALES (PER DAY)
+            // =========================
+            var salesData = await _context.DailyFuelSells
                 .Where(x => x.Date >= fromDate && x.Date <= toDate)
                 .Select(x => new
                 {
                     x.Date,
                     FuelTypeName = x.FuelType!.Name,
-                    x.SoldFuelAmount
+                    Quantity = x.SoldFuelAmount
                 })
                 .ToListAsync();
 
-            // Step 2: Pivot dynamically
-            var result = rawData
+            var sales = salesData
                 .GroupBy(x => x.Date)
-                .Select(g => new DailyFuelDynamicDto
+                .Select(g => new DailyFuelSalesDto
                 {
                     Date = g.Key,
-                    FuelTypes = g
+                    Sold = g
                         .GroupBy(x => x.FuelTypeName)
                         .ToDictionary(
                             fg => fg.Key,
-                            fg => fg.Sum(x => x.SoldFuelAmount)
+                            fg => fg.Sum(x => x.Quantity)
                         )
                 })
                 .OrderBy(x => x.Date)
                 .ToList();
 
-            return result;
+            // =========================
+            // 2️⃣ PURCHASES (DATE RANGE)
+            // =========================
+            var purchases = await _context.Purchases
+                .Where(p => p.PurchaseDate >= fromDate && p.PurchaseDate <= toDate)
+                .SelectMany(p => p.PurchaseDetails)
+                .GroupBy(d => d.FuelType!.Name)
+                .ToDictionaryAsync(
+                    g => g.Key,
+                    g => g.Sum(x => x.Quantity)
+                );
+
+            // =========================
+            // 3️⃣ STOCK (CURRENT)
+            // =========================
+            var stock = await _context.Stocks
+                .GroupBy(s => s.FuelType!.Name)
+                .ToDictionaryAsync(
+                    g => g.Key,
+                    g => g.Sum(x => x.QuantityInLiter)
+                );
+
+            return new DailyFuelDynamicDto
+            {
+                Sales = sales,
+                Purchases = purchases,
+                Stock = stock
+            };
         }
     }
 }

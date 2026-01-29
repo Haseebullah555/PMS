@@ -2,7 +2,8 @@ namespace Application.Dtos.ReportDtos.FuelSummary
 {
     public class DailyFuelDynamicDto
     {
-        public DateOnly Date { get; set; }
-        public Dictionary<string, decimal> FuelTypes { get; set; } = new();
+        public List<DailyFuelSalesDto> Sales { get; set; } = new();
+        public Dictionary<string, decimal> Purchases { get; set; } = new();
+        public Dictionary<string, decimal> Stock { get; set; } = new();
     }
 }
