@@ -6,13 +6,16 @@ import { initialValues } from "./_model"
 import { useDispatch } from "react-redux"
 import { getFuelSummary } from "../../../../../../redux/slices/reportSlice/reportSlice"
 import { toast } from "react-toastify"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useAppDispatch, useAppSelector } from "../../../../../../redux/hooks"
+import { getAllFuelType } from "../../../../../../redux/slices/fuelType/FuelTypeSlice"
 
 const FuelSummaryReport = () => {
 
     const { t } = useTranslation()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const [data, setData] = useState<any>([])
+    const fuelTypes = useAppSelector((state: any) => state.fuelType.fuelTypeAllList)
 
 
     const formik = useFormik({
@@ -32,8 +35,27 @@ const FuelSummaryReport = () => {
         },
     })
 
-     const memoizedData = useMemo(() => data, [data])
-    console.log(data, '=============')
+    useEffect(() => {
+        if (!fuelTypes) {
+            dispatch(getAllFuelType())
+                .then((res) => { })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+    }, [])
+
+    const getTotalForFuel = (fuelName: string) => {
+        return memoizedData?.sales?.reduce(
+            (sum: number, sale: any) =>
+                sum + (sale.sold?.[fuelName] ?? 0),
+            0
+        ) ?? 0
+    }
+
+
+    const memoizedData = useMemo(() => data, [data])
+    console.log(memoizedData.length, "mmmmmmmmmmmmmmmmmmmmm")
     return (
         <>
             <Fragment>
@@ -49,8 +71,6 @@ const FuelSummaryReport = () => {
                         <div>
                             <div className='d-none d-lg-flex mt-5'>
                                 <div className='d-flex align-items-center'>
-
-
                                     <Link className='btn btn-sm btn-flex btn-danger fw-bold' to='/dashboard'>
                                         <b>
                                             <i className='fa-solid fa-reply-all'></i>
@@ -62,7 +82,7 @@ const FuelSummaryReport = () => {
                     </div>
                     <div className='card-body p-9 table-responsive'>
                         <div className="row">
-                            <div className="col-md-4">
+                            <div className="col-md-5">
                                 <label className="form-label">{t('report.fromDate')}</label>
                                 <input
                                     type="date"
@@ -72,7 +92,7 @@ const FuelSummaryReport = () => {
                                     className="form-control"
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-5">
                                 <label className="form-label">{t('report.toDate')}</label>
                                 <input
                                     type="date"
@@ -90,37 +110,118 @@ const FuelSummaryReport = () => {
                                 </button>
                             </div>
                         </div>
-                        
 
+                        {  memoizedData.length == undefined && (
+                                <>
+                                <hr />
+                                    {/* sales report table  */}
+                                    <h2 className="text-center mt-4">{t('report.dailyFuelSell')}</h2>
+                                    <div className="table-responsive mt-3">
+                                        <table className="table table-hover table-striped text-nowrap mb-0">
+                                            <thead className="text-center bg-gray-600 fw-bold">
+                                                <tr>
+                                                    <th>{t('global.date')}</th>
+                                                    {fuelTypes?.data?.map((fuelType: any) => (
+                                                        <th key={fuelType.id}>{fuelType.name}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {/* Sales rows */}
+                                                {memoizedData?.sales?.map((sale: any, rowIdx: number) => (
+                                                    <tr key={rowIdx} className="text-center">
+                                                        <td className="fw-bold">{sale.date}</td>
 
+                                                        {fuelTypes?.data?.map((fuelType: any) => {
+                                                            const value = sale.sold?.[fuelType.name] ?? 0
 
-                         <div className="table-responsive">
-                        <table className="table table-hover table-striped text-nowrap mb-0">
-                          <thead className="text-center bg-gray-600 text-light">
-                            <tr>
-                              <th>{t('global.date')}</th>
-                              <th>{t('global.ACTION')}</th>
-                            </tr>
-                          </thead>
+                                                            return (
+                                                                <td key={fuelType.id}>
+                                                                    {value}
+                                                                </td>
+                                                            )
+                                                        })}
+                                                    </tr>
+                                                ))}
 
-                          <tbody>
-                            {/* {memoizedData?.map((i: any) => (
-                              <tr key={i.id} className="text-center">
-                                <td className="fw-bold">{i.name}</td>
-                                <td>
-                                  <div className="d-flex gap-2 justify-content-center flex-wrap">
-                                   
-                                   
-                                  </div>
-                                </td>
-                              </tr>
-                            ))} */}
-                          </tbody>
+                                                {/* TOTAL row */}
+                                                <tr className="text-center fw-bold bg-danger">
+                                                    <td>{t('global.TOTAL')}</td>
 
-                        </table>
-                      </div>
+                                                    {fuelTypes?.data?.map((fuelType: any) => (
+                                                        <td key={fuelType.id}>
+                                                            {getTotalForFuel(fuelType.name)}
+                                                        </td>
+                                                    ))}
+                                                </tr>
+                                            </tbody>
 
+                                        </table>
+                                    </div>
+                                    {/* purchase report table  */}
+                                    <h2 className="text-center mt-4">{t('report.purchase')}</h2>
+                                    <div className="table-responsive mt-3">
+                                        <table className="table table-hover table-striped text-nowrap mb-0">
+                                            <thead className="text-center bg-gray-600 fw-bold">
+                                                <tr>
+                                                    <th></th>
+                                                    {fuelTypes?.data?.map((fuelType: any) => (
+                                                        <th key={fuelType.id}>{fuelType.name}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
 
+                                            <tbody>
+                                                {/* Purchases row */}
+                                                <tr className="text-center fw-bold bg-light">
+
+                                                    <td></td>
+                                                    {fuelTypes?.data?.map((fuelType: any, index: number) => {
+                                                        const value = memoizedData?.purchases?.[fuelType.name] ?? 0
+                                                        return (
+                                                            <td key={fuelType.id}>
+                                                                {value}
+                                                            </td>
+                                                        )
+                                                    })}
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    {/* stock report table  */}
+                                    <h2 className="text-center mt-4">{t('report.stock')}</h2>
+                                    <div className="table-responsive mt-3">
+                                        <table className="table table-hover table-striped text-nowrap mb-0">
+                                            <thead className="text-center bg-gray-600 fw-bold">
+                                                <tr>
+                                                    <th></th>
+                                                    {fuelTypes?.data?.map((fuelType: any) => (
+                                                        <th key={fuelType.id}>{fuelType.name}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                {/* Purchases row */}
+                                                <tr className="text-center fw-bold bg-light">
+                                                    <td></td>
+                                                    {fuelTypes?.data?.map((fuelType: any, index: number) => {
+                                                        const value = memoizedData?.stock?.[fuelType.name] ?? 0
+                                                        return (
+                                                            <td key={fuelType.id}>
+                                                                {value}
+                                                            </td>
+                                                        )
+                                                    })}
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </>
+                        )
+                            }
                     </div>
                 </div>
             </Fragment>

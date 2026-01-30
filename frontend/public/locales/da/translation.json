@@ -67,8 +67,9 @@
     "ATTACHMENT": "نمایش ضمایم",
     "RECORDNOTFOUND": "ریکارد در سیستم موجود نمیباشد!",
     "RECORDOWNER": "مسول ثبت ریکارد",
-    "DEPARTMENT": "قطعه",
+    "DEPARTMENT": "‍قطعه",
     "ZONE": "زون",
+    "NUMBER": "شماره",
     "ENTERSECURITYPLANE": " پلان امنیتی قرارگاه",
     "SECURITYPLANE": "پلان امنیتی قرار گاه",
     "ENTRYANDEXIT": "ثبت دخولی و خروجی قرآول",
@@ -452,6 +453,9 @@
   "report": {
     "fuelSummaryReport": "راپور فروشات روزمره",
     "fromDate": "از تاریخ",
+    "dailyFuelSell": "فروشات روزمره",
+    "purchase": "خریداری ها",
+    "stock": "انبار موجود",
     "toDate": "تا تاریخ"
    
   }
