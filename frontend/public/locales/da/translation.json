@@ -453,9 +453,9 @@
   "report": {
     "fuelSummaryReport": "راپور فروشات روزمره",
     "fromDate": "از تاریخ",
-    "dailyFuelSell": "فروشات روزمره",
-    "purchase": "خریداری ها",
-    "stock": "انبار موجود",
+    "dailyFuelSell": "مقدار فروش روزمره",
+    "purchase": "مقدار خریداری",
+    "stock": "باقی مانده در ذخیره (انبار)",
     "toDate": "تا تاریخ"
    
   }

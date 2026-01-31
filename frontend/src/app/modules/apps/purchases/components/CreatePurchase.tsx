@@ -10,7 +10,11 @@ import { getAllSupplier } from '../../../../../redux/slices/supplier/SupplierSli
 import { storePurchase } from '../../../../../redux/slices/purchases/PurchaseSlice'
 import { getAllFuelType } from '../../../../../redux/slices/fuelType/FuelTypeSlice'
 import clsx from 'clsx'
-
+import DatePicker, { DateObject } from 'react-multi-date-picker'
+import persian from "react-date-object/calendars/persian";
+import persian_fa from '../../../../customes/persian_fa'
+import gregorian from "react-date-object/calendars/gregorian";
+import DateField from '../../../../customes/DateField'
 interface CreatePurchaseModalProps {
   isOpen: boolean
   onClose: () => void
@@ -27,6 +31,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
   // Validation Schema
   const PurchaseSchema = Yup.object().shape({
     supplierId: Yup.string().required('Supplier is required'),
+    purchaseDate: Yup.string().required(),
     paidAmount: Yup.number()
       .nullable()
       .test(
@@ -109,8 +114,8 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
     }
   }, [])
 
-  console.log(formik.values, 'formik values');
-  // console.log(formik.errors, 'errrrrrrrrrr');
+  // console.log(formik.values, 'formik values');
+  console.log(formik.errors, 'errrrrrrrrrr');
   // console.log(formik.touched, 'touched touched');
 
 
@@ -158,17 +163,21 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                 )}
               </div>
               <div className="col-md-6">
-                <label className="form-label">{t('global.date')}</label>
-                <input
-                  type="date"
+                <DateField
+                  labelId="global.date"
                   name="purchaseDate"
+                  required
                   value={formik.values.purchaseDate}
-                  onChange={formik.handleChange}
-                  className="form-control"
+                  error={formik.errors.purchaseDate}
+                  touched={formik.touched.purchaseDate}
+                  onBlur={formik.handleBlur}
+                  onChange={(value) =>
+                    formik.setFieldValue("purchaseDate", value.target.value)
+                  }
+                  className="col-12"
                 />
               </div>
             </div>
-
             {/* Purchase items */}
             <div className='card bg-gray-200'>
               <div className='card-body'>
@@ -269,7 +278,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                                     ),
                                   ])
                                 }}
-                                
+
                               />
                               {(formik.touched.items?.[index] as any)?.density &&
                                 (formik.errors.items?.[index] as any)?.density && (
@@ -373,7 +382,7 @@ const CreatePurchase: React.FC<CreatePurchaseModalProps> = ({ isOpen, onClose, h
                 />
                 {formik.touched.paidAmount && formik.errors.paidAmount && (
                   <div className='invalid-feedback'>
-                    { t('purchase.paidAmount must be less than totalAmount') }
+                    {t('purchase.paidAmount must be less than totalAmount')}
                   </div>
                 )}
               </div>

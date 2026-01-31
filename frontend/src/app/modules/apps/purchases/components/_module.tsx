@@ -13,7 +13,7 @@ export interface PurchaseDetail {
 export interface PurchaseForm {
   id: number | null
   supplierId: number
-  purchaseDate: string
+  purchaseDate: string | ""
   totalAmount: number
   paidAmount: number | null
   unpaidAmount: number
@@ -23,7 +23,7 @@ export interface PurchaseForm {
 export const initialValues = {
   id: null,
   supplierId: null,
-  purchaseDate: new Date().toISOString().split('T')[0],
+  purchaseDate: "",
   totalAmount: 0,
   paidAmount: null,
   unpaidAmount: 0,

@@ -110,31 +110,75 @@ const FuelSummaryReport = () => {
                                 </button>
                             </div>
                         </div>
+                        {memoizedData.length == undefined && (
+                            <>
+                                <div className='card mb-5 mt-3'>
+                                    <div className="card-body">
+                                        {/* sales report table  */}
+                                        <h2 className="text-center text-white p-2"  style={{backgroundColor: '#153a81'}}>{t('report.dailyFuelSell')}</h2>
+                                        <div className="table-responsive mt-3">
+                                            <table className="table table-hover table-striped text-nowrap mb-0">
+                                                <thead className="text-center bg-gray-600 fw-bold">
+                                                    <tr>
+                                                        <th>{t('global.date')}</th>
+                                                        {fuelTypes?.data?.map((fuelType: any) => (
+                                                            <th key={fuelType.id}>{fuelType.name}</th>
+                                                        ))}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {/* Sales rows */}
+                                                    {memoizedData?.sales?.map((sale: any, rowIdx: number) => (
+                                                        <tr key={rowIdx} className="text-center">
+                                                            <td className="fw-bold">{sale.date}</td>
 
-                        {  memoizedData.length == undefined && (
-                                <>
-                                <hr />
-                                    {/* sales report table  */}
-                                    <h2 className="text-center mt-4">{t('report.dailyFuelSell')}</h2>
-                                    <div className="table-responsive mt-3">
-                                        <table className="table table-hover table-striped text-nowrap mb-0">
-                                            <thead className="text-center bg-gray-600 fw-bold">
-                                                <tr>
-                                                    <th>{t('global.date')}</th>
-                                                    {fuelTypes?.data?.map((fuelType: any) => (
-                                                        <th key={fuelType.id}>{fuelType.name}</th>
+                                                            {fuelTypes?.data?.map((fuelType: any) => {
+                                                                const value = sale.sold?.[fuelType.name] ?? 0
+
+                                                                return (
+                                                                    <td key={fuelType.id}>
+                                                                        {value}
+                                                                    </td>
+                                                                )
+                                                            })}
+                                                        </tr>
                                                     ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {/* Sales rows */}
-                                                {memoizedData?.sales?.map((sale: any, rowIdx: number) => (
-                                                    <tr key={rowIdx} className="text-center">
-                                                        <td className="fw-bold">{sale.date}</td>
 
-                                                        {fuelTypes?.data?.map((fuelType: any) => {
-                                                            const value = sale.sold?.[fuelType.name] ?? 0
+                                                    {/* TOTAL row */}
+                                                    <tr className="text-center fw-bold bg-danger">
+                                                        <td>{t('global.TOTAL')}</td>
 
+                                                        {fuelTypes?.data?.map((fuelType: any) => (
+                                                            <td key={fuelType.id}>
+                                                                {getTotalForFuel(fuelType.name)}
+                                                            </td>
+                                                        ))}
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        {/* purchase report table  */}
+                                        <hr />
+                                        <h2 className="text-center p-2 mt-2 text-white" style={{backgroundColor: '#153a81'}}>{t('report.purchase')}</h2>
+                                        <div className="table-responsive mt-3">
+                                            <table className="table table-hover table-striped text-nowrap mb-0">
+                                                <thead className="text-center bg-gray-600 fw-bold">
+                                                    <tr>
+                                                        <th></th>
+                                                        {fuelTypes?.data?.map((fuelType: any) => (
+                                                            <th key={fuelType.id}>{fuelType.name}</th>
+                                                        ))}
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {/* Purchases row */}
+                                                    <tr className="text-center fw-bold bg-light">
+
+                                                        <td></td>
+                                                        {fuelTypes?.data?.map((fuelType: any, index: number) => {
+                                                            const value = memoizedData?.purchases?.[fuelType.name] ?? 0
                                                             return (
                                                                 <td key={fuelType.id}>
                                                                     {value}
@@ -142,86 +186,46 @@ const FuelSummaryReport = () => {
                                                             )
                                                         })}
                                                     </tr>
-                                                ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {/* stock report table  */}
+                                        <hr />
+                                        <h2 className="text-center p-2 mt-2 text-white" style={{backgroundColor: '#153a81'}}>{t('report.stock')}</h2>
+                                        <div className="table-responsive mt-3">
+                                            <table className="table table-hover table-striped text-nowrap mb-0">
+                                                <thead className="text-center bg-gray-600 fw-bold">
+                                                    <tr>
+                                                        <th></th>
+                                                        {fuelTypes?.data?.map((fuelType: any) => (
+                                                            <th key={fuelType.id}>{fuelType.name}</th>
+                                                        ))}
+                                                    </tr>
+                                                </thead>
 
-                                                {/* TOTAL row */}
-                                                <tr className="text-center fw-bold bg-danger">
-                                                    <td>{t('global.TOTAL')}</td>
+                                                <tbody>
+                                                    {/* Purchases row */}
+                                                    <tr className="text-center fw-bold bg-light">
+                                                        <td></td>
+                                                        {fuelTypes?.data?.map((fuelType: any, index: number) => {
+                                                            const value = memoizedData?.stock?.[fuelType.name] ?? 0
+                                                            return (
+                                                                <td key={fuelType.id}>
+                                                                    {value}
+                                                                </td>
+                                                            )
+                                                        })}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
-                                                    {fuelTypes?.data?.map((fuelType: any) => (
-                                                        <td key={fuelType.id}>
-                                                            {getTotalForFuel(fuelType.name)}
-                                                        </td>
-                                                    ))}
-                                                </tr>
-                                            </tbody>
-
-                                        </table>
+                                        </div>
                                     </div>
-                                    {/* purchase report table  */}
-                                    <h2 className="text-center mt-4">{t('report.purchase')}</h2>
-                                    <div className="table-responsive mt-3">
-                                        <table className="table table-hover table-striped text-nowrap mb-0">
-                                            <thead className="text-center bg-gray-600 fw-bold">
-                                                <tr>
-                                                    <th></th>
-                                                    {fuelTypes?.data?.map((fuelType: any) => (
-                                                        <th key={fuelType.id}>{fuelType.name}</th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
+                                </div>
+                            </>
 
-                                            <tbody>
-                                                {/* Purchases row */}
-                                                <tr className="text-center fw-bold bg-light">
 
-                                                    <td></td>
-                                                    {fuelTypes?.data?.map((fuelType: any, index: number) => {
-                                                        const value = memoizedData?.purchases?.[fuelType.name] ?? 0
-                                                        return (
-                                                            <td key={fuelType.id}>
-                                                                {value}
-                                                            </td>
-                                                        )
-                                                    })}
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                    {/* stock report table  */}
-                                    <h2 className="text-center mt-4">{t('report.stock')}</h2>
-                                    <div className="table-responsive mt-3">
-                                        <table className="table table-hover table-striped text-nowrap mb-0">
-                                            <thead className="text-center bg-gray-600 fw-bold">
-                                                <tr>
-                                                    <th></th>
-                                                    {fuelTypes?.data?.map((fuelType: any) => (
-                                                        <th key={fuelType.id}>{fuelType.name}</th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                {/* Purchases row */}
-                                                <tr className="text-center fw-bold bg-light">
-                                                    <td></td>
-                                                    {fuelTypes?.data?.map((fuelType: any, index: number) => {
-                                                        const value = memoizedData?.stock?.[fuelType.name] ?? 0
-                                                        return (
-                                                            <td key={fuelType.id}>
-                                                                {value}
-                                                            </td>
-                                                        )
-                                                    })}
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </>
-                        )
-                            }
+                        )}
                     </div>
                 </div>
             </Fragment>
