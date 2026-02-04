@@ -164,7 +164,7 @@ const SupplierLoanPaymentModel: React.FC<EditSupplierLoanPaymentModalProps> = ({
                     <tbody>
                       {purchase.purchaseDetails?.map((item: any, i: number) => (
                         <tr key={i}>
-                          <td>{item.fuelTypeId}</td>
+                          <td>{item.fuelType?.name}</td>
                           <td>{item.quantity}</td>
                           <td>{item.unitPrice}</td>
                           <td>{item.totalPrice}</td>

@@ -26,6 +26,8 @@ const CustomerList = () => {
   const handleReloadTable = () => {
     setReloadTable((prev) => !prev) // Toggle to trigger table reload
   }
+  let x = "hello";
+  console.log(typeof(x));
 
   return (
     <>

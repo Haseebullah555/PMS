@@ -6,7 +6,7 @@ namespace Domain.Models
     {
         public string FullName { get; set; } = null!;
         public decimal InitialInvestment { get; set; }
-
+        public decimal OwnershipPercentage { get; set; }
         public ICollection<PartnerTransaction> Transactions { get; set; } = new List<PartnerTransaction>();
     }
 }
