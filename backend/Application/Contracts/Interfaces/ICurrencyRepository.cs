@@ -1,12 +1,10 @@
-
-
 using Application.Contracts.Interfaces.Common;
 using Domain.Models;
 
 namespace Application.Contracts.Interfaces
 {
-    public interface IStudentRespository : IGenericRepository<Student>
+    public interface ICurrencyRepository : IGenericRepository<Currency>
     {
-         IQueryable<Student> GetListOfStudents();
+        
     }
 }

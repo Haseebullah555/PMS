@@ -46,7 +46,6 @@ namespace Persistence.Repositories
               {
                   Id = g.Id,
                   Name = g.Name,
-                  Balance = g.Balance,
               }).ToList()
           });
         }

@@ -54,7 +54,6 @@ namespace Application.Profiles
             CreateMap<Purchase, UpdatePurchaseDto>().ReverseMap();
             CreateMap<PurchaseDetail, PurchaseDetailDto>().ReverseMap();
             CreateMap<Stock, StockDto>().ReverseMap();
-            CreateMap<Student, StudentDto>().ReverseMap();
             CreateMap<Supplier, SupplierWithDetialsDto>().ReverseMap();
             CreateMap<Supplier, SuppliersWithSupplierLoanPaymentsDto>().ReverseMap();
             CreateMap<FuelStand, GetFuelStandWithDetialsDto>().ReverseMap();

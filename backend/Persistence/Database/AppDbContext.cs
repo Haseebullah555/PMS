@@ -15,6 +15,7 @@ namespace Persistence.Database
             StaffSeeder.Seed(modelBuilder);
             FuelStandSeeder.Seed(modelBuilder);
             FuelGunSeeder.Seed(modelBuilder);
+            CurrencySeeder.Seed(modelBuilder);
         }
         #region DbSets
         public DbSet<User> Users { get; set; }
@@ -43,7 +44,7 @@ namespace Persistence.Database
         public DbSet<ProfitSharing> ProfitSharings { get; set; }
         public DbSet<ProfitSharingAgreement> ProfitSharingAgreements { get; set; }
         public DbSet<DailyFuelSell> DailyFuelSells { get; set; }
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Currency> Currencies { get; set; }    
 
         #endregion
     }

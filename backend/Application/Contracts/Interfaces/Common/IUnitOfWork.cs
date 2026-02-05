@@ -24,8 +24,8 @@ namespace Application.Contracts.Interfaces.Common
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
 
-        public IStudentRespository Students { get; }
         public IReportRepository Reports { get; }
+        public ICurrencyRepository Currencies { get; }
         Task SaveAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }

@@ -32,8 +32,8 @@ namespace Persistence.Repositories.Common
         private IStockRepository _stockRepository;
         private ISupplierLoanPaymentRepository _supplierLoanPaymentRepository;
         private IDailyFuelSellRepository _dailyFuelSellRepository;
-        private IStudentRespository _studentRepository;
         private IReportRepository _reportRepository;
+        private ICurrencyRepository _currencyRepository;
         #endregion
 
         public IDashboardRepository Dashboards => _dashboardRepository ??= new DashboardRepository(_context);
@@ -59,8 +59,10 @@ namespace Persistence.Repositories.Common
 
         public ISupplierLoanPaymentRepository SupplierLoanPayments => _supplierLoanPaymentRepository ??= new SupplierLoanPaymentRepository(_context);
         public IDailyFuelSellRepository DailyFuelSells => _dailyFuelSellRepository ??= new DailyFuelRepository(_context);
-        public IStudentRespository Students => _studentRepository ??= new StudentRepository(_context);
         public IReportRepository Reports => _reportRepository ??= new ReportRepository(_context);
+        
+
+        public ICurrencyRepository Currencies => _currencyRepository ??= new CurrencyRepository(_context);
 
         public void Dispose()
         {
