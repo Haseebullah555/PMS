@@ -1,7 +1,10 @@
-﻿using Domain.Models;
+﻿using System.Security;
+using Domain.Models;
 using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Repositories.UserManagement;
 using Persistence.Seeders;
+using Persistence.Seeders.UserManagement;
 
 namespace Persistence.Database
 {
@@ -11,7 +14,6 @@ namespace Persistence.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            UserSeeder.Seed(modelBuilder);
             StaffSeeder.Seed(modelBuilder);
             FuelStandSeeder.Seed(modelBuilder);
             FuelGunSeeder.Seed(modelBuilder);
@@ -19,7 +21,10 @@ namespace Persistence.Database
         }
         #region DbSets
         public DbSet<User> Users { get; set; }
-
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<FuelType> FuelTypes { get; set; }
         public DbSet<FuelGun> FuelGuns { get; set; }
