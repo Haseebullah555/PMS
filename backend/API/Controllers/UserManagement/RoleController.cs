@@ -1,6 +1,7 @@
 using API.Controllers.Common;
 using Application.Features.UserManagement.Role.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
+using StackExchange.Redis;
 
 namespace API.Controllers.UserManagement
 {
@@ -20,6 +21,12 @@ namespace API.Controllers.UserManagement
                 SortDirection = sortDirection
             });
             return Ok(roles);
+        }
+        [HttpGet("all-permissions")]
+        public async Task<IActionResult> AllPermissions()
+        {
+            var permissions = await _mediator.Send(new GetAllPermissionListRequest());
+            return Ok(permissions);
         }
     }
 }

@@ -1,5 +1,6 @@
 using Application.Dtos.Common;
 using Application.Dtos.UserManagement.Roles;
+using Domain.UserManagement;
 
 namespace Application.Contracts.UserManagement
 {
@@ -12,5 +13,6 @@ namespace Application.Contracts.UserManagement
             string? sortBy,
             string? sortDirection
         );
+        Task<List<PermissionDto>> GetAllPermissions();
     }
 }

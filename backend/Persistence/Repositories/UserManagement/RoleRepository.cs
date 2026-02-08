@@ -14,6 +14,22 @@ namespace Persistence.Repositories.UserManagement
         {
             _context = context;
         }
+
+        public async Task<List<PermissionDto>> GetAllPermissions()
+        {
+            var query = _context.Permissions
+            .AsNoTracking()
+            .AsQueryable();
+            var permissions = await query
+                .Select(x => new PermissionDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                })
+                .ToListAsync();
+            return permissions;
+        }
+
         public async Task<PaginatedResult<RolesListDto>> GetAllRolesList(
             int page,
             int perPage,
