@@ -9,6 +9,8 @@ const AssignPermissionToRole = forwardRef(
   ({permissionSelector, currentPermissions = [], handleChange, handleSave, isLoading}, ref) => {
     const modalRef = useRef(null)
     const {t} = useTranslation()
+
+    
     useImperativeHandle(ref, () => ({
       dismissModal() {
         const modalElement = modalRef.current

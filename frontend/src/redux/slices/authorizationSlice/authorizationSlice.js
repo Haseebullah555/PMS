@@ -8,6 +8,8 @@ const initialState = {
   permissions: null,
 }
 
+
+// get all roles
 export const getRoles = createAsyncThunk(
   'get/roles',
   async (payload, {rejectWithValue, getState, dispatch}) => {
@@ -21,11 +23,27 @@ export const getRoles = createAsyncThunk(
   }
 )
 
+// get all permissions
+export const getPermissions = createAsyncThunk(
+  'get/permissions',
+  async (payload, {rejectWithValue, getState, dispatch}) => {
+    try {
+      // const res = await axios.get(`${apiUrl}permission`);
+      const res = await axiosInterceptor.get('permission')
+      return res.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
+
+// create the new 
 export const postRole = createAsyncThunk(
   'post/role',
   async (payload, {rejectWithValue, getState, dispatch}) => {
     try {
       // const res = await axios.post(`${apiUrl}role`, {
+      console.log(payload, '===========');
       const res = await axiosInterceptor.post('role', {
         name: payload.name,
       })
@@ -92,18 +110,6 @@ export const get_role_permissions = createAsyncThunk(
   }
 )
 
-export const getPermissions = createAsyncThunk(
-  'get/permissions',
-  async (payload, {rejectWithValue, getState, dispatch}) => {
-    try {
-      // const res = await axios.get(`${apiUrl}permission`);
-      const res = await axiosInterceptor.get('permission')
-      return res.data
-    } catch (error) {
-      return rejectWithValue(error.response.data)
-    }
-  }
-)
 
 export const postPermission = createAsyncThunk(
   'post/permission',

@@ -4,6 +4,7 @@ import { SidebarMenuItem } from './SidebarMenuItem'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { SidebarMenuItemWithSub } from './SidebarMenuItemWithSub'
+import UserCan from '../../../../../app/custom/UserCan'
 
 const SidebarMenuMain = () => {
 
@@ -107,7 +108,7 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
 
-       {/* report part  */}
+      {/* report part  */}
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>
@@ -122,9 +123,6 @@ const SidebarMenuMain = () => {
         fontIcon='bi-app-indicator'
       />
 
-
-
-
       <div className='menu-item'>
         <div className='menu-content pt-8 pb-2'>
           <span className='menu-section text-muted text-uppercase fs-8 ls-1'>
@@ -132,7 +130,7 @@ const SidebarMenuMain = () => {
           </span>
         </div>
       </div>
-        <SidebarMenuItemWithSub
+      <SidebarMenuItemWithSub
         to='/fuelType/list'
         title={t('global.SYSTEM.MANAGEMENT.PART')}
         fontIcon='bi-archive'
@@ -143,15 +141,38 @@ const SidebarMenuMain = () => {
           title={t("fuelType.fuelTypes")}
           hasBullet={true}
         />
-           <SidebarMenuItem
-        to='/fuelStand/list'
-        title={t("fuelStand.fuelStands")}
-        icon='element-11'
-        fontIcon='bi-app-indicator'
-      />
+        <SidebarMenuItem
+          to='/fuelStand/list'
+          title={t("fuelStand.fuelStands")}
+          icon='element-11'
+          fontIcon='bi-app-indicator'
+        />
 
       </SidebarMenuItemWithSub>
-   
+
+      {/* User Management   */}
+      <SidebarMenuItemWithSub
+        to='/'
+        title={intl.formatMessage({ id: 'MENU.SETTING' })}
+        fontIcon='bi-layers'
+        icon='switch'
+      >
+        <SidebarMenuItem
+          to='/users/list'
+          title={intl.formatMessage({ id: 'MENU.USER.USER_LIST' })}
+          hasBullet={true}
+        />
+        <SidebarMenuItem
+          to='/users/create'
+          title={intl.formatMessage({ id: 'MENU.USER.USER_CREATE' })}
+          hasBullet={true}
+        />
+        <SidebarMenuItem
+          to='/settings/role/list'
+          title={intl.formatMessage({ id: 'MENU.SETTING.ROLE' })}
+          hasBullet={true}
+        />
+      </SidebarMenuItemWithSub>
     </>
   )
 }
