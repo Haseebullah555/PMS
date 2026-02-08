@@ -77,9 +77,26 @@ namespace Persistence.Repositories.UserManagement
             };
         }
 
-        public Task<User> GetUserByUsernameAsync(string username)
+        public async Task<UserListDto> GetUserByUsernameAsync(string username)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrWhiteSpace(username))
+                return null;
+
+            var user = await _context.Users
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                .Where(u => u.UserName == username)
+                .Select(u => new UserListDto
+                {
+                    Id = u.Id,
+                    UserName = u.UserName,
+                    Email = u.Email,
+                    Roles = u.UserRoles.Select(ur => ur.Role.Name).ToList()
+                })
+                .FirstOrDefaultAsync();
+                return user;
+
+
         }
     }
 }

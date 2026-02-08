@@ -7,7 +7,7 @@ namespace Application.Contracts.UserManagement
 {
     public interface IUserRepository
     {
-        Task<User> GetUserByUsernameAsync(string username);
+        Task<UserListDto> GetUserByUsernameAsync(string username);
         Task<PaginatedResult<UserListDto>> GetAllUsers(
            int page,
             int perPage,

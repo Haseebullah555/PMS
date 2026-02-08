@@ -3,7 +3,6 @@ using Application.Dtos.UserManagement.Roles;
 using Application.Features.UserManagement.Role.Requests.Commands;
 using Application.Features.UserManagement.Role.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
-using StackExchange.Redis;
 
 namespace API.Controllers.UserManagement
 {
@@ -34,6 +33,12 @@ namespace API.Controllers.UserManagement
         public async Task<IActionResult> AddRole(AddRoleDto roles)
         {
             await _mediator.Send(new AddRoleCommand{Roles = roles});
+            return Ok();
+        }
+        [HttpPut("update_role")]
+        public async Task<IActionResult> UpdateRole(UpdateRoleDto role)
+        {
+            await _mediator.Send(new UpdateRoleCommand{Role = role});
             return Ok();
         }
     }
