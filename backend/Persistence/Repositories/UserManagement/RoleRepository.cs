@@ -1,16 +1,18 @@
 using Application.Contracts.UserManagement;
 using Application.Dtos.Common;
 using Application.Dtos.UserManagement.Roles;
+using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
+using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories.UserManagement
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : GenericRepository<Role>, IRoleRepository
     {
         private readonly AppDbContext _context;
 
-        public RoleRepository(AppDbContext context)
+        public RoleRepository(AppDbContext context) : base(context)
         {
             _context = context;
         }

@@ -1,4 +1,6 @@
 using API.Controllers.Common;
+using Application.Dtos.UserManagement.Roles;
+using Application.Features.UserManagement.Role.Requests.Commands;
 using Application.Features.UserManagement.Role.Requests.Queries;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
@@ -27,6 +29,12 @@ namespace API.Controllers.UserManagement
         {
             var permissions = await _mediator.Send(new GetAllPermissionListRequest());
             return Ok(permissions);
+        }
+        [HttpPost("add_role")]
+        public async Task<IActionResult> AddRole(AddRoleDto roles)
+        {
+            await _mediator.Send(new AddRoleCommand{Roles = roles});
+            return Ok();
         }
     }
 }

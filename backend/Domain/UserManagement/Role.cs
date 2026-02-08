@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Domain.Common;
 
 namespace Domain.UserManagement
 {
-    public class Role
+    public class Role : BaseDomainEntity
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty; // Admin, Manager

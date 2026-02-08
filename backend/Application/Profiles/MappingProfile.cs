@@ -14,8 +14,10 @@ using Application.Dtos.StaffPaymentDtos;
 using Application.Dtos.StockDtos;
 using Application.Dtos.SupplierDtos;
 using Application.Dtos.SupplierLoanPaymentDtos;
+using Application.Dtos.UserManagement.Roles;
 using AutoMapper;
 using Domain.Models;
+using Domain.UserManagement;
 
 namespace Application.Profiles
 {
@@ -67,6 +69,9 @@ namespace Application.Profiles
             CreateMap<Customer, CustomerLoanDto>().ReverseMap();
             CreateMap<Customer, CustomerLoanPaymentDto>().ReverseMap();
             CreateMap<CustomerLoan, AddCustomerLaonDto>().ReverseMap();
+            #region User Management
+            CreateMap<Role, AddRoleDto>().ReverseMap();
+            #endregion
         }
     }
 }
