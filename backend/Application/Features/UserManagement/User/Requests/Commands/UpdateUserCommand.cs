@@ -4,8 +4,8 @@ using MediatR;
 
 namespace Application.Features.UserManagement.User.Requests.Commands
 {
-    public class AddUserCommand : IRequest
+    public class UpdateUserCommand : IRequest
     {
-        public AddUserDto User { get; set; }
+        public UpdateUserDto User { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 using API.Controllers.Common;
+using Application.Dtos.UserManagement.User;
 using Application.Features.UserManagement.Requests.Queries;
+using Application.Features.UserManagement.User.Requests.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers.UserManagement
@@ -20,6 +22,26 @@ namespace API.Controllers.UserManagement
                SortDirection = sortDirection 
             });
             return Ok(users);
+        }
+        [HttpPost("add_user")]
+        public async Task<IActionResult> AddUser(AddUserDto user)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AddUserCommand{User = user});
+                return Ok();
+            }
+            return BadRequest();
+        }
+        [HttpPut("update_user")]
+        public async Task<IActionResult> UpdateUser(UpdateUserDto user)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new UpdateUserCommand{User = user});
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

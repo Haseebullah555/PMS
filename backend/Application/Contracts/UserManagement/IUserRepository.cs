@@ -1,11 +1,12 @@
 using System.Globalization;
+using Application.Contracts.Interfaces.Common;
 using Application.Dtos.Common;
 using Application.Dtos.UserManagement;
 using Domain.UserManagement;
 
 namespace Application.Contracts.UserManagement
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
         Task<UserListDto> GetUserByUsernameAsync(string username);
         Task<PaginatedResult<UserListDto>> GetAllUsers(
@@ -15,5 +16,6 @@ namespace Application.Contracts.UserManagement
             string? sortBy,
             string? sortDirection
         );
+        Task AssignRolesToUserAsync(Guid userId, List<Guid> roleIds);
     }
 }

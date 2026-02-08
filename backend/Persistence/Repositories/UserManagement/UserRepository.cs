@@ -4,16 +4,61 @@ using Application.Dtos.UserManagement;
 using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
+using Persistence.Repositories.Common;
 
 namespace Persistence.Repositories.UserManagement
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
         private readonly AppDbContext _context;
 
-        public UserRepository(AppDbContext context)
+        public UserRepository(AppDbContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task AssignRolesToUserAsync(Guid userId, List<Guid> roleIds)
+        {
+            if (roleIds == null || !roleIds.Any())
+                throw new ArgumentException("At least one role must be provided.");
+
+            var user = await _context.Users
+                .Include(u => u.UserRoles)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user == null)
+                throw new KeyNotFoundException("User not found.");
+
+            // Remove duplicates
+            roleIds = roleIds.Distinct().ToList();
+
+            // Get roles from DB
+            var roles = await _context.Roles
+                .Where(r => roleIds.Contains(r.Id))
+                .ToListAsync();
+
+            if (roles.Count != roleIds.Count)
+                throw new Exception("One or more roles do not exist.");
+
+            // Existing role IDs
+            var existingRoleIds = user.UserRoles
+                .Select(ur => ur.RoleId)
+                .ToHashSet();
+
+            // Add only new roles
+            foreach (var role in roles)
+            {
+                if (!existingRoleIds.Contains(role.Id))
+                {
+                    user.UserRoles.Add(new UserRole
+                    {
+                        UserId = userId,
+                        RoleId = role.Id
+                    });
+                }
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<PaginatedResult<UserListDto>> GetAllUsers(
@@ -94,7 +139,7 @@ namespace Persistence.Repositories.UserManagement
                     Roles = u.UserRoles.Select(ur => ur.Role.Name).ToList()
                 })
                 .FirstOrDefaultAsync();
-                return user;
+            return user;
 
 
         }

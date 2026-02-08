@@ -2,7 +2,7 @@ using Domain.Common;
 
 namespace Domain.UserManagement
 {
-    public class UserRole : BaseDomainEntity
+    public class UserRole : UserManagenetBaseDomainEntity
     {
         public Guid UserId { get; set; }
         public User User { get; set; }
