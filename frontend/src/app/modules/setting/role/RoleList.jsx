@@ -8,9 +8,9 @@ import Swal from 'sweetalert2'
 import {
   assignPermissionsToRole,
   deleteRole,
-  getRoles,
   get_role_permissions,
   getPermissions,
+  getRoles,
 } from '../../../../redux/slices/authorizationSlice/authorizationSlice'
 import AssignPermissionToRole from './components/AssignPermissionToRole'
 import RoleCreate from './components/RoleCreate'
@@ -22,6 +22,12 @@ export default function RoleList() {
 
   const {t} = useTranslation()
   const dispatch = useDispatch()
+  const [perPage, setPerPage] = useState()
+  const [sortColumn, setSortColumn] = useState()
+  const [sortOrder, setSortOrder] = useState()
+  const [search, setSearch] = useState('')
+
+
 
   const [tableData, setTableData] = useState([])
   const [totalRows, setTotalRows] = useState(0)
@@ -38,6 +44,7 @@ export default function RoleList() {
     return state.authorization
   })
 
+  console.log(selectorItems, '=================')
   const theme = useSelector((state) => {
     return state.general.theme
   })
@@ -45,6 +52,7 @@ export default function RoleList() {
   const [data, setData] = useState([{id: null, name: null}])
   const [rolePermission, setRolePermission] = useState([])
   const [currentPermissions, setCurrentPermissions] = useState([])
+  
   const modalRef = useRef(null)
   const dismissModal = () => {
     if (modalRef.current) {
@@ -120,10 +128,7 @@ export default function RoleList() {
       })
   }
 
-  useEffect(() => {
-    dispatch(getPermissions())
-  }, [])
-
+  
   // useEffect(() => {
   // 	setRolePermission
   // }, []);
@@ -150,8 +155,21 @@ export default function RoleList() {
       }
     })
   }
+
   useEffect(() => {
-    dispatch(getRoles())
+    dispatch(getPermissions())
+  }, [])
+
+
+  useEffect(() => {
+      const params = {
+      search,
+      sort_field: sortColumn,
+      sort_order: sortOrder,
+      per_page: perPage,
+      page: currentPage,
+    }
+    dispatch(getRoles(params))
   }, [])
 
   const columns = [

@@ -29,6 +29,8 @@ const DataTable: React.FC<any> = ({headers, columns, reload, handleEdit}) => {
   const dispatch = useAppDispatch()
 
   const {purchases} = useAppSelector((state) => state.purchases)
+
+  
   const handleSort = (column: string) => {
     if (column === sortColumn) {
       setSortOrder((prevSortOrder) => (prevSortOrder === SORT_ASC ? SORT_DESC : SORT_ASC))

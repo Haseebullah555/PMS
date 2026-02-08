@@ -1,7 +1,7 @@
 import React from 'react'
-import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
-import {UserOverview} from '../UserOverview'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
+import { PageLink, PageTitle } from '../../../../_metronic/layout/core'
+import { UserOverview } from '../UserOverview'
 import UserList from '../UserList'
 import UserHeader from '../UserHeader'
 import UserUpdate from '../UserUpdate'
@@ -33,6 +33,34 @@ const UserNewPage: React.FC = () => {
           </>
         }
       >
+
+        <Route
+          path='list'
+          element={
+            <>
+              <PageTitle breadcrumbs={accountBreadCrumbs}>List Users</PageTitle>
+              <UserList />
+            </>
+          }
+        />
+        <Route
+          path='create'
+          element={
+            <>
+              <PageTitle breadcrumbs={accountBreadCrumbs}>Create User</PageTitle>
+              <UserCreate />
+            </>
+          }
+        />
+        <Route
+          path='update/:id'
+          element={
+            <>
+              <PageTitle breadcrumbs={accountBreadCrumbs}>Update User</PageTitle>
+              <UserUpdate />
+            </>
+          }
+        />
         <Route
           path='overview/:id'
           element={
@@ -43,35 +71,11 @@ const UserNewPage: React.FC = () => {
           }
         />
 
-        <Route
-          path='update/:id'
-          element={
-            <>
-              <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle>
-              <UserUpdate />
-            </>
-          }
-        />
+
         <Route index element={<Navigate to='/user/list' />} />
       </Route>
-      <Route
-        path='list'
-        element={
-          <>
-            <PageTitle breadcrumbs={accountBreadCrumbs}>Attendance List</PageTitle>
-            <UserList />
-          </>
-        }
-      />
-      <Route
-        path='create'
-        element={
-          <>
-            <PageTitle breadcrumbs={accountBreadCrumbs}>Settings</PageTitle>
-            <UserCreate />
-          </>
-        }
-      />
+
+
     </Routes>
   )
 }

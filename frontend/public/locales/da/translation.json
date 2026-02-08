@@ -12,7 +12,7 @@
     "LOGIN_PAGE.MAXIMUM_CHARACTERS": "حد اکثر حروف",
     "LOGIN_PAGE.EMAIL_IS_REQUIRED": "ایمیل آلزامی است",
     "LOGIN_PAGE.PASSWORD_IS_REQUIRED": "رمز آلزامی است",
-    "LOGIN_PAGE.THE_LOGIN_DETAIL_ARE_INCORRECT": "ایمیل و یا رمز عبوز درست نمی باشد",
+    "LOGIN_PAGE.THE_LOGIN_DETAIL_ARE_INCORRECT": "ایمیل و یا رمز عبور درست نمی باشد",
     "LOGIN_PAGE.PLEASE_WAIT": "لطفا منتظر باشید ...",
     "MIN": "معلومات درج شده کمتر از 3 کرکتر نباشد!",
     "MAX": "معلومات درج شده حداکثر بیشتر 50 کرکتر نباشد!",

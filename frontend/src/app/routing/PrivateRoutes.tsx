@@ -46,6 +46,23 @@ const PrivateRoutes = () => {
           element={<SuspensedView>{/* <ReportPage /> */}</SuspensedView>}
         />
         <Route
+          path='users/*'
+          element={
+            <SuspensedView>
+              {/* <UserPage /> */}
+              <UserNewPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='settings/role/*'
+          element={
+            <SuspensedView>
+              <RolePage />
+            </SuspensedView>
+          }
+        />
+        <Route
           path='crafted/pages/wizards/*'
           element={
             <SuspensedView>
@@ -61,23 +78,8 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        <Route
-          path='settings/role/*'
-          element={
-            <SuspensedView>
-              <RolePage />
-            </SuspensedView>
-          }
-        />
-        <Route
-          path='users/*'
-          element={
-            <SuspensedView>
-              {/* <UserPage /> */}
-              <UserNewPage />
-            </SuspensedView>
-          }
-        />
+
+
         <Route
           path='supplier/*'
           element={
