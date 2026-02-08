@@ -1,3 +1,4 @@
+using Application.Contracts.UserManagement;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Application.Contracts.Interfaces.Common
@@ -23,6 +24,9 @@ namespace Application.Contracts.Interfaces.Common
         public IStockRepository Stocks { get; }
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
+        #region User Management
+        public IRoleRepository Roles {get;}
+        #endregion
 
         public IReportRepository Reports { get; }
         public ICurrencyRepository Currencies { get; }

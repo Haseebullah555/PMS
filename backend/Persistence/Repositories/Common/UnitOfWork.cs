@@ -1,7 +1,9 @@
 using Application.Contracts.Interfaces;
 using Application.Contracts.Interfaces.Common;
+using Application.Contracts.UserManagement;
 using Microsoft.EntityFrameworkCore.Storage;
 using Persistence.Database;
+using Persistence.Repositories.UserManagement;
 
 namespace Persistence.Repositories.Common
 {
@@ -34,6 +36,7 @@ namespace Persistence.Repositories.Common
         private IDailyFuelSellRepository _dailyFuelSellRepository;
         private IReportRepository _reportRepository;
         private ICurrencyRepository _currencyRepository;
+        private IRoleRepository _roleRepository;
         #endregion
 
         public IDashboardRepository Dashboards => _dashboardRepository ??= new DashboardRepository(_context);
@@ -61,6 +64,9 @@ namespace Persistence.Repositories.Common
         public IDailyFuelSellRepository DailyFuelSells => _dailyFuelSellRepository ??= new DailyFuelRepository(_context);
         public IReportRepository Reports => _reportRepository ??= new ReportRepository(_context);
         
+        #region User Management
+        public IRoleRepository Roles => _roleRepository ??= new RoleRepository(_context);
+        #endregion
 
         public ICurrencyRepository Currencies => _currencyRepository ??= new CurrencyRepository(_context);
 
