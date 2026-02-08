@@ -25,6 +25,7 @@ namespace Application.Contracts.Interfaces.Common
         public ISupplierLoanPaymentRepository SupplierLoanPayments { get; }
         public IDailyFuelSellRepository DailyFuelSells { get; }
         #region User Management
+        public IUserRepository Users {get;}
         public IRoleRepository Roles {get;}
         #endregion
 

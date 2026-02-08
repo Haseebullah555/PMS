@@ -37,6 +37,7 @@ namespace Persistence.Repositories.Common
         private IReportRepository _reportRepository;
         private ICurrencyRepository _currencyRepository;
         private IRoleRepository _roleRepository;
+        private IUserRepository _userRepository;
         #endregion
 
         public IDashboardRepository Dashboards => _dashboardRepository ??= new DashboardRepository(_context);
@@ -65,7 +66,9 @@ namespace Persistence.Repositories.Common
         public IReportRepository Reports => _reportRepository ??= new ReportRepository(_context);
         
         #region User Management
+        public IUserRepository Users => _userRepository ??= new UserRepository(_context);
         public IRoleRepository Roles => _roleRepository ??= new RoleRepository(_context);
+        
         #endregion
 
         public ICurrencyRepository Currencies => _currencyRepository ??= new CurrencyRepository(_context);

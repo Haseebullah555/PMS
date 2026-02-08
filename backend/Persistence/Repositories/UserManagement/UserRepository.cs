@@ -11,9 +11,9 @@ namespace Persistence.Repositories.UserManagement
     {
         private readonly AppDbContext _context;
 
-        public UserRepository(AppDbContext dbContext)
+        public UserRepository(AppDbContext context)
         {
-            _context = dbContext;
+            _context = context;
         }
 
         public async Task<PaginatedResult<UserListDto>> GetAllUsers(
