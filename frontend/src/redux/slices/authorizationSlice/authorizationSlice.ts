@@ -43,7 +43,6 @@ export const getRoles = createAsyncThunk(
   'api/role/list',
   async (params: any, thunkAPI) => {
     try {
-      console.log('------------------');
       return await AuthenticationService.getRoles(params)
     } catch (error: any) {
       const message =
@@ -54,9 +53,6 @@ export const getRoles = createAsyncThunk(
     }
   }
 )
-
-
-
 
 export const postRole = createAsyncThunk(
   'auth/postRole',

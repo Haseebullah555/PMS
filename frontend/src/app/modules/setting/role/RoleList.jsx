@@ -6,9 +6,7 @@ import {useRef} from 'react'
 import Swal from 'sweetalert2'
 
 import {
-  assignPermissionsToRole,
   deleteRole,
-  get_role_permissions,
   getPermissions,
   getRoles,
 } from '../../../../redux/slices/authorizationSlice/authorizationSlice'
@@ -16,18 +14,15 @@ import AssignPermissionToRole from './components/AssignPermissionToRole'
 import RoleCreate from './components/RoleCreate'
 import RoleUpdate from './components/RoleUpdate'
 import CustomLoader from './../../../custom/loader/CustomLoader'
-import { useTranslation } from 'react-i18next'
+import {useTranslation} from 'react-i18next'
 
 export default function RoleList() {
-
   const {t} = useTranslation()
   const dispatch = useDispatch()
   const [perPage, setPerPage] = useState()
   const [sortColumn, setSortColumn] = useState()
   const [sortOrder, setSortOrder] = useState()
   const [search, setSearch] = useState('')
-
-
 
   const [tableData, setTableData] = useState([])
   const [totalRows, setTotalRows] = useState(0)
@@ -52,7 +47,7 @@ export default function RoleList() {
   const [data, setData] = useState([{id: null, name: null}])
   const [rolePermission, setRolePermission] = useState([])
   const [currentPermissions, setCurrentPermissions] = useState([])
-  
+
   const modalRef = useRef(null)
   const dismissModal = () => {
     if (modalRef.current) {
@@ -60,31 +55,40 @@ export default function RoleList() {
     }
   }
 
-  const handleSelect = (id) => {
+  // const handleSelect = (id) => {
+
+  //   if (id) {
+  //     // find selected role
+  //     const selectedRole = selectorItems.roles.data.find((row) => row.id === id)
+  //     if (!selectedRole) return
+  //     // set only this role permissions
+  //     setCurrentPermissions(selectedRole.rolePermissions)
+  //     setRolePermission(selectedRole.rolePermissions)
+  //   } else {
+  //     setData([{id: null, name: null}])
+  //   }
+  // }
+
+
+ const handleSelect = (id) => {
     if (id) {
-      setData(selectorItems.roles.filter((row) => row.id == id))
-      dispatch(get_role_permissions(id))
-        .then((res) => {
-          handleSetPermissions(res.payload)
-        })
-        .catch((err) => {
-          toast.warning(t('Error in performing the action'))
-        })
+      // find selected role
+      setData([{id: id, name: selectorItems.roles.data.find((row) => row.id === id)?.name}])
+      const selectedRole = selectorItems.roles.data.find((row) => row.id === id)
+      if (!selectedRole) return
+      // set only this role permissions
+      setCurrentPermissions(selectedRole.rolePermissions)
+      setRolePermission(selectedRole.rolePermissions)
     } else {
       setData([{id: null, name: null}])
     }
   }
 
-  const handleSetPermissions = (resPayload) => {
-    const temp = []
-    resPayload.map((row) => {
-      temp.push(row.id)
-    })
-    setCurrentPermissions(temp)
-    setRolePermission(temp)
-  }
+  console.log(data, 'dataaaaaaaa');
 
   const handleChange = (value, event, type) => {
+
+    console.log(value, event.target.checked, type, 'valueeeeee')
     if (type === 'permission') {
       if (event.target.checked) {
         setRolePermission((current) => [...current, value])
@@ -117,18 +121,19 @@ export default function RoleList() {
   }
 
   const handleSave = (id = data[0].id, permissions = rolePermission) => {
+
+    console.log(id, 'id and permissions')
     setIsLoading(true)
-    dispatch(assignPermissionsToRole({id, permissions}))
-      .then((res) => {
-        setIsLoading(false)
-        dismissModal()
-      })
-      .catch((err) => {
-        setIsLoading(false)
-      })
+    // dispatch(assignPermissionsToRole({id, permissions}))
+    //   .then((res) => {
+    //     setIsLoading(false)
+    //     dismissModal()
+    //   })
+    //   .catch((err) => {
+    //     setIsLoading(false)
+    //   })
   }
 
-  
   // useEffect(() => {
   // 	setRolePermission
   // }, []);
@@ -157,12 +162,7 @@ export default function RoleList() {
   }
 
   useEffect(() => {
-    dispatch(getPermissions())
-  }, [])
-
-
-  useEffect(() => {
-      const params = {
+    const params = {
       search,
       sort_field: sortColumn,
       sort_order: sortOrder,
@@ -170,6 +170,7 @@ export default function RoleList() {
       page: currentPage,
     }
     dispatch(getRoles(params))
+    dispatch(getPermissions())
   }, [])
 
   const columns = [
@@ -261,7 +262,7 @@ export default function RoleList() {
       <DataTable
         theme={theme}
         columns={columns}
-        data={selectorItems.roles ? selectorItems.roles : []}
+        data={selectorItems.roles ? selectorItems.roles?.data : []}
         sortServer
         onSort={(column, direction) => {
           setSortBy(column.sortField)

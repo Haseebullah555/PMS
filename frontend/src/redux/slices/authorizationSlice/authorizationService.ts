@@ -23,13 +23,14 @@ const getRoles = async (params: any) => {
 
 // create role
 const postRole = async (data: { name: string }) => {
-  const res = await axiosInterceptor.post('/role', data)
+  const res = await axiosInterceptor.post('/Role/add_role', data)
   return res.data
 }
 
 // update role
 const putRole = async (data: { id: number; name: string }) => {
-  const res = await axiosInterceptor.put(`/role/${data.id}`, {
+  const res = await axiosInterceptor.put(`Role/update_role`, {
+    id: data.id,
     name: data.name,
   })
   return res.data
@@ -63,7 +64,7 @@ const getRolePermissions = async (id: number) => {
 ================================ */
 
 const getPermissions = async () => {
-  const res = await axiosInterceptor.get('/permission')
+  const res = await axiosInterceptor.get('/Role/all-permissions')
   return res.data
 }
 

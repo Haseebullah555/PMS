@@ -6,7 +6,7 @@ import {getRoles, putRole} from '../../../../../redux/slices/authorizationSlice/
 import {useIntl} from 'react-intl'
 import { useTranslation } from 'react-i18next'
 
-export default function RoleUpdate({data, handleSelect}) {
+export default function RoleUpdate({data = null, handleSelect}) {
   const intl = useIntl()
   const {t} = useTranslation()
   const [isLoading, setIsLoading] = useState(false)
