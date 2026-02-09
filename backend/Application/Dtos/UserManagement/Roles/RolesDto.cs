@@ -1,5 +1,3 @@
-using Domain.UserManagement;
-
 namespace Application.Dtos.UserManagement.Roles
 {
     public class RolesDto

@@ -57,6 +57,8 @@ builder.Services.ConfigureIdentityServices();
 builder.Services.AddScoped<IPermissionSeeder, PermissionSeeder>();
 builder.Services.AddScoped<IRoleSeeder, RoleSeeder>();
 builder.Services.AddScoped<IUserSeeder, UserSeeder>();
+builder.Services.AddScoped<IRolePermissionSeeder, RolePermissionSeeder>();
+
 // ===================== REDIS CONFIGURATION =====================
 var redisConnection = builder.Configuration.GetValue<string>("Redis:ConnectionString");
 
@@ -159,14 +161,21 @@ var app = builder.Build();
 // ===================== DATABASE SEEDING =====================
 using (var scope = app.Services.CreateScope())
 {
-    var permissionSeeder = scope.ServiceProvider.GetRequiredService<IPermissionSeeder>();
-    await permissionSeeder.SeedAsync();
+    await scope.ServiceProvider
+            .GetRequiredService<IPermissionSeeder>()
+            .SeedAsync();
 
-    var roleSeeder = scope.ServiceProvider.GetRequiredService<IRoleSeeder>();
-    await roleSeeder.SeedAsync();
+    await scope.ServiceProvider
+        .GetRequiredService<IRoleSeeder>()
+        .SeedAsync();
 
-    var userSeeder = scope.ServiceProvider.GetRequiredService<IUserSeeder>();
-    await userSeeder.SeedAsync();
+    await scope.ServiceProvider
+        .GetRequiredService<IRolePermissionSeeder>()
+        .SeedAsync();
+
+    await scope.ServiceProvider
+        .GetRequiredService<IUserSeeder>()
+        .SeedAsync();
 }
 
 // ===================== MIDDLEWARE =====================

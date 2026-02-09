@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Application.Contracts.UserManagement;
-using Domain.UserManagement;
 using Microsoft.AspNetCore.Http;
 
 namespace Persistence.Repositories.UserManagement

@@ -2,7 +2,6 @@ using Application.Contracts.UserManagement;
 using Application.Dtos.Common;
 using Application.Dtos.UserManagement;
 using Domain.Models.UserManagement;
-using Domain.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
 using Persistence.Repositories.Common;

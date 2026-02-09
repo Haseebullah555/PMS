@@ -1,6 +1,6 @@
 using System.Reflection;
 using Application.Contracts.UserManagement;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 using Identity.Utils;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
