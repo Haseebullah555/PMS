@@ -1,7 +1,7 @@
 // slices/userSlice.js
 import {toast} from 'react-toastify'
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
-import axiosInterceptor from '../../axios/axiosInterceptor'
+import axiosInterceptor from '../axios/axiosInterceptor'
 
 const initialState = {
   roles: null,
