@@ -1,5 +1,5 @@
 using Application.Dtos.UserManagement;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 
 namespace Application.Contracts.UserManagement
 {

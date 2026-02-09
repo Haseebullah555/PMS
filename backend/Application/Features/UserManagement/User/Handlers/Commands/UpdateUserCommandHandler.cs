@@ -19,7 +19,7 @@ namespace Application.Features.UserManagement.User.Handlers.Commands
         }
         public async Task Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<Domain.UserManagement.User>(request.User);
+            var user = _mapper.Map<Domain.Models.UserManagement.User>(request.User);
             user.UpdatedAt = DateTime.UtcNow;
             // user.UpdateBy = _currentUser.GetCurrentLoggedInUserId();
             _unitOfWork.Users.Update(user);

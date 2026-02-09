@@ -1,4 +1,4 @@
-namespace Domain.UserManagement
+namespace Domain.Models.UserManagement
 {
     public class UserManagenetBaseDomainEntity
     {

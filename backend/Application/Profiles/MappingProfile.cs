@@ -18,7 +18,7 @@ using Application.Dtos.UserManagement.Roles;
 using Application.Dtos.UserManagement.User;
 using AutoMapper;
 using Domain.Models;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 
 namespace Application.Profiles
 {

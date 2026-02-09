@@ -1,6 +1,6 @@
 ﻿using System.Security;
 using Domain.Models;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Repositories.UserManagement;
 using Persistence.Seeders;

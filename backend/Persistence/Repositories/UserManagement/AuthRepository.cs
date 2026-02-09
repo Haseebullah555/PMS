@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Application.Contracts.UserManagement;
 using Application.Dtos.UserManagement;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

@@ -1,6 +1,6 @@
 using Domain.Common;
 
-namespace Domain.UserManagement
+namespace Domain.Models.UserManagement
 {
     public class RolePermission: UserManagenetBaseDomainEntity
     {

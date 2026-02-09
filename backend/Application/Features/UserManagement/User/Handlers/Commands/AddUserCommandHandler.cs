@@ -21,7 +21,7 @@ namespace Application.Features.UserManagement.User.Handlers.Commands
         }
         public async Task Handle(AddUserCommand request, CancellationToken cancellationToken)
         {
-            var user = _mapper.Map<Domain.UserManagement.User>(request.User);
+            var user = _mapper.Map<Domain.Models.UserManagement.User>(request.User);
             user.CreatedAt = DateTime.UtcNow;
             // user.CreatedBy = _currentUser.GetCurrentLoggedInUserId();
             await _unitOfWork.Users.AddAsync(user);

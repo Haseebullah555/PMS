@@ -1,5 +1,5 @@
 using Application.Contracts.UserManagement;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Database;
 

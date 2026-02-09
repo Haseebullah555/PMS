@@ -20,7 +20,7 @@ namespace Application.Features.UserManagement.Role.Handlers.Commands
         }
         public async Task Handle(AddRoleCommand request, CancellationToken cancellationToken)
         {
-            var role = _mapper.Map<Domain.UserManagement.Role>(request.Roles);
+            var role = _mapper.Map<Domain.Models.UserManagement.Role>(request.Roles);
             role.CreatedAt = DateTime.UtcNow;
             // role.CreatedBy = _currentUser.GetCurrentLoggedInUserId();
             await _unitOfWork.Roles.AddAsync(role);

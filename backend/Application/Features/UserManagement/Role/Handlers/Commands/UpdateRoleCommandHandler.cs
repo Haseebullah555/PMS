@@ -20,7 +20,7 @@ namespace Application.Features.UserManagement.Role.Handlers.Commands
         }
         public async Task Handle(UpdateRoleCommand request, CancellationToken cancellationToken)
         {
-            var role = _mapper.Map<Domain.UserManagement.Role>(request.Role);
+            var role = _mapper.Map<Domain.Models.UserManagement.Role>(request.Role);
             role.UpdatedAt = DateTime.UtcNow;
             // role.UpdateBy = _currentUser.GetCurrentLoggedInUserId();
             _unitOfWork.Roles.Update(role);

@@ -1,7 +1,7 @@
 using Application.Contracts.Interfaces.Common;
 using Application.Dtos.Common;
 using Application.Dtos.UserManagement.Roles;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 
 namespace Application.Contracts.UserManagement
 {

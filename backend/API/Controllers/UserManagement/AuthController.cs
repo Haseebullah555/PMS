@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using Application.Contracts.UserManagement;
 using Application.Dtos.UserManagement;
-using Domain.UserManagement;
+using Domain.Models.UserManagement;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers.UserManagement

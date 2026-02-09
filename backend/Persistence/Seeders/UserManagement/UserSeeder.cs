@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.UserManagement;
+using Domain.Models.UserManagement;
 using Domain.UserManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
