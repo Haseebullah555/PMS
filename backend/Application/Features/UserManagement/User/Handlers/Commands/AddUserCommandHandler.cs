@@ -1,9 +1,8 @@
 using Application.Contracts.Interfaces.Common;
-using Application.Contracts.UserManagement;
 using Application.Features.UserManagement.User.Requests.Commands;
 using AutoMapper;
-using Domain.Models.UserManagement;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features.UserManagement.User.Handlers.Commands
 {

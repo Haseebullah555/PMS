@@ -13,6 +13,8 @@ using Application.Contracts.UserManagement;
 using Identity.Utils;
 using Persistence.Repositories.UserManagement;
 using Persistence.Seeders.UserManagement;
+using Domain.Models.UserManagement;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +60,8 @@ builder.Services.AddScoped<IPermissionSeeder, PermissionSeeder>();
 builder.Services.AddScoped<IRoleSeeder, RoleSeeder>();
 builder.Services.AddScoped<IUserSeeder, UserSeeder>();
 builder.Services.AddScoped<IRolePermissionSeeder, RolePermissionSeeder>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
 
 // ===================== REDIS CONFIGURATION =====================
 var redisConnection = builder.Configuration.GetValue<string>("Redis:ConnectionString");
