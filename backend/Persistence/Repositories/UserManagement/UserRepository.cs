@@ -61,6 +61,12 @@ namespace Persistence.Repositories.UserManagement
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> ExistsAsync(string username, string email)
+        {
+            return await _context.Users.AnyAsync(
+                x => x.UserName == username || x.Email == email);
+        }
+
         public async Task<PaginatedResult<UserListDto>> GetAllUsers(
        int page,
        int perPage,

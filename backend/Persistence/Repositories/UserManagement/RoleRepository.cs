@@ -83,5 +83,12 @@ namespace Persistence.Repositories.UserManagement
                 PerPage = perPage
             };
         }
+
+        public async Task<List<Role>> GetByIdsAsync(IEnumerable<Guid> roleIds, CancellationToken cancellationToken)
+        {
+            return await _context.Roles
+                .Where(r => roleIds.Contains(r.Id))
+                .ToListAsync(cancellationToken);
+        }
     }
 }

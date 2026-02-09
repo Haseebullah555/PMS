@@ -17,5 +17,6 @@ namespace Application.Contracts.UserManagement
             string? sortDirection
         );
         Task AssignRolesToUserAsync(Guid userId, List<Guid> roleIds);
+        Task<bool> ExistsAsync(string username, string email);
     }
 }

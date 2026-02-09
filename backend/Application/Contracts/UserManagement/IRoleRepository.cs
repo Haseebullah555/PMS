@@ -15,5 +15,8 @@ namespace Application.Contracts.UserManagement
             string? sortDirection
         );
         Task<List<PermissionDto>> GetAllPermissions();
+        Task<List<Role>> GetByIdsAsync(
+        IEnumerable<Guid> roleIds,
+        CancellationToken cancellationToken);
     }
 }

@@ -17,9 +17,11 @@ namespace Application.Features.UserManagement.User.Handlers.Commands
             _mapper = mapper;
             _currentUser = currentUser;
         }
-        public Task Handle(AssignRolesToUserCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AssignRolesToUserCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            // var roles = _mapper.Map<Domain.Models.UserManagement.Role>(request.Roles);
+            await _unitOfWork.Users.AssignRolesToUserAsync(request.Roles.UserId, request.Roles.RoleIds);
+            await _unitOfWork.SaveAsync(cancellationToken);
         }
     }
 }
