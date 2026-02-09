@@ -70,7 +70,7 @@ namespace Persistence.Repositories.UserManagement
                     Id = x.Id,
                     Name = x.Name,
                     RolePermissions = x.RolePermissions
-                    .Select(ur => ur.Role.Name)
+                    .Select(ur => ur.Permission.Name)
                     .ToList()
                 })
                 .ToListAsync();
