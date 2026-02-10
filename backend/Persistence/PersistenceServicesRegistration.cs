@@ -7,10 +7,6 @@ using Persistence.Repositories.Common;
 using Application.Contracts.Interfaces;
 using Persistence.Repositories;
 using StackExchange.Redis;
-using Application.Contracts.UserManagement;
-using Persistence.Repositories.UserManagement;
-using Persistence.Seeders.UserManagement;
-
 
 namespace Persistence
 {
@@ -20,9 +16,6 @@ namespace Persistence
         {
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(configuration.GetConnectionString("PostgreSQLConString")));
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            // services.AddScoped<IPermissionSeeder, PermissionSeeder>();
-            // services.AddScoped<IRoleSeeder, RoleSeeder>();
-            // services.AddScoped<IUserSeeder, UserSeeder>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddStackExchangeRedisCache(options =>

@@ -15,11 +15,11 @@ namespace API.Controllers.UserManagement
         {
             var users = await _mediator.Send(new GetListOfAllUsersWithParamRequest
             {
-               Page = page,
-               PerPage = perPage,
-               Search = search,
-               SortBy = sortBy,
-               SortDirection = sortDirection 
+                Page = page,
+                PerPage = perPage,
+                Search = search,
+                SortBy = sortBy,
+                SortDirection = sortDirection
             });
             return Ok(users);
         }
@@ -28,7 +28,7 @@ namespace API.Controllers.UserManagement
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new AddUserCommand{User = user});
+                await _mediator.Send(new AddUserCommand { User = user });
                 return Ok();
             }
             return BadRequest();
@@ -38,10 +38,21 @@ namespace API.Controllers.UserManagement
         {
             if (ModelState.IsValid)
             {
-                await _mediator.Send(new UpdateUserCommand{User = user});
+                await _mediator.Send(new UpdateUserCommand { User = user });
                 return Ok();
             }
             return BadRequest();
+        }
+        [HttpPost("assign_role_to_user")]
+        public async Task<IActionResult> AssignRoleToUser(AssignRolesToUserDto roles)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AssignRolesToUserCommand{Roles = roles});
+                return Ok();
+            }
+            return BadRequest();
+            
         }
     }
 }

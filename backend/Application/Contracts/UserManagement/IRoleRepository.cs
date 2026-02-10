@@ -18,5 +18,6 @@ namespace Application.Contracts.UserManagement
         Task<List<Role>> GetByIdsAsync(
         IEnumerable<Guid> roleIds,
         CancellationToken cancellationToken);
+        Task AssignPermissionsToRoleAsync(Guid roleId, List<Guid> permissionIds);
     }
 }

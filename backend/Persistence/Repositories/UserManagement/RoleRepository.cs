@@ -17,6 +17,43 @@ namespace Persistence.Repositories.UserManagement
             _context = context;
         }
 
+        public async Task AssignPermissionsToRoleAsync(Guid roleId, List<Guid> permissionIds)
+        {
+            if(permissionIds == null || !permissionIds.Any())
+                throw new ArgumentException("At least one permission must be select.");
+            
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.Id == roleId);
+            if(role == null)
+                throw new KeyNotFoundException("Role not found");
+
+            //Remove duplicates 
+            permissionIds = permissionIds.Distinct().ToList();
+            
+            //get permissions from DB
+            var permissions = await _context.Permissions.Where(p => permissionIds.Contains(p.Id)).ToListAsync();
+            if(permissions.Count != permissionIds.Count)
+            {
+                throw new Exception("one or more roles do not exist.");
+            }
+
+            //Existing role IDs
+            var existingPermissionIds = role.RolePermissions.Select(rp => rp.PermissionId).ToHashSet();
+
+            //Add only new permissions
+            foreach(var permission in permissions)
+            {
+                if (!existingPermissionIds.Contains(permission.Id))
+                {
+                    role.RolePermissions.Add(new RolePermission
+                    {
+                       RoleId = roleId,
+                       PermissionId = permission.Id 
+                    });
+                }
+            }
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<List<PermissionDto>> GetAllPermissions()
         {
             var query = _context.Permissions

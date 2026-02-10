@@ -23,23 +23,39 @@ namespace API.Controllers.UserManagement
             });
             return Ok(roles);
         }
+
         [HttpGet("all-permissions")]
         public async Task<IActionResult> AllPermissions()
         {
             var permissions = await _mediator.Send(new GetAllPermissionListRequest());
             return Ok(permissions);
         }
+
         [HttpPost("add_role")]
         public async Task<IActionResult> AddRole(AddRoleDto roles)
         {
             await _mediator.Send(new AddRoleCommand{Roles = roles});
             return Ok();
         }
+
         [HttpPut("update_role")]
         public async Task<IActionResult> UpdateRole(UpdateRoleDto role)
         {
             await _mediator.Send(new UpdateRoleCommand{Role = role});
             return Ok();
         }
+
+        [HttpPost("assign_permissio_to_role")]
+        public async Task<IActionResult> AssignPermissionToRole(AssignPermissionsToRoleDto permissions)
+        {
+            if (ModelState.IsValid)
+            {
+                await _mediator.Send(new AssignPermissionsToRoleCommand{Permissions = permissions});
+                return Ok();
+            }
+            return BadRequest();
+            
+        }
+        
     }
 }
