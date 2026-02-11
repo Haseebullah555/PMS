@@ -89,7 +89,7 @@ export const deleteRole = createAsyncThunk(
 
 export const assignPermissionsToRole = createAsyncThunk(
   'auth/assignPermissionsToRole',
-  async (data: { id: number; permissions: number[] }, thunkAPI) => {
+  async (data: { roleId: number; permissionIds: number[] }, thunkAPI) => {
     try {
       return await AuthenticationService.assignPermissionsToRole(data)
     } catch (error: any) {

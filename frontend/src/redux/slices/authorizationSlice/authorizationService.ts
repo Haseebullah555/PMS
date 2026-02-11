@@ -44,11 +44,12 @@ const deleteRole = async (id: number) => {
 
 // assign permissions
 const assignPermissionsToRole = async (data: {
-  id: number
-  permissions: number[]
+  roleId: number
+  permissionIds: number[]
 }) => {
-  const res = await axiosInterceptor.post(`/role/${data.id}`, {
-    permissions: data.permissions,
+  const res = await axiosInterceptor.post(`Role/assign_permissio_to_role`, {
+    roleId: data.roleId,    
+    permissionIds: data.permissionIds,
   })
   return res.data
 }

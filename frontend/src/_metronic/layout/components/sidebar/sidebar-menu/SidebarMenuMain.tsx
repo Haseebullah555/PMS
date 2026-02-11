@@ -152,7 +152,7 @@ const SidebarMenuMain = () => {
 
       {/* User Management   */}
       <SidebarMenuItemWithSub
-        to='/'
+        to='/user-management'
         title={intl.formatMessage({ id: 'MENU.SETTING' })}
         fontIcon='bi-layers'
         icon='switch'

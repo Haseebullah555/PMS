@@ -9,6 +9,7 @@ import {
   deleteRole,
   getPermissions,
   getRoles,
+  assignPermissionsToRole
 } from '../../../../redux/slices/authorizationSlice/authorizationSlice'
 import AssignPermissionToRole from './components/AssignPermissionToRole'
 import RoleCreate from './components/RoleCreate'
@@ -122,16 +123,16 @@ export default function RoleList() {
 
   const handleSave = (id = data[0].id, permissions = rolePermission) => {
 
-    console.log(id, 'id and permissions')
+    console.log("id", id, "permissions",  permissions, 'aaaaaaaaaaa')
     setIsLoading(true)
-    // dispatch(assignPermissionsToRole({id, permissions}))
-    //   .then((res) => {
-    //     setIsLoading(false)
-    //     dismissModal()
-    //   })
-    //   .catch((err) => {
-    //     setIsLoading(false)
-    //   })
+    dispatch(assignPermissionsToRole({roleId: id, permissionIds: permissions}))
+      .then((res) => {
+        setIsLoading(false)
+        dismissModal()
+      })
+      .catch((err) => {
+        setIsLoading(false)
+      })
   }
 
   // useEffect(() => {
