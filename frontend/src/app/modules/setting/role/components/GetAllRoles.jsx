@@ -36,7 +36,7 @@ export default function GetAllRoles({handleChange, roleSelector, currentRoles = 
           </div>
           <div className='modal-body border '>
             <ul className='m-2 row' data-columns='4'>
-              {roleSelector.map((row, index) => (
+              {roleSelector?.data?.map((row, index) => (
                 <div key={index} className='col-sm-12 col-md-3'>
                   <input
                     checked={isRoleChecked(row.id, currentRoles)}

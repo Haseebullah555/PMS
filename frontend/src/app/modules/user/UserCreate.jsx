@@ -32,77 +32,34 @@ const UserCreate = () => {
   const [currentPermissions, setCurrentPermissions] = useState([])
   const [currentRoles, setCurrentRoles] = useState([])
 
+   const [perPage, setPerPage] = useState()
+    const [sortColumn, setSortColumn] = useState()
+    const [sortOrder, setSortOrder] = useState()
+    const [search, setSearch] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+
   const permissionSelector = useSelector((state) => {
-    return state?.permission?.items
+    return state?.authorization?.permissions
   })
 
   const roleSelector = useSelector((state) => {
-    return state?.role?.items
-  })
-  const provincecSelector = useSelector((state) => {
-    return state.general.provinces
-  })
-
-  const districtsSelector = useSelector((state) => {
-    return state.general.districts
-  })
-
-  const department_generals_selector = useSelector((state) => {
-    return state.general.department_generals
-  })
-  const genders_selector = useSelector((state) => {
-    return state.general.genders
+    return state?.authorization?.roles
   })
 
   useEffect(() => {
-    if (!permissionSelector) {
-      dispatch(getPermissions())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
+    const params = {
+      search,
+      sort_field: sortColumn,
+      sort_order: sortOrder,
+      per_page: perPage,
+      page: currentPage,
     }
-
-    if (!roleSelector) {
-      dispatch(getRoles())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-    if (!provincecSelector) {
-      dispatch(getProvinces())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-    if (!districtsSelector) {
-      dispatch(getDistricts())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-    if (!department_generals_selector) {
-      dispatch(get_department_generals())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-
-    if (!genders_selector) {
-      dispatch(get_genders())
-        .then((res) => {})
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+    dispatch(getRoles(params))
+    dispatch(getPermissions())
   }, [])
+
+  console.log(roleSelector, '------------');
+  console.log(permissionSelector, 'aaaaaaaaaaa');
 
   const handleChange = (value, event, type) => {
     if (type === 'permission') {
@@ -129,20 +86,9 @@ const UserCreate = () => {
   }
 
   const initialValues = {
-    name_da: '',
-    last_name_da: '',
-    name_en: '',
-    last_name_en: '',
-    father_name: '',
-    g_father_name: '',
+    userName: '',
+    password: '',
     email: '',
-    gender_id: '',
-    birth_date: '',
-    birth_place: '',
-    province: '',
-    district: '',
-    identification_number: '',
-    department_generals_id: '',
     profile_image: '',
     old_profile_image: '',
     password: '',
@@ -150,21 +96,7 @@ const UserCreate = () => {
   }
 
   const validationSchema = yup.object().shape({
-    name_da: yup
-      .string()
-      .trim()
-      .matches(
-        /^[\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*[^\d\u06F0-\u06F9\s][\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*$/,
-        t('Only letters are allowed')
-      )
-      .test(
-        'no-numbers',
-        t('Only letters are allowed'),
-        (value) => !/[0-9\u06F0-\u06F9]/.test(value)
-      )
-      .min(3, t('This field can not be less than 3 chracters'))
-      .required(t('This field can not be empty')),
-    father_name: yup
+    userName: yup
       .string()
       .trim()
       .matches(
@@ -179,34 +111,8 @@ const UserCreate = () => {
       .min(3, t('This field can not be less than 3 chracters'))
       .required(t('This field can not be empty')),
 
-    g_father_name: yup
-      .string()
-      .trim()
-      .matches(
-        /^[\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*[^\d\u06F0-\u06F9\s][\u0600-\u06FF\uFB8A\u067E\u0686\u06AFa-zA-Z\s]*$/,
-        t('Only letters are allowed')
-      )
-      .test(
-        'no-numbers',
-        t('Only letters are allowed'),
-        (value) => !/[0-9\u06F0-\u06F9]/.test(value)
-      )
-      .min(3, t('This field can not be less than 3 chracters'))
-      .required(t('This field can not be empty')),
-    gender_id: yup.string().required(t('This field can not be empty')),
     email: yup.string().required(t('This field can not be empty')),
-    birth_date: yup
-      .string()
-      .min(4, t('This field can not be less than 4 chracters'))
-      .required(t('This field can not be empty')),
-    birth_place: yup
-      .string()
-      .min(4, t('This field can not be less than 4 chracters'))
-      .required(t('This field can not be empty')),
-    district: yup.string().required(t('This field can not be empty')),
-    province: yup.string().required(t('This field can not be empty')),
-    department_generals_id: yup.string().required(t('This field can not be empty')),
-
+   
     password: yup
       .string()
       .matches(
@@ -245,23 +151,11 @@ const UserCreate = () => {
       setLoading(true)
 
       const formData = new FormData()
-      formData.append('name_da', values.name_da)
-      formData.append('last_name_da', values.last_name_da)
-      formData.append('name_en', values.name_en)
-      formData.append('last_name_en', values.last_name_en)
       formData.append('id', values.id)
-      formData.append('father_name', values.father_name)
-      formData.append('g_father_name', values.g_father_name)
+      formData.append('userName', values.userName)
       formData.append('email', values.email)
-      formData.append('gender_id', values.gender_id)
-      formData.append('birth_date', values.birth_date)
-      formData.append('province', values.province)
-      formData.append('district', values.district)
-      formData.append('birth_place', values.birth_place)
-      formData.append('identification_number', values.identification_number)
       formData.append('password', values.password)
       formData.append('re_password', values.re_password)
-      formData.append('department_generals_id', values.department_generals_id)
       formData.append('profile_image', values.profile_image)
       formData.append('permissions', currentPermissions)
       formData.append('roles', currentRoles)
@@ -354,122 +248,28 @@ const UserCreate = () => {
 
               <div className='row mb-6'>
                 <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                  {intl.formatMessage({id: 'ACCOUNT.PROFILE.FULL_NAME_EN'})}
+                  {t('user.userName')}
                 </label>
 
                 <div className='col-lg-8'>
                   <div className='row'>
-                    <div className='col-lg-6 fv-row'>
+                    <div className='col-lg-12 fv-row'>
                       <input
                         type='text'
                         className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                        placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.FIRST_NAME_EN'})}
-                        {...formik.getFieldProps('name_en')}
+                        placeholder={t('user.userName')}
+                        {...formik.getFieldProps('userName')}
                         onChange={formik.handleChange}
-                        name='name_en'
-                        id='name_en'
+                        name='userName'
+                        id='userName'
                       />
-                      {formik.touched.name_en && formik.errors.name_en && (
+                      {formik.touched.userName && formik.errors.userName && (
                         <div className='fv-plugins-message-container'>
-                          <div className='fv-help-block'>{formik.errors.name_en}</div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className='col-lg-6 fv-row'>
-                      <input
-                        type='text'
-                        className='form-control form-control-lg form-control-solid'
-                        placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.LAST_NAME_EN'})}
-                        {...formik.getFieldProps('last_name_en')}
-                      />
-                      {formik.touched.last_name_en && formik.errors.last_name_en && (
-                        <div className='fv-plugins-message-container'>
-                          <div className='fv-help-block'>{formik.errors.last_name_en}</div>
+                          <div className='fv-help-block'>{formik.errors.userName}</div>
                         </div>
                       )}
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                  {intl.formatMessage({id: 'ACCOUNT.PROFILE.FULL_NAME_DA'})}
-                </label>
-
-                <div className='col-lg-8'>
-                  <div className='row'>
-                    <div className='col-lg-6 fv-row'>
-                      <input
-                        type='text'
-                        className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                        placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.FIRST_NAME_DA'})}
-                        {...formik.getFieldProps('name_da')}
-                      />
-                      {formik.touched.name_da && formik.errors.name_da && (
-                        <div className='fv-plugins-message-container'>
-                          <div className='fv-help-block'>{formik.errors.name_da}</div>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className='col-lg-6 fv-row'>
-                      <input
-                        type='text'
-                        className='form-control form-control-lg form-control-solid'
-                        placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.LAST_NAME_DA'})}
-                        {...formik.getFieldProps('last_name_da')}
-                      />
-                      {formik.touched.last_name_da && formik.errors.last_name_da && (
-                        <div className='fv-plugins-message-container'>
-                          <div className='fv-help-block'>{formik.errors.last_name_da}</div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                  {intl.formatMessage({id: 'ACCOUNT.PROFILE.FATHER_NAME'})}
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <input
-                    type='text'
-                    className='form-control form-control-lg form-control-solid'
-                    placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.FATHER_NAME'})}
-                    {...formik.getFieldProps('father_name')}
-                  />
-                  {formik.touched.father_name && formik.errors.father_name && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.father_name}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.G_FATHER_NAME'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <input
-                    type='text'
-                    className='form-control form-control-lg form-control-solid'
-                    placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.G_FATHER_NAME'})}
-                    {...formik.getFieldProps('g_father_name')}
-                  />
-                  {formik.touched.g_father_name && formik.errors.g_father_name && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.g_father_name}</div>
-                    </div>
-                  )}
                 </div>
               </div>
 
@@ -490,194 +290,6 @@ const UserCreate = () => {
                   {formik.touched.email && formik.errors.email && (
                     <div className='fv-plugins-message-container'>
                       <div className='fv-help-block'>{formik.errors.email}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.GENDER'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <select
-                    className='form-select form-select-solid form-select-lg fw-bold'
-                    {...formik.getFieldProps('gender_id')}
-                  >
-                    <option value=''>---</option>
-                    {genders_selector?.map((mapGender) => {
-                      return (
-                        <option
-                          key={mapGender.id}
-                          value={
-                            mapGender.id == formik.values.gender_id ? mapGender.id : mapGender.id
-                          }
-                        >
-                          {mapGender.name_da}
-                        </option>
-                      )
-                    })}
-                  </select>
-
-                  {formik.touched.gender_id && formik.errors.gender_id && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.gender_id}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_DATE'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <DatePicker
-                    calendar={persian}
-                    locale={persian_fa}
-                    containerStyle={{width: '100%', direction: 'rtl'}}
-                    value={formik.values.birth_date}
-                    name='birth_date'
-                    placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_DATE'})}
-                    style={{
-                      width: '100%',
-                      height: '38px',
-                      boxSizing: 'border-box',
-                    }}
-                    onChange={(e) => {
-                      formik.setFieldValue(
-                        'birth_date',
-                        e ? e.year + '-' + e.month.number + '-' + e.day : ''
-                      )
-                    }}
-                  />
-                  {formik.touched.birth_date && formik.errors.birth_date && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.birth_date}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_PLACE'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <input
-                    type='text'
-                    className='form-control form-control-lg form-control-solid'
-                    placeholder={intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_PLACE'})}
-                    {...formik.getFieldProps('birth_place')}
-                  />
-                  {formik.touched.birth_place && formik.errors.birth_place && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.birth_place}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_PROVINCE'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <select
-                    className='form-select form-select-solid form-select-lg fw-bold'
-                    {...formik.getFieldProps('province')}
-                  >
-                    <option>---</option>
-
-                    {provincecSelector?.map((row) => {
-                      return (
-                        <option
-                          key={row.id}
-                          value={row.id == formik.values.province ? row.id : row.id}
-                        >
-                          {row.name_da}
-                        </option>
-                      )
-                    })}
-                  </select>
-
-                  {formik.touched.province && formik.errors.province && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.province}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                  <span className='required'>
-                    {intl.formatMessage({id: 'ACCOUNT.PROFILE.BIRTH_DISTRICT'})}
-                  </span>
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <select
-                    className='form-select form-select-solid form-select-lg fw-bold'
-                    {...formik.getFieldProps('district')}
-                  >
-                    <option>---</option>
-
-                    {districtsSelector?.map((mapDistrict) => {
-                      if (mapDistrict.province_id == formik.values.province) {
-                        return (
-                          <option key={mapDistrict.id} value={mapDistrict.id}>
-                            {mapDistrict.name_da}
-                          </option>
-                        )
-                      }
-                    })}
-                  </select>
-
-                  {formik.touched.district && formik.errors.district && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.district}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label required fw-bold fs-6'>
-                  {intl.formatMessage({id: 'ACCOUNT.PROFILE.DEPARTMENT'})}
-                </label>
-
-                <div className='col-lg-8 fv-row'>
-                  <select
-                    className='form-select form-select-solid form-select-lg'
-                    {...formik.getFieldProps('department_generals_id')}
-                  >
-                    <option>---</option>
-
-                    {department_generals_selector?.map((map_general_department) => {
-                      return (
-                        <option key={map_general_department.id} value={map_general_department.id}>
-                          {map_general_department.name_da}
-                        </option>
-                      )
-                    })}
-                  </select>
-
-                  {formik.touched.department_generals_id && formik.errors.department_generals_id && (
-                    <div className='fv-plugins-message-container'>
-                      <div className='fv-help-block'>{formik.errors.department_generals_id}</div>
                     </div>
                   )}
                 </div>
